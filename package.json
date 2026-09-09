@@ -1,0 +1,34 @@
+{
+  "name": "wt_web_essentials",
+  "version": "1.0.0",
+  "description": "Web Essentials - Basiscursus HTML en CSS voor eerstejaars ICT-studenten Thomas More Hogeschool",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pverhaert/wt-web-essentials"
+  },
+  "homepage": "https://wt-web-essentials.netlify.app",
+  "scripts": {
+    "dev": "vitepress dev --port 5674",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "generate-pwa-assets": "pwa-assets-generator"
+  },
+  "devDependencies": {
+    "@vite-pwa/assets-generator": "^0.2.6",
+    "vite-plugin-pwa": "^0.21.1",
+    "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "@codemirror/lang-css": "^6.3.1",
+    "@codemirror/lang-html": "^6.4.12",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/theme-one-dark": "^6.1.3",
+    "@google/genai": "^2.21.0",
+    "@lucide/vue": "^1.42.0",
+    "codemirror": "^6.0.2",
+    "lucide": "^1.42.0",
+    "marked": "^18.0.12",
+    "medium-zoom": "^1.1.0",
+    "workbox-window": "^7.3.0"
+  }
+}

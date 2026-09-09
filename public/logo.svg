@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Web Essentials Logo">
+  <!-- Donkerblauwe achtergrond met afgeronde hoeken -->
+  <rect width="512" height="512" rx="96" ry="96" fill="#1E2D5A"/>
+
+  <!-- Linker haakje < in TM oranje -->
+  <polyline
+    points="175,148 88,256 175,364"
+    stroke="#E87722"
+    stroke-width="54"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+
+  <!-- Rechter haakje > in TM oranje -->
+  <polyline
+    points="337,148 424,256 337,364"
+    stroke="#E87722"
+    stroke-width="54"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+
+  <!-- Schuine streep / in wit -->
+  <line
+    x1="300"
+    y1="136"
+    x2="212"
+    y2="376"
+    stroke="#FFFFFF"
+    stroke-width="50"
+    stroke-linecap="round"
+  />
+</svg>

@@ -1,0 +1,570 @@
+/**
+ * Thomas More Web Essentials - Huisstijl
+ *
+ * Primaire kleur  : #E87722  (TM Oranje)
+ * Secundaire kleur: #1E2D5A  (TM Donkerblauw)
+ * Basis           : wit / lichtgrijs
+ */
+
+/* Vloeiend scrollen bij het klikken op ankerlinks / inhoudsopgave */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* =============================================
+   LICHT THEMA - Thomas More kleuren
+   ============================================= */
+:root {
+  /* Merkkleur (oranje) */
+  --vp-c-brand-1: #e87722;
+  --vp-c-brand-2: #d4641a;
+  --vp-c-brand-3: #c05010;
+  --vp-c-brand-soft: rgba(232, 119, 34, 0.14);
+
+  /* Info containers (Blauw) */
+  --vp-c-info-1: #0284c7;
+  --vp-c-info-2: #0369a1;
+  --vp-c-info-3: #075985;
+  --vp-c-info-soft: rgba(2, 132, 199, 0.12);
+  --vp-custom-block-info-border: rgba(2, 132, 199, 0.28);
+  --vp-custom-block-info-text: #0369a1;
+  --vp-custom-block-info-bg: #f0f9ff;
+  --vp-custom-block-info-code-bg: rgba(2, 132, 199, 0.12);
+
+  /* Tip containers (Groen) */
+  --vp-c-tip-1: #059669;
+  --vp-c-tip-2: #047857;
+  --vp-c-tip-3: #065f46;
+  --vp-c-tip-soft: rgba(5, 150, 105, 0.12);
+  --vp-custom-block-tip-border: rgba(5, 150, 105, 0.28);
+  --vp-custom-block-tip-text: #047857;
+  --vp-custom-block-tip-bg: #ecfdf5;
+  --vp-custom-block-tip-code-bg: rgba(5, 150, 105, 0.12);
+
+  /* Thomas More donkerblauw en lichtblauw als custom variabelen */
+  --tm-dark-blue: #1e2d5a;
+  --tm-light-blue: #e8f3fc;
+  --tm-orange: #e87722;
+}
+
+/* =============================================
+   DONKER THEMA
+   ============================================= */
+.dark {
+  --tm-light-blue: #141d33;
+  --vp-c-brand-1: #f09040;
+  --vp-c-brand-2: #e87722;
+  --vp-c-brand-3: #d4641a;
+  --vp-c-brand-soft: rgba(232, 119, 34, 0.16);
+
+  /* Info containers (Blauw in donker thema) */
+  --vp-c-info-1: #38bdf8;
+  --vp-c-info-2: #0ea5e9;
+  --vp-c-info-3: #0284c7;
+  --vp-c-info-soft: rgba(56, 189, 248, 0.16);
+  --vp-custom-block-info-border: rgba(56, 189, 248, 0.3);
+  --vp-custom-block-info-text: #7dd3fc;
+  --vp-custom-block-info-bg: rgba(14, 165, 233, 0.12);
+  --vp-custom-block-info-code-bg: rgba(56, 189, 248, 0.18);
+
+  /* Tip containers (Groen in donker thema) */
+  --vp-c-tip-1: #34d399;
+  --vp-c-tip-2: #10b981;
+  --vp-c-tip-3: #059669;
+  --vp-c-tip-soft: rgba(52, 211, 153, 0.16);
+  --vp-custom-block-tip-border: rgba(52, 211, 153, 0.3);
+  --vp-custom-block-tip-text: #6ee7b7;
+  --vp-custom-block-tip-bg: rgba(16, 185, 129, 0.12);
+  --vp-custom-block-tip-code-bg: rgba(52, 211, 153, 0.18);
+}
+
+/* =============================================
+   NAVIGATIEBALK
+   ============================================= */
+
+/* Actieve nav link onderlijning in TM oranje */
+.VPNavBarMenuLink.active,
+.VPNavBarMenuLink:hover {
+  color: var(--vp-c-brand-1) !important;
+}
+
+/* Header achtergrond licht donkerblauw tint in dark mode */
+.dark .VPNav {
+  background-color: color-mix(in srgb, var(--tm-dark-blue) 80%, transparent);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* =============================================
+   DROPDOWN MENU'S (VPMenu & VPMenuGroup)
+   ============================================= */
+
+/* Groepstitels: vetgedrukt en cursief */
+.VPMenu .VPMenuGroup .title {
+  font-weight: 700;
+  font-style: italic;
+  color: var(--vp-c-text-1);
+  padding: 0 14px;
+  line-height: 28px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+/* Subitems laten inspringen onder de groepstitels */
+.VPMenu .VPMenuGroup .VPMenuLink .link {
+  padding-left: 26px;
+  font-size: 13.5px;
+}
+
+/* Subitems in de mobiele navigatie drawer eveneens netjes inspringen */
+.VPNavScreenMenuGroupSection .VPNavScreenMenuGroupLink {
+  padding-left: 28px;
+}
+
+.VPNavScreenMenuGroupSection .title {
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* =============================================
+   SIDEBAR
+   ============================================= */
+.VPSidebarItem.is-active>.item .text {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+
+/* =============================================
+   KNOPPEN
+   ============================================= */
+.VPButton.medium.brand {
+  background-color: var(--tm-orange);
+  border-color: var(--tm-orange);
+}
+
+.VPButton.medium.brand:hover {
+  background-color: var(--vp-c-brand-2);
+  border-color: var(--vp-c-brand-2);
+}
+
+/* =============================================
+   HOMEPAGE HERO
+   ============================================= */
+.VPHero .name {
+  background: linear-gradient(135deg, var(--tm-orange) 0%, #f5a442 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.VPHero .tagline {
+  color: var(--tm-dark-blue);
+  font-weight: 500;
+}
+
+.dark .VPHero .tagline {
+  color: #a0b0d0;
+}
+
+/* =============================================
+   FEATURE KAARTEN (homepagina)
+   ============================================= */
+.VPFeature {
+  border-color: rgba(232, 119, 34, 0.2);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.VPFeature:hover {
+  border-color: var(--tm-orange);
+  box-shadow: 0 4px 20px rgba(232, 119, 34, 0.12);
+}
+
+/* =============================================
+   CODE BLOCKS
+   ============================================= */
+.vp-code-group .tabs label {
+  font-size: 0.85rem;
+}
+
+/* =============================================
+   MEDIUM ZOOM - achtergrond overlay
+   ============================================= */
+.medium-zoom-overlay {
+  z-index: 9999;
+}
+
+.medium-zoom-image--opened {
+  z-index: 10000;
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(30, 45, 90, 0.4);
+}
+
+/* =============================================
+   AFBEELDINGEN IN ARTIKELPAGINA'S
+   ============================================= */
+.VPDoc .main img:not(.no-zoom):not(.image-carousel img) {
+  cursor: zoom-in;
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-divider);
+  transition: box-shadow 0.2s ease;
+}
+
+.VPDoc .main img:not(.no-zoom):not(.image-carousel img):hover {
+  box-shadow: 0 4px 16px rgba(30, 45, 90, 0.15);
+}
+
+.image-carousel img,
+.carousel-img,
+.carousel-thumb-img {
+  cursor: default !important;
+}
+
+/* =============================================
+   CODESANDBOX COMPONENT
+   ============================================= */
+.sandbox-wrapper {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sandbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.875rem;
+  background-color: var(--tm-dark-blue);
+  color: #fff;
+  font-size: 0.8rem;
+  font-family: var(--vp-font-family-mono);
+}
+
+.sandbox-header a {
+  color: var(--tm-orange);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sandbox-header a:hover {
+  text-decoration: underline;
+}
+
+.sandbox-iframe {
+  display: block;
+  width: 100%;
+  border: none;
+  background: #fff;
+}
+
+/* =============================================
+   VOORTGANGSINDICATOR
+   ============================================= */
+.progress-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+}
+
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background-color: var(--vp-c-divider);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--tm-orange);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* =============================================
+   AANPASSINGEN VOOR PRINT
+   ============================================= */
+@media print {
+
+  .VPNav,
+  .VPSidebar,
+  .VPDocFooter,
+  .sandbox-wrapper {
+    display: none !important;
+  }
+}
+
+/* =============================================
+   BREEDTE VAN DE PAGINA & LINKER INHOUDSOPGAVE
+   (Inhoudsopgave links, cursustekst rechts en breed)
+   ============================================= */
+:root {
+  --vp-layout-max-width: 1560px;
+}
+
+@media (min-width: 960px) {
+  .VPDoc .container {
+    max-width: 1480px !important;
+    justify-content: flex-start !important;
+  }
+
+  .VPDoc .aside {
+    display: block !important;
+    order: 1 !important;
+    width: 256px !important;
+    min-width: 256px !important;
+    padding-right: 32px !important;
+    padding-left: 0 !important;
+  }
+
+  .VPDoc .container>.content {
+    order: 2 !important;
+    flex-grow: 1 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  .VPDoc .content-container,
+  .VPDoc.has-aside .content-container {
+    max-width: 1060px !important;
+    margin: 0 !important;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .VPDoc .content-container,
+  .VPDoc.has-aside .content-container {
+    max-width: 1140px !important;
+  }
+}
+
+/* =============================================
+   INHOUDSOPGAVE / OUTLINE ACTIEVE LINK
+   (Tekst oranje kleuren naast het oranje streepje)
+   ============================================= */
+.outline-link.active {
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 500;
+}
+
+.outline-link:hover {
+  color: var(--vp-c-brand-1);
+}
+
+
+/* =============================================
+   LUCIDE ICONEN VOOR CUSTOM BLOCKS
+   (info, tip, warning, danger)
+   ============================================= */
+.custom-block .custom-block-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.custom-block .custom-block-title::before {
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  flex-shrink: 0;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Info blok: Lucide Info icoon */
+.custom-block.info .custom-block-title,
+.custom-block.note .custom-block-title {
+  color: var(--vp-c-info-1);
+}
+
+.custom-block.info .custom-block-title::before,
+.custom-block.note .custom-block-title::before {
+  background-color: var(--vp-c-info-1);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+}
+
+/* Tip blok: Lucide Lightbulb icoon */
+.custom-block.tip .custom-block-title {
+  color: var(--vp-c-tip-1);
+}
+
+.custom-block.tip .custom-block-title::before {
+  background-color: var(--vp-c-tip-1);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5'/%3E%3Cpath d='M9 18h6'/%3E%3Cpath d='M10 22h4'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5'/%3E%3Cpath d='M9 18h6'/%3E%3Cpath d='M10 22h4'/%3E%3C/svg%3E");
+}
+
+/* Warning blok: Lucide TriangleAlert icoon */
+.custom-block.warning .custom-block-title,
+.custom-block.caution .custom-block-title {
+  color: var(--vp-c-warning-1);
+}
+
+.custom-block.warning .custom-block-title::before,
+.custom-block.caution .custom-block-title::before {
+  background-color: var(--vp-c-warning-1);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+}
+
+/* Danger blok: Lucide OctagonAlert icoon */
+.custom-block.danger .custom-block-title {
+  color: var(--vp-c-danger-1);
+}
+
+.custom-block.danger .custom-block-title::before {
+  background-color: var(--vp-c-danger-1);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16h.01'/%3E%3Cpath d='M12 8v4'/%3E%3Cpath d='M15.312 2a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586l-4.688-4.688A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16h.01'/%3E%3Cpath d='M12 8v4'/%3E%3Cpath d='M15.312 2a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414-.586H8.688a2 2 0 0 1-1.414-.586l-4.688-4.688A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2z'/%3E%3C/svg%3E");
+}
+
+/* =============================================
+   CSS VIEW TRANSITIONS (PAGINAWISSELS)
+   ============================================= */
+
+/* Opt-in voor cross-document view transitions */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Navigatiebalk blijft op zijn plaats tijdens de paginaovergang */
+.VPNav {
+  view-transition-name: main-nav;
+}
+
+/* Vloeiende overgang voor de pagina-inhoud */
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: 0.18s cubic-bezier(0.4, 0, 1, 1) both vp-view-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 0.22s cubic-bezier(0, 0, 0.2, 1) both vp-view-fade-in;
+}
+
+@keyframes vp-view-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes vp-view-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respecteer gebruikersvoorkeur voor minder beweging (toegankelijkheid) */
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* =============================================
+   EXTERNE LINKS - VISUELE INDICATOR (::after)
+   ============================================= */
+
+/* Zorg ervoor dat het default VitePress pseudo-element niet botst met onze eigen indicator */
+.vp-doc .vp-external-link-icon::after {
+  content: none;
+}
+
+:is(.vp-doc, .ai-message-content) a[href*='://']:not(:is([href*='wt-web-essentials.netlify.app'],
+    [href*='localhost'],
+    .no-icon,
+    .VPButton,
+    :has(img, svg, .caniuse-img)))::after,
+:is(.vp-doc, .ai-message-content) a[target='_blank']:not(:is([href*='wt-web-essentials.netlify.app'],
+    [href*='localhost'],
+    .no-icon,
+    .VPButton,
+    :has(img, svg, .caniuse-img)))::after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.25rem;
+  margin-top: -0.15rem;
+  width: 0.82em;
+  height: 0.82em;
+  background-color: currentColor;
+  opacity: 0.72;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+  -webkit-mask: var(--icon) no-repeat center / contain;
+  mask: var(--icon) no-repeat center / contain;
+}
+
+:is(.vp-doc, .ai-message-content) a[href*='://']:hover::after,
+:is(.vp-doc, .ai-message-content) a[target='_blank']:hover::after {
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
+
+/* =============================================
+   MEDIUM ZOOM - LICHT GEBLURDE ZWART/WIT ACHTERGROND
+   ============================================= */
+
+/* De overlay over het scherm met subtiel frosted-glass effect */
+.medium-zoom-overlay {
+  z-index: 100 !important;
+  backdrop-filter: blur(3px) grayscale(100%);
+  -webkit-backdrop-filter: blur(3px) grayscale(100%);
+  background-color: rgba(255, 255, 255, 0.35) !important;
+  transition: opacity 0.3s cubic-bezier(0.2, 0, 0.2, 1),
+    background-color 0.3s cubic-bezier(0.2, 0, 0.2, 1) !important;
+}
+
+.dark .medium-zoom-overlay {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+}
+
+/* Zorg dat de ingezoomde afbeelding altijd bovenop de overlay zweeft */
+.medium-zoom-image--opened {
+  z-index: 101 !important;
+}
+
+/* Onderliggende pagina in zwart/wit zetten met een lichte, subtiele vervaging */
+.medium-zoom--opened #app {
+  filter: blur(1.5px) grayscale(100%);
+}
+
+#app {
+  transition: filter 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+}

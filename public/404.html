@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Pagina niet gevonden | Web Essentials</title>
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png">
+  <meta name="theme-color" content="#1E2D5A">
+  <style>
+    :root {
+      --tm-orange: #e87722;
+      --tm-dark-blue: #1e2d5a;
+      --bg-color: #ffffff;
+      --text-main: #213547;
+      --text-muted: #475569;
+      --card-bg: #f8fafc;
+      --border-color: #e2e8f0;
+      --btn-text: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #1a1a1a;
+        --text-main: #f1f5f9;
+        --text-muted: #94a3b8;
+        --card-bg: #242424;
+        --border-color: #334155;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .error-container {
+      max-width: 580px;
+      width: 100%;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 48px 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+    }
+
+    .logo-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    .logo-link:hover {
+      transform: scale(1.05);
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .error-code {
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--tm-orange);
+      margin-bottom: 12px;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: var(--tm-orange);
+      color: var(--btn-text);
+      border: 1px solid var(--tm-orange);
+    }
+
+    .btn-primary:hover {
+      background-color: #d4641a;
+      border-color: #d4641a;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--tm-orange);
+      color: var(--tm-orange);
+      background-color: rgba(232, 119, 34, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .footer-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+      margin-top: 10px;
+    }
+
+    .footer-note strong {
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <a href="/" class="logo-link" title="Terug naar de startpagina van Web Essentials">
+      <img src="/logo.svg" alt="Web Essentials Logo" class="logo">
+    </a>
+
+    <div class="error-code">404</div>
+    <h1>Pagina niet gevonden</h1>
+    <p>Oeps! De opgevraagde pagina bestaat niet, is verplaatst of de URL bevat een typfout.</p>
+
+    <div class="nav-buttons">
+      <a href="/" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Naar Home
+      </a>
+      <a href="/html/" class="btn btn-secondary">HTML5 Cursus</a>
+      <a href="/css/" class="btn btn-secondary">CSS3 Cursus</a>
+      <a href="/tools/phpstorm" class="btn btn-secondary">Tools</a>
+    </div>
+
+    <div class="footer-note">
+      Web Essentials &bull; <strong>Thomas More Hogeschool</strong> &bull; IT Factory Geel
+    </div>
+  </div>
+</body>
+</html>
