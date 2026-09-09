@@ -13,7 +13,11 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
     ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon-180x180.png' }],
+    ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
     ['meta', { name: 'theme-color', content: '#1E2D5A' }],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
+    ['meta', { name: 'apple-mobile-web-app-title', content: 'Web Essentials' }],
     ['meta', { name: 'author', content: 'Patrick Verhaert' }],
   ],
 
@@ -37,23 +41,23 @@ export default defineConfig({
           start_url: '/',
           icons: [
             {
-              src: 'pwa-64x64.png',
+              src: '/pwa-64x64.png',
               sizes: '64x64',
               type: 'image/png',
             },
             {
-              src: 'pwa-192x192.png',
+              src: '/pwa-192x192.png',
               sizes: '192x192',
               type: 'image/png',
             },
             {
-              src: 'pwa-512x512.png',
+              src: '/pwa-512x512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any',
             },
             {
-              src: 'maskable-icon-512x512.png',
+              src: '/maskable-icon-512x512.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable',
@@ -158,6 +162,7 @@ export default defineConfig({
               { text: 'Browser Extensies', link: '/tools/extensions', target: '_blank' },
               { text: 'Line-height Spel', link: '/tools/line-height-spel', target: '_blank' },
               { text: 'Font Simulator', link: '/tools/font-simulator', target: '_blank' },
+              { text: 'CSS Colors Timeline', link: 'https://css-colors-timeline.netlify.app/', target: '_blank' },
               { text: 'Fullscreen Sandbox', link: '/sandbox', target: '_blank' },
             ],
           },

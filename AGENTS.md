@@ -134,6 +134,13 @@ Slecht voorbeeld:
 
 Plaats codevoorbeelden en interactieve previews (zoals CodeSandbox) altijd rechtstreeks bij het bijbehorende theorie-onderdeel, in plaats van in een afzonderlijke sectie achteraan de pagina. Zo kan de student het concept direct in actie zien.
 
+### Strikte beperking van CSS-eigenschappen (Geen voorkennis)
+
+Voorbeelden, oefeningen en `<CodeSandbox>`-toepassingen mogen **uitsluitend** gebruikmaken van CSS-eigenschappen die in het huidige hoofdstuk worden behandeld of in voorgaande CSS-hoofdstukken al zijn besproken.
+
+- Gebruik in eerdere hoofdstukken nooit eigenschappen uit latere hoofdstukken (zoals `display: flex`, `grid`, `position`, `transform`, `transition` of animaties) zolang deze niet eerder in de cursus aan bod zijn gekomen.
+- Uitzonderingen zijn enkel toegestaan mits de AI-assistent dit vooraf expliciet vraagt en de gebruiker hiervoor goedkeuring geeft.
+
 ### Regels voor codeblokken
 
 - Gebruik altijd de juiste taalannotatie in markdown (` ```html `, ` ```css `, ` ```bash `)
@@ -141,6 +148,7 @@ Plaats codevoorbeelden en interactieve previews (zoals CodeSandbox) altijd recht
 - Houd voorbeelden minimaal: toon alleen wat nodig is voor dit concept
 - Voeg altijd een korte uitleg toe voor elk codeblok
 - Gebruik betekenisvolle namen voor klassen, id's en variabelen (geen `div1`, `kleur2`)
+- Beperk CSS-eigenschappen tot de reeds behandelde leerstof (zie hierboven)
 
 ### Gebruik van de CodeSandbox-component
 
@@ -272,6 +280,7 @@ Toont een live, interactief codevoorbeeld met ingebouwde CodeMirror 6 editor en 
 #### Belangrijke richtlijnen voor CodeSandbox:
 - **Toon in alle sandboxen ALTIJD de volledige HTML-code:** Neem in alle sandboxen altijd de volledige HTML-structuur op (`<!DOCTYPE html>`, `<html lang="nl">`, `<head>`, `<meta charset="UTF-8">`, `<title>`, eventueel `<link rel="stylesheet" href="stijl.css">` en `<body>`). Toon nooit alleen losse HTML-fragmenten.
 - **GEEN lege regels binnen de CodeSandbox-attributen:** In Markdown-it veroorzaakt een lege regel binnen een componenttag een breuk in het HTML-blok, waardoor de markdown-parser onbedoeld `<p>`-tags middenin attributen zoals `css` of `html` injecteert. Laat daarom NOOIT lege regels vallen binnen de code van de attributen; gebruik indien gewenst een commentaarregel zoals `/* --- */`.
+- **Enkel reeds behandelde CSS:** Gebruik in sandboxen uitsluitend CSS-eigenschappen die in het huidige of in voorgaande CSS-hoofdstukken zijn besproken. Uitzonderingen zijn enkel toegestaan als je dit vooraf expliciet aan de gebruiker vraagt en goedkeuring krijgt.
 - **Nette inspringing:** Zorg dat zowel HTML als CSS netjes en consistent zijn ingesprongen (2 spaties per inspringniveau).
 
 ```vue
@@ -393,3 +402,4 @@ Voor elke pagina die je schrijft of aanpast:
 6. Controleer of alle technische termen uitgelegd worden bij de eerste vermelding
 7. Controleer of de jij-vorm consequent wordt gebruikt
 8. Controleer of interne links correct zijn (relatieve paden)
+9. Controleer of voorbeelden, oefeningen en CodeSandbox-toepassingen ENKEL gebruikmaken van CSS-eigenschappen die in het huidige of voorgaande CSS-hoofdstukken zijn behandeld (tenzij een uitzondering vooraf expliciet is goedgekeurd)

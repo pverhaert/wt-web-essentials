@@ -212,16 +212,16 @@ Een icon font bevat geen letters zoals A of B, maar vector-pictogrammen. Omdat e
 
 ### Font Awesome koppelen via CDN
 
-De bekendste icoonbibliotheek is **Font Awesome**. Je kan de gratis versie van Font Awesome eenvoudig inladen via een betrouwbare CDN (zoals cdnjs) door de onderstaande `@import`-regel bovenaan jouw CSS-bestand te plaatsen:
+De bekendste icoonbibliotheek is **Font Awesome**. Je kan de gratis versie van [Font Awesome](https://fontawesome.com/icons ) eenvoudig inladen via een betrouwbare CDN (zoals cdnjs) door de onderstaande `@import`-regel bovenaan jouw CSS-bestand te plaatsen:
 
 ```css
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css');
 ```
 
 Je kan dezelfde link ook als een `<link>`-tag in de `<head>` van jouw HTML opnemen:
 
 ```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
 ```
 
 ### Pictogrammen oproepen in HTML
@@ -235,10 +235,16 @@ Font Awesome pictogrammen plaats je in HTML standaard met het `<i>`-element (afk
 2. **De pictogramklasse:** de specifieke naam van het gewenste icoon, voorafgegaan door `fa-`.
 
 ```html
+<!-- Een open huis-icoon -->
+<i class="fa-regular fa-house"></i>
+
+<!-- Een open e-mail envelop -->
+<i class="fa-regular fa-envelope"></i>
+
 <!-- Een gevuld huis-icoon -->
 <i class="fa-solid fa-house"></i>
 
-<!-- Een e-mail envelop -->
+<!-- Een gevuld e-mail envelop -->
 <i class="fa-solid fa-envelope"></i>
 
 <!-- Een locatieprikker -->
@@ -247,166 +253,30 @@ Font Awesome pictogrammen plaats je in HTML standaard met het `<i>`-element (afk
 <!-- Een telefoon -->
 <i class="fa-solid fa-phone"></i>
 
-<!-- Het GitHub merkicoon -->
+<!-- Een GitHub-icoon -->
 <i class="fa-brands fa-github"></i>
-```
 
-### Iconen stylen met CSS
-
-Omdat Font Awesome iconen lettertekens zijn, pas je ze aan met de typografische eigenschappen die je reeds kent:
-
-```css
-/* Grootte en kleur aanpassen */
-.contact-item i {
-  font-size: 1.25rem;
-  color: #e87722;
-  margin-right: 0.5rem;
-}
-
-/* Hover-effect op een link met icoon */
-.social-link {
-  color: #64748b;
-  font-size: 1.5rem;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.social-link:hover {
-  color: #1e2d5a;
-  transform: scale(1.15);
-}
+<!-- Een WhatsApp icoon -->
+<i class="fa-brands fa-whatsapp"></i>
 ```
 
 ### Interactief voorbeeld: Font Awesome via CDN
 
-In dit voorbeeld zie je hoe Font Awesome iconen worden geïmporteerd in CSS en gekoppeld worden aan een contactblok voor Thomas More Campus Geel.
+In dit voorbeeld zie je hoe Font Awesome iconen worden geïmporteerd in CSS en de iconen uit bovenstaand voorbeeld worden weergegeven.
 
-```html
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <title>Font Awesome Voorbeeld</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="contact-card">
-    <h2><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Campus Geel</h2>
-    <ul class="contact-list">
-      <li>
-        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-        <span>Kleinhoefstraat 4, 2440 Geel</span>
-      </li>
-      <li>
-        <i class="fa-solid fa-phone" aria-hidden="true"></i>
-        <a href="tel:+3214562310">+32 (0)14 56 23 10</a>
-      </li>
-      <li>
-        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-        <a href="mailto:ict.geel@thomasmore.be">ict.geel@thomasmore.be</a>
-      </li>
-    </ul>
-
-    <div class="social-bar">
-      <a href="https://github.com" class="social-btn" aria-label="GitHub profiel">
-        <i class="fa-brands fa-github" aria-hidden="true"></i>
-      </a>
-      <a href="https://linkedin.com" class="social-btn" aria-label="LinkedIn pagina">
-        <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-      </a>
-    </div>
-  </div>
-</body>
-</html>
-```
 
 ```css
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f8fafc;
   color: #334155;
-  padding: 30px;
 }
 
-.contact-card {
-  max-width: 420px;
-  background-color: #ffffff;
-  padding: 1.75rem;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-h2 {
-  color: #1e2d5a;
-  font-size: 1.4rem;
-  margin: 0 0 1.25rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-h2 i {
+i {
   color: #e87722;
-}
-
-.contact-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem 0;
-}
-
-.contact-list li {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid #f1f5f9;
-  font-size: 0.95rem;
-}
-
-.contact-list li i {
-  color: #e87722;
-  width: 20px;
-  text-align: center;
-  font-size: 1.1rem;
-}
-
-.contact-list a {
-  color: #1e2d5a;
-  text-decoration: none;
-}
-
-.contact-list a:hover {
-  text-decoration: underline;
-}
-
-.social-bar {
-  display: flex;
-  gap: 0.75rem;
-  padding-top: 0.5rem;
-}
-
-.social-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #f1f5f9;
-  color: #1e2d5a;
-  font-size: 1.25rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.social-btn:hover {
-  background-color: #e87722;
-  color: #ffffff;
-  transform: translateY(-2px);
 }
 ```
 
@@ -414,81 +284,21 @@ h2 i {
   title="Font Awesome via CDN"
   height="480px"
   activeCodeTab="css"
-  css="@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+  css="@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8fafc;
-  color: #334155;
-  padding: 30px;
+  font-size: 16px;
 }
-.contact-card {
-  max-width: 420px;
-  background-color: #ffffff;
-  padding: 1.75rem;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+h1 {
+  font-size: 1.5rem;
 }
-h2 {
-  color: #1e2d5a;
-  font-size: 1.4rem;
-  margin: 0 0 1.25rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-h2 i {
-  color: #e87722;
-}
-.contact-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem 0;
-}
-.contact-list li {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid #f1f5f9;
-  font-size: 0.95rem;
-}
-.contact-list li i {
-  color: #e87722;
-  width: 20px;
-  text-align: center;
-  font-size: 1.1rem;
-}
-.contact-list a {
-  color: #1e2d5a;
-  text-decoration: none;
-}
-.contact-list a:hover {
-  text-decoration: underline;
-}
-.social-bar {
-  display: flex;
-  gap: 0.75rem;
-  padding-top: 0.5rem;
-}
-.social-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #f1f5f9;
-  color: #1e2d5a;
-  font-size: 1.25rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-.social-btn:hover {
-  background-color: #e87722;
-  color: #ffffff;
-  transform: translateY(-2px);
+
+i {
+  color: #eb6363ff;
+  font-size: 2rem;
 }"
   html="<!DOCTYPE html>
 <html lang=&quot;nl&quot;>
@@ -498,31 +308,15 @@ h2 i {
   <link rel=&quot;stylesheet&quot; href=&quot;stijl.css&quot;>
 </head>
 <body>
-  <div class=&quot;contact-card&quot;>
-    <h2><i class=&quot;fa-solid fa-graduation-cap&quot; aria-hidden=&quot;true&quot;></i> Campus Geel</h2>
-    <ul class=&quot;contact-list&quot;>
-      <li>
-        <i class=&quot;fa-solid fa-location-dot&quot; aria-hidden=&quot;true&quot;></i>
-        <span>Kleinhoefstraat 4, 2440 Geel</span>
-      </li>
-      <li>
-        <i class=&quot;fa-solid fa-phone&quot; aria-hidden=&quot;true&quot;></i>
-        <a href=&quot;tel:+3214562310&quot;>+32 (0)14 56 23 10</a>
-      </li>
-      <li>
-        <i class=&quot;fa-solid fa-envelope&quot; aria-hidden=&quot;true&quot;></i>
-        <a href=&quot;mailto:ict.geel@thomasmore.be&quot;>ict.geel@thomasmore.be</a>
-      </li>
-    </ul>
-    <div class=&quot;social-bar&quot;>
-      <a href=&quot;https://github.com&quot; class=&quot;social-btn&quot; aria-label=&quot;GitHub profiel&quot;>
-        <i class=&quot;fa-brands fa-github&quot; aria-hidden=&quot;true&quot;></i>
-      </a>
-      <a href=&quot;https://linkedin.com&quot; class=&quot;social-btn&quot; aria-label=&quot;LinkedIn pagina&quot;>
-        <i class=&quot;fa-brands fa-linkedin&quot; aria-hidden=&quot;true&quot;></i>
-      </a>
-    </div>
-  </div>
+  <h1>Font Awesome Voorbeeld</h1>
+  <i class=&quot;fa-regular fa-house&quot;></i>
+  <i class=&quot;fa-regular fa-envelope&quot;></i>
+  <i class=&quot;fa-solid fa-house&quot;></i>
+  <i class=&quot;fa-solid fa-envelope&quot;></i>
+  <i class=&quot;fa-solid fa-location-dot&quot;></i>
+  <i class=&quot;fa-solid fa-phone&quot;></i>
+  <i class=&quot;fa-brands fa-github&quot;></i>
+  <i class=&quot;fa-brands fa-whatsapp&quot;></i>
 </body>
 </html>"
 />
@@ -530,14 +324,14 @@ h2 i {
 
 ## Moderne Iconen: Lucide Icons via CDN
 
-Waar Font Awesome vaak gevulde, robuuste vormen hanteert, kiezen veel moderne webapplicaties en dashboards voor **Lucide Icons**. Lucide is een open-source collectie van elegante, minimalistische lijniconen (*outline icons*) die allemaal dezelfde subtiele lijndikte hebben.
+Waar Font Awesome vaak gevulde, robuuste vormen hanteert, kiezen veel moderne webapplicaties en dashboards voor **Lucide Icons**. [Lucide](https://lucide.dev/icons/) is een open-source collectie van elegante, minimalistische lijniconen (*outline icons*) die allemaal dezelfde subtiele lijndikte hebben.
 
 ### Lucide Icons koppelen via CDN
 
 Je kan de lettertypeversie van Lucide direct in jouw CSS importeren via het officiële jsDelivr CDN:
 
 ```css
-@import url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css');
+@import url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css');
 ```
 
 ### Pictogrammen oproepen in HTML
@@ -564,147 +358,28 @@ In Lucide beginnen alle icoonklassen met het voorvoegsel `icon-`, gevolgd door d
 <i class="icon-calendar"></i>
 ```
 
-### Stijlen en animaties met CSS
-
-Net als bij Font Awesome reageert de grootte van een Lucide-icoon op de eigenschap `font-size` en de kleur op de eigenschap `color`:
-
-```css
-.badge i {
-  font-size: 1rem;
-  color: #0284c7;
-}
-
-.action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #ffffff;
-  background-color: #1e2d5a;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.action-btn:hover {
-  background-color: #e87722;
-}
-
-.action-btn i {
-  font-size: 1.1rem;
-}
-```
-
 ### Interactief voorbeeld: Lucide Icons in actie
 
-Bekijk in dit voorbeeld hoe de strakke Lucide lijniconen gebruikt worden om de troeven van de ICT-opleiding in de kijker te zetten:
-
-```html
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <title>Lucide Icons Voorbeeld</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <section class="features">
-    <div class="feature-item">
-      <div class="icon-box">
-        <i class="icon-laptop" aria-hidden="true"></i>
-      </div>
-      <div>
-        <h3>Hands-on Technologie</h3>
-        <p>Je bouwt vanaf dag één echte webapps met moderne HTML5, CSS3 en JavaScript tools.</p>
-      </div>
-    </div>
-
-    <div class="feature-item">
-      <div class="icon-box">
-        <i class="icon-users" aria-hidden="true"></i>
-      </div>
-      <div>
-        <h3>Coaching op Maat</h3>
-        <p>Persoonlijke begeleiding door ervaren lectoren op Thomas More Campus Geel.</p>
-      </div>
-    </div>
-
-    <div class="feature-item">
-      <div class="icon-box">
-        <i class="icon-award" aria-hidden="true"></i>
-      </div>
-      <div>
-        <h3>Sterk Diploma</h3>
-        <p>Rechtstreekse aansluiting op de arbeidsmarkt als gegeerd softwareontwikkelaar.</p>
-      </div>
-    </div>
-  </section>
-</body>
-</html>
-```
+Bekijk in dit voorbeeld hoe de strakke Lucide lijniconen gebruikt worden:
 
 ```css
-@import url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #f8fafc;
-  color: #334155;
-  padding: 30px;
-  line-height: 1.5;
+  font-family: &quot;Plus Jakarta Sans&quot;, sans-serif;
+  font-optical-sizing: auto;
+  font-size: 16px;
 }
 
-.features {
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+h1 {
+  font-weight: 600;
+  font-size: 1.5rem;
 }
 
-.feature-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  background-color: #ffffff;
-  padding: 1.25rem;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.feature-item:hover {
-  transform: translateY(-2px);
-  border-color: #e87722;
-}
-
-.icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
-  background-color: rgba(232, 119, 34, 0.1);
+i {
   color: #e87722;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 1.3rem;
-}
-
-h3 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #1e2d5a;
-}
-
-p {
-  margin: 0;
-  font-size: 0.875rem;
-  color: #64748b;
+  font-size: 2rem !important;
 }
 ```
 
@@ -712,57 +387,23 @@ p {
   title="Lucide Icons via CDN"
   height="480px"
   activeCodeTab="css"
-  css="@import url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+  css="@import url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #f8fafc;
-  color: #334155;
-  padding: 30px;
-  line-height: 1.5;
+  font-family: &quot;Plus Jakarta Sans&quot;, sans-serif;
+  font-optical-sizing: auto;
+  font-size: 16px;
 }
-.features {
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+
+h1 {
+  font-weight: 600;
+  font-size: 1.5rem;
 }
-.feature-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  background-color: #ffffff;
-  padding: 1.25rem;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.feature-item:hover {
-  transform: translateY(-2px);
-  border-color: #e87722;
-}
-.icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
-  background-color: rgba(232, 119, 34, 0.1);
+
+i {
   color: #e87722;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 1.3rem;
-}
-h3 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #1e2d5a;
-}
-p {
-  margin: 0;
-  font-size: 0.875rem;
-  color: #64748b;
+  font-size: 2rem !important;
 }"
   html="<!DOCTYPE html>
 <html lang=&quot;nl&quot;>
@@ -772,35 +413,13 @@ p {
   <link rel=&quot;stylesheet&quot; href=&quot;stijl.css&quot;>
 </head>
 <body>
-  <section class=&quot;features&quot;>
-    <div class=&quot;feature-item&quot;>
-      <div class=&quot;icon-box&quot;>
-        <i class=&quot;icon-laptop&quot; aria-hidden=&quot;true&quot;></i>
-      </div>
-      <div>
-        <h3>Hands-on Technologie</h3>
-        <p>Je bouwt vanaf dag één echte webapps met moderne HTML5, CSS3 en JavaScript tools.</p>
-      </div>
-    </div>
-    <div class=&quot;feature-item&quot;>
-      <div class=&quot;icon-box&quot;>
-        <i class=&quot;icon-users&quot; aria-hidden=&quot;true&quot;></i>
-      </div>
-      <div>
-        <h3>Coaching op Maat</h3>
-        <p>Persoonlijke begeleiding door ervaren lectoren op Thomas More Campus Geel.</p>
-      </div>
-    </div>
-    <div class=&quot;feature-item&quot;>
-      <div class=&quot;icon-box&quot;>
-        <i class=&quot;icon-award&quot; aria-hidden=&quot;true&quot;></i>
-      </div>
-      <div>
-        <h3>Sterk Diploma</h3>
-        <p>Rechtstreekse aansluiting op de arbeidsmarkt als gegeerd softwareontwikkelaar.</p>
-      </div>
-    </div>
-  </section>
+  <h1>Lucide Voorbeelden</h1>
+  <i class=&quot;icon-mail&quot;></i>
+  <i class=&quot;icon-phone&quot;></i>
+  <i class=&quot;icon-map-pin&quot;></i>
+  <i class=&quot;icon-check&quot;></i>
+  <i class=&quot;icon-search&quot;></i>
+  <i class=&quot;icon-calendar&quot;></i>
 </body>
 </html>"
 />
@@ -810,7 +429,7 @@ p {
 
 Wanneer je iconen gebruikt op een webpagina, moet je rekening houden met bezoekers die gebruikmaken van een schermlezer (*screen reader*). Er zijn twee situaties die je altijd moet onderscheiden:
 
-### 1. Decoratieve iconen (met zichtbare tekst ernaast)
+### Decoratieve iconen (met zichtbare tekst ernaast)
 
 Staat er naast het icoon al een duidelijke tekst voor ziende bezoekers (bijvoorbeeld een envelopje voor het woord "Contact")? Dan is het pictogram puur **decoratief**.
 
@@ -823,7 +442,7 @@ Als je niets doet, zal een schermlezer proberen het teken uit te spreken of een 
 </a>
 ```
 
-### 2. Functionele iconen (zonder zichtbare tekst)
+### Functionele iconen (zonder zichtbare tekst)
 
 Bestaat een knop of hyperlink uitsluitend uit een pictogram (bijvoorbeeld een vergrootglas voor een zoekbalk of een kruisje om een venster te sluiten)? Dan is het pictogram **functioneel**.
 
@@ -831,12 +450,12 @@ Een blinde bezoeker weet in dat geval niet wat de knop doet. Je lost dit op door
 
 ```html
 <!-- GOED: De knop heeft een duidelijke betekenis voor schermlezers -->
-<button type="button" class="btn-icon" aria-label="Zoeken in de website">
+<button type="button" aria-label="Zoeken in de website">
   <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 </button>
 
 <!-- GOED: Social-media link zonder zichtbare tekst -->
-<a href="https://github.com" class="social-link" aria-label="Volg ons op GitHub">
+<a href="https://github.com" aria-label="Volg ons op GitHub">
   <i class="fa-brands fa-github" aria-hidden="true"></i>
 </a>
 ```
@@ -844,31 +463,6 @@ Een blinde bezoeker weet in dat geval niet wat de knop doet. Je lost dit op door
 ::: tip De gouden regel voor iconen
 Onthoud deze eenvoudige regel: heeft het icoon al zichtbare tekst naast zich? Voeg `aria-hidden="true"` toe aan het `<i>`-element. Staat het icoon helemaal alleen in een link of knop? Voeg `aria-label="..."` toe aan de link of knop, én zet `aria-hidden="true"` op het `<i>`-element.
 :::
-
-## PhpStorm en Emmet tips
-
-In PhpStorm kan je iconen en stijlbladkoppelingen razendsnel invoeren met behulp van Emmet-afkortingen.
-
-### 1. Externe koppeling invoegen
-
-Typ in het `<head>`-gedeelte van jouw HTML-bestand de afkorting `link:css` en druk op `Tab`:
-
-```html
-<!-- Typ: link:css en druk op Tab -->
-<link rel="stylesheet" href="stijl.css">
-```
-
-### 2. Iconen genereren met klasse-afkortingen
-
-In plaats van handmatig `<i class="..."></i>` te typen, gebruik je een punt voor elke klasse:
-
-| Je typt in PhpStorm | Druk op `Tab` | Resultaat in HTML |
-|---|---|---|
-| `i.fa-solid.fa-envelope` | `Tab` | `<i class="fa-solid fa-envelope"></i>` |
-| `i.fa-solid.fa-house` | `Tab` | `<i class="fa-solid fa-house"></i>` |
-| `i.fa-brands.fa-github` | `Tab` | `<i class="fa-brands fa-github"></i>` |
-| `i.icon-mail` | `Tab` | `<i class="icon-mail"></i>` |
-| `i.icon-map-pin` | `Tab` | `<i class="icon-map-pin"></i>` |
 
 
 ## Oefeningen
@@ -886,7 +480,7 @@ In plaats van handmatig `<i class="..."></i>` te typen, gebruik je een punt voor
 ### Oefening 2: Contactkaart voor Campus Geel met Font Awesome
 
 1. Maak een contactkaart aan voor Thomas More Campus Geel met het adres **Kleinhoefstraat 4, 2440 Geel**.
-2. Koppel Font Awesome via de CDN-link bovenaan jouw CSS-bestand (`@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');`).
+2. Koppel Font Awesome via de CDN-link bovenaan jouw CSS-bestand (`@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css');`).
 3. Voeg de volgende items toe, telkens met het bijbehorende Font Awesome icoon:
    - Locatie: `fa-solid fa-location-dot`
    - Telefoonnummer: `fa-solid fa-phone`
@@ -895,12 +489,4 @@ In plaats van handmatig `<i class="..."></i>` te typen, gebruik je een punt voor
 4. Zorg ervoor dat alle decoratieve iconen voorzien zijn van `aria-hidden="true"`.
 5. Geef de iconen via CSS een eigen kleur (bijvoorbeeld oranje `#e87722`), stel een geschikte `font-size` in en lijn de tekst netjes uit.
 6. Voeg onderaan twee knoppen toe voor sociale media (bijvoorbeeld GitHub en LinkedIn) en voorzie deze van een correct `aria-label`.
-
-### Oefening 3: Een troevenlijst met Lucide Icons
-
-1. Bouw een pagina met drie troeven van jouw studiekeuze ICT aan Thomas More Campus Geel.
-2. Koppel de Lucide Icons stylesheet via het jsDelivr CDN (`@import url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css');`).
-3. Geef elk item een passend icoon (zoals `icon-laptop`, `icon-code`, `icon-check` of `icon-rocket`).
-4. Plaats elk icoon in een eigen cirkel- of vierkantvormig blokje met een lichte achtergrondkleur.
-5. Voeg een CSS `:hover`-effect toe waardoor het blokje bij muisaanwijzing van achtergrondkleur verandert en het icoon subtiel vergroot (`transform: scale(1.1);`).
 

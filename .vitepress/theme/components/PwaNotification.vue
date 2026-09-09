@@ -109,6 +109,21 @@ onMounted(() => {
       startAutoDismiss()
     }
   })
+
+  // Registreer de Service Worker in productie
+  if (import.meta.env.PROD) {
+    const register = () => {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch((err) => {
+        console.warn('PWA Service Worker registratie mislukt:', err)
+      })
+    }
+
+    if (document.readyState === 'complete') {
+      register()
+    } else {
+      window.addEventListener('load', register)
+    }
+  }
 })
 
 onBeforeUnmount(() => {
