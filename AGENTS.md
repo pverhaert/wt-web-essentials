@@ -279,7 +279,7 @@ Toont een live, interactief codevoorbeeld met ingebouwde CodeMirror 6 editor en 
 
 #### Belangrijke richtlijnen voor CodeSandbox:
 - **Toon in alle sandboxen ALTIJD de volledige HTML-code:** Neem in alle sandboxen altijd de volledige HTML-structuur op (`<!DOCTYPE html>`, `<html lang="nl">`, `<head>`, `<meta charset="UTF-8">`, `<title>`, eventueel `<link rel="stylesheet" href="stijl.css">` en `<body>`). Toon nooit alleen losse HTML-fragmenten.
-- **GEEN lege regels binnen de CodeSandbox-attributen:** In Markdown-it veroorzaakt een lege regel binnen een componenttag een breuk in het HTML-blok, waardoor de markdown-parser onbedoeld `<p>`-tags middenin attributen zoals `css` of `html` injecteert. Laat daarom NOOIT lege regels vallen binnen de code van de attributen; gebruik indien gewenst een commentaarregel zoals `/* --- */`.
+- **GEEN lege regels binnen de CodeSandbox-attributen:** In Markdown-it veroorzaakt een lege regel binnen een componenttag een breuk in het HTML-blok, waardoor de markdown-parser onbedoeld `<p>`-tags middenin attributen zoals `css` of `html` injecteert. Laat daarom NOOIT lege regels vallen binnen de code van de attributen; gebruik om regels of blokken te scheiden altijd echte, inhoudelijke commentaarregels (bijvoorbeeld `/* Algemene paginastijl */` of `<!-- Hoofdnavigatie -->`) en GEEN loze opvulcommentaar zoals `/* --- */`.
 - **Enkel reeds behandelde CSS:** Gebruik in sandboxen uitsluitend CSS-eigenschappen die in het huidige of in voorgaande CSS-hoofdstukken zijn besproken. Uitzonderingen zijn enkel toegestaan als je dit vooraf expliciet aan de gebruiker vraagt en goedkeuring krijgt.
 - **Nette inspringing:** Zorg dat zowel HTML als CSS netjes en consistent zijn ingesprongen (2 spaties per inspringniveau).
 

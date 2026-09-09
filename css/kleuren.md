@@ -68,6 +68,7 @@ In onderstaand voorbeeld zie je hoe `color` en `background-color` worden toegepa
 ```
 
 ```css
+/* Algemene paginastijl */
 body {
   font-family: sans-serif;
   font-size: 16px;
@@ -76,15 +77,18 @@ body {
   background-color: #f8fafc;
 }
 
+/* Hoofdtitel in Thomas More oranje */
 h1 {
   color: #e87722;
 }
 
+/* Inleidende alinea in zachter leisteengrijs */
 .inleiding {
   font-size: 1.1rem;
   color: #64748b;
 }
 
+/* Informatieblok met lichte achtergrond en oranje rand */
 .infoblok {
   background-color: #e2e8f0;
   color: #0f172a;
@@ -93,6 +97,7 @@ h1 {
   border-left: 4px solid #e87722;
 }
 
+/* Tussentitel binnen het informatieblok */
 .infoblok h2 {
   color: #1e2d5a;
 }
@@ -102,23 +107,24 @@ h1 {
   title="Basis tekst- en achtergrondkleuren"
   height="460px"
   activeCodeTab="css"
-  css='body {
+  css='/* Algemene paginastijl */
+body {
   font-family: sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #1e2d5a;
   background-color: #f8fafc;
 }
-/* --- */
+/* Hoofdtitel in Thomas More oranje */
 h1 {
   color: #e87722;
 }
-/* --- */
+/* Inleidende alinea in zachter leisteengrijs */
 .inleiding {
   font-size: 1.1rem;
   color: #64748b;
 }
-/* --- */
+/* Informatieblok met lichte achtergrond en oranje rand */
 .infoblok {
   background-color: #e2e8f0;
   color: #0f172a;
@@ -126,7 +132,7 @@ h1 {
   padding: 16px;
   border-left: 4px solid #e87722;
 }
-/* --- */
+/* Tussentitel binnen het informatieblok */
 .infoblok h2 {
   color: #1e2d5a;
 }'
@@ -329,7 +335,7 @@ In onderstaande tabel zie je hoe je voor Thomas More oranje (`hue: 26`, `saturat
 | `35%` | `hsl(26, 82%, 35%)` | Donker oranje (bv. rand of hover) | <span style="display: inline-block; min-width: 90px; padding: 4px 10px; border-radius: 6px; background-color: hsl(26, 82%, 35%); color: #ffffff; font-weight: 600; text-align: center; border: 1px solid rgba(0,0,0,0.15);">35%</span> |
 | `20%` | `hsl(26, 82%, 20%)` | Diep chocoladebruin | <span style="display: inline-block; min-width: 90px; padding: 4px 10px; border-radius: 6px; background-color: hsl(26, 82%, 20%); color: #ffffff; font-weight: 600; text-align: center; border: 1px solid rgba(0,0,0,0.15);">20%</span> |
 
-### 5. OKLCH - de toekomst van kleuren
+### 5. OKLCH (perceptuele uniformiteit)
 
 Traditionele kleurmodellen zoals sRGB en HSL hebben een belangrijk wiskundig nadeel: ze zijn niet **perceptueel uniform**. Dit betekent dat voor het menselijk oog een gele kleur met een `lightness` van `50%` veel feller en lichter oogt dan een diepblauwe kleur met diezelfde `50%` lichtheid.
 
@@ -477,6 +483,7 @@ In onderstaande sandbox kan je met de muis over de link bewegen en met de linker
 ```
 
 ```css
+/* Pagina-achtergrond en algemene tekstkleur */
 body {
   font-family: sans-serif;
   font-size: 16px;
@@ -485,6 +492,7 @@ body {
   color: #0f172a;
 }
 
+/* Witte kaart met donkerblauwe bovenrand */
 .kaart {
   background-color: #ffffff;
   color: #0f172a;
@@ -493,26 +501,31 @@ body {
   border-top: 4px solid #1e2d5a;
 }
 
+/* 1. Niet-bezochte link (:link) */
 .cta-link:link {
   color: #1e2d5a;
   font-weight: bold;
   text-decoration: none;
 }
 
+/* 2. Reeds bezochte link (:visited) */
 .cta-link:visited {
   color: #334155;
 }
 
+/* 3. Focus via toetsenbordnavigatie (:focus) */
 .cta-link:focus {
   color: #0f172a;
   background-color: #fed7aa;
 }
 
+/* 4. Muisaanwijzer boven link (:hover) */
 .cta-link:hover {
   color: #e87722;
   text-decoration: underline;
 }
 
+/* 5. Link ingedrukt (:active) */
 .cta-link:active {
   color: #9a3412;
 }
@@ -522,14 +535,15 @@ body {
   title="Interactieve linkstijlen met het LVFHA-principe"
   height="450px"
   activeCodeTab="css"
-  css='body {
+  css='/* Pagina-achtergrond en algemene tekstkleur */
+body {
   font-family: sans-serif;
   font-size: 16px;
   line-height: 1.5;
   background-color: #f1f5f9;
   color: #0f172a;
 }
-/* --- */
+/* Witte kaart met donkerblauwe bovenrand */
 .kaart {
   background-color: #ffffff;
   color: #0f172a;
@@ -537,27 +551,27 @@ body {
   padding: 24px;
   border-top: 4px solid #1e2d5a;
 }
-/* --- */
+/* 1. Niet-bezochte link (:link) */
 .cta-link:link {
   color: #1e2d5a;
   font-weight: bold;
   text-decoration: none;
 }
-/* --- */
+/* 2. Reeds bezochte link (:visited) */
 .cta-link:visited {
   color: #334155;
 }
-/* --- */
+/* 3. Focus via toetsenbordnavigatie (:focus) */
 .cta-link:focus {
   color: #0f172a;
   background-color: #fed7aa;
 }
-/* --- */
+/* 4. Muisaanwijzer boven link (:hover) */
 .cta-link:hover {
   color: #e87722;
   text-decoration: underline;
 }
-/* --- */
+/* 5. Link ingedrukt (:active) */
 .cta-link:active {
   color: #9a3412;
 }'
