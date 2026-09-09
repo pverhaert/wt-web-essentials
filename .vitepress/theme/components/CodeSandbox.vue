@@ -185,6 +185,7 @@ import { oneDark } from '@codemirror/theme-one-dark'
 import { Compartment } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 import { indentWithTab } from '@codemirror/commands'
+import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
 
 const props = withDefaults(
   defineProps<{
@@ -221,9 +222,35 @@ const cleanCode = (raw: string): string => {
     .replace(/(src|href)='<(https?:\/\/[^>]+)>'/gi, '$1=\'$2\'')
 }
 
-const initialSourceHtml = computed(() => cleanCode(props.html || ''))
-const initialSourceCss = computed(() => cleanCode(props.css || ''))
-const initialSourceJs = computed(() => cleanCode(props.js || props.javascript || ''))
+// CSS heeft nooit <p> of </p> — veilig om alle markdown-geïnjecteerde paragraaf-tags te verwijderen.
+// VitePress injecteert <p>...</p> bij lege regels binnen component-attributen.
+// <p>  → \n  (herstel de lege regel)
+// </p> → ''  (afsluiter is al meegenomen door de openingstag)
+const cleanCssCode = (raw: string): string => {
+  if (!raw) return ''
+  return cleanCode(raw)
+    .replace(/<p>/g, '\n')
+    .replace(/<\/p>/g, '')
+}
+
+// HTML-code: verwijder alleen de duidelijke markdown-artefacten.
+// 1. Leidende </p>: spillover van een lege regel in een vorige prop (bijv. css='' met lege regel,
+//    waarna de </p> aan het begin van html='' belandt).
+// 2. <p> onmiddellijk vóór een HTML-tag (<): markdown opende een paragraaf bij de lege regel,
+//    maar de eigenlijke inhoud is een HTML-tag, geen tekst.
+// 3. </p> onmiddellijk vóór een HTML-tag: bijpassende sluiter van het bovenstaande geval.
+// Echte <p>tekst</p> combinaties (zonder direct aangrenzende tags) blijven intact.
+const cleanHtmlCode = (raw: string): string => {
+  if (!raw) return ''
+  return cleanCode(raw)
+    .replace(/^<\/p>\s*/g, '')
+    .replace(/<p>(\s*<)/g, '\n$1')
+    .replace(/<\/p>(\s*<)/g, '\n$1')
+}
+
+const initialSourceHtml = computed(() => cleanHtmlCode(props.html || ''))
+const initialSourceCss  = computed(() => cleanCssCode(props.css || ''))
+const initialSourceJs   = computed(() => cleanCode(props.js || props.javascript || ''))
 
 const hasCss = computed(() => Boolean(props.css !== undefined && props.css !== null && props.css.trim().length > 0))
 const hasJs = computed(() => Boolean(
@@ -430,7 +457,8 @@ const initEditor = () => {
         maxRenderedOptions: 30,
         defaultKeymap: true,
       }),
-      keymap.of([indentWithTab]),
+      createEmmetKeymap(() => activeCodeLanguage.value),
+      abbreviationTracker(),
       themeCompartment.of(isDark ? oneDark : []),
       EditorView.updateListener.of((update) => {
         if (update.docChanged) {

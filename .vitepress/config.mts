@@ -67,6 +67,24 @@ export default defineConfig({
     ],
   },
 
+  // Markdown-it configuratie: voorkom dat lege regels binnen <CodeSandbox> tags
+  // het CommonMark type 7 HTML-blok afbreken en <p>-tags injecteren.
+  markdown: {
+    config(md) {
+      md.core.ruler.before('normalize', 'fix-codesandbox-empty-lines', (state) => {
+        state.src = state.src.replace(/<(CodeSandbox|FullscreenSandbox)\b([\s\S]*?)(?:\/>|>[\s\S]*?<\/\1>)/g, (fullMatch) => {
+          let prev
+          let curr = fullMatch
+          do {
+            prev = curr
+            curr = curr.replace(/\n[ \t]*\n/g, '\n&#10;')
+          } while (curr !== prev)
+          return curr
+        })
+      })
+    },
+  },
+
   themeConfig: {
     // Logo in de header
     logo: '/logo.svg',
@@ -139,6 +157,7 @@ export default defineConfig({
               { text: 'Favicon Generator (.ico)', link: '/tools/favicon-generator', target: '_blank' },
               { text: 'Browser Extensies', link: '/tools/extensions', target: '_blank' },
               { text: 'Line-height Spel', link: '/tools/line-height-spel', target: '_blank' },
+              { text: 'Font Simulator', link: '/tools/font-simulator', target: '_blank' },
               { text: 'Fullscreen Sandbox', link: '/sandbox', target: '_blank' },
             ],
           },

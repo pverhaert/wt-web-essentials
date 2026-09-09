@@ -18,6 +18,7 @@ import ImageCarousel from './components/ImageCarousel.vue'
 import FaviconGenerator from './components/FaviconGenerator.vue'
 import MiniColorPicker from './components/MiniColorPicker.vue'
 import LineHeightGame from './components/LineHeightGame.vue'
+import GoogleFontsSimulator from './components/GoogleFontsSimulator.vue'
 import NotFound from './NotFound.vue'
 import {
   Info,
@@ -58,6 +59,7 @@ export default {
     app.component('FaviconGenerator', FaviconGenerator)
     app.component('MiniColorPicker', MiniColorPicker)
     app.component('LineHeightGame', LineHeightGame)
+    app.component('GoogleFontsSimulator', GoogleFontsSimulator)
 
     // Registreer Lucide iconen
     app.component('LucideInfo', Info)

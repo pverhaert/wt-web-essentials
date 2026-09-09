@@ -280,7 +280,6 @@ In het onderstaande interactieve voorbeeld zie je het verschil tussen verschille
   background-color: #f8fafc;
   padding: 20px;
 }
-
 h1 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 2rem;
@@ -289,7 +288,6 @@ h1 {
   color: #e87722;
   margin-bottom: 0.5rem;
 }
-
 .intro {
   font-size: 1.125rem;
   font-weight: 600;
@@ -302,7 +300,6 @@ p {
   line-height: 1.6;
   color: #475569;
 }
-
 .code-voorbeeld {
   font-family: Consolas, 'Courier New', monospace;
   background-color: #e2e8f0;
@@ -539,7 +536,11 @@ p a:hover {
 
 ## Handige Emmet-sneltoetsen in PhpStorm
 
-Typ in PhpStorm binnen een CSS-declaratieblok de onderstaande afkorting en druk op `Tab`:
+Typ in PhpStorm (of in de interactieve CodeSandbox van deze cursus) binnen een CSS-declaratieblok de onderstaande afkorting en druk op `Tab`:
+
+::: tip Ook in de CodeSandbox
+Alle onderstaande afkortingen (zoals `ff:v`, `fv:sc` en `tal`) werken zowel in PhpStorm als in de inline en fullscreen CodeSandbox van deze cursus.
+:::
 
 | Emmet-code | Druk op `Tab` | Gegenereerde CSS-code |
 |---|---|---|

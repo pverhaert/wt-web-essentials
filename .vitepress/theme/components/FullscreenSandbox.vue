@@ -342,7 +342,6 @@
           <span class="fs-pane-hint">Live weergave</span>
         </div>
         <iframe
-          :key="iframeKey"
           :srcdoc="previewSrcdoc"
           class="fs-preview-iframe"
           sandbox="allow-scripts allow-modals allow-forms allow-popups"
@@ -375,7 +374,7 @@ import { autocompletion, closeBrackets } from '@codemirror/autocomplete'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { Compartment } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
-import { indentWithTab } from '@codemirror/commands'
+import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
 
 const defaultHtml = `<!DOCTYPE html>
 <html lang="nl">
@@ -390,15 +389,81 @@ const defaultHtml = `<!DOCTYPE html>
 </body>
 </html>`
 
-const currentTitle = ref('Web Essentials Code Sandbox')
-const currentCode = ref(defaultHtml)
-const initialCode = ref(defaultHtml)
-const currentCss = ref('')
-const initialCss = ref('')
-const currentJs = ref('')
-const initialJs = ref('')
+const cleanHtml = (raw: string): string => {
+  if (!raw) return ''
+  return raw
+    .replace(/<pre[^>]*><code[^>]*>/gi, '')
+    .replace(/<\/code><\/pre>/gi, '')
+    .replace(/(src|href)=&quot;<(https?:\/\/[^>]+)>&quot;/gi, '$1=&quot;$2&quot;')
+    .replace(/(src|href)="<(https?:\/\/[^>]+)>"/gi, '$1="$2"')
+    .replace(/(src|href)='<(https?:\/\/[^>]+)>'/gi, '$1=\'$2\'')
+}
 
-const activeCodeLanguage = ref<'html' | 'css' | 'js'>('html')
+// Lees data direct uit localStorage (indien beschikbaar in de browser) vóór de eerste render
+function getInitialData() {
+  if (typeof window === 'undefined') {
+    return {
+      title: 'Web Essentials Code Sandbox',
+      html: defaultHtml,
+      css: '',
+      js: '',
+      activeTab: 'html' as const,
+      hasCss: false,
+      hasJs: false,
+    }
+  }
+
+  const params = new URLSearchParams(window.location.search)
+  const id = params.get('id')
+  if (id) {
+    try {
+      const raw = localStorage.getItem(id)
+      if (raw) {
+        const parsed = JSON.parse(raw)
+        const html = cleanHtml(parsed.code || parsed.initialCode || defaultHtml)
+        const css = parsed.css || parsed.initialCss || ''
+        const js = parsed.js || parsed.initialJs || ''
+        const title = parsed.title || 'Web Essentials Code Sandbox'
+        const activeTab = (parsed.activeCodeTab && ['html', 'css', 'js'].includes(parsed.activeCodeTab))
+          ? (parsed.activeCodeTab as 'html' | 'css' | 'js')
+          : 'html'
+        return {
+          title,
+          html,
+          css,
+          js,
+          activeTab,
+          hasCss: Boolean(css && css.trim().length > 0),
+          hasJs: Boolean(js && js.trim().length > 0),
+        }
+      }
+    } catch (err) {
+      console.warn('Kon sandbox-gegevens niet laden:', err)
+    }
+  }
+
+  return {
+    title: 'Web Essentials Code Sandbox',
+    html: defaultHtml,
+    css: '',
+    js: '',
+    activeTab: 'html' as const,
+    hasCss: false,
+    hasJs: false,
+  }
+}
+
+const initialData = getInitialData()
+
+const currentTitle = ref(initialData.title)
+const currentCode = ref(initialData.html)
+const initialCode = ref(initialData.html)
+const currentCss = ref(initialData.css)
+const initialCss = ref(initialData.css)
+const currentJs = ref(initialData.js)
+const initialJs = ref(initialData.js)
+
+const activeCodeLanguage = ref<'html' | 'css' | 'js'>(initialData.activeTab)
 const activeTab = ref<'preview' | 'code' | 'split'>('split')
 const splitWidth = ref(50)
 
@@ -429,11 +494,8 @@ const jsThemeCompartment = new Compartment()
 const isResizing = ref(false)
 const isRowResizing = ref<null | 1 | 2>(null)
 
-const iframeKey = ref(0)
-let debounceTimer: any = null
-
-const showCssPanel = ref(false)
-const showJsPanel = ref(false)
+const showCssPanel = ref(initialData.hasCss)
+const showJsPanel = ref(initialData.hasJs)
 
 const hasCss = computed(() => showCssPanel.value)
 const hasJs = computed(() => showJsPanel.value)
@@ -525,15 +587,6 @@ const resetRowHeights = () => {
   }
 }
 
-const cleanHtml = (raw: string): string => {
-  if (!raw) return ''
-  return raw
-    .replace(/<pre[^>]*><code[^>]*>/gi, '')
-    .replace(/<\/code><\/pre>/gi, '')
-    .replace(/(src|href)=&quot;<(https?:\/\/[^>]+)>&quot;/gi, '$1=&quot;$2&quot;')
-    .replace(/(src|href)="<(https?:\/\/[^>]+)>"/gi, '$1="$2"')
-    .replace(/(src|href)='<(https?:\/\/[^>]+)>'/gi, '$1=\'$2\'')
-}
 
 const activeLanguageChars = computed(() => {
   if (activeCodeLanguage.value === 'css') return currentCss.value.length
@@ -623,12 +676,6 @@ ${ANCHOR_INTERCEPT_SCRIPT}
   return `${result}\n${ANCHOR_INTERCEPT_SCRIPT}`
 })
 
-watch(previewSrcdoc, () => {
-  clearTimeout(debounceTimer)
-  debounceTimer = setTimeout(() => {
-    iframeKey.value++
-  }, 100)
-})
 
 const createEditorInstance = (
   container: HTMLElement,
@@ -657,7 +704,8 @@ const createEditorInstance = (
         maxRenderedOptions: 30,
         defaultKeymap: true,
       }),
-      keymap.of([indentWithTab]),
+      createEmmetKeymap(() => lang),
+      abbreviationTracker(),
       themeComp.of(isDark.value ? oneDark : []),
       EditorView.updateListener.of((update) => {
         if (update.docChanged) {
@@ -959,40 +1007,6 @@ const stopRowTouchResize = () => {
 onMounted(() => {
   if (typeof window !== 'undefined') {
     isDark.value = document.documentElement.classList.contains('dark')
-
-    // Lees data uit localStorage via URL param
-    const params = new URLSearchParams(window.location.search)
-    const id = params.get('id')
-    if (id) {
-      try {
-        const raw = localStorage.getItem(id)
-        if (raw) {
-          const parsed = JSON.parse(raw)
-          if (parsed.title) currentTitle.value = parsed.title
-          if (parsed.code) currentCode.value = cleanHtml(parsed.code)
-          if (parsed.initialCode) initialCode.value = cleanHtml(parsed.initialCode)
-          else if (parsed.code) initialCode.value = cleanHtml(parsed.code)
-          if (parsed.css) currentCss.value = parsed.css
-          if (parsed.initialCss) initialCss.value = parsed.initialCss
-          else if (parsed.css) initialCss.value = parsed.css
-          if (parsed.js) currentJs.value = parsed.js
-          if (parsed.initialJs) initialJs.value = parsed.initialJs
-          else if (parsed.js) initialJs.value = parsed.js
-          if (parsed.activeCodeTab && ['html', 'css', 'js'].includes(parsed.activeCodeTab)) {
-            activeCodeLanguage.value = parsed.activeCodeTab
-          }
-        }
-      } catch (err) {
-        console.warn('Kon sandbox-gegevens niet laden:', err)
-      }
-    }
-
-    if (currentCss.value || initialCss.value) {
-      showCssPanel.value = true
-    }
-    if (currentJs.value || initialJs.value) {
-      showJsPanel.value = true
-    }
   }
 
   // Initiële hoogtes instellen op basis van aanwezige talen

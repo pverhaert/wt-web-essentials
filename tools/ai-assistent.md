@@ -99,18 +99,3 @@ Je kan het chatvenster flexibel afstemmen op jouw werkwijze en schermgrootte:
 - **Geen cookies of tracking:** De Web Essentials cursus gebruikt geen advertentiecookies of tracking. De communicatie verloopt rechtstreeks tussen jouw browser en de API-servers van Google.
 
 ---
-
-## Oefeningen
-
-### Oefening 1: Jouw eerste vraag stellen
-
-1. Maak een gratis API-sleutel aan op [Google AI Studio](https://aistudio.google.com/app/apikey).
-2. Voer jouw naam en sleutel in op deze pagina en klik op **Opslaan & Verifiëren**.
-3. Open de AI Tutor rechtsonder en klik op een van de voorgestelde suggestievragen.
-4. Bekijk het antwoord en controleer hoe de tutor de technische termen verduidelijkt.
-
-### Oefening 2: Een codevraag stellen en het venster aanpassen
-
-1. Open de AI Tutor en stel een vraag over een CSS-eigenschap, bijvoorbeeld: *"Wat is het verschil tussen margin en padding?"*
-2. Maak het venster breder door de linkerzijkant naar links te slepen, zodat je de uitleg en eventuele codeblokken overzichtelijk naast elkaar ziet.
-3. Dubbelklik op de linker scheidingslijn om de breedte weer terug te zetten naar de standaardafmeting.
