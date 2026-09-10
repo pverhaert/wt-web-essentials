@@ -4,6 +4,8 @@ title: Webfonts en Iconen
 
 # Webfonts en Iconen
 
+In het vorige hoofdstuk heb je geleerd hoe je tekst vormgeeft met standaard systeemlettertypen. Wil je echter dat jouw website een unieke merkidentiteit uitstraalt en er op elk besturingssysteem identiek uitziet? Dan maak je gebruik van **webfonts** en **icon fonts**. In dit hoofdstuk ontdek je hoe je externe lettertypen van Google Fonts en pictogrammen van Font Awesome en Lucide eenvoudig koppelt en stijlt met CSS.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -17,12 +19,6 @@ Na dit hoofdstuk kan je:
 - Pictogrammen vormgeven met CSS-eigenschappen zoals `font-size`, `color` en `transition`
 - Rekening houden met webtoegankelijkheid (WCAG) door decoratieve iconen te voorzien van `aria-hidden="true"`
 - Emmet-sneltoetsen in PhpStorm toepassen om externe koppelingen en icoon-elementen snel te coderen
-
-
-In het vorige hoofdstuk heb je geleerd hoe je tekst vormgeeft met standaard systeemlettertypen zoals Arial, Segoe UI en Georgia. Die systeemfonts hebben echter een grote beperking: ze worden enkel getoond wanneer ze toevallig al op de computer of smartphone van de bezoeker geïnstalleerd staan.
-
-Wil je dat jouw website een unieke merkidentiteit uitstraalt en er op elk besturingssysteem (Windows, macOS, Android en iOS) identiek uitziet? Dan maak je gebruik van **webfonts** en **icon fonts**. In dit hoofdstuk ontdek je hoe je lettertypen van Google Fonts en pictogrammen van Font Awesome en Lucide eenvoudig koppelt en stijlt met CSS.
-
 
 ## Waarom Webfonts?
 

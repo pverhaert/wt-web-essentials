@@ -4,6 +4,8 @@ title: Afbeeldingen
 
 # Afbeeldingen
 
+Afbeeldingen maken een website visueel aantrekkelijk, verduidelijken complexe uitleg en versterken de huisstijl van een merk. Tegelijk kunnen slecht gekozen of te zware afbeeldingen een surfer mateloos frustreren door trage laadtijden of verspringende pagina-inhoud. In dit hoofdstuk leer je hoe je afbeeldingen technisch correct, performant en toegankelijk integreert.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -17,8 +19,6 @@ Na dit hoofdstuk kan je:
 - Afbeeldingen semantisch groeperen en voorzien van een bijschrift met `<figure>` en `<figcaption>`
 - Een favicon toevoegen aan de `<head>` van een webpagina met `<link>` en het verschil uitleggen tussen `favicon.ico`, PNG en SVG
 - De beeldverhouding van afbeeldingen bewaken met behulp van AspectSnap en Photo Edit Pro
-
-Afbeeldingen maken een website visueel aantrekkelijk, verduidelijken complexe uitleg en versterken de huisstijl van een merk. Tegelijk kunnen slecht gekozen of te zware afbeeldingen een surfer mateloos frustreren door trage laadtijden of verspringende pagina-inhoud. In dit hoofdstuk leer je hoe je afbeeldingen technisch correct, performant en toegankelijk integreert.
 
 ## Het `<img>`-element
 

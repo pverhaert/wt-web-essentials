@@ -4,6 +4,8 @@ title: Speciale Tekens
 
 # Speciale Tekens
 
+Wanneer je tekst schrijft in HTML, kom je tekens tegen die een speciale betekenis hebben voor de browser, zoals het kleiner-dan-teken (`<`) en het groter-dan-teken (`>`). Omdat de browser deze tekens gebruikt om HTML-tags te herkennen, kan je ze niet zomaar als gewone tekst typen. In dit hoofdstuk leer je hoe je met HTML-entiteiten elk gewenst symbool, wiskundig teken of vaste spatie veilig en volgens de standaarden op je pagina toont.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -15,8 +17,6 @@ Na dit hoofdstuk kan je:
 - De vaste spatie (`&nbsp;`) doelgericht inzetten om ongewenste regelafbrekingen te voorkomen
 - Veelgebruikte symbolen en typografische tekens opzoeken en gebruiken
 - HTML-code controleren op fouten tegen speciale tekens met de W3C-validator
-
-Wanneer je tekst schrijft in een HTML-document, kom je vroeg of laat tekens tegen die een speciale betekenis hebben voor de browser. Denk bijvoorbeeld aan het kleiner-dan-teken (`<`) en het groter-dan-teken (`>`). Omdat de browser deze tekens gebruikt om het begin en einde van HTML-tags te herkennen, kan je ze niet zomaar als gewone tekst in je code typen. In dit hoofdstuk leer je hoe je met HTML-entiteiten elk gewenst teken veilig en volgens de standaarden op je pagina toont.
 
 ## Waarom speciale tekens coderen?
 

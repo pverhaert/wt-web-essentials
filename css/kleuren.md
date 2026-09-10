@@ -4,6 +4,8 @@ title: Kleuren
 
 # Kleuren
 
+Kleur brengt een webpagina tot leven: het bepaalt de sfeer, versterkt je merkidentiteit en zorgt voor visuele hiërarchie en leesbaarheid. In dit hoofdstuk ontdek je hoe je tekst- en achtergrondkleuren instelt met CSS, welke moderne kleursystemen (zoals HEX, RGB, HSL en OKLCH) er bestaan, hoe je transparantie regelt en hoe je met voldoende contrast zorgt voor een toegankelijke website voor elke bezoeker.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -13,7 +15,6 @@ Na dit hoofdstuk kan je:
 - Transparantie en dekking instellen met behulp van het alfakanaal (`rgba()`, moderne spatiesyntax en 8-cijferige hex)
 - De minimale WCAG-contrastratio van 4.5:1 controleren met browser DevTools voor optimale toegankelijkheid
 - Hyperlinks en interactieve knoppen stylen in de correcte volgorde met behulp van het *LoVe Fears HAte*-principe
-
 
 ## Tekstkleur en achtergrondkleur
 

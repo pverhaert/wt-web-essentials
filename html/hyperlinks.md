@@ -4,6 +4,8 @@ title: Hyperlinks
 
 # Hyperlinks
 
+Hyperlinks vormen de spil van het World Wide Web: ze verbinden webpagina's, documenten, afbeeldingen en applicaties naadloos met elkaar. Zonder hyperlinks zou het web slechts een verzameling losstaande bestanden zijn. In dit hoofdstuk leer je hoe je navigatie opzet, veilige koppelingen maakt naar externe websites en handige interacties activeert voor mobiele en desktopgebruikers.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -15,8 +17,6 @@ Na dit hoofdstuk kan je:
 - Communicatielinks opzetten met speciale schema's zoals `mailto:`, `tel:`, `sms:`, `https://wa.me/` (WhatsApp) en `geo:`
 - Bestanden laten downloaden met behulp van het HTML5 `download`-attribuut
 - Toegankelijke en betekenisvolle linkteksten formuleren volgens webstandaarden
-
-Hyperlinks (of simpelweg *links*) vormen de spil van het World Wide Web. Ze verbinden webpagina's, documenten, afbeeldingen en applicaties met elkaar. Zonder hyperlinks zou het web slechts een verzameling losstaande, geisoleerde bestanden zijn. In dit hoofdstuk leer je hoe je navigatie opzet, veilige koppelingen maakt naar externe websites en handige interacties activeert voor mobiele en desktopgebruikers.
 
 ## Het `<a>`-element
 

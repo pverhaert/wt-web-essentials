@@ -4,6 +4,8 @@ title: Tabellen
 
 # Tabellen
 
+Soms wil je gegevens op een overzichtelijke manier presenteren in rijen en kolommen, zoals een lesrooster, sportuitslagen of productspecificaties. In HTML gebruik je hiervoor tabellen. In dit hoofdstuk leer je hoe je datatabellen semantisch correct, toegankelijk voor schermlezers en overzichtelijk structureert.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -16,8 +18,6 @@ Na dit hoofdstuk kan je:
 - Een grote tabel semantisch opdelen met `<thead>`, `<tbody>` en `<tfoot>`
 - Kolommen semantisch groeperen met `<colgroup>` en `<col>`
 - Snel tabellen genereren in PhpStorm met behulp van Emmet-afkortingen
-
-Soms wil je gegevens op een overzichtelijke manier presenteren in rijen en kolommen. Denk aan een lesrooster, sportuitslagen, de specificaties van een smartphone of de tarieven van een abonnement. In HTML gebruik je hiervoor tabellen. In dit hoofdstuk leer je hoe je tabellen semantisch correct, toegankelijk en overzichtelijk structureert.
 
 ## Waarvoor dienen tabellen (en waarvoor niet)?
 

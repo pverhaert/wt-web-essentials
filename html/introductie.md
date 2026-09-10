@@ -4,6 +4,8 @@ title: Introductie HTML5
 
 # Introductie in HTML5
 
+Welkom bij Web Essentials. In deze eerste module maak je kennis met de absolute basis van het World Wide Web: HTML5. Elke website die je bezoekt, hoe eenvoudig of complex ook, steunt op een skelet van HTML. In dit hoofdstuk ontdek je wat HTML precies is, hoe browsers ermee omgaan en hoe je zelf je allereerste geldige webpagina opbouwt.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:

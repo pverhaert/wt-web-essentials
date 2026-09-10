@@ -4,6 +4,8 @@ title: Lijsten
 
 # Lijsten
 
+Lijsten kom je op vrijwel elke webpagina tegen: van ingrediënten en genummerde stappenplannen tot hoofdnavigatiemenu's en begrippenlijsten. In HTML gebruik je lijsten om items semantisch te groeperen, zodat browsers, zoekmachines en schermlezers de samenhang direct begrijpen. In dit hoofdstuk leer je ongeordende, geordende en beschrijvingslijsten vlot en valide opbouwen.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -15,8 +17,6 @@ Na dit hoofdstuk kan je:
 - Beschrijvingslijsten opzetten met `<dl>`, `<dt>` en `<dd>` voor termen en toelichtingen
 - De juiste lijstsoort selecteren op basis van de betekenis van de inhoud
 - Lijststructuren snel genereren met Emmet-sneltoetsen in PhpStorm
-
-Lijsten kom je op vrijwel elke webpagina tegen. Denk aan een opsomming van ingrediënten, een genummerd stappenplan, een navigatiemenu bovenaan een website of een technische begrippenlijst. In HTML gebruik je lijsten om items semantisch te groeperen, zodat zowel browsers, zoekmachines als hulptechnologieën (zoals schermlezers) begrijpen dat de elementen bij elkaar horen.
 
 ---
 

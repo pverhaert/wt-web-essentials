@@ -93,6 +93,8 @@ title: [Paginatitel]
 
 # [Paginatitel]
 
+[Korte, motiverende inleidende alinea over het onderwerp en de relevantie ervan voor webdesign]
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:

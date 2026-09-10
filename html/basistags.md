@@ -4,6 +4,8 @@ title: Basistags
 
 # Basistags
 
+In het vorige hoofdstuk heb je gezien hoe het basisskelet van een HTML-document is opgebouwd. In dit hoofdstuk bekijken we de elementen waarmee je de eigenlijke inhoud in de `<body>` vormgeeft en van betekenis voorziet: van koppen en alinea's tot semantische structuurbouwstenen.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -14,8 +16,6 @@ Na dit hoofdstuk kan je:
 - Een logische en toegankelijke koppenhiërarchie opbouwen
 - Semantische structuurelementen gebruiken (`<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>`)
 - Commentaar toevoegen aan je code en handige sneltoetsen in PhpStorm benutten
-
-In het vorige hoofdstuk heb je gezien hoe het basisskelet van een HTML-document is opgebouwd. In dit hoofdstuk bekijken we de elementen waarmee je de eigenlijke inhoud in de `<body>` vormgeeft en van betekenis voorziet.
 
 ## Commentaar in HTML
 

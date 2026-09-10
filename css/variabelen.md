@@ -380,9 +380,8 @@ Wil je snel een consistent kleurenpalet met CSS-variabelen genereren op basis va
 ![CSS Theme Studio](./variabelen/css_theme_studio.webp)
 :::
 
----
 
-## Oefeningen
+
 
 ### Oefening 1: Een campus-huisstijl opzetten in `:root`
 

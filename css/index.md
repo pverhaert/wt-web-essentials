@@ -4,6 +4,8 @@ title: Introductie CSS3
 
 # Introductie in CSS3
 
+In de vorige hoofdstukken heb je geleerd hoe je met HTML5 de inhoud en betekenis (semantiek) van een webpagina opbouwt. Een HTML-document zonder enige opmaak oogt echter sober: zwarte tekst op een witte achtergrond, standaard blauwe hyperlinks en elementen die recht onder elkaar staan. Om van die ruwe tekst een aantrekkelijke, overzichtelijke en professionele website te maken, gebruik je CSS3.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -21,8 +23,6 @@ Na dit hoofdstuk kan je:
 ::: info CSS-eigenschappen en waarden in de voorbeelden
 In dit inleidende hoofdstuk zie je al verschillende CSS-eigenschappen en waarden voorbijkomen in de voorbeelden en oefeningen (zoals `color`, `background-color` en `font-size`). We hebben deze voorbeelden nodig om de werking van CSS te kunnen demonstreren. Je hoeft deze specifieke eigenschappen nu nog niet vanbuiten te kennen; elk onderdeel (zoals lettertypen, kleuren, marges en kaders) wordt in de volgende hoofdstukken stap voor stap en tot in detail behandeld.
 :::
-
-In de vorige hoofdstukken heb je geleerd hoe je met HTML5 de inhoud en betekenis (semantiek) van een webpagina opbouwt. Een HTML-document zonder enige opmaak oogt echter sober: zwarte tekst op een witte achtergrond, standaard blauwe hyperlinks en elementen die recht onder elkaar staan. Om van die ruwe tekst een aantrekkelijke, overzichtelijke en professionele website te maken, gebruik je CSS3.
 
 ## Wat is CSS?
 

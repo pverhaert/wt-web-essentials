@@ -40,9 +40,8 @@ Elke doos in CSS bestaat van binnen naar buiten uit vier lagen:
 Open de browser DevTools (met F12 of rechtermuisklik -> **Inspecteren**). Onder het tabblad **Styles** of **Computed** vind je onderaan altijd een interactieve visualisatie van het box model van het geselecteerde element.
 :::
 
----
 
-## Afmetingen: Breedte en Hoogte
+
 
 De binnenste laag van het box model is de inhoud (content). Met CSS kan je de breedte en hoogte van deze doos nauwkeurig sturen.
 
@@ -813,9 +812,8 @@ h4 {
 </html>'
 />
 
----
 
-## Verschil tussen Border en Outline
+
 
 Naast `border` bestaat ook de eigenschap `outline` (omtrek). Hoewel ze visueel op elkaar lijken, is er een fundamenteel verschil in hoe het box model ermee omgaat:
 

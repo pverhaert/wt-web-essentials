@@ -4,6 +4,8 @@ title: Lettertypen
 
 # Lettertypen en Tekstopmaak
 
+Typografie is een van de belangrijkste onderdelen van webdesign: meer dan 90 procent van alle informatie op het internet bestaat uit tekst. Met CSS heb je volledige controle over hoe letters, woorden en alinea's worden weergegeven op het scherm van de bezoeker. In dit hoofdstuk leer je hoe je met standaard systeemlettertypen werkt, welke maateenheden je gebruikt voor schaalbare tekst en hoe je teksteigenschappen combineert voor een rustige, professionele leeservaring.
+
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
@@ -14,10 +16,6 @@ Na dit hoofdstuk kan je:
 - Teksteigenschappen toepassen om regelhoogte, tekstuitlijning, hoofdlettergebruik, tekstonderlijning en schaduwen te regelen
 - Rekening houden met toegankelijkheid (WCAG) bij het opmaken van tekst en hyperlinks
 - Emmet-sneltoetsen in PhpStorm gebruiken om typografische CSS-stijlen snel te coderen
-
-Typografie is een van de belangrijkste onderdelen van webdesign. Meer dan 90 procent van alle informatie op het internet bestaat immers uit tekst. Met CSS heb je volledige controle over hoe letters, woorden en alinea''s worden weergegeven op het scherm van de bezoeker.
-
-In dit hoofdstuk leer je hoe je met standaard systeemlettertypen werkt, welke maateenheden je gebruikt voor schaalbare tekst en hoe je teksteigenschappen combineert voor een rustige, professionele leeservaring.
 
 ::: info Externe lettertypen en iconen
 Wil je een uniek lettertype gebruiken dat niet standaard op de computer van de bezoeker staat (zoals Google Fonts of een eigen lettertypebestand), of wil je pictogrammen toevoegen? Dit leer je in het volgende hoofdstuk: [Webfonts en Iconen](./webfonts).
