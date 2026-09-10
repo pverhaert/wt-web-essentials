@@ -135,6 +135,9 @@ Wanneer je een handleiding of programmeercursus schrijft, wil je regelmatig lett
 
 <CodeSandbox
   title="Voorbeeld: Gereserveerde tekens, code en emoji's tonen"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<h3>HTML-tags veilig weergeven</h3>
 <p>Als je over HTML schrijft, moet je tags coderen met entiteiten:</p>
 <p>
@@ -201,6 +204,9 @@ In het onderstaande voorbeeld zie je twee identieke zinnen met een telefoonnumme
 
 <CodeSandbox
   title="Voorbeeld: Vaste spatie in actie"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<h3>Het verschil tussen een gewone spatie en een vaste spatie</h3>
 <p>Maak het venster of paneel smaller om het effect van regelafbrekingen te zien:</p>
 
@@ -252,6 +258,9 @@ In webontwikkeling combineer je deze entiteiten regelmatig in knoppen, linktekst
 
 <CodeSandbox
   title="Voorbeeld: Typografische symbolen en voettekst"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<h3>Typografische entiteiten in de praktijk</h3>
 
 <p>

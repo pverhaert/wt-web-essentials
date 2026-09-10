@@ -164,6 +164,7 @@ export default defineConfig({
               { text: 'Font Simulator', link: '/tools/font-simulator', target: 'page2' },
               { text: 'Kleurenomzetter', link: '/tools/kleurenomzetter', target: 'page2' },
               { text: 'CSS Colors Timeline', link: 'https://css-colors-timeline.netlify.app/', target: 'page2' },
+              { text: 'CSS Theme Studio', link: 'https://css-theme-studio.netlify.app/', target: 'page2' },
               { text: 'Fullscreen Sandbox', link: '/sandbox', target: 'page2' },
             ],
           },

@@ -195,6 +195,9 @@ Hieronder kan je de HTML-code rechtstreeks bekijken, bewerken en uitproberen in 
 
 <CodeSandbox
   title="Basisstructuur van een HTML5-pagina"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<!DOCTYPE html>
 <html lang=&quot;nl&quot;>
 <head>

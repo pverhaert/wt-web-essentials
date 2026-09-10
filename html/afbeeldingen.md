@@ -215,6 +215,10 @@ Het effect van `loading="lazy"` wordt pas echt duidelijk wanneer je een langere 
 
 <CodeSandbox
   title="Voorbeeld: Meerdere afbeeldingen met lazy loading"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
+  height="500px"
   html="<p>Scroll in het voorbeeldvenster naar beneden. De onderste vijf afbeeldingen hebben <code>loading=&quot;lazy&quot;</code> en worden pas opgevraagd zodra ze in beeld komen:</p>
 <p><strong>Foto 1: Direct in beeld (eager / standaard)</strong></p>
 <p><img src=&quot;https://picsum.photos/id/1018/600/350&quot; alt=&quot;Berglandschap bij zonsopgang&quot; width=&quot;600&quot; height=&quot;350&quot;></p>
@@ -228,7 +232,6 @@ Het effect van `loading="lazy"` wordt pas echt duidelijk wanneer je een langere 
 <p><img src=&quot;https://picsum.photos/id/1036/600/350&quot; alt=&quot;Sneeuwlandschap met dennenbomen&quot; width=&quot;600&quot; height=&quot;350&quot; loading=&quot;lazy&quot;></p>
 <p><strong>Foto 6: Luie laadtijd (lazy)</strong></p>
 <p><img src=&quot;https://picsum.photos/id/1050/600/350&quot; alt=&quot;Zicht over duinen en oceaan&quot; width=&quot;600&quot; height=&quot;350&quot; loading=&quot;lazy&quot;></p>"
-  height="500px"
 />
 
 ## Afbeeldingsformaten voor het web
@@ -381,6 +384,9 @@ Hieronder zie je voorbeelden van een cirkel, een rechthoek, kruisende lijnen, ee
 
 <CodeSandbox
   title="Voorbeeld: Eenvoudige SVG-basisvormen"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<h3>Eenvoudige SVG-basisvormen</h3>
 <p>Pas in de code de coördinaten of kleuren aan om te zien hoe de vormen veranderen:</p>
 
@@ -536,6 +542,9 @@ Belangrijke regels voor `<figure>` en `<figcaption>`:
 
 <CodeSandbox
   title="Voorbeeld: figure en figcaption"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<figure>
   <img
     src=&quot;https://picsum.photos/id/1062/600/350&quot;

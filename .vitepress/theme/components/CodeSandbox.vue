@@ -204,6 +204,7 @@ import { Compartment } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 import { indentWithTab } from '@codemirror/commands'
 import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
+import { createLineHighlightExtension } from '../composables/useLineHighlight'
 
 const props = withDefaults(
   defineProps<{
@@ -216,6 +217,10 @@ const props = withDefaults(
     height?: string
     initialTab?: 'preview' | 'code' | 'split'
     activeCodeTab?: 'html' | 'css' | 'js'
+    highlightHtml?: string
+    highlightCss?: string
+    highlightJs?: string
+    highlightLines?: string
   }>(),
   {
     src: '',
@@ -227,6 +232,10 @@ const props = withDefaults(
     height: '420px',
     initialTab: 'split',
     activeCodeTab: undefined,
+    highlightHtml: '',
+    highlightCss: '',
+    highlightJs: '',
+    highlightLines: '',
   }
 )
 
@@ -251,19 +260,10 @@ const cleanCssCode = (raw: string): string => {
     .replace(/<\/p>/g, '')
 }
 
-// HTML-code: verwijder alleen de duidelijke markdown-artefacten.
-// 1. Leidende </p>: spillover van een lege regel in een vorige prop (bijv. css='' met lege regel,
-//    waarna de </p> aan het begin van html='' belandt).
-// 2. <p> onmiddellijk vóór een HTML-tag (<): markdown opende een paragraaf bij de lege regel,
-//    maar de eigenlijke inhoud is een HTML-tag, geen tekst.
-// 3. </p> onmiddellijk vóór een HTML-tag: bijpassende sluiter van het bovenstaande geval.
-// Echte <p>tekst</p> combinaties (zonder direct aangrenzende tags) blijven intact.
+// HTML-code: verwijder eventuele leidende </p> (spillover van een lege regel in een vorige prop)
 const cleanHtmlCode = (raw: string): string => {
   if (!raw) return ''
-  return cleanCode(raw)
-    .replace(/^<\/p>\s*/g, '')
-    .replace(/<p>(\s*<)/g, '\n$1')
-    .replace(/<\/p>(\s*<)/g, '\n$1')
+  return cleanCode(raw).replace(/^<\/p>\s*/g, '')
 }
 
 const initialSourceHtml = computed(() => cleanHtmlCode(props.html || ''))
@@ -419,6 +419,7 @@ const stopTouchHeightResize = () => {
 let editorView: EditorView | null = null
 const themeCompartment = new Compartment()
 const languageCompartment = new Compartment()
+const highlightCompartment = new Compartment()
 let observer: MutationObserver | null = null
 
 const getLanguageExtension = (lang: 'html' | 'css' | 'js') => {
@@ -437,6 +438,12 @@ const getActiveCode = () => {
   return currentHtml.value
 }
 
+const getActiveHighlightRange = () => {
+  if (activeCodeLanguage.value === 'css') return props.highlightCss || ''
+  if (activeCodeLanguage.value === 'js') return props.highlightJs || ''
+  return props.highlightHtml || props.highlightLines || ''
+}
+
 const switchCodeLanguage = (lang: 'html' | 'css' | 'js') => {
   if (activeCodeLanguage.value === lang) return
   activeCodeLanguage.value = lang
@@ -448,7 +455,10 @@ const switchCodeLanguage = (lang: 'html' | 'css' | 'js') => {
         to: editorView.state.doc.length,
         insert: code,
       },
-      effects: languageCompartment.reconfigure(getLanguageExtension(lang)),
+      effects: [
+        languageCompartment.reconfigure(getLanguageExtension(lang)),
+        highlightCompartment.reconfigure(createLineHighlightExtension(() => getActiveHighlightRange())),
+      ],
     })
   }
 }
@@ -537,6 +547,7 @@ const initEditor = () => {
     extensions: [
       basicSetup,
       languageCompartment.of(getLanguageExtension(activeCodeLanguage.value)),
+      highlightCompartment.of(createLineHighlightExtension(() => getActiveHighlightRange())),
       closeBrackets(),
       autocompletion({
         activateOnTyping: true,
@@ -574,12 +585,17 @@ const initEditor = () => {
           color: '#8b949e',
         },
         '.cm-activeLine': {
-          backgroundColor: 'rgba(232, 119, 34, 0.08)',
+          backgroundColor: 'rgba(0, 0, 0, 0.04)',
         },
         '.cm-activeLineGutter': {
-          backgroundColor: 'rgba(232, 119, 34, 0.15)',
-          color: 'var(--tm-orange, #e87722)',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          color: 'var(--vp-c-text-1, #0f172a)',
           fontWeight: 'bold',
+        },
+        '.cm-highlight-line': {
+          backgroundColor: 'rgba(232, 119, 34, 0.14)',
+          borderLeft: '3px solid var(--tm-orange, #e87722)',
+          paddingLeft: '3px !important',
         },
         '.cm-tooltip-autocomplete': {
           border: '1px solid var(--vp-c-divider)',
@@ -682,6 +698,17 @@ watch(initialSourceJs, (newVal) => {
   }
 })
 
+watch(
+  [() => props.highlightHtml, () => props.highlightCss, () => props.highlightJs, () => props.highlightLines],
+  () => {
+    if (editorView) {
+      editorView.dispatch({
+        effects: highlightCompartment.reconfigure(createLineHighlightExtension(() => getActiveHighlightRange())),
+      })
+    }
+  }
+)
+
 const isModified = computed(() =>
   currentHtml.value !== initialSourceHtml.value ||
   currentCss.value !== initialSourceCss.value ||
@@ -717,6 +744,9 @@ const openInNewTab = () => {
     initialJs: initialSourceJs.value,
     activeCodeTab: activeCodeLanguage.value,
     height: currentHeight.value ? currentHeight.value + 'px' : (props.height || '450px'),
+    highlightHtml: props.highlightHtml || props.highlightLines || '',
+    highlightCss: props.highlightCss || '',
+    highlightJs: props.highlightJs || '',
   }
   try {
     localStorage.setItem(id, JSON.stringify(data))
@@ -1058,5 +1088,34 @@ const openInNewTab = () => {
 .sandbox-height-resizer.is-resizing .sandbox-height-handle {
   background-color: var(--tm-orange, #e87722);
   width: 54px;
+}
+
+:deep(.cm-highlight-line) {
+  background-color: rgba(232, 119, 34, 0.14);
+  border-left: 3px solid var(--tm-orange, #e87722);
+  padding-left: 3px !important;
+}
+
+:deep(.dark .cm-highlight-line),
+.dark :deep(.cm-highlight-line) {
+  background-color: rgba(232, 119, 34, 0.22);
+}
+
+:deep(.cm-activeLine.cm-highlight-line) {
+  background-color: rgba(232, 119, 34, 0.2) !important;
+}
+
+:deep(.dark .cm-activeLine.cm-highlight-line),
+.dark :deep(.cm-activeLine.cm-highlight-line) {
+  background-color: rgba(232, 119, 34, 0.28) !important;
+}
+
+:deep(.dark .cm-activeLine) {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+:deep(.dark .cm-activeLineGutter) {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
 }
 </style>

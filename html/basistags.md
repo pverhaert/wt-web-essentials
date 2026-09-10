@@ -84,6 +84,9 @@ HTML kent zes niveaus van koppen, genummerd van `<h1>` (de belangrijkste kop) to
 
 <CodeSandbox
   title="Voorbeeld: Koppen h1 tot en met h6"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<h1>Hoofdtitel van het document (niveau 1)</h1>
 <h2>Tussentitel (niveau 2)</h2>
 <h3>Deeltitel (niveau 3)</h3>
@@ -121,6 +124,9 @@ Voor gewone lopende tekst gebruik je het `<p>`-element (paragraph of alinea).
 
 <CodeSandbox
   title="Voorbeeld: Alinea's en blokelementen"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<h1>Web Essentials</h1>
 <p>Dit is de eerste alinea. Een alinea is een blokelement en begint altijd op een nieuwe regel.</p>
 <p>Dit is de tweede alinea. De browser voorziet automatisch standaard witruimte tussen de alinea's.</p>"
@@ -161,6 +167,9 @@ Met `<br>` (break) forceer je een regeleinde binnen de lopende tekst, zonder een
 
 <CodeSandbox
   title="Voorbeeld: Onderbrekingen met hr en br"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<h3>Contactgegevens</h3>
 <p>
   Thomas More Campus Geel<br>
@@ -191,6 +200,9 @@ Wanneer je bepaalde woorden in een zin extra wilt benadrukken, gebruik je `<stro
 
 <CodeSandbox
   title="Voorbeeld: Tekstnadruk met strong en em"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<p>
   Je moet je inschrijving voltooien <strong>voor 1 oktober</strong>.
 </p>
@@ -242,6 +254,9 @@ Wanneer je een compleet codeblok van meerdere regels op je website wilt tonen, c
 
 <CodeSandbox
   title="Voorbeeld: Computercode met code en pre"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<p>
   Gebruik de tag <code>&amp;lt;h1&amp;gt;</code> voor de hoofdtitel van je pagina.
 </p>
@@ -356,6 +371,9 @@ Probeer de onderstaande code zelf uit. Pas een kop aan, voeg een alinea of benad
 
 <CodeSandbox
   title="Basistags en semantische structuur"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html="<!DOCTYPE html>
 <html lang=&quot;nl&quot;>
 <head>

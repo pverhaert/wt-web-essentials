@@ -76,6 +76,9 @@ In het onderstaande interactieve voorbeeld zie je het cruciale verschil tussen e
 <CodeSandbox
   title="Vaste breedte versus Maximale breedte"
   height="450px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/* Universele resetter */
 * {
@@ -169,6 +172,9 @@ Hieronder zie je hoe padding direct zorgt voor leesbare en luchtige tekstblokken
 <CodeSandbox
   title="Padding instellen"
   height="420px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/* Universele resetter */
 * {
@@ -257,6 +263,9 @@ De browser verdeelt de resterende beschikbare horizontale ruimte gelijk over de 
 <CodeSandbox
   title="Margin en Centreren"
   height="420px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/* Universele resetter */
 * {
@@ -313,6 +322,9 @@ In de onderstaande sandbox zie je dit effect gedemonstreerd op ruitjespapier. De
 <CodeSandbox
   title="Samenvallende marges (Margin Collapse)"
   height="460px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/* Ruitjesachtergrond op lijn 8 tot en met 11 om afstanden zichtbaar te maken */
 /* De tekst binnen de blokken beschrijft de werking van de marges ;-) */
@@ -466,6 +478,9 @@ Voeg je het trefwoord `inset` toe aan het begin of einde van de notatie, dan val
 <CodeSandbox
   title="Randen en afronding"
   height="480px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css="/* Universele resetter */
 * {
@@ -589,6 +604,9 @@ Hieronder vergelijken we beide instellingen visueel:
 <CodeSandbox
   title="Content-box versus Border-box"
   height="460px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css="html {
   font-size: 14px;
@@ -699,6 +717,9 @@ In de onderstaande sandbox kan je het gedrag van de vier waarden rechtstreeks ve
 <CodeSandbox
   title="Overflow mogelijkheden"
   height="500px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/* Universele resetter */
 * {

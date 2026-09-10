@@ -107,6 +107,9 @@ h1 {
 <CodeSandbox
   title="Basis tekst- en achtergrondkleuren"
   height="460px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/* Algemene paginastijl */
 body {
@@ -537,6 +540,9 @@ body {
 <CodeSandbox
   title="Interactieve linkstijlen met het LVFHA-principe"
   height="450px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/* Pagina-achtergrond en algemene tekstkleur */
 body {

@@ -439,6 +439,48 @@
               </label>
             </div>
 
+            <!-- Optioneel regelaccentuering instellen -->
+            <div class="fs-modal-highlights">
+              <div class="fs-modal-highlight-row">
+                <span class="fs-modal-highlight-title">Regels accentueren (optioneel, bijv. <code>8</code> of <code>20-25</code>):</span>
+              </div>
+              <div class="fs-modal-highlight-grid">
+                <div class="fs-modal-highlight-field">
+                  <label class="fs-modal-field-label">
+                    <span class="fs-modal-field-tag fs-tag-html">HTML</span>
+                    <input
+                      v-model="savedHighlightHtml"
+                      type="text"
+                      class="fs-modal-text-input"
+                      placeholder="bijv. 8, 20-25 (of leeg)"
+                    />
+                  </label>
+                </div>
+                <div v-if="hasCss" class="fs-modal-highlight-field">
+                  <label class="fs-modal-field-label">
+                    <span class="fs-modal-field-tag fs-tag-css">CSS</span>
+                    <input
+                      v-model="savedHighlightCss"
+                      type="text"
+                      class="fs-modal-text-input"
+                      placeholder="bijv. 4, 10-15 (of leeg)"
+                    />
+                  </label>
+                </div>
+                <div v-if="hasJs" class="fs-modal-highlight-field">
+                  <label class="fs-modal-field-label">
+                    <span class="fs-modal-field-tag fs-tag-js">JS</span>
+                    <input
+                      v-model="savedHighlightJs"
+                      type="text"
+                      class="fs-modal-text-input"
+                      placeholder="bijv. 5 (of leeg)"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+
             <div class="fs-modal-code-wrapper">
               <textarea
                 ref="exportTextareaRef"
@@ -493,6 +535,7 @@ import { oneDark } from '@codemirror/theme-one-dark'
 import { Compartment } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
+import { createLineHighlightExtension } from '../composables/useLineHighlight'
 
 const defaultHtml = `<!DOCTYPE html>
 <html lang="nl">
@@ -526,6 +569,9 @@ function getInitialData() {
       html: defaultHtml,
       css: '',
       js: '',
+      highlightHtml: '',
+      highlightCss: '',
+      highlightJs: '',
       activeTab: 'html' as const,
       hasCss: false,
       hasJs: false,
@@ -542,6 +588,9 @@ function getInitialData() {
         const html = cleanHtml(parsed.code || parsed.initialCode || defaultHtml)
         const css = parsed.css || parsed.initialCss || ''
         const js = parsed.js || parsed.initialJs || ''
+        const highlightHtml = parsed.highlightHtml || ''
+        const highlightCss = parsed.highlightCss || ''
+        const highlightJs = parsed.highlightJs || ''
         const title = parsed.title || 'Web Essentials Code Sandbox'
         const height = parsed.height || '450px'
         const activeTab = (parsed.activeCodeTab && ['html', 'css', 'js'].includes(parsed.activeCodeTab))
@@ -553,6 +602,9 @@ function getInitialData() {
           html,
           css,
           js,
+          highlightHtml,
+          highlightCss,
+          highlightJs,
           activeTab,
           hasCss: Boolean(css && css.trim().length > 0),
           hasJs: Boolean(js && js.trim().length > 0),
@@ -569,6 +621,9 @@ function getInitialData() {
     html: defaultHtml,
     css: '',
     js: '',
+    highlightHtml: '',
+    highlightCss: '',
+    highlightJs: '',
     activeTab: 'html' as const,
     hasCss: false,
     hasJs: false,
@@ -585,6 +640,9 @@ const currentCss = ref(initialData.css)
 const initialCss = ref(initialData.css)
 const currentJs = ref(initialData.js)
 const initialJs = ref(initialData.js)
+const savedHighlightHtml = ref(initialData.highlightHtml || '')
+const savedHighlightCss = ref(initialData.highlightCss || '')
+const savedHighlightJs = ref(initialData.highlightJs || '')
 
 const activeCodeLanguage = ref<'html' | 'css' | 'js'>(initialData.activeTab)
 const activeTab = ref<'preview' | 'code' | 'split'>('split')
@@ -614,6 +672,10 @@ const htmlThemeCompartment = new Compartment()
 const cssThemeCompartment = new Compartment()
 const jsThemeCompartment = new Compartment()
 
+const htmlHighlightCompartment = new Compartment()
+const cssHighlightCompartment = new Compartment()
+const jsHighlightCompartment = new Compartment()
+
 const isResizing = ref(false)
 const isRowResizing = ref<null | 1 | 2>(null)
 
@@ -634,6 +696,8 @@ const toggleCssPanel = () => {
           currentCss.value,
           'css',
           cssThemeCompartment,
+          cssHighlightCompartment,
+          () => savedHighlightCss.value,
           (val) => { currentCss.value = val }
         )
       }
@@ -661,6 +725,8 @@ const toggleJsPanel = () => {
           currentJs.value,
           'js',
           jsThemeCompartment,
+          jsHighlightCompartment,
+          () => savedHighlightJs.value,
           (val) => { currentJs.value = val }
         )
       }
@@ -805,6 +871,8 @@ const createEditorInstance = (
   docText: string,
   lang: 'html' | 'css' | 'js',
   themeComp: Compartment,
+  highlightComp: Compartment,
+  getHighlightRange: () => string,
   onDocChange: (val: string) => void
 ) => {
   let langExt
@@ -821,6 +889,7 @@ const createEditorInstance = (
     extensions: [
       basicSetup,
       langExt,
+      highlightComp.of(createLineHighlightExtension(getHighlightRange)),
       closeBrackets(),
       autocompletion({
         activateOnTyping: true,
@@ -859,12 +928,17 @@ const createEditorInstance = (
           color: '#8b949e',
         },
         '.cm-activeLine': {
-          backgroundColor: 'rgba(232, 119, 34, 0.08)',
+          backgroundColor: 'rgba(0, 0, 0, 0.04)',
         },
         '.cm-activeLineGutter': {
-          backgroundColor: 'rgba(232, 119, 34, 0.15)',
-          color: '#e87722',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          color: 'var(--vp-c-text-1, #0f172a)',
           fontWeight: 'bold',
+        },
+        '.cm-highlight-line': {
+          backgroundColor: 'rgba(232, 119, 34, 0.14)',
+          borderLeft: '3px solid #e87722',
+          paddingLeft: '3px !important',
         },
         '.cm-tooltip-autocomplete': {
           border: '1px solid #cbd5e1',
@@ -894,6 +968,8 @@ const initAllEditors = () => {
       currentCode.value,
       'html',
       htmlThemeCompartment,
+      htmlHighlightCompartment,
+      () => savedHighlightHtml.value,
       (val) => { currentCode.value = val }
     )
   }
@@ -904,6 +980,8 @@ const initAllEditors = () => {
       currentCss.value,
       'css',
       cssThemeCompartment,
+      cssHighlightCompartment,
+      () => savedHighlightCss.value,
       (val) => { currentCss.value = val }
     )
   }
@@ -914,10 +992,36 @@ const initAllEditors = () => {
       currentJs.value,
       'js',
       jsThemeCompartment,
+      jsHighlightCompartment,
+      () => savedHighlightJs.value,
       (val) => { currentJs.value = val }
     )
   }
 }
+
+watch(savedHighlightHtml, (newVal) => {
+  if (htmlEditorView) {
+    htmlEditorView.dispatch({
+      effects: htmlHighlightCompartment.reconfigure(createLineHighlightExtension(() => newVal)),
+    })
+  }
+})
+
+watch(savedHighlightCss, (newVal) => {
+  if (cssEditorView) {
+    cssEditorView.dispatch({
+      effects: cssHighlightCompartment.reconfigure(createLineHighlightExtension(() => newVal)),
+    })
+  }
+})
+
+watch(savedHighlightJs, (newVal) => {
+  if (jsEditorView) {
+    jsEditorView.dispatch({
+      effects: jsHighlightCompartment.reconfigure(createLineHighlightExtension(() => newVal)),
+    })
+  }
+})
 
 const toggleTheme = () => {
   isDark.value = !isDark.value
@@ -1062,6 +1166,10 @@ const generatedSnippet = computed(() => {
       parts.push(`  activeCodeTab="${activeCodeLanguage.value}"`)
     }
   }
+
+  parts.push(`  highlightHtml="${savedHighlightHtml.value || ''}"`)
+  parts.push(`  highlightCss="${savedHighlightCss.value || ''}"`)
+  parts.push(`  highlightJs="${savedHighlightJs.value || ''}"`)
 
   if (hasCss.value && currentCss.value.trim().length > 0) {
     parts.push(`  css="${escapeForAttribute(currentCss.value, removeEmptyLines.value)}"`)
@@ -2167,5 +2275,139 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+}
+
+/* Highlights configuratie in Export Modal */
+.fs-modal-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  background-color: #f1f5f9;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.is-dark .fs-modal-highlights {
+  background-color: #0f172a;
+  border-color: #334155;
+}
+
+.fs-modal-highlight-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.is-dark .fs-modal-highlight-title {
+  color: #94a3b8;
+}
+
+.fs-modal-highlight-title code {
+  background-color: rgba(0, 0, 0, 0.06);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-family: var(--vp-font-family-mono, Consolas, Monaco, monospace);
+  font-size: 0.78rem;
+}
+
+.is-dark .fs-modal-highlight-title code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.fs-modal-highlight-grid {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.fs-modal-highlight-field {
+  flex: 1;
+  min-width: 150px;
+}
+
+.fs-modal-field-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+}
+
+.fs-modal-field-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  color: #ffffff;
+  font-family: var(--vp-font-family-mono, monospace);
+}
+
+.fs-tag-html {
+  background-color: #e45649;
+}
+
+.fs-tag-css {
+  background-color: #0284c7;
+}
+
+.fs-tag-js {
+  background-color: #d97706;
+}
+
+.fs-modal-text-input {
+  flex: 1;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  font-family: var(--vp-font-family-mono, Consolas, Monaco, monospace);
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.fs-modal-text-input:focus {
+  border-color: #e87722;
+}
+
+.is-dark .fs-modal-text-input {
+  background-color: #1e293b;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+.is-dark .fs-modal-text-input:focus {
+  border-color: #e87722;
+}
+
+/* CodeMirror Highlight Line Styling */
+:deep(.cm-highlight-line) {
+  background-color: rgba(232, 119, 34, 0.14);
+  border-left: 3px solid #e87722;
+  padding-left: 3px !important;
+}
+
+:deep(.is-dark .cm-highlight-line),
+.is-dark :deep(.cm-highlight-line) {
+  background-color: rgba(232, 119, 34, 0.22);
+}
+
+:deep(.cm-activeLine.cm-highlight-line) {
+  background-color: rgba(232, 119, 34, 0.2) !important;
+}
+
+:deep(.is-dark .cm-activeLine.cm-highlight-line),
+.is-dark :deep(.cm-activeLine.cm-highlight-line) {
+  background-color: rgba(232, 119, 34, 0.28) !important;
+}
+
+:deep(.is-dark .cm-activeLine) {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+:deep(.is-dark .cm-activeLineGutter) {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
 }
 </style>

@@ -284,6 +284,9 @@ i {
 <CodeSandbox
   title="Font Awesome via CDN"
   height="480px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css="@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
@@ -387,6 +390,9 @@ i {
 <CodeSandbox
   title="Lucide Icons via CDN"
   height="480px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css="@import url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');

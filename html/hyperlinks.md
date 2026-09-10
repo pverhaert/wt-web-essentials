@@ -195,6 +195,9 @@ In het onderstaande interactieve voorbeeld zie je een navigatiemenu dat naar ver
 
 <CodeSandbox
   title="Interne navigatie met ankers en id-attributen"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -396,6 +399,9 @@ Gebruik het `title`-attribuut uitsluitend als nuttige aanvulling, **nooit** ter 
 
 <CodeSandbox
   title="Voorbeeld van een contactoverzicht met diverse protocollen"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>

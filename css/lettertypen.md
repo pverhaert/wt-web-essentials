@@ -273,6 +273,9 @@ In het onderstaande interactieve voorbeeld zie je het verschil tussen verschille
 <CodeSandbox
   title="Lettertypen, schaling en regelhoogte"
   height="450px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css="body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -460,6 +463,9 @@ In dit voorbeeld combineren we `text-transform`, `text-decoration`, `text-shadow
 <CodeSandbox
   title="Tekstopmaak, links en schaduw"
   height="460px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css="body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;

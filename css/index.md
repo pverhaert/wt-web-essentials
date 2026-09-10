@@ -193,6 +193,9 @@ In het onderstaande interactieve voorbeeld zie je hoe een externe stijlregel dir
 <CodeSandbox
   title="Anatomie van een CSS-stijlregel"
   height="450px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/*Tussentitel */
 h2 {
@@ -383,6 +386,9 @@ Test in het onderstaande interactieve voorbeeld hoe de cascade en bronvolgorde w
 <CodeSandbox
   title="De Cascade en bronvolgorde"
   height="450px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/*Eerste regel: blauw */
 .bericht {
@@ -454,6 +460,9 @@ Dit onderscheid is vanzelfsprekend. Als je een kader (`border: 2px solid black;`
 <CodeSandbox
   title="Overerving van eigenschappen via de DOM"
   height="460px"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   activeCodeTab="css"
   css='/*De body stelt het lettertype, de kleur en een rand in */
 body {

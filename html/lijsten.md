@@ -127,6 +127,9 @@ In onderstaand interactief voorbeeld zie je zowel een ongeordende lijst als vers
 
 <CodeSandbox
   title="Basislijsten: ul en ol met attributen"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -223,6 +226,9 @@ In onderstaand voorbeeld zie je een opleidingenoverzicht van Thomas More Campus 
 
 <CodeSandbox
   title="Geneste lijststructuur"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -341,6 +347,9 @@ Bekijk in dit voorbeeld hoe je een technische specificatiefiche voor een laptop 
 
 <CodeSandbox
   title="Beschrijvingslijst met specificaties"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>

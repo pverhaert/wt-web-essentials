@@ -126,6 +126,9 @@ In het onderstaande voorbeeld zie je een drankaanbod. Merk op hoe `<caption>` bo
 
 <CodeSandbox
   title="Voorbeeld: Eenvoudige tabel met caption en koppen"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -258,6 +261,9 @@ In het onderstaande voorbeeld zie je een dagoverzicht voor studenten op de campu
 
 <CodeSandbox
   title="Voorbeeld: Cellen samenvoegen met colspan en rowspan"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -451,6 +457,9 @@ In het onderstaande voorbeeld komen alle semantische onderdelen samen: `<caption
 
 <CodeSandbox
   title="Voorbeeld: Gestructureerde tabel met thead, tbody en tfoot"
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
