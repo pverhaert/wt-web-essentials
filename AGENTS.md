@@ -227,6 +227,10 @@ Voeg altijd ook een statisch codeblok toe naast de CodeSandbox, zodat studenten 
 | `/tools/realfavicongenerator` | RealFaviconGenerator |
 | `/tools/favicon-generator` | Favicon Generator (.ico) |
 | `/tools/extensions` | Browser Extensies |
+| `/tools/line-height-spel` | Line-height Spel |
+| `/tools/font-simulator` | Font Simulator |
+| `/tools/kleurenomzetter` | Kleurenomzetter |
+| `/sandbox` | Fullscreen Sandbox |
 
 ---
 
@@ -278,9 +282,10 @@ Toont een compacte, interactieve kleurenkiezer en kleurenpalet voor het visualis
 Toont een live, interactief codevoorbeeld met ingebouwde CodeMirror 6 editor en live preview. Ondersteunt zowel alleen HTML als afzonderlijke CSS en JavaScript via props:
 
 #### Belangrijke richtlijnen voor CodeSandbox:
-- **Toon in alle sandboxen ALTIJD de volledige HTML-code:** Neem in alle sandboxen altijd de volledige HTML-structuur op (`<!DOCTYPE html>`, `<html lang="nl">`, `<head>`, `<meta charset="UTF-8">`, `<title>`, eventueel `<link rel="stylesheet" href="stijl.css">` en `<body>`). Toon nooit alleen losse HTML-fragmenten.
+- **Toon in alle sandboxen ALTIJD de volledige HTML-code:** Neem in alle sandboxen altijd de volledige HTML-structuur op (`<!DOCTYPE html>`, `<html lang="nl">`, `<head>`, `<meta charset="UTF-8">`, `<meta name="viewport" content="width=device-width, initial-scale=1.0">`, `<title>`, eventueel `<link rel="stylesheet" href="stijl.css">` en `<body>`). Toon nooit alleen losse HTML-fragmenten.
 - **GEEN lege regels binnen de CodeSandbox-attributen:** In Markdown-it veroorzaakt een lege regel binnen een componenttag een breuk in het HTML-blok, waardoor de markdown-parser onbedoeld `<p>`-tags middenin attributen zoals `css` of `html` injecteert. Laat daarom NOOIT lege regels vallen binnen de code van de attributen; gebruik om regels of blokken te scheiden altijd echte, inhoudelijke commentaarregels (bijvoorbeeld `/* Algemene paginastijl */` of `<!-- Hoofdnavigatie -->`) en GEEN loze opvulcommentaar zoals `/* --- */`.
 - **Enkel reeds behandelde CSS:** Gebruik in sandboxen uitsluitend CSS-eigenschappen die in het huidige of in voorgaande CSS-hoofdstukken zijn besproken. Uitzonderingen zijn enkel toegestaan als je dit vooraf expliciet aan de gebruiker vraagt en goedkeuring krijgt.
+- **Universele resetter bovenaan elke stylesheet:** Vanaf het hoofdstuk Box Model start elke CSS-stylesheet in een CodeSandbox altijd bovenaan met de universele resetter (`* { box-sizing: border-box; margin: 0; padding: 0; }`).
 - **Nette inspringing:** Zorg dat zowel HTML als CSS netjes en consistent zijn ingesprongen (2 spaties per inspringniveau).
 
 ```vue
@@ -290,13 +295,14 @@ Toont een live, interactief codevoorbeeld met ingebouwde CodeMirror 6 editor en 
   height="450px"
   activeCodeTab="css"
   css='h1 {
-  color: #e87722;
+  color: #EC6639;
   font-family: sans-serif;
 }'
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Voorbeeld</title>
   <link rel="stylesheet" href="stijl.css">
 </head>

@@ -561,6 +561,7 @@ Het favicon plaats je niet in de `<body>`, maar in het **`<head>`**-gedeelte van
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thomas More - Web Essentials</title>
 
   <!-- Klassiek ICO-formaat voor maximale compatibiliteit -->

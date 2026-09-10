@@ -1,7 +1,7 @@
 /**
  * Thomas More Web Essentials - Huisstijl
  *
- * Primaire kleur  : #E87722  (TM Oranje)
+ * Primaire kleur  : #EC6639  (TM Oranje)
  * Secundaire kleur: #1E2D5A  (TM Donkerblauw)
  * Basis           : wit / lichtgrijs
  */
@@ -17,11 +17,11 @@
    LICHT THEMA - Thomas More kleuren
    ============================================= */
 :root {
-  /* Merkkleur (oranje) */
-  --vp-c-brand-1: #e87722;
-  --vp-c-brand-2: #d4641a;
-  --vp-c-brand-3: #c05010;
-  --vp-c-brand-soft: rgba(232, 119, 34, 0.14);
+  /* Merkkleur voor knoppen, accenten, navigatie en layout */
+  --vp-c-brand-1: #EC6639;
+  --vp-c-brand-2: #d05a32;
+  --vp-c-brand-3: #b14d2b;
+  --vp-c-brand-soft: rgba(236, 102, 57, 0.14);
 
   /* Info containers (Blauw) */
   --vp-c-info-1: #0284c7;
@@ -43,10 +43,11 @@
   --vp-custom-block-tip-bg: #ecfdf5;
   --vp-custom-block-tip-code-bg: rgba(5, 150, 105, 0.12);
 
-  /* Thomas More donkerblauw en lichtblauw als custom variabelen */
+  /* Thomas More donkerblauw, lichtblauw en oranje huisstijlkleuren */
   --tm-dark-blue: #1e2d5a;
   --tm-light-blue: #e8f3fc;
-  --tm-orange: #e87722;
+  --tm-orange: #EC6639;       /* Officiële merk- en logokleur (illustraties, decoratie, knoppen, layout) */
+  --tm-orange-text: #EC6639;  /* Oranje voor navigatie, accenten en knoppen */
 }
 
 /* =============================================
@@ -54,10 +55,11 @@
    ============================================= */
 .dark {
   --tm-light-blue: #141d33;
+  --tm-orange-text: #f09040;  /* Toegankelijke oranje tekstkleur voor donkere achtergronden (WCAG AAA > 7:1) */
   --vp-c-brand-1: #f09040;
-  --vp-c-brand-2: #e87722;
-  --vp-c-brand-3: #d4641a;
-  --vp-c-brand-soft: rgba(232, 119, 34, 0.16);
+  --vp-c-brand-2: #EC6639;
+  --vp-c-brand-3: #d05a32;
+  --vp-c-brand-soft: rgba(236, 102, 57, 0.18);
 
   /* Info containers (Blauw in donker thema) */
   --vp-c-info-1: #38bdf8;
@@ -84,10 +86,10 @@
    NAVIGATIEBALK
    ============================================= */
 
-/* Actieve nav link onderlijning in TM oranje */
+/* Actieve nav link onderlijning in toegankelijk TM oranje (WCAG AA) */
 .VPNavBarMenuLink.active,
 .VPNavBarMenuLink:hover {
-  color: var(--vp-c-brand-1) !important;
+  color: var(--tm-orange-text) !important;
 }
 
 /* Header achtergrond licht donkerblauw tint in dark mode */
@@ -131,7 +133,7 @@
    SIDEBAR
    ============================================= */
 .VPSidebarItem.is-active>.item .text {
-  color: var(--vp-c-brand-1);
+  color: var(--tm-orange-text);
   font-weight: 600;
 }
 
@@ -139,8 +141,9 @@
    KNOPPEN
    ============================================= */
 .VPButton.medium.brand {
-  background-color: var(--tm-orange);
-  border-color: var(--tm-orange);
+  background-color: var(--tm-orange-text);
+  border-color: var(--tm-orange-text);
+  color: #ffffff !important;
 }
 
 .VPButton.medium.brand:hover {
@@ -171,13 +174,13 @@
    FEATURE KAARTEN (homepagina)
    ============================================= */
 .VPFeature {
-  border-color: rgba(232, 119, 34, 0.2);
+  border-color: rgba(236, 102, 57, 0.2);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .VPFeature:hover {
   border-color: var(--tm-orange);
-  box-shadow: 0 4px 20px rgba(232, 119, 34, 0.12);
+  box-shadow: 0 4px 20px rgba(236, 102, 57, 0.12);
 }
 
 /* =============================================
@@ -347,15 +350,15 @@
 
 /* =============================================
    INHOUDSOPGAVE / OUTLINE ACTIEVE LINK
-   (Tekst oranje kleuren naast het oranje streepje)
+   (Tekst in toegankelijk oranje naast het actieve streepje, WCAG AA)
    ============================================= */
 .outline-link.active {
-  color: var(--vp-c-brand-1) !important;
-  font-weight: 500;
+  color: var(--tm-orange-text) !important;
+  font-weight: 600;
 }
 
 .outline-link:hover {
-  color: var(--vp-c-brand-1);
+  color: var(--tm-orange-text);
 }
 
 

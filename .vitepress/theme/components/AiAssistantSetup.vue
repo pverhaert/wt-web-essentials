@@ -127,7 +127,7 @@
         <div class="ai-help-link-wrapper">
           <a
             href="https://aistudio.google.com/app/apikey"
-            target="_blank"
+            target="page2"
             rel="noopener noreferrer"
             class="ai-link-external"
           >

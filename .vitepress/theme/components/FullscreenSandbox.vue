@@ -83,6 +83,21 @@
           {{ isCopied ? 'Gekopieerd!' : 'Kopiëren' }}
         </button>
 
+        <!-- IDE Export knop (enkel in developer mode) -->
+        <button
+          v-if="isDev"
+          type="button"
+          class="fs-btn fs-btn-dev"
+          title="Exporteer kant-en-klare CodeSandbox-code voor Markdown (Dev Only)"
+          @click="openExportModal"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6" />
+            <polyline points="8 6 2 12 8 18" />
+          </svg>
+          IDE Export
+        </button>
+
         <!-- Download HTML bestand knop -->
         <button
           type="button"
@@ -361,6 +376,109 @@
         <span class="fs-status-item">Thomas More Campus Geel - IT Factory</span>
       </div>
     </footer>
+
+    <!-- IDE Export Modal (enkel zichtbaar in developer mode) -->
+    <Transition name="fs-modal-fade">
+      <div
+        v-if="isDev && showExportModal"
+        class="fs-modal-backdrop"
+        role="dialog"
+        aria-modal="true"
+        aria-label="CodeSandbox Markdown Export"
+        @click="closeExportModal"
+      >
+        <div class="fs-modal-card" @click.stop>
+          <div class="fs-modal-header">
+            <div class="fs-modal-title-group">
+              <span class="fs-modal-dev-badge">DEV</span>
+              <h3 class="fs-modal-title">CodeSandbox IDE Export</h3>
+            </div>
+            <button
+              type="button"
+              class="fs-modal-close-btn"
+              title="Sluiten (Esc)"
+              @click="closeExportModal"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="fs-modal-body">
+            <p class="fs-modal-desc">
+              Kopieer onderstaande component-code en plak deze direct in je Markdown-bestand in PhpStorm. De buitenste aanhalingstekens (bij <code>title=&quot;...&quot;</code> en <code>html=&quot;...&quot;</code>) zijn verplicht voor Vue. Alle aanhalingstekens <strong>binnenin jouw eigen code</strong> (zoals <code>class=&quot;...&quot;</code> of <code>src=&quot;...&quot;</code>) worden automatisch geconverteerd naar <code>&amp;quot;</code>.
+            </p>
+
+            <div class="fs-modal-status-bar">
+              <div v-if="escapedQuoteCount > 0" class="fs-modal-status-item is-converted">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span><strong>{{ escapedQuoteCount }}</strong> interne aanhalingstekens omgezet naar <code>&amp;quot;</code></span>
+              </div>
+              <div v-else class="fs-modal-status-item is-zero">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                <span><strong>0</strong> interne aanhalingstekens in deze code (deze HTML bevat geen attributen zoals <code>class</code> of <code>src</code>)</span>
+              </div>
+            </div>
+
+            <div class="fs-modal-options">
+              <label class="fs-modal-checkbox-label">
+                <input
+                  v-model="removeEmptyLines"
+                  type="checkbox"
+                  class="fs-modal-checkbox"
+                />
+                <span>Lege regels verwijderen (voorkomt ongewenste <code>&lt;p&gt;</code>-splitsingen in Markdown-it)</span>
+              </label>
+            </div>
+
+            <div class="fs-modal-code-wrapper">
+              <textarea
+                ref="exportTextareaRef"
+                class="fs-modal-textarea"
+                readonly
+                :value="generatedSnippet"
+                @click="handleTextareaClick"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="fs-modal-footer">
+            <span class="fs-modal-hint">Tip: Klik in het tekstvak om alle code direct te selecteren</span>
+            <div class="fs-modal-footer-actions">
+              <button
+                type="button"
+                class="fs-btn fs-btn-outline"
+                @click="closeExportModal"
+              >
+                Sluiten
+              </button>
+              <button
+                type="button"
+                class="fs-btn fs-btn-primary"
+                @click="copyExportSnippet"
+              >
+                <svg v-if="!isExportCopied" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {{ isExportCopied ? 'Gekopieerd!' : 'Kopieer Markdown Code' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -404,6 +522,7 @@ function getInitialData() {
   if (typeof window === 'undefined') {
     return {
       title: 'Web Essentials Code Sandbox',
+      height: '450px',
       html: defaultHtml,
       css: '',
       js: '',
@@ -424,11 +543,13 @@ function getInitialData() {
         const css = parsed.css || parsed.initialCss || ''
         const js = parsed.js || parsed.initialJs || ''
         const title = parsed.title || 'Web Essentials Code Sandbox'
+        const height = parsed.height || '450px'
         const activeTab = (parsed.activeCodeTab && ['html', 'css', 'js'].includes(parsed.activeCodeTab))
           ? (parsed.activeCodeTab as 'html' | 'css' | 'js')
           : 'html'
         return {
           title,
+          height,
           html,
           css,
           js,
@@ -444,6 +565,7 @@ function getInitialData() {
 
   return {
     title: 'Web Essentials Code Sandbox',
+    height: '450px',
     html: defaultHtml,
     css: '',
     js: '',
@@ -456,6 +578,7 @@ function getInitialData() {
 const initialData = getInitialData()
 
 const currentTitle = ref(initialData.title)
+const savedHeight = ref(initialData.height || '450px')
 const currentCode = ref(initialData.html)
 const initialCode = ref(initialData.html)
 const currentCss = ref(initialData.css)
@@ -862,6 +985,112 @@ const copySubCode = async (lang: 'html' | 'css' | 'js') => {
   }
 }
 
+// Developer Mode controle en IDE Export functionaliteit
+const isDev = ref(import.meta.env.DEV)
+const showExportModal = ref(false)
+const isExportCopied = ref(false)
+const removeEmptyLines = ref(true)
+const exportTextareaRef = ref<HTMLTextAreaElement | null>(null)
+
+const escapedQuoteCount = computed(() => {
+  let count = 0
+  if (currentCode.value) {
+    const matches = currentCode.value.match(/"/g)
+    if (matches) count += matches.length
+  }
+  if (currentCss.value) {
+    const matches = currentCss.value.match(/"/g)
+    if (matches) count += matches.length
+  }
+  if (currentJs.value) {
+    const matches = currentJs.value.match(/"/g)
+    if (matches) count += matches.length
+  }
+  return count
+})
+
+const openExportModal = () => {
+  showExportModal.value = true
+  if (typeof window !== 'undefined') {
+    window.addEventListener('keydown', handleExportKeyDown)
+  }
+}
+
+const closeExportModal = () => {
+  showExportModal.value = false
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('keydown', handleExportKeyDown)
+  }
+}
+
+const handleExportKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && showExportModal.value) {
+    closeExportModal()
+  }
+}
+
+const handleTextareaClick = (event: MouseEvent) => {
+  const target = event.target as HTMLTextAreaElement
+  if (target) {
+    target.select()
+  }
+}
+
+const escapeForAttribute = (code: string, stripEmptyLines = false): string => {
+  if (!code) return ''
+  let processed = code
+  if (stripEmptyLines) {
+    processed = processed
+      .split('\n')
+      .filter((line) => line.trim().length > 0)
+      .join('\n')
+  }
+  return processed.replace(/"/g, '&quot;')
+}
+
+const generatedSnippet = computed(() => {
+  const parts: string[] = ['<CodeSandbox']
+
+  if (currentTitle.value && currentTitle.value.trim().length > 0) {
+    parts.push(`  title="${currentTitle.value.replace(/"/g, '&quot;')}"`)
+  }
+
+  parts.push(`  height="${savedHeight.value || '450px'}"`)
+
+  if (hasCss.value || hasJs.value) {
+    if (activeCodeLanguage.value !== 'html') {
+      parts.push(`  activeCodeTab="${activeCodeLanguage.value}"`)
+    }
+  }
+
+  if (hasCss.value && currentCss.value.trim().length > 0) {
+    parts.push(`  css="${escapeForAttribute(currentCss.value, removeEmptyLines.value)}"`)
+  }
+
+  if (hasJs.value && currentJs.value.trim().length > 0) {
+    parts.push(`  js="${escapeForAttribute(currentJs.value, removeEmptyLines.value)}"`)
+  }
+
+  if (currentCode.value && currentCode.value.trim().length > 0) {
+    parts.push(`  html="${escapeForAttribute(currentCode.value, removeEmptyLines.value)}"`)
+  }
+
+  parts.push('/>')
+  return parts.join('\n')
+})
+
+const copyExportSnippet = async () => {
+  try {
+    await navigator.clipboard.writeText(generatedSnippet.value)
+    isExportCopied.value = true
+    setTimeout(() => {
+      isExportCopied.value = false
+    }, 2000)
+  } catch (err) {
+    console.error('Kopiëren van export code mislukt:', err)
+  }
+}
+
 const downloadHtml = () => {
   let fileContent = currentCode.value
   if (currentCss.value || currentJs.value) {
@@ -1042,6 +1271,10 @@ onBeforeUnmount(() => {
   document.removeEventListener('touchmove', handleRowTouchResize)
   document.removeEventListener('touchend', stopRowTouchResize)
   document.removeEventListener('touchcancel', stopRowTouchResize)
+
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('keydown', handleExportKeyDown)
+  }
 })
 </script>
 
@@ -1597,5 +1830,342 @@ onBeforeUnmount(() => {
 
 .fs-main.view-preview .fs-preview-pane {
   width: 100% !important;
+}
+
+/* Dev Export Knop in Header */
+.fs-btn-dev {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #e0e7ff;
+  border-color: rgba(129, 140, 248, 0.45);
+}
+
+.fs-btn-dev:hover {
+  background-color: rgba(99, 102, 241, 0.38);
+  border-color: rgba(129, 140, 248, 0.8);
+  color: #ffffff;
+}
+
+/* Modal Fade Animatie */
+.fs-modal-fade-enter-active,
+.fs-modal-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fs-modal-fade-enter-from,
+.fs-modal-fade-leave-to {
+  opacity: 0;
+}
+
+.fs-modal-fade-enter-active .fs-modal-card,
+.fs-modal-fade-leave-active .fs-modal-card {
+  transition: transform 0.2s ease;
+}
+
+.fs-modal-fade-enter-from .fs-modal-card,
+.fs-modal-fade-leave-to .fs-modal-card {
+  transform: scale(0.96);
+}
+
+/* Modal Backdrop & Kaart */
+.fs-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.fs-modal-card {
+  width: 100%;
+  max-width: 820px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  color: #0f172a;
+}
+
+.is-dark .fs-modal-card {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* Modal Header */
+.fs-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  flex-shrink: 0;
+}
+
+.is-dark .fs-modal-header {
+  background-color: #0f172a;
+  border-bottom-color: #334155;
+}
+
+.fs-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.fs-modal-dev-badge {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.is-dark .fs-modal-dev-badge {
+  background-color: rgba(129, 140, 248, 0.2);
+  color: #a5b4fc;
+  border-color: rgba(129, 140, 248, 0.4);
+}
+
+.fs-modal-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.is-dark .fs-modal-title {
+  color: #f8fafc;
+}
+
+.fs-modal-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fs-modal-close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+}
+
+.is-dark .fs-modal-close-btn {
+  color: #94a3b8;
+}
+
+.is-dark .fs-modal-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Modal Body */
+.fs-modal-body {
+  padding: 1.15rem 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex: 1;
+}
+
+.fs-modal-desc {
+  margin: 0;
+  font-size: 0.86rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.is-dark .fs-modal-desc {
+  color: #94a3b8;
+}
+
+.fs-modal-desc code {
+  background-color: rgba(0, 0, 0, 0.06);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-family: var(--vp-font-family-mono, Consolas, Monaco, monospace);
+  font-size: 0.8rem;
+  color: #e87722;
+}
+
+.is-dark .fs-modal-desc code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f39c12;
+}
+
+.fs-modal-status-bar {
+  display: flex;
+  align-items: center;
+}
+
+.fs-modal-status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.fs-modal-status-item code {
+  background-color: rgba(0, 0, 0, 0.06);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-family: var(--vp-font-family-mono, Consolas, Monaco, monospace);
+  font-size: 0.78rem;
+}
+
+.fs-modal-status-item.is-converted {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.is-dark .fs-modal-status-item.is-converted {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.fs-modal-status-item.is-zero {
+  background-color: rgba(59, 130, 246, 0.08);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.is-dark .fs-modal-status-item.is-zero {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.fs-modal-options {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 0.85rem;
+  background-color: #f1f5f9;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.is-dark .fs-modal-options {
+  background-color: #0f172a;
+  border-color: #334155;
+}
+
+.fs-modal-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: #334155;
+  cursor: pointer;
+  user-select: none;
+}
+
+.is-dark .fs-modal-checkbox-label {
+  color: #cbd5e1;
+}
+
+.fs-modal-checkbox {
+  accent-color: #e87722;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.fs-modal-checkbox-label code {
+  background-color: rgba(0, 0, 0, 0.06);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-family: var(--vp-font-family-mono, Consolas, Monaco, monospace);
+  font-size: 0.78rem;
+}
+
+.is-dark .fs-modal-checkbox-label code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.fs-modal-code-wrapper {
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  overflow: hidden;
+  height: 320px;
+}
+
+.is-dark .fs-modal-code-wrapper {
+  border-color: #475569;
+}
+
+.fs-modal-textarea {
+  width: 100%;
+  height: 100%;
+  padding: 0.85rem;
+  font-family: var(--vp-font-family-mono, Consolas, Monaco, monospace);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  border: none;
+  outline: none;
+  resize: none;
+  background-color: #f8fafc;
+  color: #0f172a;
+  white-space: pre;
+}
+
+.is-dark .fs-modal-textarea {
+  background-color: #0b1120;
+  color: #e2e8f0;
+}
+
+/* Modal Footer */
+.fs-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  border-top: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  flex-shrink: 0;
+  gap: 1rem;
+}
+
+.is-dark .fs-modal-footer {
+  background-color: #0f172a;
+  border-top-color: #334155;
+}
+
+.fs-modal-hint {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.fs-modal-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 </style>

@@ -110,6 +110,7 @@ Standaard opent een browser een geklikte link in hetzelfde browsertabblad. Met h
 | --- | --- |
 | `_self` | **Standaardwaarde.** Opent de pagina in hetzelfde venster of tabblad. |
 | `_blank` | Opent de pagina in een **nieuw tabblad** of een nieuw browservenster. |
+| `pagina2` | Opent de pagina in een **nieuw tabblad** met als naam `pagina2`. |
 
 ```html
 <!-- Opent in een nieuw tabblad -->
@@ -198,6 +199,7 @@ In het onderstaande interactieve voorbeeld zie je een navigatiemenu dat naar ver
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anker navigatie</title>
 </head>
 <body>
@@ -398,6 +400,7 @@ Gebruik het `title`-attribuut uitsluitend als nuttige aanvulling, **nooit** ter 
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Campus Geel</title>
 </head>
 <body>

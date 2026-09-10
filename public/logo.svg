@@ -5,7 +5,7 @@
   <!-- Linker haakje < in TM oranje -->
   <polyline
     points="175,148 88,256 175,364"
-    stroke="#E87722"
+    stroke="#EC6639"
     stroke-width="54"
     stroke-linecap="round"
     stroke-linejoin="round"
@@ -15,7 +15,7 @@
   <!-- Rechter haakje > in TM oranje -->
   <polyline
     points="337,148 424,256 337,364"
-    stroke="#E87722"
+    stroke="#EC6639"
     stroke-width="54"
     stroke-linecap="round"
     stroke-linejoin="round"

@@ -131,6 +131,7 @@ In onderstaand interactief voorbeeld zie je zowel een ongeordende lijst als vers
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Basislijsten in HTML</title>
 </head>
 <body>
@@ -226,6 +227,7 @@ In onderstaand voorbeeld zie je een opleidingenoverzicht van Thomas More Campus 
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Opleidingenoverzicht</title>
 </head>
 <body>
@@ -343,6 +345,7 @@ Bekijk in dit voorbeeld hoe je een technische specificatiefiche voor een laptop 
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Specificaties Studielaptop</title>
 </head>
 <body>

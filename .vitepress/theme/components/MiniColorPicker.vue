@@ -128,7 +128,7 @@ const props = withDefaults(
     title?: string
   }>(),
   {
-    initialHex: '#e87722',
+    initialHex: '#EC6639',
     title: '',
   }
 )
@@ -137,7 +137,7 @@ const selectedHex = ref(props.initialHex)
 const copied = ref(false)
 
 const presetColors = [
-  { name: 'Thomas More Oranje', hex: '#e87722' },
+  { name: 'Thomas More Oranje', hex: '#EC6639' },
   { name: 'Thomas More Donkerblauw', hex: '#00283c' },
   { name: 'Zomers Geel', hex: '#f59e0b' },
   { name: 'Smaragdgroen', hex: '#10b981' },

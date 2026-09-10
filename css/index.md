@@ -68,6 +68,7 @@ Bij een extern stijlblad schrijf je al je stijlen in een apart tekstbestand met 
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thomas More Campus Geel</title>
     <link rel="stylesheet" href="css/stijl.css">
 </head>
@@ -100,6 +101,7 @@ Je kan stijlen ook rechtstreeks in een HTML-pagina plaatsen met behulp van het `
 ```html
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voorbeeld met interne CSS</title>
     <style>
         h1 {
@@ -214,6 +216,7 @@ p {
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Opleiding ICT</title>
   <link rel="stylesheet" href="stijl.css">
 </head>
@@ -396,6 +399,7 @@ Test in het onderstaande interactieve voorbeeld hoe de cascade en bronvolgorde w
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>De Cascade</title>
   <link rel="stylesheet" href="stijl.css">
 </head>
@@ -471,6 +475,7 @@ p {
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Overerving via de DOM</title>
   <link rel="stylesheet" href="stijl.css">
 </head>

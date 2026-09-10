@@ -316,6 +316,7 @@ Kopieer het onderstaande ongeldige HTML-fragment naar een testbestand `fouten.ht
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fouten opsporen</title>
 </head>
 <body>

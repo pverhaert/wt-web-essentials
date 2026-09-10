@@ -142,6 +142,7 @@ Waarom raadt Google in zijn interface dan toch de HTML `<link>`-methode aan? Dat
 ```html
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mijn Webpagina</title>
 
   <!-- 1. Snellere verbinding opzetten naar de Google fontservers -->

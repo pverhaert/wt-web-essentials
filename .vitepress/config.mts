@@ -123,10 +123,10 @@ export default defineConfig({
           { text: 'Lettertypen', link: '/css/lettertypen' },
           { text: 'Webfonts & Iconen', link: '/css/webfonts' },
           { text: 'Kleuren', link: '/css/kleuren' },
+          { text: 'Box Model & Randen', link: '/css/box-model' },
           { text: 'CSS Variabelen', link: '/css/variabelen' },
           { text: 'Lijsten', link: '/css/lijsten' },
           { text: 'Tabellen', link: '/css/tabellen' },
-          { text: 'Box Model & Randen', link: '/css/box-model' },
           { text: 'Display', link: '/css/display' },
           { text: 'Afbeeldingen & Achtergronden', link: '/css/afbeeldingen' },
           { text: 'Positionering', link: '/css/positionering' },
@@ -155,15 +155,16 @@ export default defineConfig({
           {
             text: 'Webapps & Extensies',
             items: [
-              { text: 'Afbeeldingen Optimaliseren', link: '/tools/afbeeldingen-optimaliseren', target: '_blank' },
-              { text: 'Photo Edit Pro', link: 'https://photo-edit-pro.netlify.app/', target: '_blank' },
-              { text: 'RealFaviconGenerator', link: '/tools/realfavicongenerator', target: '_blank' },
-              { text: 'Favicon Generator (.ico)', link: '/tools/favicon-generator', target: '_blank' },
-              { text: 'Browser Extensies', link: '/tools/extensions', target: '_blank' },
-              { text: 'Line-height Spel', link: '/tools/line-height-spel', target: '_blank' },
-              { text: 'Font Simulator', link: '/tools/font-simulator', target: '_blank' },
-              { text: 'CSS Colors Timeline', link: 'https://css-colors-timeline.netlify.app/', target: '_blank' },
-              { text: 'Fullscreen Sandbox', link: '/sandbox', target: '_blank' },
+              { text: 'Afbeeldingen Optimaliseren', link: '/tools/afbeeldingen-optimaliseren', target: 'page2' },
+              { text: 'Photo Edit Pro', link: 'https://photo-edit-pro.netlify.app/', target: 'page2' },
+              { text: 'RealFaviconGenerator', link: '/tools/realfavicongenerator', target: 'page2' },
+              { text: 'Favicon Generator (.ico)', link: '/tools/favicon-generator', target: 'page2' },
+              { text: 'Browser Extensies', link: '/tools/extensions', target: 'page2' },
+              { text: 'Line-height Spel', link: '/tools/line-height-spel', target: 'page2' },
+              { text: 'Font Simulator', link: '/tools/font-simulator', target: 'page2' },
+              { text: 'Kleurenomzetter', link: '/tools/kleurenomzetter', target: 'page2' },
+              { text: 'CSS Colors Timeline', link: 'https://css-colors-timeline.netlify.app/', target: 'page2' },
+              { text: 'Fullscreen Sandbox', link: '/sandbox', target: 'page2' },
             ],
           },
         ],
@@ -175,7 +176,7 @@ export default defineConfig({
 
     // Sociale links
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/thomasmore' },
+      { icon: 'github', link: 'https://github.com/pverhaert/wt-web-essentials' },
     ],
 
     // Zoekfunctie (lokaal)

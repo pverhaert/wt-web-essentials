@@ -53,6 +53,7 @@ In onderstaand voorbeeld zie je hoe `color` en `background-color` worden toegepa
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kleuren Voorbeeld</title>
   <link rel="stylesheet" href="stijl.css">
 </head>
@@ -140,6 +141,7 @@ h1 {
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kleuren Voorbeeld</title>
   <link rel="stylesheet" href="stijl.css">
 </head>
@@ -469,6 +471,7 @@ In onderstaande sandbox kan je met de muis over de link bewegen en met de linker
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Link Kleuren</title>
   <link rel="stylesheet" href="stijl.css">
 </head>
@@ -579,6 +582,7 @@ body {
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Link Kleuren</title>
   <link rel="stylesheet" href="stijl.css">
 </head>

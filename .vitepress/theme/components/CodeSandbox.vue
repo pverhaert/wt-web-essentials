@@ -11,7 +11,7 @@
       <span class="sandbox-title-text">{{ title }}</span>
     </div>
 
-    <div class="sandbox-wrapper">
+    <div class="sandbox-wrapper" :class="{ 'is-height-resizing': isResizingHeight }">
       <!-- Toolbar met tabs en actieknoppen -->
       <div class="sandbox-header">
         <div class="sandbox-header-left">
@@ -87,7 +87,7 @@
       <iframe
         v-if="!hasDirectCode"
         :src="src"
-        :height="height"
+        :style="{ height: currentHeight + 'px' }"
         class="sandbox-iframe"
         sandbox="allow-scripts allow-same-origin allow-forms"
         loading="lazy"
@@ -99,8 +99,14 @@
         v-else
         ref="bodyEl"
         class="sandbox-body"
-        :class="['view-' + activeTab, { 'is-resizing': isResizing }]"
-        :style="{ height: height }"
+        :class="[
+          'view-' + activeTab,
+          {
+            'is-resizing': isResizing,
+            'is-height-resizing': isResizingHeight
+          }
+        ]"
+        :style="{ height: currentHeight + 'px' }"
       >
         <!-- Code editor paneel met CodeMirror 6 -->
         <div
@@ -169,6 +175,18 @@
             :title="title || 'Resultaat van de code'"
           />
         </div>
+      </div>
+
+      <!-- Horizontale sleepbalk onderaan om de hoogte aan te passen -->
+      <div
+        class="sandbox-height-resizer"
+        :class="{ 'is-resizing': isResizingHeight }"
+        @mousedown="startHeightResize"
+        @touchstart.prevent="startTouchHeightResize"
+        @dblclick="resetHeight"
+        title="Sleep om de hoogte aan te passen (dubbelklik om te herstellen)"
+      >
+        <div class="sandbox-height-handle" aria-hidden="true"></div>
       </div>
     </div>
   </div>
@@ -328,6 +346,74 @@ const stopTouchResize = () => {
   document.removeEventListener('touchmove', handleTouchResize)
   document.removeEventListener('touchend', stopTouchResize)
   document.removeEventListener('touchcancel', stopTouchResize)
+}
+
+// Hoogte (verticaal) herschalen logica
+const parseHeight = (val?: string): number => {
+  if (!val) return 420
+  const parsed = parseInt(val, 10)
+  return isNaN(parsed) ? 420 : parsed
+}
+
+const currentHeight = ref(parseHeight(props.height))
+const isResizingHeight = ref(false)
+let startY = 0
+let startHeight = 0
+
+watch(() => props.height, (newVal) => {
+  currentHeight.value = parseHeight(newVal)
+})
+
+const resetHeight = () => {
+  currentHeight.value = parseHeight(props.height)
+}
+
+const startHeightResize = (e: MouseEvent) => {
+  e.preventDefault()
+  isResizingHeight.value = true
+  startY = e.clientY
+  startHeight = currentHeight.value
+  document.addEventListener('mousemove', handleHeightResize)
+  document.addEventListener('mouseup', stopHeightResize)
+}
+
+const handleHeightResize = (e: MouseEvent) => {
+  if (!isResizingHeight.value) return
+  const deltaY = e.clientY - startY
+  const newHeight = Math.max(200, Math.min(1000, startHeight + deltaY))
+  currentHeight.value = Math.round(newHeight)
+}
+
+const stopHeightResize = () => {
+  if (!isResizingHeight.value) return
+  isResizingHeight.value = false
+  document.removeEventListener('mousemove', handleHeightResize)
+  document.removeEventListener('mouseup', stopHeightResize)
+}
+
+const startTouchHeightResize = (e: TouchEvent) => {
+  if (!e.touches[0]) return
+  isResizingHeight.value = true
+  startY = e.touches[0].clientY
+  startHeight = currentHeight.value
+  document.addEventListener('touchmove', handleTouchHeightResize, { passive: false })
+  document.addEventListener('touchend', stopTouchHeightResize)
+  document.addEventListener('touchcancel', stopTouchHeightResize)
+}
+
+const handleTouchHeightResize = (e: TouchEvent) => {
+  if (!isResizingHeight.value || !e.touches[0]) return
+  const deltaY = e.touches[0].clientY - startY
+  const newHeight = Math.max(200, Math.min(1000, startHeight + deltaY))
+  currentHeight.value = Math.round(newHeight)
+}
+
+const stopTouchHeightResize = () => {
+  if (!isResizingHeight.value) return
+  isResizingHeight.value = false
+  document.removeEventListener('touchmove', handleTouchHeightResize)
+  document.removeEventListener('touchend', stopTouchHeightResize)
+  document.removeEventListener('touchcancel', stopTouchHeightResize)
 }
 
 let editorView: EditorView | null = null
@@ -561,6 +647,12 @@ onBeforeUnmount(() => {
   document.removeEventListener('touchmove', handleTouchResize)
   document.removeEventListener('touchend', stopTouchResize)
   document.removeEventListener('touchcancel', stopTouchResize)
+
+  document.removeEventListener('mousemove', handleHeightResize)
+  document.removeEventListener('mouseup', stopHeightResize)
+  document.removeEventListener('touchmove', handleTouchHeightResize)
+  document.removeEventListener('touchend', stopTouchHeightResize)
+  document.removeEventListener('touchcancel', stopTouchHeightResize)
 })
 
 watch(initialSourceHtml, (newVal) => {
@@ -624,6 +716,7 @@ const openInNewTab = () => {
     js: currentJs.value,
     initialJs: initialSourceJs.value,
     activeCodeTab: activeCodeLanguage.value,
+    height: currentHeight.value ? currentHeight.value + 'px' : (props.height || '450px'),
   }
   try {
     localStorage.setItem(id, JSON.stringify(data))
@@ -816,7 +909,9 @@ const openInNewTab = () => {
   cursor: col-resize;
 }
 
-.sandbox-body.is-resizing iframe {
+.sandbox-body.is-resizing iframe,
+.sandbox-wrapper.is-height-resizing iframe,
+.sandbox-body.is-height-resizing iframe {
   pointer-events: none;
 }
 
@@ -925,5 +1020,43 @@ const openInNewTab = () => {
   height: 100%;
   border: none;
   background: #ffffff;
+}
+
+/* Horizontale sleepbalk onderaan om de hoogte aan te passen */
+.sandbox-height-resizer {
+  height: 12px;
+  background-color: var(--vp-c-bg-soft, #f1f4f8);
+  border-top: 1px solid var(--vp-c-divider);
+  cursor: row-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: background-color 0.15s ease;
+  position: relative;
+  z-index: 5;
+}
+
+.dark .sandbox-height-resizer {
+  background-color: #161b22;
+}
+
+.sandbox-height-resizer:hover,
+.sandbox-height-resizer.is-resizing {
+  background-color: rgba(232, 119, 34, 0.12);
+}
+
+.sandbox-height-handle {
+  width: 38px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--vp-c-divider, #cbd5e1);
+  transition: background-color 0.15s ease, width 0.15s ease;
+}
+
+.sandbox-height-resizer:hover .sandbox-height-handle,
+.sandbox-height-resizer.is-resizing .sandbox-height-handle {
+  background-color: var(--tm-orange, #e87722);
+  width: 54px;
 }
 </style>

@@ -11,7 +11,7 @@
       </span>
       <a
         :href="caniuseUrl"
-        target="_blank"
+        target="page2"
         rel="noopener noreferrer"
         class="caniuse-link"
         title="Bekijk actuele data op Can I use..."
@@ -26,7 +26,7 @@
     </div>
 
     <div class="caniuse-body">
-      <a :href="caniuseUrl" target="_blank" rel="noopener noreferrer" class="caniuse-img-link">
+      <a :href="caniuseUrl" target="page2" rel="noopener noreferrer" class="caniuse-img-link">
         <img
           v-show="!hasError"
           :src="imageUrl"
@@ -39,7 +39,7 @@
       </a>
       <div v-if="hasError" class="caniuse-fallback">
         <p>Kon de actuele compatibiliteitstabel niet rechtstreeks inladen.</p>
-        <a :href="caniuseUrl" target="_blank" rel="noopener noreferrer" class="caniuse-fallback-link">
+        <a :href="caniuseUrl" target="page2" rel="noopener noreferrer" class="caniuse-fallback-link">
           Bekijk <code>{{ feature }}</code> direct op Can I use &rarr;
         </a>
       </div>

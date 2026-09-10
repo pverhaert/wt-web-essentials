@@ -130,6 +130,7 @@ In het onderstaande voorbeeld zie je een drankaanbod. Merk op hoe `<caption>` bo
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cafetaria Thomas More Campus Geel</title>
   <style>
     table, th, td {
@@ -261,6 +262,7 @@ In het onderstaande voorbeeld zie je een dagoverzicht voor studenten op de campu
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lesrooster ICT</title>
   <style>
     table, th, td {
@@ -453,6 +455,7 @@ In het onderstaande voorbeeld komen alle semantische onderdelen samen: `<caption
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bezoekersstatistieken Infodag</title>
   <style>
     table, th, td {

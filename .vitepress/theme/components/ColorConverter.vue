@@ -11,14 +11,14 @@
         </svg>
         <span class="cc-label">{{ title || 'Interactieve CSS Kleurenomzetter' }}</span>
       </div>
-      <span class="cc-badge">Live Notaties</span>
+      <span class="cc-badge">Live Notaties &amp; Invoer</span>
     </div>
 
     <div class="cc-body">
       <!-- Bovenste rij: Kleurstaal, native picker en alfakiezer -->
       <div class="cc-controls-row">
         <!-- Kleurstaal met native picker trigger -->
-        <label class="cc-preview-card" title="Klik om een kleur te kiezen">
+        <label class="cc-preview-card" title="Klik om een kleur te kiezen via de kiezer">
           <input
             type="color"
             v-model="hexValue"
@@ -68,7 +68,7 @@
                 type="button"
                 class="cc-preset-chip"
                 :class="{ 'is-active': hexValue.toLowerCase() === preset.hex.toLowerCase() }"
-                :title="`${preset.name} (${preset.hex})`"
+                :title="preset.name + ' (' + preset.hex + ')'"
                 @click="applyPreset(preset.hex)"
               >
                 <span class="cc-preset-dot" :style="{ backgroundColor: preset.hex }"></span>
@@ -79,25 +79,49 @@
         </div>
       </div>
 
+      <!-- Hint voor studenten over invulbaarheid -->
+      <div class="cc-input-hint">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+        <span>Tip: Alle onderstaande velden zijn direct bewerkbaar. Typ of plak een waarde in een willekeurig formaat om de omzetter bij te werken.</span>
+      </div>
+
       <!-- Overzichtstabel met alle CSS-kleurnotaties in één oogopslag -->
       <div class="cc-formats-grid">
         <div
           v-for="format in formatRows"
           :key="format.id"
           class="cc-format-card"
+          :class="{ 'has-error': inputErrors[format.id] }"
         >
           <div class="cc-format-header">
             <span class="cc-format-badge">{{ format.label }}</span>
             <span v-if="format.sublabel" class="cc-format-sublabel">{{ format.sublabel }}</span>
           </div>
           <div class="cc-format-code-row">
-            <code class="cc-format-code">{{ format.value }}</code>
+            <input
+              type="text"
+              class="cc-format-input"
+              :class="{ 'is-invalid': inputErrors[format.id] }"
+              :value="rawInputs[format.id] !== undefined ? rawInputs[format.id] : format.value"
+              :placeholder="format.placeholder"
+              :aria-label="format.label"
+              spellcheck="false"
+              @input="onFieldInput(format.id, ($event.target as HTMLInputElement).value)"
+              @focus="onFieldFocus(format.id)"
+              @blur="onFieldBlur(format.id)"
+              @keydown.enter="($event.target as HTMLInputElement).blur()"
+            />
             <button
               type="button"
               class="cc-copy-btn"
-              :class="{ 'is-copied': copiedKey === format.id }"
-              :title="copiedKey === format.id ? 'Gekopieerd!' : 'Kopieer naar klembord'"
-              @click="copyValue(format.value, format.id)"
+              :class="{ 'is-copied': copiedKey === format.id, 'is-disabled': !format.value }"
+              :disabled="!format.value"
+              :title="!format.value ? 'Geen waarde beschikbaar om te kopiëren' : copiedKey === format.id ? 'Gekopieerd!' : 'Kopieer naar klembord'"
+              @click="format.value ? copyValue(format.value, format.id) : null"
             >
               <svg v-if="copiedKey !== format.id" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
@@ -109,6 +133,9 @@
               <span>{{ copiedKey === format.id ? 'Gekopieerd' : 'Kopiëren' }}</span>
             </button>
           </div>
+          <div v-if="inputErrors[format.id]" class="cc-format-error-msg">
+            {{ inputErrors[format.id] }}
+          </div>
         </div>
       </div>
 
@@ -119,42 +146,106 @@
             <circle cx="12" cy="12" r="10" />
             <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" />
           </svg>
-          <span class="cc-contrast-title">WCAG Contrastverhouding (Leesbaarheid)</span>
+          <span class="cc-contrast-title">WCAG Toegankelijkheid & Contrastcontrole (WCAG 2.1)</span>
         </div>
         <div class="cc-contrast-grid">
-          <!-- Op witte achtergrond -->
+          <!-- Eerste contrastkaart (standaard wit) -->
           <div class="cc-contrast-box cc-contrast-box-white">
-            <div class="cc-sample-text" :style="{ color: currentRgbaCss, backgroundColor: '#ffffff' }">
-              Aa Voorbeeldtekst
+            <div class="cc-sample-text-wrap" :style="{ backgroundColor: bgWhite }">
+              <span class="cc-sample-large" :style="{ color: currentRgbaCss }">Grote koptekst</span>
+              <span class="cc-sample-normal" :style="{ color: currentRgbaCss }">Aa Normale leestekst (16px)</span>
             </div>
             <div class="cc-contrast-metrics">
-              <span class="cc-contrast-label">Op wit (#fff):</span>
+              <div class="cc-contrast-label-wrap">
+                <label class="cc-bg-picker-label" title="Klik om de achtergrondkleur te wijzigen">
+                  <input
+                    type="color"
+                    v-model="bgWhite"
+                    class="cc-bg-native-picker"
+                    aria-label="Kies achtergrondkleur voor voorbeeld 1"
+                  />
+                  <span class="cc-bg-swatch" :style="{ backgroundColor: bgWhite }"></span>
+                </label>
+                <span class="cc-contrast-label">Achtergrond ({{ bgWhite.toLowerCase() }}):</span>
+              </div>
               <span class="cc-contrast-ratio">{{ contrastWhite.ratio.toFixed(2) }}:1</span>
-              <span
-                class="cc-status-pill"
-                :class="contrastWhite.passAA ? 'is-pass' : 'is-fail'"
-              >
-                {{ contrastWhite.passAA ? 'Voldoet (AA)' : 'Onvoldoende (< 4.5:1)' }}
-              </span>
+            </div>
+            <div class="cc-contrast-eval-rows">
+              <div class="cc-eval-row">
+                <span class="cc-eval-label">Normale leestekst:</span>
+                <span
+                  class="cc-status-pill"
+                  :class="contrastWhite.passNormalAA ? 'is-pass' : 'is-fail'"
+                >
+                  {{ contrastWhite.passNormalAA ? 'Voldoet (AA ≥ 4.5:1)' : 'Onvoldoende (< 4.5:1)' }}
+                </span>
+              </div>
+              <div class="cc-eval-row">
+                <span class="cc-eval-label">Grote tekst / knoppen:</span>
+                <span
+                  class="cc-status-pill"
+                  :class="contrastWhite.passLargeAA ? 'is-pass' : 'is-fail'"
+                >
+                  {{ contrastWhite.passLargeAA ? 'Voldoet (AA ≥ 3.0:1)' : 'Onvoldoende (< 3.0:1)' }}
+                </span>
+              </div>
             </div>
           </div>
 
-          <!-- Op donkerblauwe/zwarte achtergrond -->
+          <!-- Tweede contrastkaart (standaard donkerblauw) -->
           <div class="cc-contrast-box cc-contrast-box-dark">
-            <div class="cc-sample-text" :style="{ color: currentRgbaCss, backgroundColor: '#1e2d5a' }">
-              Aa Voorbeeldtekst
+            <div class="cc-sample-text-wrap" :style="{ backgroundColor: bgDark }">
+              <span class="cc-sample-large" :style="{ color: currentRgbaCss }">Grote koptekst</span>
+              <span class="cc-sample-normal" :style="{ color: currentRgbaCss }">Aa Normale leestekst (16px)</span>
             </div>
             <div class="cc-contrast-metrics">
-              <span class="cc-contrast-label">Op Thomas More blauw (#1e2d5a):</span>
+              <div class="cc-contrast-label-wrap">
+                <label class="cc-bg-picker-label" title="Klik om de achtergrondkleur te wijzigen">
+                  <input
+                    type="color"
+                    v-model="bgDark"
+                    class="cc-bg-native-picker"
+                    aria-label="Kies achtergrondkleur voor voorbeeld 2"
+                  />
+                  <span class="cc-bg-swatch" :style="{ backgroundColor: bgDark }"></span>
+                </label>
+                <span class="cc-contrast-label">Achtergrond ({{ bgDark.toLowerCase() }}):</span>
+              </div>
               <span class="cc-contrast-ratio">{{ contrastDark.ratio.toFixed(2) }}:1</span>
-              <span
-                class="cc-status-pill"
-                :class="contrastDark.passAA ? 'is-pass' : 'is-fail'"
-              >
-                {{ contrastDark.passAA ? 'Voldoet (AA)' : 'Onvoldoende (< 4.5:1)' }}
-              </span>
+            </div>
+            <div class="cc-contrast-eval-rows">
+              <div class="cc-eval-row">
+                <span class="cc-eval-label">Normale leestekst:</span>
+                <span
+                  class="cc-status-pill"
+                  :class="contrastDark.passNormalAA ? 'is-pass' : 'is-fail'"
+                >
+                  {{ contrastDark.passNormalAA ? 'Voldoet (AA ≥ 4.5:1)' : 'Onvoldoende (< 4.5:1)' }}
+                </span>
+              </div>
+              <div class="cc-eval-row">
+                <span class="cc-eval-label">Grote tekst / knoppen:</span>
+                <span
+                  class="cc-status-pill"
+                  :class="contrastDark.passLargeAA ? 'is-pass' : 'is-fail'"
+                >
+                  {{ contrastDark.passLargeAA ? 'Voldoet (AA ≥ 3.0:1)' : 'Onvoldoende (< 3.0:1)' }}
+                </span>
+              </div>
             </div>
           </div>
+        </div>
+
+        <!-- Uitleg bij onvoldoende contrast -->
+        <div v-if="!contrastWhite.passNormalAA && contrastWhite.passLargeAA" class="cc-contrast-guidance">
+          <p class="cc-guidance-text">
+            <strong>Let op:</strong> Een contrastverhouding tussen 3.0:1 en 4.5:1 voldoet volgens WCAG AA enkel voor grote tekst (vanaf 24px of 18.5px vetgedrukt) of grafische interface-elementen, maar is onvoldoende voor gewone leestekst.
+          </p>
+        </div>
+        <div v-else-if="!contrastWhite.passLargeAA" class="cc-contrast-guidance is-alert">
+          <p class="cc-guidance-text">
+            <strong>Let op:</strong> Dit contrast is lager dan 3.0:1 en voldoet op een witte achtergrond niet aan de WCAG AA norm voor tekst. Kies een donkerdere variant voor voldoende leesbaarheid.
+          </p>
         </div>
       </div>
     </div>
@@ -162,7 +253,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 
 const props = defineProps<{
   title?: string
@@ -170,14 +261,22 @@ const props = defineProps<{
   initialAlpha?: number
 }>()
 
-const hexValue = ref(props.initialHex || '#e87722')
+const hexValue = ref(props.initialHex || '#EC6639')
 const alphaValue = ref(props.initialAlpha !== undefined ? props.initialAlpha : 1)
 const copiedKey = ref<string | null>(null)
 
+// Achtergrondkleuren voor de twee WCAG-contrastvoorbeelden
+const bgWhite = ref('#ffffff')
+const bgDark = ref('#1e2d5a')
+
+// Bewaar tijdelijke invoerwaarden en eventuele foutmeldingen per veld
+const rawInputs = reactive<Record<string, string | undefined>>({})
+const inputErrors = reactive<Record<string, string | null>>({})
+
 // Thomas More & web standaardkleuren
 const presets = [
-  { name: 'TM Oranje', hex: '#e87722' },
-  { name: 'TM Marineblauw', hex: '#1e2d5a' },
+  { name: 'TM Oranje', hex: '#EC6639' },
+  { name: 'TM Donkerblauw', hex: '#1e2d5a' },
   { name: 'Leisteen', hex: '#64748b' },
   { name: 'Smaragdgroen', hex: '#10b981' },
   { name: 'Robijnrood', hex: '#ef4444' },
@@ -188,6 +287,304 @@ const presets = [
 
 const applyPreset = (hex: string) => {
   hexValue.value = hex
+  clearAllErrors()
+}
+
+// 148 W3C CSS kleurnamen mapping
+const namedColorsToHex: Record<string, string> = {
+  "aliceblue": "#f0f8ff",
+  "antiquewhite": "#faebd7",
+  "aqua": "#00ffff",
+  "aquamarine": "#7fffd4",
+  "azure": "#f0ffff",
+  "beige": "#f5f5dc",
+  "bisque": "#ffe4c4",
+  "black": "#000000",
+  "blanchedalmond": "#ffebcd",
+  "blue": "#0000ff",
+  "blueviolet": "#8a2be2",
+  "brown": "#a52a2a",
+  "burlywood": "#deb887",
+  "cadetblue": "#5f9ea0",
+  "chartreuse": "#7fff00",
+  "chocolate": "#d2691e",
+  "coral": "#ff7f50",
+  "cornflowerblue": "#6495ed",
+  "cornsilk": "#fff8dc",
+  "crimson": "#dc143c",
+  "cyan": "#00ffff",
+  "darkblue": "#00008b",
+  "darkcyan": "#008b8b",
+  "darkgoldenrod": "#b8860b",
+  "darkgray": "#a9a9a9",
+  "darkgreen": "#006400",
+  "darkgrey": "#a9a9a9",
+  "darkkhaki": "#bdb76b",
+  "darkmagenta": "#8b008b",
+  "darkolivegreen": "#556b2f",
+  "darkorange": "#ff8c00",
+  "darkorchid": "#9932cc",
+  "darkred": "#8b0000",
+  "darksalmon": "#e9967a",
+  "darkseagreen": "#8fbc8f",
+  "darkslateblue": "#483d8b",
+  "darkslategray": "#2f4f4f",
+  "darkslategrey": "#2f4f4f",
+  "darkturquoise": "#00ced1",
+  "darkviolet": "#9400d3",
+  "deeppink": "#ff1493",
+  "deepskyblue": "#00bfff",
+  "dimgray": "#696969",
+  "dimgrey": "#696969",
+  "dodgerblue": "#1e90ff",
+  "firebrick": "#b22222",
+  "floralwhite": "#fffaf0",
+  "forestgreen": "#228b22",
+  "fuchsia": "#ff00ff",
+  "gainsboro": "#dcdcdc",
+  "ghostwhite": "#f8f8ff",
+  "gold": "#ffd700",
+  "goldenrod": "#daa520",
+  "gray": "#808080",
+  "green": "#008000",
+  "greenyellow": "#adff2f",
+  "grey": "#808080",
+  "honeydew": "#f0fff0",
+  "hotpink": "#ff69b4",
+  "indianred": "#cd5c5c",
+  "indigo": "#4b0082",
+  "ivory": "#fffff0",
+  "khaki": "#f0e68c",
+  "lavender": "#e6e6fa",
+  "lavenderblush": "#fff0f5",
+  "lawngreen": "#7cfc00",
+  "lemonchiffon": "#fffacd",
+  "lightblue": "#add8e6",
+  "lightcoral": "#f08080",
+  "lightcyan": "#e0ffff",
+  "lightgoldenrodyellow": "#fafad2",
+  "lightgray": "#d3d3d3",
+  "lightgreen": "#90ee90",
+  "lightgrey": "#d3d3d3",
+  "lightpink": "#ffb6c1",
+  "lightsalmon": "#ffa07a",
+  "lightseagreen": "#20b2aa",
+  "lightskyblue": "#87cefa",
+  "lightslategray": "#778899",
+  "lightslategrey": "#778899",
+  "lightsteelblue": "#b0c4de",
+  "lightyellow": "#ffffe0",
+  "lime": "#00ff00",
+  "limegreen": "#32cd32",
+  "linen": "#faf0e6",
+  "magenta": "#ff00ff",
+  "maroon": "#800000",
+  "mediumaquamarine": "#66cdaa",
+  "mediumblue": "#0000cd",
+  "mediumorchid": "#ba55d3",
+  "mediumpurple": "#9370db",
+  "mediumseagreen": "#3cb371",
+  "mediumslateblue": "#7b68ee",
+  "mediumspringgreen": "#00fa9a",
+  "mediumturquoise": "#48d1cc",
+  "mediumvioletred": "#c71585",
+  "midnightblue": "#191970",
+  "mintcream": "#f5fffa",
+  "mistyrose": "#ffe4e1",
+  "moccasin": "#ffe4b5",
+  "navajowhite": "#ffdead",
+  "navy": "#000080",
+  "oldlace": "#fdf5e6",
+  "olive": "#808000",
+  "olivedrab": "#6b8e23",
+  "orange": "#ffa500",
+  "orangered": "#ff4500",
+  "orchid": "#da70d6",
+  "palegoldenrod": "#eee8aa",
+  "palegreen": "#98fb98",
+  "paleturquoise": "#afeeee",
+  "palevioletred": "#db7093",
+  "papayawhip": "#ffefd5",
+  "peachpuff": "#ffdab9",
+  "peru": "#cd853f",
+  "pink": "#ffc0cb",
+  "plum": "#dda0dd",
+  "powderblue": "#b0e0e6",
+  "purple": "#800080",
+  "rebeccapurple": "#663399",
+  "red": "#ff0000",
+  "rosybrown": "#bc8f8f",
+  "royalblue": "#4169e1",
+  "saddlebrown": "#8b4513",
+  "salmon": "#fa8072",
+  "sandybrown": "#f4a460",
+  "seagreen": "#2e8b57",
+  "seashell": "#fff5ee",
+  "sienna": "#a0522d",
+  "silver": "#c0c0c0",
+  "skyblue": "#87ceeb",
+  "slateblue": "#6a5acd",
+  "slategray": "#708090",
+  "slategrey": "#708090",
+  "snow": "#fffafa",
+  "springgreen": "#00ff7f",
+  "steelblue": "#4682b4",
+  "tan": "#d2b48c",
+  "teal": "#008080",
+  "thistle": "#d8bfd8",
+  "tomato": "#ff6347",
+  "turquoise": "#40e0d0",
+  "violet": "#ee82ee",
+  "wheat": "#f5deb3",
+  "white": "#ffffff",
+  "whitesmoke": "#f5f5f5",
+  "yellow": "#ffff00",
+  "yellowgreen": "#9acd32"
+}
+
+// Reverse lookup van Hex naar CSS kleurnaam
+const hexToNamedColors: Record<string, string> = {
+  "#f0f8ff": "aliceblue",
+  "#faebd7": "antiquewhite",
+  "#00ffff": "aqua / cyan",
+  "#7fffd4": "aquamarine",
+  "#f0ffff": "azure",
+  "#f5f5dc": "beige",
+  "#ffe4c4": "bisque",
+  "#000000": "black",
+  "#ffebcd": "blanchedalmond",
+  "#0000ff": "blue",
+  "#8a2be2": "blueviolet",
+  "#a52a2a": "brown",
+  "#deb887": "burlywood",
+  "#5f9ea0": "cadetblue",
+  "#7fff00": "chartreuse",
+  "#d2691e": "chocolate",
+  "#ff7f50": "coral",
+  "#6495ed": "cornflowerblue",
+  "#fff8dc": "cornsilk",
+  "#dc143c": "crimson",
+  "#00008b": "darkblue",
+  "#008b8b": "darkcyan",
+  "#b8860b": "darkgoldenrod",
+  "#a9a9a9": "darkgray / darkgrey",
+  "#006400": "darkgreen",
+  "#bdb76b": "darkkhaki",
+  "#8b008b": "darkmagenta",
+  "#556b2f": "darkolivegreen",
+  "#ff8c00": "darkorange",
+  "#9932cc": "darkorchid",
+  "#8b0000": "darkred",
+  "#e9967a": "darksalmon",
+  "#8fbc8f": "darkseagreen",
+  "#483d8b": "darkslateblue",
+  "#2f4f4f": "darkslategray / darkslategrey",
+  "#00ced1": "darkturquoise",
+  "#9400d3": "darkviolet",
+  "#ff1493": "deeppink",
+  "#00bfff": "deepskyblue",
+  "#696969": "dimgray / dimgrey",
+  "#1e90ff": "dodgerblue",
+  "#b22222": "firebrick",
+  "#fffaf0": "floralwhite",
+  "#228b22": "forestgreen",
+  "#ff00ff": "fuchsia / magenta",
+  "#dcdcdc": "gainsboro",
+  "#f8f8ff": "ghostwhite",
+  "#ffd700": "gold",
+  "#daa520": "goldenrod",
+  "#808080": "gray / grey",
+  "#008000": "green",
+  "#adff2f": "greenyellow",
+  "#f0fff0": "honeydew",
+  "#ff69b4": "hotpink",
+  "#cd5c5c": "indianred",
+  "#4b0082": "indigo",
+  "#fffff0": "ivory",
+  "#f0e68c": "khaki",
+  "#e6e6fa": "lavender",
+  "#fff0f5": "lavenderblush",
+  "#7cfc00": "lawngreen",
+  "#fffacd": "lemonchiffon",
+  "#add8e6": "lightblue",
+  "#f08080": "lightcoral",
+  "#e0ffff": "lightcyan",
+  "#fafad2": "lightgoldenrodyellow",
+  "#d3d3d3": "lightgray / lightgrey",
+  "#90ee90": "lightgreen",
+  "#ffb6c1": "lightpink",
+  "#ffa07a": "lightsalmon",
+  "#20b2aa": "lightseagreen",
+  "#87cefa": "lightskyblue",
+  "#778899": "lightslategray / lightslategrey",
+  "#b0c4de": "lightsteelblue",
+  "#ffffe0": "lightyellow",
+  "#00ff00": "lime",
+  "#32cd32": "limegreen",
+  "#faf0e6": "linen",
+  "#800000": "maroon",
+  "#66cdaa": "mediumaquamarine",
+  "#0000cd": "mediumblue",
+  "#ba55d3": "mediumorchid",
+  "#9370db": "mediumpurple",
+  "#3cb371": "mediumseagreen",
+  "#7b68ee": "mediumslateblue",
+  "#00fa9a": "mediumspringgreen",
+  "#48d1cc": "mediumturquoise",
+  "#c71585": "mediumvioletred",
+  "#191970": "midnightblue",
+  "#f5fffa": "mintcream",
+  "#ffe4e1": "mistyrose",
+  "#ffe4b5": "moccasin",
+  "#ffdead": "navajowhite",
+  "#000080": "navy",
+  "#fdf5e6": "oldlace",
+  "#808000": "olive",
+  "#6b8e23": "olivedrab",
+  "#ffa500": "orange",
+  "#ff4500": "orangered",
+  "#da70d6": "orchid",
+  "#eee8aa": "palegoldenrod",
+  "#98fb98": "palegreen",
+  "#afeeee": "paleturquoise",
+  "#db7093": "palevioletred",
+  "#ffefd5": "papayawhip",
+  "#ffdab9": "peachpuff",
+  "#cd853f": "peru",
+  "#ffc0cb": "pink",
+  "#dda0dd": "plum",
+  "#b0e0e6": "powderblue",
+  "#800080": "purple",
+  "#663399": "rebeccapurple",
+  "#ff0000": "red",
+  "#bc8f8f": "rosybrown",
+  "#4169e1": "royalblue",
+  "#8b4513": "saddlebrown",
+  "#fa8072": "salmon",
+  "#f4a460": "sandybrown",
+  "#2e8b57": "seagreen",
+  "#fff5ee": "seashell",
+  "#a0522d": "sienna",
+  "#c0c0c0": "silver",
+  "#87ceeb": "skyblue",
+  "#6a5acd": "slateblue",
+  "#708090": "slategray / slategrey",
+  "#fffafa": "snow",
+  "#00ff7f": "springgreen",
+  "#4682b4": "steelblue",
+  "#d2b48c": "tan",
+  "#008080": "teal",
+  "#d8bfd8": "thistle",
+  "#ff6347": "tomato",
+  "#40e0d0": "turquoise",
+  "#ee82ee": "violet",
+  "#f5deb3": "wheat",
+  "#ffffff": "white",
+  "#f5f5f5": "whitesmoke",
+  "#ffff00": "yellow",
+  "#9acd32": "yellowgreen",
+  "#ec6639": "Thomas More oranje (geen CSS-naam)",
+  "#1e2d5a": "Thomas More blauw (geen CSS-naam)"
 }
 
 // Bereken RGB-kanalen uit HEX
@@ -251,18 +648,6 @@ const hslValues = computed(() => {
   }
 })
 
-// Bereken HWB
-const hwbValues = computed(() => {
-  const { h } = hslValues.value
-  const r = rgbChannels.value.r / 255
-  const g = rgbChannels.value.g / 255
-  const b = rgbChannels.value.b / 255
-
-  const w = Math.round(Math.min(r, g, b) * 100)
-  const blk = Math.round((1 - Math.max(r, g, b)) * 100)
-
-  return { h, w, b: blk }
-})
 
 // Bereken OKLCH
 const oklchValues = computed(() => {
@@ -299,39 +684,11 @@ const oklchValues = computed(() => {
   }
 })
 
-// CSS benoemde kleuren opzoeken (exact of benaderend)
-const namedColorsMap: Record<string, string> = {
-  '#000000': 'black',
-  '#ffffff': 'white',
-  '#ff0000': 'red',
-  '#00ff00': 'lime',
-  '#0000ff': 'blue',
-  '#ffff00': 'yellow',
-  '#00ffff': 'cyan / aqua',
-  '#ff00ff': 'magenta / fuchsia',
-  '#808080': 'gray',
-  '#800000': 'maroon',
-  '#008000': 'green',
-  '#000080': 'navy',
-  '#808000': 'olive',
-  '#800080': 'purple',
-  '#008080': 'teal',
-  '#ffa500': 'orange',
-  '#e87722': 'Thomas More oranje (geen CSS-naam)',
-  '#1e2d5a': 'Thomas More blauw (geen CSS-naam)',
-  '#ff6347': 'tomato',
-  '#dc143c': 'crimson',
-  '#4682b4': 'steelblue',
-  '#708090': 'slategray',
-  '#f0f8ff': 'aliceblue',
-  '#faebd7': 'antiquewhite',
-  '#f5f5f5': 'whitesmoke',
-}
-
+// Zoek de benoemde CSS kleur op
 const cssColorName = computed(() => {
   const cleanHex = hexValue.value.toLowerCase()
-  if (namedColorsMap[cleanHex]) return namedColorsMap[cleanHex]
-  return 'Geen directe CSS-naam (gebruik HEX/RGB/HSL)'
+  if (hexToNamedColors[cleanHex]) return hexToNamedColors[cleanHex]
+  return ''
 })
 
 // 8-cijferige HEX met alfa
@@ -348,7 +705,6 @@ const hex8Value = computed(() => {
 const formatRows = computed(() => {
   const { r, g, b } = rgbChannels.value
   const { h, s, l } = hslValues.value
-  const { w, b: blk } = hwbValues.value
   const oklch = oklchValues.value
   const a = alphaValue.value
   const aPct = Math.round(a * 100)
@@ -359,45 +715,245 @@ const formatRows = computed(() => {
       label: 'HEX (6 of 8 tekens)',
       sublabel: a < 1 ? 'met 2 alfa-tekens' : 'klassiek',
       value: a < 1 ? hex8Value.value : hexValue.value.toUpperCase(),
+      placeholder: '#EC6639 of #EC6639ff',
     },
     {
       id: 'rgb-classic',
       label: a < 1 ? 'RGBA (klassiek)' : 'RGB (klassiek)',
       sublabel: 'komma-gescheiden',
       value: a < 1 ? `rgba(${r}, ${g}, ${b}, ${a.toFixed(2)})` : `rgb(${r}, ${g}, ${b})`,
+      placeholder: 'rgb(236, 102, 57) of rgba(...)',
     },
     {
       id: 'rgb-modern',
       label: 'RGB (modern Level 4)',
       sublabel: 'spatiesyntax met /',
       value: a < 1 ? `rgb(${r} ${g} ${b} / ${aPct}%)` : `rgb(${r} ${g} ${b})`,
+      placeholder: 'rgb(236 102 57) of rgb(236 102 57 / 80%)',
     },
     {
       id: 'hsl',
       label: 'HSL (kleurtoon & verzadiging)',
       sublabel: 'intuïtief aanpasbaar',
       value: a < 1 ? `hsl(${h} ${s}% ${l}% / ${aPct}%)` : `hsl(${h}, ${s}%, ${l}%)`,
+      placeholder: 'hsl(15, 82%, 57%) of hsl(15 82% 57%)',
     },
     {
       id: 'oklch',
       label: 'OKLCH (modern & perceptueel)',
       sublabel: 'uniforme helderheid',
       value: a < 1 ? `oklch(${oklch.l}% ${oklch.c} ${oklch.h}deg / ${aPct}%)` : `oklch(${oklch.l}% ${oklch.c} ${oklch.h}deg)`,
-    },
-    {
-      id: 'hwb',
-      label: 'HWB (Hue, Whiteness, Blackness)',
-      sublabel: 'kleurtoon + wit/zwart',
-      value: a < 1 ? `hwb(${h} ${w}% ${blk}% / ${aPct}%)` : `hwb(${h} ${w}% ${blk}%)`,
+      placeholder: 'oklch(65% 0.17 48deg)',
     },
     {
       id: 'name',
       label: 'Benoemde CSS-kleur',
       sublabel: 'standaard webkleurnaam',
       value: cssColorName.value,
+      placeholder: cssColorName.value ? 'bv. tomato, bisque, coral...' : 'Geen directe CSS-naam',
     },
   ]
 })
+
+// Hulpfunctie: parseer alfa-waarde (kan '0.5' of '50%' zijn)
+const parseAlphaString = (alphaStr: string): number => {
+  const trimmed = alphaStr.trim()
+  if (trimmed.endsWith('%')) {
+    const p = parseFloat(trimmed.slice(0, -1))
+    return Math.max(0, Math.min(1, p / 100))
+  }
+  const v = parseFloat(trimmed)
+  return isNaN(v) ? 1 : Math.max(0, Math.min(1, v))
+}
+
+// Hulpfunctie: HSL naar RGB omzetten
+const hslToRgb = (h: number, s: number, l: number) => {
+  h = ((h % 360) + 360) % 360
+  s = Math.max(0, Math.min(100, s)) / 100
+  l = Math.max(0, Math.min(100, l)) / 100
+
+  const c = (1 - Math.abs(2 * l - 1)) * s
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1))
+  const m = l - c / 2
+  let r_ = 0, g_ = 0, b_ = 0
+
+  if (0 <= h && h < 60) {
+    r_ = c; g_ = x; b_ = 0
+  } else if (60 <= h && h < 120) {
+    r_ = x; g_ = c; b_ = 0
+  } else if (120 <= h && h < 180) {
+    r_ = 0; g_ = c; b_ = x
+  } else if (180 <= h && h < 240) {
+    r_ = 0; g_ = x; b_ = c
+  } else if (240 <= h && h < 300) {
+    r_ = x; g_ = 0; b_ = c
+  } else if (300 <= h && h < 360) {
+    r_ = c; g_ = 0; b_ = x
+  }
+
+  return {
+    r: Math.round((r_ + m) * 255),
+    g: Math.round((g_ + m) * 255),
+    b: Math.round((b_ + m) * 255)
+  }
+}
+
+
+// Hulpfunctie: RGB naar 6-karakter hex (#rrggbb)
+const rgbToHex = (r: number, g: number, b: number) => {
+  const toHex = (n: number) => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, '0')
+  return '#' + toHex(r) + toHex(g) + toHex(b)
+}
+
+// Kleurinvoer parser die verschillende formats herkent
+const parseColorInput = (formatId: string, val: string): { hex: string; alpha?: number } | null => {
+  const str = val.trim()
+  if (!str) return null
+
+  // 1. HEX formaat
+  const hexMatch = str.match(/^#?([0-9a-fA-F]{3,8})$/)
+  if (hexMatch) {
+    const raw = hexMatch[1]
+    if (raw.length === 3) {
+      const full = raw.split('').map((c) => c + c).join('')
+      return { hex: '#' + full.toLowerCase() }
+    } else if (raw.length === 4) {
+      const full = raw.slice(0, 3).split('').map((c) => c + c).join('')
+      const aHex = raw[3] + raw[3]
+      const a = parseInt(aHex, 16) / 255
+      return { hex: '#' + full.toLowerCase(), alpha: a }
+    } else if (raw.length === 6) {
+      return { hex: '#' + raw.toLowerCase() }
+    } else if (raw.length === 8) {
+      const base = raw.substring(0, 6)
+      const aHex = raw.substring(6, 8)
+      const a = parseInt(aHex, 16) / 255
+      return { hex: '#' + base.toLowerCase(), alpha: a }
+    }
+  }
+
+  // 2. RGB / RGBA formaat (komma- of spatiesyntax)
+  const rgbFuncMatch = str.match(/^rgba?\((.*)\)$/i)
+  if (rgbFuncMatch) {
+    const inner = rgbFuncMatch[1].trim()
+    let parts: string[] = []
+    let alphaPart: string | null = null
+
+    if (inner.includes('/')) {
+      const [left, right] = inner.split('/')
+      alphaPart = right.trim()
+      parts = left.trim().split(/\s+|,/).filter(Boolean)
+    } else if (inner.includes(',')) {
+      parts = inner.split(',').map((p) => p.trim())
+      if (parts.length >= 4) {
+        alphaPart = parts[3]
+      }
+    } else {
+      parts = inner.split(/\s+/).filter(Boolean)
+    }
+
+    if (parts.length >= 3) {
+      const r = parseFloat(parts[0])
+      const g = parseFloat(parts[1])
+      const b = parseFloat(parts[2])
+      if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
+        const hex = rgbToHex(r, g, b)
+        let a = alphaValue.value
+        if (alphaPart !== null) {
+          a = parseAlphaString(alphaPart)
+        }
+        return { hex, alpha: alphaPart !== null ? a : undefined }
+      }
+    }
+  }
+
+  // 3. HSL / HSLA formaat (komma- of spatiesyntax)
+  const hslFuncMatch = str.match(/^hsla?\((.*)\)$/i)
+  if (hslFuncMatch) {
+    const inner = hslFuncMatch[1].trim()
+    let parts: string[] = []
+    let alphaPart: string | null = null
+
+    if (inner.includes('/')) {
+      const [left, right] = inner.split('/')
+      alphaPart = right.trim()
+      parts = left.trim().split(/\s+|,/).filter(Boolean)
+    } else if (inner.includes(',')) {
+      parts = inner.split(',').map((p) => p.trim())
+      if (parts.length >= 4) alphaPart = parts[3]
+    } else {
+      parts = inner.split(/\s+/).filter(Boolean)
+    }
+
+    if (parts.length >= 3) {
+      const h = parseFloat(parts[0].replace(/deg$/, ''))
+      const s = parseFloat(parts[1].replace(/%$/, ''))
+      const l = parseFloat(parts[2].replace(/%$/, ''))
+      if (!isNaN(h) && !isNaN(s) && !isNaN(l)) {
+        const rgb = hslToRgb(h, s, l)
+        const hex = rgbToHex(rgb.r, rgb.g, rgb.b)
+        let a = alphaValue.value
+        if (alphaPart !== null) a = parseAlphaString(alphaPart)
+        return { hex, alpha: alphaPart !== null ? a : undefined }
+      }
+    }
+  }
+
+
+  // 5. Benoemde W3C kleurnaam (zoals bisque, tomato, steelblue)
+  const cleanName = str.toLowerCase().replace(/[^a-z]/g, '')
+  if (namedColorsToHex[cleanName]) {
+    return { hex: namedColorsToHex[cleanName] }
+  }
+
+  // 6. Thomas More aliassen
+  if (cleanName.includes('oranje') || cleanName.includes('thomasmore')) {
+    return { hex: '#EC6639' }
+  }
+  if (cleanName.includes('marine') || cleanName.includes('blauw')) {
+    return { hex: '#1e2d5a' }
+  }
+
+  return null
+}
+
+const onFieldInput = (formatId: string, val: string) => {
+  rawInputs[formatId] = val
+  const parsed = parseColorInput(formatId, val)
+  if (parsed) {
+    inputErrors[formatId] = null
+    hexValue.value = parsed.hex
+    if (parsed.alpha !== undefined) {
+      alphaValue.value = Number(parsed.alpha.toFixed(2))
+    }
+  } else {
+    // Alleen fout tonen als de gebruiker niet leeg is
+    if (val.trim().length > 0) {
+      inputErrors[formatId] = 'Ongeldige syntax voor deze notatie'
+    } else {
+      inputErrors[formatId] = null
+    }
+  }
+}
+
+const onFieldFocus = (formatId: string) => {
+  // Als het veld gefocust wordt, initialiseer rawInputs als het nog niet gezet was
+  const currentFormat = formatRows.value.find((f) => f.id === formatId)
+  if (currentFormat && rawInputs[formatId] === undefined) {
+    rawInputs[formatId] = currentFormat.value
+  }
+}
+
+const onFieldBlur = (formatId: string) => {
+  // Reset rawInputs zodat de berekende nette waarde terug getoond wordt
+  rawInputs[formatId] = undefined
+  inputErrors[formatId] = null
+}
+
+const clearAllErrors = () => {
+  for (const k in rawInputs) rawInputs[k] = undefined
+  for (const k in inputErrors) inputErrors[k] = null
+}
 
 // WCAG Luminantie en contrastberekening
 const calculateLuminance = (r255: number, g255: number, b255: number) => {
@@ -408,31 +964,52 @@ const calculateLuminance = (r255: number, g255: number, b255: number) => {
   return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722
 }
 
+// Hulpfunctie: parseer hex naar numerieke RGB waarden
+const hexToRgbValues = (hexStr: string) => {
+  let hex = hexStr.replace(/^#/, '')
+  if (hex.length === 3) {
+    hex = hex.split('').map((c) => c + c).join('')
+  }
+  const r = parseInt(hex.substring(0, 2), 16) || 0
+  const g = parseInt(hex.substring(2, 4), 16) || 0
+  const b = parseInt(hex.substring(4, 6), 16) || 0
+  return { r, g, b }
+}
+
 const contrastWhite = computed(() => {
   const { r, g, b } = rgbChannels.value
-  const blendedR = Math.round(r * alphaValue.value + 255 * (1 - alphaValue.value))
-  const blendedG = Math.round(g * alphaValue.value + 255 * (1 - alphaValue.value))
-  const blendedB = Math.round(b * alphaValue.value + 255 * (1 - alphaValue.value))
+  const bg = hexToRgbValues(bgWhite.value)
+  const blendedR = Math.round(r * alphaValue.value + bg.r * (1 - alphaValue.value))
+  const blendedG = Math.round(g * alphaValue.value + bg.g * (1 - alphaValue.value))
+  const blendedB = Math.round(b * alphaValue.value + bg.b * (1 - alphaValue.value))
 
   const lumColor = calculateLuminance(blendedR, blendedG, blendedB)
-  const lumWhite = 1.0
-  const ratio = (Math.max(lumColor, lumWhite) + 0.05) / (Math.min(lumColor, lumWhite) + 0.05)
-  return { ratio, passAA: ratio >= 4.5 }
+  const lumBg = calculateLuminance(bg.r, bg.g, bg.b)
+  const ratio = (Math.max(lumColor, lumBg) + 0.05) / (Math.min(lumColor, lumBg) + 0.05)
+  return {
+    ratio,
+    passNormalAA: ratio >= 4.5,
+    passLargeAA: ratio >= 3.0,
+    passAAA: ratio >= 7.0,
+  }
 })
 
 const contrastDark = computed(() => {
   const { r, g, b } = rgbChannels.value
-  const bgR = 30
-  const bgG = 45
-  const bgB = 90
-  const blendedR = Math.round(r * alphaValue.value + bgR * (1 - alphaValue.value))
-  const blendedG = Math.round(g * alphaValue.value + bgG * (1 - alphaValue.value))
-  const blendedB = Math.round(b * alphaValue.value + bgB * (1 - alphaValue.value))
+  const bg = hexToRgbValues(bgDark.value)
+  const blendedR = Math.round(r * alphaValue.value + bg.r * (1 - alphaValue.value))
+  const blendedG = Math.round(g * alphaValue.value + bg.g * (1 - alphaValue.value))
+  const blendedB = Math.round(b * alphaValue.value + bg.b * (1 - alphaValue.value))
 
   const lumColor = calculateLuminance(blendedR, blendedG, blendedB)
-  const lumDark = calculateLuminance(bgR, bgG, bgB)
-  const ratio = (Math.max(lumColor, lumDark) + 0.05) / (Math.min(lumColor, lumDark) + 0.05)
-  return { ratio, passAA: ratio >= 4.5 }
+  const lumBg = calculateLuminance(bg.r, bg.g, bg.b)
+  const ratio = (Math.max(lumColor, lumBg) + 0.05) / (Math.min(lumColor, lumBg) + 0.05)
+  return {
+    ratio,
+    passNormalAA: ratio >= 4.5,
+    passLargeAA: ratio >= 3.0,
+    passAAA: ratio >= 7.0,
+  }
 })
 
 const copyValue = async (text: string, key: string) => {
@@ -485,18 +1062,16 @@ const copyValue = async (text: string, key: string) => {
   font-size: 0.72rem;
   font-weight: 600;
   padding: 3px 8px;
-  border-radius: 9999px;
+  border-radius: 20px;
   background-color: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 .cc-body {
   padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .cc-controls-row {
@@ -508,14 +1083,13 @@ const copyValue = async (text: string, key: string) => {
 .cc-preview-card {
   position: relative;
   width: 140px;
-  min-height: 120px;
+  min-height: 100px;
   border-radius: 10px;
   border: 2px solid var(--vp-c-divider);
   overflow: hidden;
   cursor: pointer;
   flex-shrink: 0;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-  transition: transform 0.15s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .cc-preview-card:hover {
@@ -600,16 +1174,12 @@ const copyValue = async (text: string, key: string) => {
 
 .cc-slider-val {
   font-family: var(--vp-font-family-mono);
-  color: var(--vp-c-brand-1);
   font-weight: 600;
+  color: var(--vp-c-brand-1);
 }
 
 .cc-range-input {
   width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  background: var(--vp-c-divider);
-  outline: none;
   accent-color: var(--vp-c-brand-1);
   cursor: pointer;
 }
@@ -666,6 +1236,23 @@ const copyValue = async (text: string, key: string) => {
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
+.cc-input-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--vp-c-text-2);
+  background-color: var(--vp-c-bg-alt);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px dashed var(--vp-c-divider);
+}
+
+.cc-input-hint svg {
+  color: var(--vp-c-brand-1);
+  flex-shrink: 0;
+}
+
 .cc-formats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -685,6 +1272,10 @@ const copyValue = async (text: string, key: string) => {
 
 .cc-format-card:hover {
   border-color: var(--vp-c-brand-1);
+}
+
+.cc-format-card.has-error {
+  border-color: #ef4444;
 }
 
 .cc-format-header {
@@ -711,16 +1302,36 @@ const copyValue = async (text: string, key: string) => {
   gap: 8px;
 }
 
-.cc-format-code {
+.cc-format-input {
   font-family: var(--vp-font-family-mono);
   font-size: 0.82rem;
   color: var(--vp-c-brand-1);
   background-color: var(--vp-c-bg-elv);
-  padding: 3px 6px;
+  padding: 4px 8px;
   border-radius: 4px;
   border: 1px solid var(--vp-c-divider);
   word-break: break-all;
   flex-grow: 1;
+  min-width: 0;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cc-format-input:focus {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 0 0 2px var(--vp-c-brand-soft);
+  color: var(--vp-c-text-1);
+}
+
+.cc-format-input.is-invalid {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+.cc-format-error-msg {
+  font-size: 0.68rem;
+  color: #ef4444;
+  margin-top: -2px;
 }
 
 .cc-copy-btn {
@@ -749,6 +1360,12 @@ const copyValue = async (text: string, key: string) => {
   background-color: var(--vp-c-brand-1);
   color: #ffffff;
   border-color: var(--vp-c-brand-1);
+}
+
+.cc-copy-btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .cc-contrast-card {
@@ -790,6 +1407,27 @@ const copyValue = async (text: string, key: string) => {
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
+.cc-sample-text-wrap {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.cc-sample-large {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.cc-sample-normal {
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
 .cc-contrast-metrics {
   padding: 8px 12px;
   display: flex;
@@ -798,6 +1436,90 @@ const copyValue = async (text: string, key: string) => {
   gap: 6px;
   background-color: var(--vp-c-bg-elv);
   font-size: 0.75rem;
+}
+
+.cc-contrast-label-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-bg-picker-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cc-bg-native-picker {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.cc-bg-swatch {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1.5px solid var(--vp-c-divider);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.cc-bg-picker-label:hover .cc-bg-swatch {
+  transform: scale(1.15);
+  border-color: var(--vp-c-brand-1);
+}
+
+.cc-contrast-eval-rows {
+  padding: 6px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: var(--vp-c-bg-elv);
+  border-top: 1px dashed var(--vp-c-divider);
+}
+
+.cc-eval-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.75rem;
+}
+
+.cc-eval-label {
+  color: var(--vp-c-text-2);
+}
+
+.cc-contrast-guidance {
+  margin-top: 4px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background-color: var(--vp-c-bg-elv);
+  border: 1px solid var(--vp-c-divider);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cc-contrast-guidance.is-alert {
+  border-left: 4px solid #ef4444;
+}
+
+.cc-guidance-text {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--vp-c-text-2);
+}
+
+.cc-guidance-text strong {
+  color: var(--vp-c-text-1);
 }
 
 .cc-contrast-label {
