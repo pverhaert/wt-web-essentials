@@ -616,9 +616,49 @@ In PhpStorm kan je met behulp van Emmet-afkortingen binnen enkele toetsaanslagen
 | `c:ra` | `Tab` | `color: rgba(0, 0, 0, 0.5);` | Tekstkleur met alfakanaal |
 | `bgc:t` | `Tab` | `background-color: transparent;` | Transparante achtergrond |
 
+<PageSummary>
 
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Tekstkleur | `color: waarde;` | `color: #1e2d5a;` |
+| Achtergrondkleur | `background-color: waarde;` | `background-color: #f8fafc;` |
+| HEX-notatie | `#RRGGBB` of `#RGB` | `#e87722;` (TM oranje) |
+| RGB-notatie | `rgb(r, g, b)` | `rgb(30, 45, 90);` |
+| HSL-notatie | `hsl(tint, verzadiging%, lichtheid%)` | `hsl(215, 50%, 24%);` |
+| Transparantie (Alpha) | `rgba(r, g, b, alpha)` of `rgb(r g b / alpha)` | `rgba(232, 119, 34, 0.15);` |
+| Transparante achtergrond | `background-color: transparent;` | Volledig doorzichtig |
+| Kleuren overnemen | `color: inherit;` | Neemt kleur over van moederelement |
+
+### Regels en afspraken
+
+- **WCAG Contrastnorm:** Zorg voor minimaal **4.5:1** contrastverhouding tussen tekst en achtergrond voor normale tekst (3:1 voor grote tekst vanaf 24px of vet 18.5px).
+- **LoVe Fears HAte volgorde:** Schrijf interactieve pseudo-klassen voor links altijd in deze exacte volgorde:
+  1. `:link` (ongebezochte link)
+  2. `:visited` (al bezochte link)
+  3. `:focus` (toetsenbordfocus)
+  4. `:hover` (muisaanwijzer erboven)
+  5. `:active` (ingedrukt)
+- **Kleurharmonie:** Gebruik HSL als je eenvoudig lichtere of donkerdere tinten van dezelfde merkkleur wilt maken door enkel de `L` (lichtheid) aan te passen.
+
+### Veelgemaakte fouten
+
+- De hash (`#`) vergeten voor een hexadecimale kleurcode: `color: e87722;` is ongeldig en wordt door de browser genegeerd.
+- De volgorde van pseudo-klassen omwisselen: zet je `:hover` vóór `:visited`, dan zal `:visited` de hoverstijl overschrijven zodra een link eenmaal bezocht is.
+- Onvoldoende contrast tussen tekst en achtergrondkleur (zoals lichtoranje tekst op een witte achtergrond), waardoor inhoud onleesbaar is voor slechtzienden of in fel zonlicht.
+- Verwarring tussen `opacity` en `rgba()`: `opacity` maakt het **volledige element** (inclusief tekst) doorzichtig; met `rgba()` of een alfakanaal op `background-color` blijft de tekst 100% dekkend en scherp.
+
+### Tips voor beginners
+
+- Gebruik de ingebouwde **Color Picker** in PhpStorm of Google Chrome DevTools (`F12`): klik op het kleurvierkantje naast een kleurwaarde om direct visueel tinten te selecteren en tussen HEX, RGB en HSL te schakelen.
+- Chrome DevTools toont bij elke tekstkleur automatisch de **Contrast ratio** met een groen vinkje als je voldoet aan de WCAG AA-standaard.
+- Test altijd met de `Tab`-toets of je navigatieknoppen en hyperlinks een duidelijk zichtbare `:focus`-stijl vertonen.
+
+</PageSummary>
 
 ## Oefeningen
+
 
 ### Oefening 1: Kleurenpalet voor Thomas More Campus Geel
 

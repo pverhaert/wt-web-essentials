@@ -529,7 +529,46 @@ In PhpStorm kan je CSS bijzonder snel schrijven met behulp van ingebouwde Emmet-
 | `p10` | `Tab` | `padding: 10px;` |
 | `lh1.6` | `Tab` | `line-height: 1.6;` |
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| CSS-stijlregel | `selector { eigenschap: waarde; }` | `h1 { color: #1e2d5a; }` |
+| Extern stijlblad | `<link rel="stylesheet" href="pad/stijl.css">` | In de `<head>` van HTML |
+| Type selector | `elementnaam { }` | `p { line-height: 1.6; }` |
+| Class selector | `.klassenaam { }` | `.uitgelicht { font-weight: bold; }` |
+| ID selector | `#idnaam { }` | `#hoofdmenu { color: #e87722; }` |
+| Gegroepeerde selector | `sel1, sel2 { }` | `h1, h2, h3 { font-family: sans-serif; }` |
+| Afstammingsselector | `ouder kind { }` | `article p { color: #333; }` |
+
+### Regels en afspraken
+
+- **Strikte scheiding:** HTML verzorgt de inhoud en structuur, CSS verzorgt de presentatie en lay-out. Schrijf stijlregels bij voorkeur altijd in een **extern `.css`-bestand**.
+- **Koppeling in `<head>`:** Plaats de `<link rel="stylesheet" href="...">` altijd binnen het `<head>`-element van je HTML-document.
+- **Herbruikbaarheid:** Gebruik klassen (`.klasse`) voor herbruikbare elementen en stijlen. Gebruik ID's (`#id`) uiterst spaarzaam wegens hun te hoge specificiteit.
+- **Overerving:** Teksteigenschappen zoals `color`, `font-family` en `line-height` erven automatisch over van ouder naar kind. Lay-out eigenschappen (zoals `margin`, `padding` en `border`) erven **nooit** automatisch over.
+- **De Cascade:** Bij botsende regels met gelijke specificiteit wint altijd de regel die **het laatst** in het stylesheet staat (bronvolgorde).
+
+### Veelgemaakte fouten
+
+- De punt (`.`) vergeten vóór een klassenaam in CSS, waardoor de browser zoekt naar een onbestaand HTML-element (bijv. `uitgelicht { }` in plaats van `.uitgelicht { }`).
+- Een hash (`#`) in het HTML `class`-attribuut typen: schrijf in HTML `class="kaart"`, niet `class="#kaart"`.
+- Het koppelteken of de puntkomma vergeten aan het einde van een CSS-declaratie, waardoor de volgende regel niet meer gelezen wordt.
+- `id` meerdere keren gebruiken op dezelfde pagina (een ID moet uniek zijn in het HTML-document).
+- Inline stijlen (`style="..."`) in HTML typen in plaats van een centrale regel in het externe CSS-stijlblad.
+
+### Tips voor beginners
+
+- Gebruik Google Chrome DevTools (`F12` of rechtermuisklik -> **Inspecteren**): doorgestreepte CSS-regels tonen direct aan welke stijlen zijn overschreven door een regel met hogere prioriteit of latere bronvolgorde.
+- Gebruik in PhpStorm de Emmet-sneltoets `link:css` in de `<head>` van je HTML om de `<link>`-tag in één klap te genereren.
+- Valideer je stijlblad regelmatig via de officiële **W3C CSS Validator** om verborgen typefouten of vergeten haakjes vroegtijdig op te sporen.
+
+</PageSummary>
+
 ## Oefeningen
+
 
 Oefen de theorie in met de onderstaande praktische opdrachten. Maak voor elke oefening een apart project of submap aan in PhpStorm.
 

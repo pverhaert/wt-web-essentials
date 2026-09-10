@@ -383,7 +383,50 @@ Wil je snel een consistent kleurenpalet met CSS-variabelen genereren op basis va
 
 
 
-### Oefening 1: Een campus-huisstijl opzetten in `:root`
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Variabele declareren | `--naam: waarde;` | `--hoofdkleur: #1e2d5a;` |
+| Variabele gebruiken | `var(--naam)` | `color: var(--hoofdkleur);` |
+| Fallback instellen | `var(--naam, standaardwaarde)` | `var(--kleur, #333)` |
+| Globaal bereik | Declareer in `:root { }` | Beschikbaar in elk element |
+| Lokaal bereik | Declareer in een selector | Alleen in dat element en zijn kinderen |
+| Berekening | `calc(var(--naam) * factor)` | `calc(var(--ruimte) * 2)` |
+
+### Naamgeving en organisatie
+
+- Namen beginnen **altijd** met twee koppeltekens: `--mijn-variabele`
+- Schrijf namen in **kleine letters** met koppeltekens (kebab-case): `--kaart-radius`
+- Gebruik **semantische namen** die beschrijven waarvoor de variabele dient, niet de waarde zelf. Schrijf `--kleur-primair`, niet `--blauw` of `--ec6639`
+- Groepeer variabelen per categorie bovenaan `:root`: eerst kleuren, dan typografie, dan tussenruimtes
+- CSS-variabelen zijn **hoofdlettergevoelig**: `--Kleur` en `--kleur` zijn twee verschillende variabelen
+
+### Bereik (scope)
+
+- Variabelen gedeclareerd in `:root` zijn beschikbaar **op de hele pagina**
+- Variabelen gedeclareerd in een klasse of element zijn alleen geldig **binnen dat element en zijn kinderen**
+- Je kan een globale variabele **lokaal overschrijven** door dezelfde naam opnieuw te declareren in een specifieke selector: de lokale waarde wint
+
+### Veelgemaakte fouten
+
+- Vergeten dat namen verplicht met `--` beginnen (`-hoofdkleur` werkt niet)
+- De variabele buiten zijn bereik gebruiken zonder fallback, waardoor de browser terugvalt op de beginwaarde (meestal ongewenst)
+- Bij `calc()` de spaties rond `+` en `-` weglaten: `calc(100%-2rem)` is ongeldig, `calc(100% - 2rem)` is correct
+- Een variabele een kleurcode geven maar hem als `font-size` gebruiken: de browser negeert de eigenschap dan stilletjes
+
+### Tips voor beginners
+
+- Begin elk project met een `:root`-blok in je externe stylesheet, ook als je maar 3 kleuren hebt. Het kost weinig moeite en betaalt zich terug zodra je de huisstijl wilt aanpassen.
+- Wil je snel zien welke variabelen actief zijn? Open de DevTools (`F12`), selecteer `html` in de DOM en kijk bij **Computed** naar de gedeelte `Custom Properties`.
+- Gebruik het `calc()`-principe om tussenruimtes proportioneel te houden: declareer één basisspatiëring (`--spatiëring: 1rem`) en leid alle andere afstanden daarvan af met `calc()`.
+
+</PageSummary>
+
+## Oefeningen
+
 
 Bouw een centraal kleurenpalet voor de studentenraad van **Thomas More Campus Geel**:
 

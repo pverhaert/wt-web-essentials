@@ -262,8 +262,6 @@ p {
 
 In de praktijk schrijven webontwikkelaars eigenschappen als `font-family`, `font-size` en `line-height` meestal los van elkaar, omdat dit veel overzichtelijker is en minder snel tot fouten leidt.
 
----
-
 ## Live voorbeeld: Lettertypen en regelhoogte
 
 In het onderstaande interactieve voorbeeld zie je het verschil tussen verschillende lettertypefamilies, het effect van `rem`-schaling en hoe belangrijk een aangename `line-height` is.
@@ -321,8 +319,6 @@ p {
 </body>
 </html>"
 />
-
----
 
 ## Tekstuitlijning: `text-align`
 
@@ -452,8 +448,6 @@ h1 {
 Gebruik voor moderne ontwerpen altijd een deels transparante kleur (zoals `rgba(0, 0, 0, 0.2)` of `rgba(30, 45, 90, 0.15)`). Felle, dekkende schaduwen (zoals knalrood of gitzwart zonder vervaging) ogen gedateerd en maken tekst lastig leesbaar.
 :::
 
----
-
 ## Live voorbeeld: Tekstopmaak, knoppen en schaduwen
 
 In dit voorbeeld combineren we `text-transform`, `text-decoration`, `text-shadow` en toegankelijke links tot een aantrekkelijk geheel:
@@ -536,8 +530,6 @@ p a:hover {
 </html>"
 />
 
----
-
 ## Handige Emmet-sneltoetsen in PhpStorm
 
 Typ in PhpStorm (of in de interactieve CodeSandbox van deze cursus) binnen een CSS-declaratieblok de onderstaande afkorting en druk op `Tab`:
@@ -568,9 +560,49 @@ Alle onderstaande afkortingen (zoals `ff:v`, `fv:sc` en `tal`) werken zowel in P
 | `tdn` | `Tab` | `text-decoration: none;` |
 | `tsh` | `Tab` | `text-shadow: hoff voff blur #000;` |
 
----
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Lettertypefamilie | `font-family: font1, font2, generiek;` | `font-family: Arial, Helvetica, sans-serif;` |
+| Lettergrootte | `font-size: waarde;` | `font-size: 1.125rem;` |
+| Letterdikte | `font-weight: 100-900 \| normal \| bold;` | `font-weight: 600;` |
+| Letterstijl | `font-style: normal \| italic;` | `font-style: italic;` |
+| Kleinkapitalen | `font-variant: normal \| small-caps;` | `font-variant: small-caps;` |
+| Regelafstand | `line-height: getal;` (zonder eenheid) | `line-height: 1.6;` |
+| Tekstuitlijning | `text-align: left \| center \| right;` | `text-align: center;` |
+| Hoofdletters | `text-transform: uppercase \| lowercase \| capitalize;` | `text-transform: uppercase;` |
+| Onderlijning | `text-decoration: none \| underline;` | `text-decoration: underline;` |
+| Tekstschaduw | `text-shadow: x y blur kleur;` | `text-shadow: 1px 2px 4px rgba(0,0,0,0.2);` |
+
+### Regels en afspraken
+
+- **Generieke fallback:** Sluit elke `font-family`-declaratie altijd verplicht af met een van de standaarden: `sans-serif`, `serif` of `monospace`.
+- **Aanhalingstekens bij spaties:** Bevat een lettertypenaam één of meerdere spaties (zoals `"Segoe UI"` of `"Times New Roman"`), plaats die dan tussen dubbele aanhalingstekens.
+- **Relatieve eenheid `rem`:** Gebruik `rem` voor `font-size` in plaats van harde `px`. Hierdoor schaalt je website automatisch mee wanneer een bezoeker zijn browserlettergrootte aanpast (toegankelijkheid).
+- **Getalwaarde voor `line-height`:** Schrijf de regelhoogte als een getal zonder eenheid (bijv. `line-height: 1.6;`). Dit vermenigvuldigt zich evenredig met de `font-size` van het element zelf.
+- **Toegankelijke links:** Verwijder nooit `text-decoration` van links in lopende tekst zonder een duidelijk alternatief zoals voldoende kleurcontrast of een onderlijning bij `:hover` en `:focus`.
+
+### Veelgemaakte fouten
+
+- Vergeten van de generieke fallbackfamilie aan het einde van `font-family`.
+- Een eenheid koppelen aan `line-height` (zoals `line-height: 1.6rem;`), wat leidt tot ongewenste overlappingen bij grotere koppen.
+- Teksten rechtvaardigen (`text-align: justify`) op het web: dit creëert storende 'witte rivieren' en maakt tekst moeilijk leesbaar voor personen met dyslexie.
+- Tekst letterlijk in hoofdletters typen in je HTML in plaats van semantisch correct in kleine letters met `text-transform: uppercase;` in CSS.
+- `font-size` instellen op titels in plaats van de juiste HTML-kophiërarchie (`<h1>` t/m `<h6>`) te hanteren.
+
+### Tips voor beginners
+
+- Hanteer als vuistregel voor prettig leesbare alinea's: `font-size: 1rem;` of `1.125rem;` met `line-height: 1.5;` tot `1.6;`.
+- Kies voor schermtekst standaard een schreefloos lettertype (`sans-serif`): dit oogt rustiger en strakker op beeldschermen van laptops en smartphones.
+- Test je typografie via Google Chrome DevTools (`F12`): inspecteer de berekende grootte via het tabblad **Computed** om te zien hoe `rem` naar exacte pixels vertaalt.
+
+</PageSummary>
 
 ## Oefeningen
+
 
 Oefen de theorie in door de onderstaande praktische opdrachten uit te voeren in PhpStorm. Maak voor elke oefening een nieuw HTML- en CSS-bestand aan.
 

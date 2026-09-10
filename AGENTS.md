@@ -404,10 +404,53 @@ Voor elke pagina die je schrijft of aanpast:
 
 1. Controleer of het gedetailleerde inhoudelijke overzicht (en bij een oude cursus: de analyse van weglaten en toevoegen) vooraf expliciet is goedgekeurd door de gebruiker
 2. Controleer of alle leerdoelen concreet en meetbaar zijn
-3. Controleer of de structuur (Leerdoelen / Theorie met geïntegreerde codevoorbeelden / Oefeningen) intact is
+3. Controleer of de structuur (Leerdoelen / Theorie met geïntegreerde codevoorbeelden / Samenvatting & tips / Oefeningen) intact is
 4. Controleer of alle codeblokken volledig en werkend zijn
 5. Controleer of er geen emoji's, en-streepjes of em-streepjes in de tekst staan
 6. Controleer of alle technische termen uitgelegd worden bij de eerste vermelding
 7. Controleer of de jij-vorm consequent wordt gebruikt
 8. Controleer of interne links correct zijn (relatieve paden)
 9. Controleer of voorbeelden, oefeningen en CodeSandbox-toepassingen ENKEL gebruikmaken van CSS-eigenschappen die in het huidige of voorgaande CSS-hoofdstukken zijn behandeld (tenzij een uitzondering vooraf expliciet is goedgekeurd)
+10. Controleer of een `<PageSummary>`-blok aanwezig is boven de oefeningen (zie skill hieronder)
+
+---
+
+## Paginasamenvattingen (`<PageSummary>`)
+
+Elke cursuspagina eindigt met een beknopte, inklapbare referentiekaart voor de student. Deze kaart staat **boven de `## Oefeningen`-sectie** en bevat:
+
+- Een syntaxistabel (tags, properties of patronen in een oogopslag)
+- Regels en naamgeving (concrete do's en don'ts)
+- Veelgemaakte fouten (3-5 concrete beginnerfouten)
+- Tips voor beginners (2-4 praktische workflow-tips)
+
+De component wordt als volgt opgenomen in een `.md`-bestand:
+
+```markdown
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+[tabel of bullets]
+
+### Veelgemaakte fouten
+
+[bullets]
+
+### Tips voor beginners
+
+[bullets]
+
+</PageSummary>
+
+## Oefeningen
+```
+
+**Gedetailleerde instructies** voor het schrijven van een samenvatting staan in de aparte skill:
+
+```
+.gemini/skills/page-summary/SKILL.md
+```
+
+Lees dit bestand altijd **voor** je een nieuwe samenvatting schrijft of een bestaande herziet.
+

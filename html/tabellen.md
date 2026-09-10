@@ -554,6 +554,45 @@ Typ de gewenste Emmet-afkorting in een HTML-bestand en druk direct op `Tab`:
 Het dakje-teken (`^`) in Emmet betekent: 'ga één niveau omhoog in de boomstructuur'. Met `thead>tr>th*3^^tbody` zorg je ervoor dat `tbody` op hetzelfde niveau als `thead` wordt geplaatst (als direct kind van `table`), en niet per ongeluk binnen `thead`.
 :::
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Element / Attribuut | Categorie | Functie |
+|---|---|---|
+| `<table>` | Tabelcontainer | Omvat de volledige tabel |
+| `<caption>` | Titel / bijschrift | Eerste kind van `<table>`, beschrijft de tabel |
+| `<thead>` | Tabelkop | Groepeert kolomhoofdingen |
+| `<tbody>` | Tabelromp | Groepeert de feitelijke gegevensrijen |
+| `<tfoot>` | Tabelvoet | Groepeert samenvattingen, totalen of notities |
+| `<tr>` | Tabelrij (row) | Bevat één horizontale rij cellen |
+| `<th>` | Kopcel (header) | Bevat een titel (standaard vet en gecentreerd) |
+| `<td>` | Gegevenscel (data) | Bevat de feitelijke data (standaard links uitgelijnd) |
+| `scope="col \| row"` | Attribuut op `<th>` | Koppelt kopcel aan kolom of rij (voor schermlezers) |
+| `colspan="aantal"` | Attribuut op `<th>`/`<td>` | Laat een cel horizontaal over meerdere kolommen lopen |
+| `rowspan="aantal"` | Attribuut op `<th>`/`<td>` | Laat een cel verticaal over meerdere rijen lopen |
+
+### Regels en afspraken
+
+- **Enkel voor tabulaire gegevens:** Gebruik `<table>` uitsluitend voor echte tabulaire data (zoals prijslijsten, roosters of statistieken). Gebruik tabellen **nooit** om de algemene lay-out van een webpagina te bouwen.
+- **`<caption>` staat altijd bovenaan:** Het `<caption>`-element moet altijd het allereerste kind-element zijn direct na de openingstag `<table>`.
+- **Toegankelijkheid met `scope`:** Voorzie elke kopcel `<th>` altijd van `scope="col"` (als het een kolomkop is) of `scope="row"` (als het een rijkop is). Dit stelt schermlezers in staat om cellen correct te verklaren.
+- **Rij-evenwicht:** Als je `colspan="2"` gebruikt in een cel, vervangt die cel twee kolommen. De betreffende rij moet dan één `<td>` minder bevatten om te voorkomen dat cellen buiten de tabel steken.
+
+### Veelgemaakte fouten
+
+- Tekst of koppen rechtstreeks in `<table>`, `<thead>` of `<tbody>` plaatsen zonder omhullende `<tr>` en `<td>`/`<th>`.
+- `colspan` of `rowspan` instellen en vergeten om in de andere kolommen/rijen het overeenkomstige aantal cellen weg te laten.
+- `<td>` gebruiken voor kolomtitels in plaats van het semantische `<th>` met `scope`.
+- `<caption>` na `<tbody>` of onderaan de tabel plaatsen (in HTML hoort het direct na `<table>`).
+
+### Tips voor beginners
+
+- Emmet in PhpStorm: typ `table>thead>tr>th*3^^tbody>tr*3>td*3` en druk op `Tab` om in één klap een complete semantische tabelstructuur neer te zetten.
+- Gebruik in Emmet het dakje (`^`) om één niveau omhoog te klimmen in de boomstructuur.
+
+</PageSummary>
+
 ## Oefeningen
 
 ### Oefening 1: Prijslijst van de campuscafetaria

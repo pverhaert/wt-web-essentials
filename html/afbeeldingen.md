@@ -657,6 +657,46 @@ Gebruik de gratis webapplicatie [Photo Edit Pro](https://photo-edit-pro.netlify.
 2. **Herschalen (resizen):** Breng de breedte terug naar een realistische webafmeting, bijvoorbeeld 800 tot 1200 pixels breed voor grote foto's.
 3. **Converteren naar WebP:** Exporteer de bewerkte afbeelding meteen als compact WebP-bestand met optimale compressie.
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Afbeelding invoegen | `<img src="..." alt="...">` | `<img src="campus.webp" alt="Campus Geel">` |
+| Afmetingen opgeven | `width="breedte" height="hoogte"` | `width="800" height="450"` (zonder eenheid) |
+| Uitgesteld laden | `loading="lazy"` | Laadt pas bij naderend scrollen |
+| Afbeelding met bijschrift | `<figure><img><figcaption>...</figcaption></figure>` | Zelfstandige media-eenheid |
+| Relatief pad (zelfde map) | `src="foto.webp"` of `src="./foto.webp"` | Naast HTML-bestand |
+| Relatief pad (submap) | `src="images/foto.webp"` | In de map `images` |
+| Relatief pad (map omhoog) | `src="../images/foto.webp"` | Één mapniveau hoger |
+| Decoratieve afbeelding | `alt=""` (leeg alt-attribuut) | Schermlezer slaat afbeelding over |
+
+### Regels en afspraken
+
+- **Verplicht `alt`-attribuut:** Elke `<img>`-tag moet een `alt`-attribuut bevatten voor schermlezers en zoekmachines. Is een afbeelding puur decoratief, gebruik dan `alt=""` (niet het attribuut weglaten!).
+- **Voorkom Cumulative Layout Shift (CLS):** Geef altijd de oorspronkelijke intrinsieke pixelafmetingen mee via `width` en `height` (zonder `px`). De browser reserveert dan direct de juiste ruimte in de lay-out vóór de afbeelding gedownload is.
+- **Formaatkeuze:**
+  - **WebP:** De moderne standaard voor foto's (tot 30% lichter dan JPEG met behoud van transparantie).
+  - **SVG:** Voor logo's, iconen en lijntekeningen (oneindig scherp, resolutie-onafhankelijk en zeer klein).
+  - **PNG:** Alleen wanneer WebP niet mogelijk is en transparantie vereist is.
+- **Relatieve paden:** Gebruik op je eigen website altijd relatieve paden. Gebruik nooit absolute lokale bestandspaden zoals `C:\Users\...` of `file:///`.
+
+### Veelgemaakte fouten
+
+- Geen `alt`-attribuut opgeven, of vage teksten typen zoals `alt="afbeelding"` of `alt="foto.jpg"`.
+- Het `alt`-attribuut verwarren met `title`: een `title` toont enkel een zwevende tooltip en helpt blinde bezoekers niet.
+- Reusachtige foto's van 5-10 MB rechtstreeks van een smartphone of camera op een webpagina plaatsen zonder vooraf bijsnijden, herschalen en converteren naar WebP.
+- Eenheden typen in de HTML-attributen `width` en `height`: schrijf `width="600"`, niet `width="600px"`.
+
+### Tips voor beginners
+
+- Gebruik de gratis online tool **Photo Edit Pro** om foto's snel bij te snijden naar een vaste verhouding (bv. 16:9), te herschalen naar maximaal 1200px breed en te exporteren als WebP.
+- Voeg standaard `loading="lazy"` toe aan alle afbeeldingen behalve de allereerste grote hoofdfoto bovenaan het scherm (*Hero-image*).
+- Typ in PhpStorm `img` en druk op `Tab`: PhpStorm zet direct `<img src="" alt="">` voor je klaar met de cursor op de juiste plek.
+
+</PageSummary>
+
 ## Oefeningen
 
 ### Oefening 1: Campuspagina met afbeeldingen

@@ -20,6 +20,8 @@ import MiniColorPicker from './components/MiniColorPicker.vue'
 import ColorConverter from './components/ColorConverter.vue'
 import LineHeightGame from './components/LineHeightGame.vue'
 import GoogleFontsSimulator from './components/GoogleFontsSimulator.vue'
+import PageSummary from './components/PageSummary.vue'
+import PageSummaryModal from './components/PageSummaryModal.vue'
 import NotFound from './NotFound.vue'
 import {
   Info,
@@ -37,6 +39,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'layout-bottom': () => [
         h(BackToTop),
+        h(PageSummaryModal),
         h(AiAssistant),
         h(ConfirmModal),
         h(AiAssistantNavButton),
@@ -62,6 +65,7 @@ export default {
     app.component('ColorConverter', ColorConverter)
     app.component('LineHeightGame', LineHeightGame)
     app.component('GoogleFontsSimulator', GoogleFontsSimulator)
+    app.component('PageSummary', PageSummary)
 
     // Registreer Lucide iconen
     app.component('LucideInfo', Info)

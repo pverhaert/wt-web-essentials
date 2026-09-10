@@ -416,7 +416,48 @@ Probeer de onderstaande code zelf uit. Pas een kop aan, voeg een alinea of benad
   height="460px"
 />
 
+<PageSummary>
 
+### Syntaxis in een oogopslag
+
+| Tag / Element | Categorie | Functie en betekenis |
+|---|---|---|
+| `<h1>` t/m `<h6>` | Blok | Koppenhiërarchie (max. 1x `<h1>` per pagina) |
+| `<p>` | Blok | Alinea voor gewone lopende tekst |
+| `<hr>` | Blok (void) | Thematische overgang tussen onderwerpen |
+| `<br>` | Inline (void) | Gedwongen regeleinde (postadres of gedicht) |
+| `<strong>` | Inline | Inhoudelijk belangrijk of dringend (standaard vet) |
+| `<em>` | Inline | Klemtoon / nadruk (standaard cursief) |
+| `<code>` | Inline | Inline computercode of tagnaam (monospace) |
+| `<pre>` | Blok | Vooropgemaakte tekst (behoudt spaties en enters) |
+| `<div>` | Blok | Neutrale container zonder betekenis |
+| `<span>` | Inline | Neutraal inline-element zonder betekenis |
+| Semantische tags | Blok | `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>` |
+
+### Regels en afspraken
+
+- **Koppenhiërarchie:** Sla nooit niveaus over in je titels (ga van `<h1>` altijd naar `<h2>`, en pas van `<h2>` naar `<h3>`). Gebruik `<h1>` tot en met `<h6>` nooit louter voor visuele lettergrootte (daarvoor dient CSS).
+- **Blok versus Inline:**
+  - *Blokelementen* (zoals `<p>`, `<h1>`, `<header>`) beginnen altijd op een nieuwe regel en nemen de volle breedte in.
+  - *Inline-elementen* (zoals `<strong>`, `<em>`, `<code>`) blijven netjes in de lopende zin staan.
+- **`<main>` is uniek:** Het `<main>`-element mag slechts **één keer** per pagina voorkomen en bevat de unieke hoofdinhoud van het document.
+- **Semantiek boven uiterlijk:** Gebruik `<strong>` en `<em>` in plaats van de verouderde `<b>` en `<i>`. De eerste twee geven betekenis door aan zoekmachines en schermlezers.
+- **Gebruik van containers:** Gebruik `<div>` en `<span>` enkel als kapstok voor styling wanneer er geen geschikt semantisch element voorhanden is.
+
+### Veelgemaakte fouten
+
+- Meerdere keren achter elkaar `<br><br><br>` typen om witruimte te forceren: dit is strikt verboden volgens de webstandaarden; witruimte regel je met CSS marges en padding.
+- Meerdere `<h1>`-tags gebruiken op één pagina: beperk je tot precies één hoofdtitel per pagina.
+- Een blokelement (zoals een `<p>` of `<div>`) nesten binnenin een inline-element.
+- Vergeten om speciale tekens zoals `<` en `>` binnen een `<code>`-tag te escapen als `&lt;` en `&gt;`.
+
+### Tips voor beginners
+
+- Emmet-tip in PhpStorm: typ `h1{Mijn titel}` en druk op `Tab` om direct `<h1>Mijn titel</h1>` te genereren.
+- Moet je alinea's testen zonder definitieve tekst? Typ `p*3>lorem` en druk op `Tab` voor drie alinea's Lorem Ipsum dummytekst.
+- Installeer de Chrome-extensie **Semantiscope** om de koppenhiërarchie en semantische structuur van je pagina visueel te controleren.
+
+</PageSummary>
 
 ## Oefeningen
 

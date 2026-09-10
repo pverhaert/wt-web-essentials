@@ -283,6 +283,44 @@ In webontwikkeling combineer je deze entiteiten regelmatig in knoppen, linktekst
   height="350px"
 />
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Teken | Omschrijving | Entiteitnaam | Entiteitnummer |
+|---|---|---|---|
+| `<` | Kleiner dan (opentag) | `&lt;` | `&#60;` |
+| `>` | Groter dan (sluittag) | `&gt;` | `&#62;` |
+| `&` | En-teken (ampersand) | `&amp;` | `&#38;` |
+| `"` | Dubbel aanhalingsteken | `&quot;` | `&#34;` |
+| `'` | Enkel aanhalingsteken / apostrof | `&apos;` | `&#39;` |
+| ` ` | Vaste spatie (non-breaking space) | `&nbsp;` | `&#160;` |
+| `©` | Copyright-symbool | `&copy;` | `&#169;` |
+| `€` | Euroteken | `&euro;` | `&#8364;` |
+| `•` | Opsommingsteken (bullet) | `&bull;` | `&#8226;` |
+| `×` | Maalteken / vermenigvuldiging | `&times;` | `&#215;` |
+
+### Regels en afspraken
+
+- **Syntaxis van een entiteit:** Begint **altijd** met een ampersand (`&`) en eindigt **altijd** met een puntkomma (`;`), bijvoorbeeld `&copy;`.
+- **De 5 gereserveerde HTML-tekens:** De tekens `<`, `>`, `&`, `"` en `'` hebben een speciale functie in HTML. Wil je ze letterlijk als tekst op het scherm tonen, dan ben je **verplicht** om ze te vervangen door hun entiteit (`&lt;`, `&gt;`, `&amp;`, `&quot;`, `&apos;`).
+- **Geen regeleinde met `&nbsp;`:** Gebruik de vaste spatie om te voorkomen dat twee woorden of getallen op het einde van een regel van elkaar worden losgerukt (bijvoorbeeld bij telefoonnummers `014&nbsp;56&nbsp;23&nbsp;10`, postcodes `2440&nbsp;Geel` of bedragen `€&nbsp;25`).
+- **UTF-8:** Dankzij `<meta charset="UTF-8">` mag je gewone letters met accenten (zoals `é`, `ë`, `à`) gewoon direct via je toetsenbord typen; daarvoor heb je geen entiteiten nodig.
+
+### Veelgemaakte fouten
+
+- De puntkomma (`;`) op het einde van de entiteit vergeten: `&copy` in plaats van `&copy;` is ongeldig en leidt tot validatiefouten.
+- HTML-tags letterlijk in de tekst typen zonder entiteiten: schrijf `Gebruik de tag &lt;p&gt;` in plaats van `Gebruik de tag <p>`, anders probeert de browser een echte alinea aan te maken.
+- Het losse en-teken (`&`) vergeten te escapen als `&amp;` (bijv. in "Koffie & Thee": schrijf `Koffie &amp; Thee`).
+- Meerdere keren `&nbsp;&nbsp;&nbsp;` na elkaar gebruiken om witruimte te maken tussen elementen: witruimte regel je met CSS marges en padding.
+
+### Tips voor beginners
+
+- Onthoud de afkortingen: **lt** = *less than* (`<`), **gt** = *greater than* (`>`), **amp** = *ampersand* (`&`), **nbsp** = *non-breaking space*.
+- Gebruik de Chrome-extensie **Validify** om je webpagina in één klik te controleren op niet-geëscapete ampersands of ontbrekende puntkomma's in entiteiten.
+
+</PageSummary>
+
 ## Oefeningen
 
 ### Oefening 1: Een HTML-handleiding schrijven

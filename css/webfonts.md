@@ -467,8 +467,47 @@ Een blinde bezoeker weet in dat geval niet wat de knop doet. Je lost dit op door
 Onthoud deze eenvoudige regel: heeft het icoon al zichtbare tekst naast zich? Voeg `aria-hidden="true"` toe aan het `<i>`-element. Staat het icoon helemaal alleen in een link of knop? Voeg `aria-label="..."` toe aan de link of knop, én zet `aria-hidden="true"` op het `<i>`-element.
 :::
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Google Fonts (`<link>`) | `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=...">` | In `<head>` van HTML (snelste laadtijd) |
+| CSS `@import` | `@import url('https://fonts.googleapis.com/...');` | Helemaal bovenaan in CSS-bestand |
+| Preconnect | `<link rel="preconnect" href="https://fonts.googleapis.com">` | Versnelt DNS/handshake naar Google servers |
+| Font Awesome CDN | `<link rel="stylesheet" href=".../all.min.css">` | Bibliotheek voor vector-pictogrammen |
+| Font Awesome icoon | `<i class="fa-solid fa-envelope" aria-hidden="true"></i>` | Klassenaam bepaalt het icoon |
+| Decoratief icoon | `aria-hidden="true"` | Schermlezer slaat pictogram over |
+| Functioneel icoon | `aria-label="Omschrijving"` op ouder-element | Voorziet blinde gebruikers van betekenis |
+
+### Regels en afspraken
+
+- **Aanbevolen methode:** Koppel Google Fonts bij voorkeur via de HTML `<link>`-tag met de twee `preconnect`-regels. Dit laadt parallel en is sneller dan een CSS `@import`.
+- **`display=swap`:** Zorg dat `&display=swap` altijd in de font-URL staat. De browser toont direct een systeemlettertype totdat het webfont gedownload is, wat de *First Contentful Paint (FCP)* verbetert.
+- **Variabele lettertypen:** Moderne Google Fonts (CSS2 API) bundelen alle diktes in één compact bestand. Je kan hiermee vloeiende tussenliggende gewichten kiezen zoals `font-weight: 550;`.
+- **Iconen stijlen als tekst:** Font-iconen zijn lettertekens. Je past hun uiterlijk aan met gewone CSS-teksteigenschappen: `font-size` voor de grootte, `color` voor de kleur.
+- **WCAG Gouden regel:**
+  - Tekst ernaast aanwezig? Voeg `aria-hidden="true"` toe aan het `<i>`-element.
+  - Alleen een icoon (zonder tekst)? Plaats `aria-label="..."` op de omhullende `<button>` of `<a>`, én zet `aria-hidden="true"` op het `<i>`-element.
+
+### Veelgemaakte fouten
+
+- Te veel lettertypen en gewichten inladen: beperk je tot maximaal twee families en laad enkel de gewichten in die je daadwerkelijk gebruikt.
+- De generieke fallback vergeten in de CSS `font-family` declaratie wanneer je een webfont gebruikt (bijv. `font-family: 'Montserrat', sans-serif;`).
+- Iconen gebruiken als knop zonder `aria-label`, waardoor voorleessoftware de knop niet kan benoemen voor slechtzienden.
+- Vergeten om Font Awesome eerst via de CDN te koppelen in HTML of CSS vooraleer je de klassen zoals `fa-solid` aanroept.
+
+### Tips voor beginners
+
+- Surf naar **fonts.google.com**, klik op **Get font** -> **Get embed code** en kopieer direct de kant-en-klare `<link>`-code voor je project.
+- Wil je een icoon laten meeschalen met de tekstgrootte van de alinea? Gebruik dan relatieve groottes zoals `font-size: 1.25em;`.
+- Gebruik de Chrome-extensie **Fonts Ninja** om op willekeurige websites in één klik te inspecteren welke webfonts en diktes de ontwikkelaar heeft gebruikt.
+
+</PageSummary>
 
 ## Oefeningen
+
 
 ### Oefening 1: Typografie upgraden met Google Fonts
 

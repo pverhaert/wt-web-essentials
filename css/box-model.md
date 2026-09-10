@@ -829,11 +829,55 @@ button:focus {
 }
 ```
 
-::: warning Toegankelijkheid (A11y)
-Verwijder nooit zomaar `outline: none` van knoppen of links zonder een duidelijk alternatief focus-uiterlijk te voorzien. Toetsenbordgebruikers gebruiken de outline om te zien welk interactief element op dat moment geselecteerd is.
-:::
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Afmetingen | `width` / `max-width` / `min-height` | `max-width: 36rem; min-height: 12rem;` |
+| Binnenruimte | `padding: top right bottom left;` | `padding: 1rem 1.5rem;` (vert \| hor) |
+| Buitenruimte | `margin: top right bottom left;` | `margin: 0 auto;` (horizontaal centreren) |
+| Rand | `border: dikte stijl kleur;` | `border: 2px solid #1e2d5a;` |
+| Afgeronde hoeken | `border-radius: waarde;` | `border-radius: 0.5rem;` |
+| Box model reset | `box-sizing: border-box;` | `* { box-sizing: border-box; }` |
+| Schaduw | `box-shadow: x y blur spreiding kleur;` | `box-shadow: 0 4px 12px rgba(0,0,0,0.1);` |
+| Overloop | `overflow: visible \| hidden \| auto;` | `overflow-y: auto;` (scrollbalk indien nodig) |
+
+### Regels en afspraken
+
+- **Universele reset:** Plaats altijd bovenaan je stylesheet `* { box-sizing: border-box; margin: 0; padding: 0; }`. Hiermee tellen `padding` en `border` mee binnen de opgegeven `width`.
+- **Responsieve breedte:** Gebruik bij voorkeur `max-width` in plaats van een vaste `width`. Zo schaalt een element netjes mee op kleinere schermen.
+- **Klokwijzersymbool (TRBL):** Bij shorthands met 4 waarden begin je altijd bovenaan en draai je met de klok mee: **T**op, **R**ight, **B**ottom, **L**eft. Dit geldt identiek voor `margin` en `padding`:
+
+| Aantal waarden | Voorbeeld | Betekenis |
+|---|---|---|
+| **1 waarde** | `padding: 1rem;` | Alle 4 de zijden gelijk (1rem) |
+| **2 waarden** | `padding: 1rem 2rem;` | Boven/onder (1rem), links/rechts (2rem) |
+| **3 waarden** | `padding: 1rem 2rem 3rem;` | Boven (1rem), links/rechts (2rem), onder (3rem) |
+| **4 waarden** | `padding: 1rem 2rem 3rem 4rem;` | Top (1rem), Right (2rem), Bottom (3rem), Left (4rem) |
+
+- **Horizontaal centreren:** Een blokelement met een ingestelde breedte centreer je met `margin: 0 auto;`.
+- **Outline vs Border:** Gebruik `outline` voor interactieve focusindicatie (`:focus`), want een outline neemt geen ruimte in het box model in en verschuift je lay-out niet.
+
+### Veelgemaakte fouten
+
+- Vergeten dat zonder `border-box` de padding en rand bovenop de `width` worden opgeteld, waardoor elementen onverwacht breder worden en lay-outs breken.
+- `margin: auto` toepassen op een element zonder expliciete `width` of `max-width` (het element neemt dan standaard al 100% breedte in en centreert niet).
+- Een vaste `height` instellen op tekstblokken, waardoor langere teksten overlopen of afgesneden worden (`overflow: visible` of `hidden`).
+- Verticaal centreren proberen af te dwingen met `margin: auto 0;` (dit werkt in normale documentstroom enkel horizontaal).
+- Verrast worden door **margin collapse**: verticale marges tussen opeenvolgende blokelementen tellen niet bij elkaar op, maar smelten samen tot de hoogste waarde.
+
+### Tips voor beginners
+
+- Inspecteer het box model altijd in Google Chrome DevTools (`F12` -> tabblad **Elements** -> onderaan bij **Styles** of **Computed**). Daar zie je de gekleurde lagen van content, padding, border en margin live oplichten.
+- Heb je een schuifbalk nodig bij lange inhoud? Kies altijd `overflow: auto` in plaats van `overflow: scroll`. Bij `auto` verschijnt de schuifbalk alleen wanneer de inhoud effectief te lang is.
+- Onthoud het verschil: **padding** zit *binnen* het kader en kleurt mee met de achtergrond; **margin** zit *buiten* het kader en duwt andere elementen weg.
+
+</PageSummary>
 
 ## Oefeningen
+
 
 ### Oefening 1: Informatiekaart met padding en afgeronde randen
 

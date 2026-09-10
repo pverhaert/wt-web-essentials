@@ -216,6 +216,45 @@ Hieronder kan je de HTML-code rechtstreeks bekijken, bewerken en uitproberen in 
   height="420px"
 />
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Doctype declaratie | `<!DOCTYPE html>` | Eerste regel van elk document |
+| Root-element | `<html lang="nl">...</html>` | Omvat de volledige webpagina |
+| Metadata container | `<head>...</head>` | Bevat titel, tekenset en links |
+| Tekenset | `<meta charset="UTF-8">` | Voorkomt vreemde leestekens |
+| Viewport instelling | `<meta name="viewport" content="...">` | Cruciaal voor mobiele schermen |
+| Paginatitel | `<title>Titel</title>` | Zichtbaar op het browsertabblad |
+| Zichtbare inhoud | `<body>...</body>` | Bevat alle zichtbare elementen |
+| Element met attribuut | `<tag attribuut="waarde">Inhoud</tag>` | `<p lang="nl">Tekst</p>` |
+| Leeg element (void) | `<tag>` (zonder sluitingstag) | `<meta>`, `<hr>`, `<br>`, `<img>` |
+
+### Regels en afspraken
+
+- **Standaardskelet:** Elk HTML5-document begint altijd met `<!DOCTYPE html>`, gevolgd door `<html>` met een taalattribuut (bijvoorbeeld `lang="nl"`), een `<head>` en een `<body>`.
+- **Hoofd- en kleine letters:** Schrijf tagnamen en attribuutnamen altijd consequent in **kleine letters** (bijv. `<p>`, niet `<P>`).
+- **Aanhalingstekens:** Plaats attribuutwaarden altijd tussen dubbele rechte aanhalingstekens (bijv. `class="intro"`).
+- **Nestingsvolgorde:** Sluit geneste elementen altijd in omgekeerde volgorde van openen: *Last In, First Out* (bijv. `<p>Een <strong>vet</strong> woord.</p>`).
+- **Lege elementen:** Void elements (zoals `<meta>`, `<hr>` en `<br>`) hebben geen sluitende tag (`</tag>`) en bevatten nooit tekstinhoud.
+
+### Veelgemaakte fouten
+
+- Vergeten van de `<!DOCTYPE html>` declaratie, waardoor browsers terugvallen op de verouderde 'Quirks Mode' met afwijkende weergave.
+- Kruisende tags schrijven: `<p>Tekst <strong>vet</p></strong>` is ongeldig; sluit altijd eerst het binnenste element af.
+- De `<title>` verwarren met een kop `<h1>`: `<title>` staat uitsluitend in de `<head>` voor het browsertabblad; `<h1>` staat in de `<body>` op de pagina zelf.
+- Inhoud die zichtbaar moet zijn per ongeluk in de `<head>` plaatsen in plaats van in de `<body>`.
+
+### Tips voor beginners
+
+- Typ in PhpStorm op een leeg `.html`-bestand simpelweg `!` of `html:5` en druk op `Tab`: PhpStorm genereert ogenblikkelijk het volledige HTML5-basisskelet.
+- Installeer de Chrome-extensie **Validify** om je pagina met één muisklik te controleren op geldigheid conform de officiële W3C-standaarden.
+- Sla bestanden altijd op met de bestandsextensie `.html` en gebruik uitsluitend kleine letters, cijfers en koppeltekens in je bestandsnamen (geen spaties of hoofdletters).
+
+</PageSummary>
+
 ## Oefeningen
 
 ### Oefening 1: Je eerste webpagina bouwen

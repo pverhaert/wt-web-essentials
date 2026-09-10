@@ -447,6 +447,43 @@ Typ in een `<ol>` nooit zelf cijfers in de tekst (zoals `<li>1. Eerste stap</li>
 
 ---
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Lijsttype | Tag | Kind-elementen | Toepassing |
+|---|---|---|---|
+| Ongeordend | `<ul>` | `<li>` (list item) | Opsommingen zonder vaste volgorde (bolletjes) |
+| Geordend | `<ol>` | `<li>` (list item) | Stappenplan, recept, rangschikking (cijfers) |
+| Beschrijving | `<dl>` | `<dt>` (term), `<dd>` (definitie) | Begrippenlijst, specificaties, metadata |
+| Startwaarde | `<ol start="5">` | `<li>` | Laat nummering beginnen bij 5 |
+| Aflopende lijst | `<ol reversed>` | `<li>` | Telt af van hoog naar laag (countdown) |
+| Aangepaste waarde | `<li value="10">` | n.v.t. | Wijzigt specifiek nummer binnen `<ol>` |
+
+### Regels en afspraken
+
+- **Alleen `<li>` als direct kind:** Binnenin een `<ul>` of `<ol>` mogen uitsluitend `<li>`-elementen staan als directe kinderen. Titels, alinea's of afbeeldingen horen buiten de lijst te staan of *binnenin* een `<li>`.
+- **Geneste sublijsten:** Plaats een sublijst **altijd binnenin het `<li>`-element** van het bovenliggende item, vóór het sluitende `</li>`.
+- **Keuzehulp:**
+  - Maakt de volgorde inhoudelijk uit? Gebruik `<ol>`.
+  - Is de volgorde willekeurig omwisselbaar? Gebruik `<ul>`.
+  - Bestaat elk item uit een term-definitie of naam-waarde paar? Gebruik `<dl>`.
+- **Semantische menubasis:** Een websitenavigatie binnen `<nav>` wordt standaard opgebouwd als een `<ul>` met hyperlinks (`<li><a href="...">Link</a></li>`).
+
+### Veelgemaakte fouten
+
+- Zelf nummers intypen in een `<ol>` (zoals `<li>1. Stap</li>`), waardoor de browser een dubbele nummering toont (`1. 1. Stap`).
+- Een sublijst tussen twee `</li><li>` elementen in plaatsen in plaats van vóór het afsluitende `</li>`.
+- Tekst rechtstreeks in een `<dl>` typen zonder `<dt>` of `<dd>`.
+
+### Tips voor beginners
+
+- Emmet in PhpStorm: typ `ul>li*4` en druk op `Tab` voor een ongeordende lijst met 4 items.
+- Geneste navigatie genereren: typ `nav>ul>li*3>a` en druk op `Tab` om direct een kant-en-klaar menu met hyperlinks te krijgen.
+- Gebruik de `$` operator in Emmet als teller: `ol>li*3{Stap $}` levert direct `Stap 1`, `Stap 2` en `Stap 3` op.
+
+</PageSummary>
+
 ## Oefeningen
 
 Oefen de leerstof van dit hoofdstuk in PhpStorm aan de hand van onderstaande opdrachten. Maak voor elke oefening een nieuw HTML-bestand aan.

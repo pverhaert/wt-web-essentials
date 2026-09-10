@@ -341,7 +341,45 @@ In PhpStorm genereer je CSS-lijsteigenschappen razendsnel via Emmet:
 | `lisp:o` | `Tab` | `list-style-position: outside;` |
 | `lisi` | `Tab` | `list-style-image: url();` |
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Opsommingsteken / type | `list-style-type: waarde;` | `list-style-type: square;` |
+| Positie van het teken | `list-style-position: outside \| inside;` | `list-style-position: inside;` |
+| Afbeelding als teken | `list-style-image: url('pad');` | `list-style-image: url('./icoon.svg');` |
+| Verkorte notatie | `list-style: type position image;` | `list-style: square inside;` |
+| Tekens afzonderlijk stijlen | `li::marker { eigenschap: waarde; }` | `li::marker { color: #e87722; }` |
+| Lijst-reset (menu's) | `list-style: none; margin: 0; padding: 0;` | Voor navigatie en knoppenrijen |
+
+### Regels en afspraken
+
+- **Overerving:** Pas `list-style-type` bij voorkeur toe op de `<ul>` of `<ol>`. De onderliggende `<li>`-elementen nemen deze stijl automatisch over.
+- **Outside versus Inside:**
+  - `outside` (standaard): het bolletje of nummer hangt buiten de tekstkolom. Bij meerdere regels lijnt de tweede regel netjes uit onder het eerste woord.
+  - `inside`: het teken staat binnen het tekstelement en schuift mee met een achtergrondkleur of kader.
+- **De Navigatie-Reset:** Een lijst die als navigatiemenu fungeert heeft drie resetregels nodig: `list-style: none;`, `margin: 0;` en `padding: 0;`. De browser voorziet namelijk standaard circa 40px linkerpadding.
+- **`::marker` beperkingen:** Met de `::marker` pseudo-selector kan je enkel tekstgerelateerde eigenschappen stylen: `color`, `font-size`, `font-family` en `content`.
+
+### Veelgemaakte fouten
+
+- Enkel `list-style: none` instellen op een menulijst en vergeten `padding: 0` toe te voegen, waardoor de navigatie ongewenst 40px naar rechts ingesprongen blijft staan.
+- `list-style-image` gebruiken met te grote bitmapafbeeldingen (CSS biedt geen eigenschap om de afmetingen van `list-style-image` direct te schalen).
+- Vergeten dat een `<ol>` standaard Arabische cijfers (`decimal`) toont en een `<ul>` zwarte bollen (`disc`).
+- Marges of padding proberen in te stellen op `::marker` (deze eigenschappen worden niet ondersteund op markers).
+
+### Tips voor beginners
+
+- Wil je een uniek emoji- of symboolteken zonder afbeelding? Gebruik `list-style-type: "👉 ";` of `li::marker { content: "✓ "; }`.
+- Gebruik in PhpStorm de snelle Emmet-afkorting `list:n` + `Tab` om in een fractie van een seconde `list-style: none;` te genereren.
+- Inspecteer in Google Chrome DevTools (`F12`) de `<ul>` of `<ol>`: in het tabblad **Styles** zie je direct de standaard `padding-inline-start: 40px` van de browser oplichten.
+
+</PageSummary>
+
 ## Oefeningen
+
 
 ### Oefening 1: Romeins stappenplan met aangepaste positie
 

@@ -441,6 +441,43 @@ Gebruik het `title`-attribuut uitsluitend als nuttige aanvulling, **nooit** ter 
 
 ---
 
+<PageSummary>
+
+### Syntaxis in een oogopslag
+
+| Wat | Hoe | Voorbeeld |
+|---|---|---|
+| Hyperlink | `<a href="...">Linktekst</a>` | `<a href="contact.html">Contact</a>` |
+| Externe link in nieuw tabblad | `target="_blank" rel="noopener noreferrer"` | Voor externe websites |
+| Interne ankerlink | `href="#sectie-id"` | Scrolt naar `<section id="sectie-id">` |
+| Terug naar boven | `href="#top"` of `href="#"` | Scrolt naar de paginatop |
+| E-maillink | `href="mailto:adres@domein.be"` | Opent het e-mailprogramma |
+| Telefoonlink | `href="tel:+3214562310"` | Direct bellen op mobiele apparaten |
+| Downloadlink | `href="bestand.pdf" download` | Forceert download van het bestand |
+
+### Regels en afspraken
+
+- **Zelfverklarende linkteksten:** Schrijf duidelijke, beschrijvende linkteksten (bijv. "Bekijk het examenrooster"), en vermijd vage bewoordingen zoals "klik hier" of "lees meer" die geen context bieden aan schermlezers.
+- **Veiligheid bij `target="_blank"`:** Voeg altijd `rel="noopener noreferrer"` toe wanneer een link opent in een nieuw tabblad om *tabnabbing* (beveiligingslek) te voorkomen.
+- **Unieke anker-ID's:** Ankerlinks verwijzen naar het `id`-attribuut van een HTML-element. Een `id` moet strikt uniek zijn op de pagina en mag geen spaties bevatten.
+- **Internationaal telefoonformaat:** Gebruik bij `tel:` altijd de internationale landcode zonder spaties (bijv. `+32...` voor België).
+- **Relatieve paden voor interne pagina's:** Link naar pagina's binnen je eigen website altijd met relatieve paden (bijv. `projecten/web.html` of `../index.html`).
+
+### Veelgemaakte fouten
+
+- De hash (`#`) vergeten in een ankerlink: `<a href="contact">` zoekt naar een bestand genaamd contact, terwijl `<a href="#contact">` scrolt naar `id="contact"`.
+- Het `id`-attribuut in de doelsectie voorzien van een hash: schrijf in HTML `<section id="contact">`, nooit `<section id="#contact">`.
+- `mailto:` typen zonder dubbele punt (`mailto:info@...` is vereist).
+- Het `href`-attribuut helemaal leeg laten (`<a href="">` herlaadt de pagina).
+
+### Tips voor beginners
+
+- Emmet in PhpStorm: typ `a` en druk op `Tab` om direct `<a href=""></a>` te genereren.
+- Typ `a:mail` of `a:tel` in PhpStorm gevolgd door `Tab` om kant-en-klare e-mail- of telefoonlinks in te voegen.
+- Controleer in de browser DevTools (`F12`) of al je hyperlinks correct werken en of externe links veilig openen met de juiste `rel`-attributen.
+
+</PageSummary>
+
 ## Oefeningen
 
 ### Oefening 1: Een gestructureerd navigatiemenu bouwen
