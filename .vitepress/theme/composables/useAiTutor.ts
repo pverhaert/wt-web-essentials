@@ -22,6 +22,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_MODELS: ModelOption[] = [
   { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash (Aanbevolen, snel & betrouwbaar)' },
+  { id: 'gemini-2.5-flash-lite', name: 'Gemini 2.5 Flash-Lite (Zeer snel & licht)' },
   { id: 'gemini-2.5-pro', name: 'Gemini 2.5 Pro (Diepe redenering)' },
   { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash (Hoge beschikbaarheid)' },
 ]
@@ -39,26 +40,49 @@ const isDrawerOpen = ref(false)
 
 export function useAiTutor() {
   const init = () => {
-    if (isInitialized.value || typeof window === 'undefined') return
+    if (typeof window === 'undefined') return
 
-    apiKey.value = localStorage.getItem(STORAGE_KEYS.API_KEY) || ''
-    studentName.value = localStorage.getItem(STORAGE_KEYS.STUDENT_NAME) || ''
-    selectedModel.value = localStorage.getItem(STORAGE_KEYS.SELECTED_MODEL) || 'gemini-2.5-flash'
+    // Altijd de meest actuele waarden uit localStorage ophalen
+    const storedKey = localStorage.getItem(STORAGE_KEYS.API_KEY) || ''
+    const storedName = localStorage.getItem(STORAGE_KEYS.STUDENT_NAME) || ''
+    const storedModel = localStorage.getItem(STORAGE_KEYS.SELECTED_MODEL) || ''
 
-    try {
-      const savedHistory = localStorage.getItem(STORAGE_KEYS.CHAT_HISTORY)
-      if (savedHistory) {
-        messages.value = JSON.parse(savedHistory)
+    apiKey.value = storedKey
+    studentName.value = storedName
+
+    if (storedModel) {
+      selectedModel.value = storedModel
+    }
+
+    if (!isInitialized.value) {
+      try {
+        const savedHistory = localStorage.getItem(STORAGE_KEYS.CHAT_HISTORY)
+        if (savedHistory) {
+          messages.value = JSON.parse(savedHistory)
+        }
+      } catch (e) {
+        console.warn('Kon chatgeschiedenis niet laden:', e)
       }
-    } catch (e) {
-      console.warn('Kon chatgeschiedenis niet laden:', e)
-    }
 
-    if (apiKey.value) {
-      fetchModels()
-    }
+      // Luister naar storage wijzigingen tussen tabs of vensters
+      window.addEventListener('storage', (e) => {
+        if (e.key === STORAGE_KEYS.SELECTED_MODEL && e.newValue) {
+          selectedModel.value = e.newValue
+        }
+        if (e.key === STORAGE_KEYS.STUDENT_NAME) {
+          studentName.value = e.newValue || ''
+        }
+        if (e.key === STORAGE_KEYS.API_KEY) {
+          apiKey.value = e.newValue || ''
+        }
+      })
 
-    isInitialized.value = true
+      if (apiKey.value) {
+        fetchModels()
+      }
+
+      isInitialized.value = true
+    }
   }
 
   const hasApiKey = computed(() => !!apiKey.value.trim())
@@ -149,10 +173,11 @@ export function useAiTutor() {
         const id = rawName.replace(/^models\//, '')
         const displayName = m.displayName || id
 
-        // Enkel Gemini Flash en Gemini Pro modellen tonen (conform wens van docent)
+        // Enkel Gemini Flash en Gemini Pro modellen tonen (conform wens van docent, geen Omni modellen voor gratis API)
         const isGeminiFlashOrPro =
           id.startsWith('gemini') &&
           (id.includes('flash') || id.includes('pro')) &&
+          !id.includes('omni') &&
           !id.includes('embedding') &&
           !id.includes('imagen') &&
           !id.includes('image') &&
@@ -182,8 +207,13 @@ export function useAiTutor() {
         })
 
         availableModels.value = fetchedList
-        // Indien het huidige geselecteerde model niet meer voorkomt of een verouderde latest-alias is, kies gemini-2.5-flash
-        if (!fetchedList.some((m) => m.id === selectedModel.value) || selectedModel.value.includes('latest')) {
+        // Controleer of de huidige selectie geldig is. Indien er een expliciete keuze is die voorkomt in de gefilterde lijst,
+        // of die een bekend basismodel is, behouden we deze. Omni- of latest-modellen worden automatisch vervangen.
+        const currentSelected = selectedModel.value
+        const isOmni = currentSelected.includes('omni')
+        const isKnownModel = fetchedList.some((m) => m.id === currentSelected) || DEFAULT_MODELS.some((m) => m.id === currentSelected)
+
+        if (!isKnownModel || isOmni || currentSelected.includes('latest')) {
           const defaultChoice =
             fetchedList.find((m) => m.id === 'gemini-2.5-flash')?.id ||
             fetchedList.find((m) => m.id.includes('2.5') && m.id.includes('flash'))?.id ||

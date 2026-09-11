@@ -163,13 +163,18 @@
                   Verversen
                 </button>
               </div>
-              <select id="drawer-model" v-model="selectedModelProxy" class="ai-setting-select">
+              <select
+                id="drawer-model"
+                v-model="selectedModel"
+                class="ai-setting-select"
+                @change="saveSelectedModel(selectedModel)"
+              >
                 <option v-for="m in availableModels" :key="m.id" :value="m.id">
                   {{ m.name }}
                 </option>
               </select>
               <p class="ai-setting-hint-text">
-                Kies bij voorkeur <strong>Gemini 2.5 Flash</strong> voor snelle, nauwkeurige en didactisch afgestemde antwoorden.
+                Kies bij voorkeur <strong>Gemini Flash of Gemini Flash Lite</strong> voor snelle, nauwkeurige en didactisch afgestemde antwoorden.
               </p>
             </div>
 

@@ -172,8 +172,9 @@
 
       <select
         id="model-select"
-        v-model="selectedModelProxy"
+        v-model="selectedModel"
         class="ai-select"
+        @change="handleModelChange"
       >
         <option
           v-for="model in availableModels"
@@ -183,8 +184,11 @@
           {{ model.name }}
         </option>
       </select>
+      <p v-if="modelSavedFeedback" class="ai-feedback-success">
+        Modelvoorkeur opgeslagen!
+      </p>
       <p class="ai-hint">
-        Standaard bevelen we <strong>Gemini 2.5 Flash</strong> aan voor snelle, nauwkeurige en didactisch heldere antwoorden.
+        Kies bij voorkeur <strong>Gemini Flash of Gemini Flash Lite</strong> voor snelle, nauwkeurige en didactisch afgestemde antwoorden.
       </p>
     </div>
   </div>
@@ -219,11 +223,15 @@ const isTesting = ref(false)
 const keyFeedbackError = ref<string | null>(null)
 const keyFeedbackSuccess = ref<string | null>(null)
 const nameSavedFeedback = ref(false)
+const modelSavedFeedback = ref(false)
 
-const selectedModelProxy = computed({
-  get: () => selectedModel.value,
-  set: (val: string) => saveSelectedModel(val),
-})
+const handleModelChange = () => {
+  saveSelectedModel(selectedModel.value)
+  modelSavedFeedback.value = true
+  setTimeout(() => {
+    modelSavedFeedback.value = false
+  }, 3000)
+}
 
 onMounted(() => {
   init()
