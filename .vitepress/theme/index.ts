@@ -24,6 +24,8 @@ import DisplayVisualizer from './components/DisplayVisualizer.vue'
 import TableWorkbench from './components/TableWorkbench.vue'
 import ButtonBuilder from './components/ButtonBuilder.vue'
 import VerticalAlignLab from './components/VerticalAlignLab.vue'
+import ObjectFitSimulator from './components/ObjectFitSimulator.vue'
+import BackgroundHeroSimulator from './components/BackgroundHeroSimulator.vue'
 import PageSummary from './components/PageSummary.vue'
 import PageSummaryModal from './components/PageSummaryModal.vue'
 import TermTooltip from './components/TermTooltip.vue'
@@ -75,6 +77,8 @@ export default {
     app.component('TableWorkbench', TableWorkbench)
     app.component('ButtonBuilder', ButtonBuilder)
     app.component('VerticalAlignLab', VerticalAlignLab)
+    app.component('ObjectFitSimulator', ObjectFitSimulator)
+    app.component('BackgroundHeroSimulator', BackgroundHeroSimulator)
     app.component('PageSummary', PageSummary)
 
     // Registreer Lucide iconen

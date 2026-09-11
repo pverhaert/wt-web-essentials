@@ -168,6 +168,8 @@ export default defineConfig({
               { text: 'Display Simulator', link: '/tools/display-simulator', target: 'page2' },
               { text: 'Button Builder', link: '/tools/button-builder', target: 'page2' },
               { text: 'Vertical-align Lab', link: '/tools/vertical-align-lab', target: 'page2' },
+              { text: 'Object-fit Simulator', link: '/tools/object-fit-simulator', target: 'page2' },
+              { text: 'Background Simulator', link: '/tools/background-simulator', target: 'page2' },
             ],
           },
           {
