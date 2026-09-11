@@ -153,18 +153,27 @@ export default defineConfig({
             ],
           },
           {
-            text: 'Webapps & Extensies',
+            text: 'Webapps & Simulators',
             items: [
               { text: 'Afbeeldingen Optimaliseren', link: '/tools/afbeeldingen-optimaliseren', target: 'page2' },
               { text: 'Photo Edit Pro', link: 'https://photo-edit-pro.netlify.app/', target: 'page2' },
               { text: 'RealFaviconGenerator', link: '/tools/realfavicongenerator', target: 'page2' },
               { text: 'Favicon Generator (.ico)', link: '/tools/favicon-generator', target: 'page2' },
-              { text: 'Browser Extensies', link: '/tools/extensions', target: 'page2' },
               { text: 'Line-height Spel', link: '/tools/line-height-spel', target: 'page2' },
               { text: 'Font Simulator', link: '/tools/font-simulator', target: 'page2' },
               { text: 'Kleurenomzetter', link: '/tools/kleurenomzetter', target: 'page2' },
               { text: 'CSS Colors Timeline', link: 'https://css-colors-timeline.netlify.app/', target: 'page2' },
               { text: 'CSS Theme Studio', link: 'https://css-theme-studio.netlify.app/', target: 'page2' },
+              { text: 'Tabel Simulator', link: '/tools/tabel-simulator', target: 'page2' },
+              { text: 'Display Simulator', link: '/tools/display-simulator', target: 'page2' },
+              { text: 'Button Builder', link: '/tools/button-builder', target: 'page2' },
+              { text: 'Vertical-align Lab', link: '/tools/vertical-align-lab', target: 'page2' },
+            ],
+          },
+          {
+            // Zonder text toont VitePress een strakke horizontale scheidingslijn
+            items: [
+              { text: 'Browser Extensies', link: '/tools/extensions', target: 'page2' },
               { text: 'Fullscreen Sandbox', link: '/sandbox', target: 'page2' },
             ],
           },

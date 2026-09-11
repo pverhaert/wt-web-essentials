@@ -124,11 +124,17 @@ Gedetailleerde richtlijnen en een lijst van veelgebruikte afkortingen staan in:
 | `/tools/afbeeldingen-optimaliseren` | Afbeeldingen Optimaliseren |
 | `/tools/realfavicongenerator` | RealFaviconGenerator |
 | `/tools/favicon-generator` | Favicon Generator (.ico) |
-| `/tools/extensions` | Browser Extensies |
 | `/tools/line-height-spel` | Line-height Spel |
 | `/tools/font-simulator` | Font Simulator |
 | `/tools/kleurenomzetter` | Kleurenomzetter |
+| `/tools/tabel-simulator` | Tabel Simulator |
+| `/tools/display-simulator` | Display Simulator |
+| `/tools/button-builder` | Button Builder |
+| `/tools/vertical-align-lab` | Vertical-align Lab |
+| `/tools/extensions` | Browser Extensies |
 | `/sandbox` | Fullscreen Sandbox |
+
+> **Volgorde-afspraak Tools & Webapps:** In de navigatie en overzichten van "Tools & Webapps" staan "Browser Extensies" (`/tools/extensions`) en "Fullscreen Sandbox" (`/sandbox`) ALTIJD helemaal onderaan de lijst.
 
 ## Beschikbare VitePress-componenten
 

@@ -138,11 +138,43 @@ Toont een discrete toast-notificatie linksonder wanneer een nieuwe versie van de
 
 Geen props; werkt automatisch via de Service Worker.
 
+## TableWorkbench
+
+Interactieve tabel-simulator voor `/css/tabellen.md` en `/tools/tabel-simulator.md`. Laat studenten experimenteren met `border-collapse`, `border-spacing`, `empty-cells`, `caption-side` en `table-layout: auto` vs `fixed`.
+
+```vue
+<TableWorkbench />
+```
+
+## DisplayVisualizer
+
+Interactieve simulator van de normale documentstroom voor `/css/display.md` en `/tools/display-simulator.md`. Toont het effect van `inline`, `inline-block`, `block`, `none` en `visibility: hidden` op omringende tekst en referentievakken.
+
+```vue
+<DisplayVisualizer />
+```
+
+## ButtonBuilder
+
+Stap-voor-stap didactische simulator voor `/css/display.md` en `/tools/button-builder.md`. Demonstreert in 4 stappen waarom een knop `display: inline-block` vereist om overlap met omliggende alinea's te voorkomen.
+
+```vue
+<ButtonBuilder />
+```
+
+## VerticalAlignLab
+
+Lay-out simulator voor `/css/display.md` en `/tools/vertical-align-lab.md`. Demonstreert hoe `vertical-align: baseline` kaarten met ongelijke tekst scheef trekt, en hoe `vertical-align: top` strakke, gelijke bovenkanten waarborgt.
+
+```vue
+<VerticalAlignLab />
+```
+
 ## FullscreenSandbox
 
 Fullscreen sandbox-weergave op `/sandbox`. Bereikbaar via de knop "Openen in nieuw tabblad" in elke `<CodeSandbox>`. In tegenstelling tot de inline sandbox staan de codevensters hier **onder elkaar gestapeld** met versleepbare scheidingsbalken. Dubbelklikken op een scheidingsbalk herstelt de gelijke hoogteverdeling.
 
-Dit component wordt automatisch gerenderd op de `/sandbox`-route en hoeft niet handmatig te worden ingevoegd.
+Dit component wordt automatisch gerenderd op de `/sandbox`-route en hoeft niet handmatig te worden ingevoegd. Let op: "Browser Extensies" en "Fullscreen Sandbox" staan in het Tools-menu altijd als laatste twee items onderaan.
 
 ## VitePress standaardcontainers
 
