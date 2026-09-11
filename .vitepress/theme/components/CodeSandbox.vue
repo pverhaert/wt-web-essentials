@@ -180,7 +180,7 @@
           <iframe
             :srcdoc="previewSrcdoc"
             class="sandbox-preview-iframe"
-            sandbox="allow-scripts allow-modals allow-forms allow-popups"
+            sandbox="allow-scripts allow-modals allow-forms allow-popups allow-popups-to-escape-sandbox"
             :title="title || 'Resultaat van de code'"
           />
         </div>
@@ -469,24 +469,88 @@ const switchCodeLanguage = (lang: 'html' | 'css' | 'js') => {
 }
 
 const ANCHOR_INTERCEPT_SCRIPT = `<script>
-document.addEventListener('click', function(e) {
-  var a = e.target.closest('a[href^="#"]');
-  if (a) {
-    e.preventDefault();
-    var hash = a.getAttribute('href');
-    if (!hash || hash === '#') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+(function() {
+  function showSandboxLinkNotice(url) {
+    var existing = document.getElementById('cs-link-notice');
+    if (existing) existing.remove();
+
+    var notice = document.createElement('div');
+    notice.id = 'cs-link-notice';
+    notice.style.cssText = 'position:fixed;bottom:12px;left:12px;right:12px;background:#1e2d5a;color:#ffffff;padding:10px 14px;border-radius:6px;font-family:system-ui,-apple-system,sans-serif;font-size:12px;line-height:1.45;box-shadow:0 4px 14px rgba(0,0,0,0.3);z-index:999999;border-left:4px solid #e87722;display:flex;align-items:flex-start;gap:10px;animation:csFadeIn 0.2s ease-out;';
+
+    var textWrap = document.createElement('div');
+    textWrap.style.cssText = 'flex:1;';
+    textWrap.innerHTML = '<strong>Opmerking (Live Sandbox):</strong> De link naar <code>' + url.replace(/</g, '&lt;') + '</code> is geopend in een <strong>nieuw tabblad</strong>.<br><span style="color:#d1d5db;">Standaard opent een browser een link in hetzelfde venster. In deze leersandbox is dit omgeleid naar een nieuw tabblad om te voorkomen dat de externe site geblokkeerd wordt (beveiligingsbeleid) of de pagina overneemt. Wil je in HTML dat een link altijd in een nieuw tabblad opent? Voeg dan zelf <code>target="_blank"</code> toe!</span>';
+
+    var closeBtn = document.createElement('button');
+    closeBtn.textContent = '✕';
+    closeBtn.type = 'button';
+    closeBtn.style.cssText = 'background:transparent;border:none;color:#ffffff;font-size:14px;cursor:pointer;padding:0 4px;line-height:1;opacity:0.8;';
+    closeBtn.onmouseenter = function() { closeBtn.style.opacity = '1'; };
+    closeBtn.onmouseleave = function() { closeBtn.style.opacity = '0.8'; };
+    closeBtn.onclick = function() { notice.remove(); };
+
+    notice.appendChild(textWrap);
+    notice.appendChild(closeBtn);
+
+    if (!document.getElementById('cs-notice-style')) {
+      var st = document.createElement('style');
+      st.id = 'cs-notice-style';
+      st.textContent = '@keyframes csFadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}';
+      document.head.appendChild(st);
+    }
+
+    document.body.appendChild(notice);
+    setTimeout(function() {
+      if (notice.parentNode) {
+        notice.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        notice.style.opacity = '0';
+        notice.style.transform = 'translateY(8px)';
+        setTimeout(function() { if (notice.parentNode) notice.remove(); }, 400);
+      }
+    }, 7000);
+  }
+
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+
+    var href = a.getAttribute('href');
+    if (!href) return;
+
+    // Interne ankerlinks (#id)
+    if (href.indexOf('#') === 0) {
+      e.preventDefault();
+      if (href === '#') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      var targetId = href.slice(1);
+      var targetEl = document.getElementById(targetId) || document.getElementsByName(targetId)[0];
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      } else if (targetId === 'top') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
       return;
     }
-    var targetId = hash.slice(1);
-    var targetEl = document.getElementById(targetId) || document.getElementsByName(targetId)[0];
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: 'smooth' });
-    } else if (targetId === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Externe of absolute links (http://, https://, //)
+    var isExternal = /^https?:\/\//i.test(href) || /^\/\//.test(href);
+    if (isExternal) {
+      var targetAttr = (a.getAttribute('target') || '').trim().toLowerCase();
+      var hasBlank = targetAttr === '_blank';
+
+      // Als de student zelf geen target="_blank" had opgegeven:
+      // open de link veilig in nieuw tabblad en geef duidelijke pedagogische toelichting
+      if (!hasBlank) {
+        e.preventDefault();
+        window.open(href, '_blank', 'noopener,noreferrer');
+        showSandboxLinkNotice(href);
+      }
     }
-  }
-});
+  });
+})();
 <` + `/script>`
 
 const previewSrcdoc = computed(() => {
