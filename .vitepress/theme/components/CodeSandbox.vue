@@ -45,6 +45,15 @@
         </div>
 
         <div class="sandbox-header-right">
+          <button
+            v-if="hasDirectCode && activeTab !== 'preview'"
+            type="button"
+            class="sandbox-action-btn"
+            :title="'Herstel de inspringing van alle ' + activeCodeLanguage.toUpperCase() + '-regels'"
+            @click="restoreIndentation(editorView)"
+          >
+            Inspringing herstellen
+          </button>
           <!-- Resetknop -->
           <button
             v-if="hasDirectCode"
@@ -114,31 +123,32 @@
           class="sandbox-code-pane"
           :style="activeTab === 'split' ? { width: splitWidth + '%' } : {}"
         >
-          <!-- Pane label of taaltabs -->
-          <div v-if="showLanguageTabs" class="sandbox-lang-header">
+          <!-- Alle talen zijn beschikbaar, ook zonder oorspronkelijke code -->
+          <div class="sandbox-lang-header">
             <div class="sandbox-lang-tabs">
               <button
                 type="button"
                 class="sandbox-lang-tab-btn"
-                :class="{ active: activeCodeLanguage === 'html' }"
+                :class="{ active: activeCodeLanguage === 'html', 'is-empty': !currentHtml.trim() }"
+                :title="currentHtml.trim() ? 'HTML-code' : 'HTML: nog leeg. Klik om code toe te voegen.'"
                 @click="switchCodeLanguage('html')"
               >
                 HTML
               </button>
               <button
-                v-if="hasCss"
                 type="button"
                 class="sandbox-lang-tab-btn"
-                :class="{ active: activeCodeLanguage === 'css' }"
+                :class="{ active: activeCodeLanguage === 'css', 'is-empty': !currentCss.trim() }"
+                :title="currentCss.trim() ? 'CSS-code' : 'CSS: nog leeg. Klik om code toe te voegen.'"
                 @click="switchCodeLanguage('css')"
               >
                 CSS
               </button>
               <button
-                v-if="hasJs"
                 type="button"
                 class="sandbox-lang-tab-btn"
-                :class="{ active: activeCodeLanguage === 'js' }"
+                :class="{ active: activeCodeLanguage === 'js', 'is-empty': !currentJs.trim() }"
+                :title="currentJs.trim() ? 'JavaScript-code' : 'JS: nog leeg. Klik om code toe te voegen.'"
                 @click="switchCodeLanguage('js')"
               >
                 JS
@@ -146,7 +156,6 @@
             </div>
             <span class="sandbox-lang-badge">{{ activeCodeLanguage.toUpperCase() }}</span>
           </div>
-          <div v-else class="sandbox-pane-label">HTML (met syntax highlighting & completion)</div>
           <div ref="editorEl" class="sandbox-editor-container" />
         </div>
 
@@ -205,6 +214,7 @@ import { keymap } from '@codemirror/view'
 import { indentWithTab } from '@codemirror/commands'
 import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
 import { createLineHighlightExtension } from '../composables/useLineHighlight'
+import { createCodeIndentation, indentCode, restoreIndentation } from '../composables/useCodeIndentation'
 
 const props = withDefaults(
   defineProps<{
@@ -266,16 +276,11 @@ const cleanHtmlCode = (raw: string): string => {
   return cleanCode(raw).replace(/^<\/p>\s*/g, '')
 }
 
-const initialSourceHtml = computed(() => cleanHtmlCode(props.html || ''))
-const initialSourceCss  = computed(() => cleanCssCode(props.css || ''))
-const initialSourceJs   = computed(() => cleanCode(props.js || props.javascript || ''))
+const initialSourceHtml = computed(() => indentCode(cleanHtmlCode(props.html || ''), 'html'))
+const initialSourceCss  = computed(() => indentCode(cleanCssCode(props.css || ''), 'css'))
+const initialSourceJs   = computed(() => indentCode(cleanCode(props.js || props.javascript || ''), 'js'))
 
 const hasCss = computed(() => Boolean(props.css !== undefined && props.css !== null && props.css.trim().length > 0))
-const hasJs = computed(() => Boolean(
-  (props.js !== undefined && props.js !== null && props.js.trim().length > 0) ||
-  (props.javascript !== undefined && props.javascript !== null && props.javascript.trim().length > 0)
-))
-const showLanguageTabs = computed(() => hasCss.value || hasJs.value)
 
 const hasDirectCode = computed(() => Boolean(
   (initialSourceHtml.value && initialSourceHtml.value.trim().length > 0) ||
@@ -546,6 +551,7 @@ const initEditor = () => {
     doc: getActiveCode(),
     extensions: [
       basicSetup,
+      createCodeIndentation(),
       languageCompartment.of(getLanguageExtension(activeCodeLanguage.value)),
       highlightCompartment.of(createLineHighlightExtension(() => getActiveHighlightRange())),
       closeBrackets(),
@@ -797,6 +803,8 @@ const openInNewTab = () => {
 
 .sandbox-header {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
   align-items: center;
   justify-content: space-between;
   padding: 0.45rem 0.85rem;
@@ -814,6 +822,7 @@ const openInNewTab = () => {
 
 .sandbox-header-right {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem;
 }
@@ -1004,12 +1013,20 @@ const openInNewTab = () => {
   font-size: 0.7rem;
   font-family: var(--vp-font-family-mono, monospace);
   font-weight: 600;
-  color: var(--vp-c-text-2);
+  color: var(--vp-c-text-1);
   background: transparent;
   border: none;
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.15s ease;
+}
+
+.sandbox-lang-tab-btn.is-empty:not(.active):not(:hover):not(:focus-visible) {
+  color: #68686c;
+}
+
+.dark .sandbox-lang-tab-btn.is-empty:not(.active):not(:hover):not(:focus-visible) {
+  color: #a6a6ae;
 }
 
 .sandbox-lang-tab-btn:hover {

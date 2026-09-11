@@ -169,6 +169,14 @@
             <div class="fs-subpane-actions">
               <button
                 type="button"
+                class="fs-subpane-btn"
+                title="Herstel de inspringing van alle HTML-regels"
+                @click="restoreIndentation(htmlEditorView)"
+              >
+                Inspringing herstellen
+              </button>
+              <button
+                type="button"
                 class="fs-subpane-btn fs-panel-toggle"
                 :class="{ 'is-active': hasCss }"
                 :title="hasCss ? 'CSS-paneel verbergen' : 'CSS-paneel toevoegen'"
@@ -241,6 +249,14 @@
               <button
                 type="button"
                 class="fs-subpane-btn"
+                title="Herstel de inspringing van alle CSS-regels"
+                @click="restoreIndentation(cssEditorView)"
+              >
+                Inspringing herstellen
+              </button>
+              <button
+                type="button"
+                class="fs-subpane-btn"
                 title="Kopieer CSS-code"
                 @click="copySubCode('css')"
               >
@@ -295,6 +311,14 @@
               <span class="fs-subpane-name">JavaScript</span>
             </div>
             <div class="fs-subpane-actions">
+              <button
+                type="button"
+                class="fs-subpane-btn"
+                title="Herstel de inspringing van alle JavaScript-regels"
+                @click="restoreIndentation(jsEditorView)"
+              >
+                Inspringing herstellen
+              </button>
               <button
                 type="button"
                 class="fs-subpane-btn"
@@ -536,6 +560,7 @@ import { Compartment } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
 import { createLineHighlightExtension } from '../composables/useLineHighlight'
+import { createCodeIndentation, indentCode, restoreIndentation } from '../composables/useCodeIndentation'
 
 const defaultHtml = `<!DOCTYPE html>
 <html lang="nl">
@@ -631,6 +656,9 @@ function getInitialData() {
 }
 
 const initialData = getInitialData()
+initialData.html = indentCode(initialData.html, 'html')
+initialData.css = indentCode(initialData.css, 'css')
+initialData.js = indentCode(initialData.js, 'js')
 
 const currentTitle = ref(initialData.title)
 const savedHeight = ref(initialData.height || '450px')
@@ -888,6 +916,7 @@ const createEditorInstance = (
     doc: docText,
     extensions: [
       basicSetup,
+      createCodeIndentation(),
       langExt,
       highlightComp.of(createLineHighlightExtension(getHighlightRange)),
       closeBrackets(),
@@ -1610,6 +1639,8 @@ onBeforeUnmount(() => {
 
 .fs-subpane-header {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
   align-items: center;
   justify-content: space-between;
   padding: 0.3rem 0.75rem;
@@ -1620,7 +1651,7 @@ onBeforeUnmount(() => {
   color: #475569;
   user-select: none;
   flex-shrink: 0;
-  height: 28px;
+  min-height: 28px;
   box-sizing: border-box;
 }
 
@@ -1634,6 +1665,13 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.fs-subpane-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem;
 }
 
 .fs-subpane-name {
