@@ -24,14 +24,14 @@ Na dit hoofdstuk kan je:
 
 Wanneer een browser een HTML-document inlaadt zonder enige CSS-stijl, plaatst hij de elementen volgens een vast patroon: de <dfn title="De natuurlijke volgorde en wijze waarop de browser HTML-elementen op het scherm positioneert voordat er CSS-lay-outregels op worden toegepast">documentstroom (normal flow)</dfn>.
 
-In deze stroom kent HTML standaard twee grote categorieën elementen:
+In deze stroom kent HTML standaard twee grote categorieën elementen (zoals je in het HTML-hoofdstuk [Basistags](/html/basistags#blokelementen-en-inline-elementen) al kort hebt gezien):
 
 1. Blokelementen <dfn title="Een HTML-element dat standaard op een nieuwe regel begint en de volledige beschikbare breedte van zijn ouder inneemt">(block-level elements)</dfn>
 2. Inline-elementen <dfn title="Een HTML-element dat meevloeit in de lopende tekstregel en enkel de breedte inneemt die nodig is voor zijn inhoud">(inline elements)</dfn>
 
 ### Blokelementen (`display: block`)
 
-Typische voorbeelden van blokelementen zijn `<div>`, `<p>`, `<h1>` tot en met `<h6>`, `<ul>`, `<ol>`, `<li>`, `<header>`, `<main>`, `<section>` en `<footer>`.
+Typische voorbeelden van blokelementen zijn `<div>`, `<p>`, `<h1>` tot en met `<h6>`, `<ul>`, `<ol>`, `<li>`, `<header>`, `<main>`, `<section>`, `<article>`, `<aside>` en `<footer>`.
 
 Kenmerken van een blokelement:
 - Begint **altijd op een nieuwe regel** in de browser.
@@ -208,6 +208,12 @@ Hier biedt <dfn title="CSS-weergavetype waarbij een element meevloeit op de rege
 }
 ```
 
+### Stapsgewijze demonstratie: Een knop transformeren
+
+Doorloop onderstaande 4 stappen om te ontdekken waarom een knop zónder `display: inline-block` de omliggende tekst overlapt, en hoe `inline-block` dit direct oplost:
+
+<ButtonBuilder />
+
 ### Verticale uitlijning met `vertical-align`
 
 Wanneer je meerdere `inline-block` elementen naast elkaar plaatst die verschillende hoogtes hebben (of verschillende hoeveelheden tekst bevatten), lijnt de browser de elementen standaard uit op de **basislijn van de tekst** (`baseline`). Dit kan leiden tot een verspringend en slordig effect.
@@ -225,6 +231,12 @@ Met de eigenschap `vertical-align` bepaal je hoe de blokken ten opzichte van elk
   width: 14rem;
 }
 ```
+
+### Zelf experimenteren met uitlijning van kaarten
+
+In het onderstaande lab zie je wat er gebeurt als Kaart 2 meer tekst bevat dan de buren. Schakel tussen `baseline` (standaard browsergedrag) en `top` (de oplossing) om de werking van `vertical-align` te doorgronden:
+
+<VerticalAlignLab />
 
 ::: tip Let op de witruimte-kloof bij inline-block
 Omdat `inline-block` elementen worden behandeld als tekstkarakters, telt elke spatie, tab of nieuwe regel in je HTML-code tussen twee elementen mee als een visuele spatie van ongeveer 4 pixels. Schrik dus niet als er een heel klein wit kiertje tussen twee aansluitende knoppen zit. Dit is volkomen normaal browsergedrag voor tekst.
@@ -457,6 +469,12 @@ h2 {
 </body>
 </html>'
 />
+
+### Zelf experimenteren met de display-simulator
+
+Gebruik de onderstaande interactieve simulator om het gedrag van `inline`, `inline-block`, `block`, `none` en `visibility: hidden` direct in de praktijk te testen en te zien hoe buurelementen reageren op breedte, hoogte en marges:
+
+<DisplayVisualizer />
 
 ## Vooruitblik: Moderne lay-outmodules
 

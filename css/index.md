@@ -17,6 +17,7 @@ Na dit hoofdstuk kan je:
 - Basisselectors toepassen (type-, class- en id-selectors) evenals gegroepeerde selectors en afstammingsselectors
 - De werking van de cascade en prioriteitsregels bij stijlenconflicten uitleggen
 - Het concept van overerving (inheritance) in de DOM-boom toelichten en bepalen welke eigenschappen wel of niet overerven
+- Commentaar toevoegen aan een CSS-stijlblad en de bijbehorende sneltoets in PhpStorm benutten
 - De browser DevTools gebruiken om toegepaste, overschreven en overgeerfde CSS-stijlregels te inspecteren
 - Je CSS-code controleren op fouten met behulp van de W3C CSS Validator
 
@@ -188,7 +189,40 @@ Sommige eigenschappen accepteren meerdere waarden na elkaar, gescheiden door een
   }
   ```
 
-In het onderstaande interactieve voorbeeld zie je hoe een externe stijlregel direct effect heeft op de HTML-elementen.
+### Commentaar in CSS
+
+Tijdens het schrijven van stijlbladen wil je regelmatig structuur aanbrengen, aantekeningen voor jezelf of medestudenten achterlaten, of stijlregels tijdelijk uitschakelen tijdens het debuggen. Net zoals in HTML gebruik je hiervoor **commentaar**.
+
+In CSS begint commentaar altijd met `/*` en sluit het af met `*/`:
+
+```css
+/* Dit is commentaar op één enkele regel */
+
+/*
+  Dit is een langer commentaarblok
+  dat zich uitstrekt over meerdere regels.
+  Handig om secties in je stijlblad van elkaar te scheiden.
+*/
+
+h1 {
+    color: #1e2d5a; /* Kleur van de hoofdtitel */
+    /* font-size: 2rem; (deze declaratie staat tijdelijk uitgeschakeld) */
+}
+```
+
+Alles wat zich tussen `/*` en `*/` bevindt, wordt door de webbrowser volledig genegeerd. Het heeft dus geen enkele invloed op de weergave van je webpagina.
+
+::: warning Geen HTML-commentaar in CSS
+In HTML schrijf je commentaar met `<!-- ... -->`. In CSS is die schrijfwijze **ongeldig**. Gebruik in CSS-bestanden en binnen `<style>`-tags uitsluitend de schuine streep met asterisk (`/* ... */`).
+:::
+
+::: tip Sneltoets in PhpStorm
+Net zoals in HTML hoef je de commentaartekens in PhpStorm niet handmatig in te typen:
+- Plaats je cursor op een regel (of selecteer een groep regels) en druk op `Ctrl` + `/` (Windows) of `Cmd` + `/` (macOS).
+- PhpStorm plaatst automatisch `/*` en `*/` rondom de gekozen regels. Druk je nogmaals op dezelfde sneltoets, dan wordt het commentaar meteen weer verwijderd (uncomment).
+:::
+
+In het onderstaande interactieve voorbeeld zie je hoe een externe stijlregel direct effect heeft op de HTML-elementen, en hoe commentaar gebruikt wordt om secties af te bakenen.
 
 <CodeSandbox
   title="Anatomie van een CSS-stijlregel"
@@ -197,7 +231,7 @@ In het onderstaande interactieve voorbeeld zie je hoe een externe stijlregel dir
   highlightCss=""
   highlightJs=""
   activeCodeTab="css"
-  css='/*Tussentitel */
+  css='/* Algemene tussentitel */
 h2 {
   color: #e87722;
   background-color: #f8f9fa;
@@ -210,7 +244,7 @@ p {
   font-size: 16px;
   line-height: 1.6;
 }
-/* Inleidende tekst*/
+/* Inleidende alinea accentueren */
 .intro {
   font-weight: bold;
   color: #1e2d5a;
@@ -543,11 +577,13 @@ In PhpStorm kan je CSS bijzonder snel schrijven met behulp van ingebouwde Emmet-
 | ID selector | `#idnaam { }` | `#hoofdmenu { color: #e87722; }` |
 | Gegroepeerde selector | `sel1, sel2 { }` | `h1, h2, h3 { font-family: sans-serif; }` |
 | Afstammingsselector | `ouder kind { }` | `article p { color: #333; }` |
+| CSS-commentaar | `/* tekst */` | `/* Hoofdnavigatie */` |
 
 ### Regels en afspraken
 
 - **Strikte scheiding:** HTML verzorgt de inhoud en structuur, CSS verzorgt de presentatie en lay-out. Schrijf stijlregels bij voorkeur altijd in een **extern `.css`-bestand**.
 - **Koppeling in `<head>`:** Plaats de `<link rel="stylesheet" href="...">` altijd binnen het `<head>`-element van je HTML-document.
+- **Commentaar in CSS:** Gebruik uitsluitend `/* ... */` voor opmerkingen in CSS (nooit `<!-- ... -->`).
 - **Herbruikbaarheid:** Gebruik klassen (`.klasse`) voor herbruikbare elementen en stijlen. Gebruik ID's (`#id`) uiterst spaarzaam wegens hun te hoge specificiteit.
 - **Overerving:** Teksteigenschappen zoals `color`, `font-family` en `line-height` erven automatisch over van ouder naar kind. Lay-out eigenschappen (zoals `margin`, `padding` en `border`) erven **nooit** automatisch over.
 - **De Cascade:** Bij botsende regels met gelijke specificiteit wint altijd de regel die **het laatst** in het stylesheet staat (bronvolgorde).
@@ -557,11 +593,13 @@ In PhpStorm kan je CSS bijzonder snel schrijven met behulp van ingebouwde Emmet-
 - De punt (`.`) vergeten vóór een klassenaam in CSS, waardoor de browser zoekt naar een onbestaand HTML-element (bijv. `uitgelicht { }` in plaats van `.uitgelicht { }`).
 - Een hash (`#`) in het HTML `class`-attribuut typen: schrijf in HTML `class="kaart"`, niet `class="#kaart"`.
 - Het koppelteken of de puntkomma vergeten aan het einde van een CSS-declaratie, waardoor de volgende regel niet meer gelezen wordt.
+- HTML-commentaar (`<!-- ... -->`) gebruiken in een CSS-bestand in plaats van `/* ... */`.
 - `id` meerdere keren gebruiken op dezelfde pagina (een ID moet uniek zijn in het HTML-document).
 - Inline stijlen (`style="..."`) in HTML typen in plaats van een centrale regel in het externe CSS-stijlblad.
 
 ### Tips voor beginners
 
+- Gebruik in PhpStorm de sneltoets `Ctrl` + `/` (Windows) of `Cmd` + `/` (macOS) om geselecteerde regels in één keer van `/* ... */` commentaartekens te voorzien of weer in te schakelen.
 - Gebruik Google Chrome DevTools (`F12` of rechtermuisklik -> **Inspecteren**): doorgestreepte CSS-regels tonen direct aan welke stijlen zijn overschreven door een regel met hogere prioriteit of latere bronvolgorde.
 - Gebruik in PhpStorm de Emmet-sneltoets `link:css` in de `<head>` van je HTML om de `<link>`-tag in één klap te genereren.
 - Valideer je stijlblad regelmatig via de officiële **W3C CSS Validator** om verborgen typefouten of vergeten haakjes vroegtijdig op te sporen.

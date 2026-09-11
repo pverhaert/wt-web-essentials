@@ -20,6 +20,7 @@ Na dit hoofdstuk kan je:
 - Rijen en kolommen geautomatiseerd stijlen zonder extra klassen met behulp van `:nth-child()`, `:first-child` en `:last-child`
 - Zebra-striping en interactieve rij-markering (`:hover`) toepassen voor optimale leesbaarheid van datatabellen
 - Het verschil verklaren tussen `table-layout: auto` en `table-layout: fixed`
+- Kolommen doelgericht stijlen via `<colgroup>` en `<col>` en de geldige CSS-eigenschappen hiervoor benoemen
 - Een datatabel responsief maken op mobiele apparaten met een horizontaal scrollbare wrapper
 - Sneller tabeleigenschappen schrijven in PhpStorm met behulp van Emmet-afkortingen
 
@@ -563,6 +564,119 @@ th:first-child {
 Gebruik `table-layout: fixed;` bij lesroosters, weekplanners of tabellen met gelijke kolommen (zoals maandag t/m vrijdag). Hierdoor zijn alle dagen gegarandeerd exact even breed, ongeacht hoeveel tekst er in een specifiek lesuur staat.
 :::
 
+### Zelf experimenteren met tabeleigenschappen
+
+Met de onderstaande interactieve simulator kan je direct ontdekken hoe `border-collapse`, `border-spacing`, `empty-cells`, `caption-side` en `table-layout` samenwerken. Schakel vooral eens tussen `auto` en `fixed` nadat je lange tekst toevoegt:
+
+<TableWorkbench />
+
+## Kolommen stijlen met `<colgroup>` en `<col>`
+
+In het hoofdstuk over HTML-tabellen heb je geleerd dat je kolommen semantisch kan groeperen met behulp van `<colgroup>` en `<col>`. We gaven daar al aan dat de visuele kracht van deze elementen pas echt tot uiting komt zodra je er CSS aan koppelt.
+
+Wanneer je een volledige kolom een achtergrondkleur of breedte wil geven, hoef je dankzij `<colgroup>` niet aan elke individuele `<td>` in die kolom een klasse toe te voegen.
+
+### Slechts vier CSS-eigenschappen toegelaten op `<col>`
+
+Omdat kolommen in HTML geen fysieke containers zijn waar cellen in 'wonen' (de cellen zitten immers in rijen `<tr>`), gelden er volgens de officiële CSS-standaard strenge beperkingen. Je kan op `<col>` en `<colgroup>` **uitsluitend de volgende vier CSS-eigenschappen** toepassen:
+
+1. **`background-color` (en achtergrondeigenschappen):** Om een kolom een eigen achtergrondkleur te geven.
+2. **`width`:** Om de breedte van de kolom vast te leggen (bijvoorbeeld `width: 120px;` of `width: 25%;`).
+3. **`border`:** Randen rond de kolom, maar dit werkt **enkel** wanneer `border-collapse: collapse;` op de tabel actief is.
+4. **`visibility`:** Om een kolom te verbergen met `visibility: collapse;` (waardoor de kolom wegvalt zonder de tabelstructuur te breken).
+
+::: warning Eigenschappen zoals font en text-align werken niet op col
+Eigenschappen zoals `color`, `font-weight`, `text-align` en `padding` hebben **geen enkel effect** op `<col>` of `<colgroup>`. De inhoud van de cel erft deze eigenschappen over van de rij (`<tr>`), niet van de kolom. Wil je tekst in een kolom vetgedrukt maken of rechts uitlijnen, gebruik dan de pseudo-klasse `:nth-child()` op de cellen zelf (bijvoorbeeld `td:nth-child(3) { text-align: right; }`).
+:::
+
+### Codevoorbeeld: Kolommen accentueren via `<col>`
+
+In het onderstaande voorbeeld voorzien we de kolom met de totaalscore van een opvallende accentkleur via een klasse op het `<col>`-element:
+
+<CodeSandbox
+  title="Voorbeeld: Kolommen stijlen met colgroup en col"
+  activeCodeTab="css"
+  height="440px"
+  highlightCss="17-19,21-24"
+  css='/* Universele resetter */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #212529;
+  padding: 1.5rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+/* Kolomstijlen via col en colgroup */
+.kolom-accent {
+  background-color: #fff3cd;
+}
+.kolom-belangrijk {
+  background-color: #fce8e6;
+  border-left: 2px solid #e87722;
+}
+caption {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+th, td {
+  padding: 0.6rem 1rem;
+  border: 1px solid #dee2e6;
+}
+thead th {
+  background-color: #1e2d5a;
+  color: #ffffff;
+}
+td:last-child {
+  font-weight: bold;
+}'
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kolommen stijlen met colgroup</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <table>
+    <caption>Examenresultaten - Thomas More Campus Geel</caption>
+    <colgroup>
+      <col>
+      <col class="kolom-accent">
+      <col class="kolom-belangrijk">
+    </colgroup>
+    <thead>
+      <tr>
+        <th scope="col">Student</th>
+        <th scope="col">Web Essentials</th>
+        <th scope="col">Totaalscore</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>r0123456</td>
+        <td>15 / 20</td>
+        <td>75%</td>
+      </tr>
+      <tr>
+        <td>r0654321</td>
+        <td>17 / 20</td>
+        <td>85%</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>'
+/>
+
 ## Responsieve tabellen op mobiele toestellen
 
 Een van de grootste uitdagingen bij tabellen op het web is hun stugge tweedimensionale karakter. Op een breed computerscherm oogt een tabel met zes kolommen prachtig, maar op een smartphone met een schermbreedte van 375 pixels past zo'n tabel fysiek niet in het scherm.
@@ -630,6 +744,7 @@ In PhpStorm kan je CSS-eigenschappen voor tabellen razendsnel uitschrijven met E
 - **Gebruik `padding` voor celruimte:** Marges (`margin`) werken niet op `<th>`, `<td>` of `<tr>`. Binnenruimte realiseer je altijd met `padding` op de cellen.
 - **Lijn getallen rechts uit:** Lijn gewone tekst links uit (`text-align: left;`), maar zet numerieke waarden, bedragen en totalen consequent rechts (`text-align: right;`) voor optimale verticale vergelijkbaarheid.
 - **Selecteer binnen `tbody`:** Gebruik `tbody tr:nth-child(even)` voor zebra-striping zodat kolomkoppen in `<thead>` niet per ongeluk meekleuren.
+- **Beperk CSS op `<col>` en `<colgroup>`:** Gebruik `<col>` uitsluitend voor `background-color`, `width`, `border` (bij `collapse`) en `visibility`. Typografische eigenschappen zoals `color` of `text-align` werken niet op `<col>` en horen thuis op de cellen zelf.
 
 ### Veelgemaakte fouten
 
@@ -637,6 +752,7 @@ In PhpStorm kan je CSS-eigenschappen voor tabellen razendsnel uitschrijven met E
 - `border-spacing` proberen te gebruiken terwijl `border-collapse: collapse;` actief is (werkt enkel bij `border-collapse: separate;`).
 - Marges (`margin`) proberen in te stellen op `<td>` of `<th>` in plaats van `padding`.
 - De `<caption>`-tag in HTML onder de tabel zetten om hem visueel onderaan te krijgen (dit is ongeldige HTML; gebruik `caption-side: bottom`).
+- Eigenschappen zoals `color` of `text-align` toekennen aan een `<col>`-element en verbaasd zijn dat de tekstkleur of uitlijning van de cellen niet wijzigt.
 - Geen `overflow-x: auto` voorzien rond brede tabellen, waardoor de mobiele weergave breekt.
 
 ### Tips voor beginners

@@ -20,6 +20,10 @@ import MiniColorPicker from './components/MiniColorPicker.vue'
 import ColorConverter from './components/ColorConverter.vue'
 import LineHeightGame from './components/LineHeightGame.vue'
 import GoogleFontsSimulator from './components/GoogleFontsSimulator.vue'
+import DisplayVisualizer from './components/DisplayVisualizer.vue'
+import TableWorkbench from './components/TableWorkbench.vue'
+import ButtonBuilder from './components/ButtonBuilder.vue'
+import VerticalAlignLab from './components/VerticalAlignLab.vue'
 import PageSummary from './components/PageSummary.vue'
 import PageSummaryModal from './components/PageSummaryModal.vue'
 import TermTooltip from './components/TermTooltip.vue'
@@ -67,6 +71,10 @@ export default {
     app.component('ColorConverter', ColorConverter)
     app.component('LineHeightGame', LineHeightGame)
     app.component('GoogleFontsSimulator', GoogleFontsSimulator)
+    app.component('DisplayVisualizer', DisplayVisualizer)
+    app.component('TableWorkbench', TableWorkbench)
+    app.component('ButtonBuilder', ButtonBuilder)
+    app.component('VerticalAlignLab', VerticalAlignLab)
     app.component('PageSummary', PageSummary)
 
     // Registreer Lucide iconen
