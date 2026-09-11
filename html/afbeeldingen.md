@@ -67,7 +67,7 @@ Het attribuut `alt` staat voor *alternative text* (alternatieve tekst). Dit attr
 
 1. **Toegankelijkheid (screenreaders):** Blinde en slechtziende bezoekers gebruiken een schermlezer die de pagina voorleest. De schermlezer leest de tekst van het `alt`-attribuut voor zodat de gebruiker weet wat er te zien is.
 2. **Trage of haperende verbindingen:** Wanneer een afbeelding door een netwerkfout of een verkeerd pad niet geladen kan worden, toont de browser de alternatieve tekst op de plaats van de ontbrekende afbeelding.
-3. **Zoekmachineoptimalisatie (SEO):** Zoekmachines zoals Google kunnen beelden niet direct interpreteren en baseren zich op de `alt`-tekst om te begrijpen wat de afbeelding voorstelt.
+3. **Zoekmachineoptimalisatie (<abbr title="Search Engine Optimization: technieken om webpagina's hoger te laten scoren in zoekmachines">SEO</abbr>):** Zoekmachines zoals Google kunnen beelden niet direct interpreteren en baseren zich op de `alt`-tekst om te begrijpen wat de afbeelding voorstelt.
 
 ::: tip Richtlijnen voor een sterke alt-tekst
 
@@ -99,7 +99,7 @@ Waarom is dit belangrijk?
 
 Wanneer een webpagina laadt, downloadt de browser eerst de HTML-tekst en pas daarna de zware afbeeldingsbestanden. Als de browser de afmetingen van de afbeeldingen niet kent, weet hij tijdens het opbouwen van de pagina niet hoeveel witruimte hij moet reserveren.
 
-Zodra de afbeelding even later binnenkomt, moet de browser de hele pagina plotseling herberekenen en omlaag schuiven. Dit verschijnsel heet **Cumulative Layout Shift (CLS)** en is bijzonder storend voor gebruikers die al aan het lezen waren.
+Zodra de afbeelding even later binnenkomt, moet de browser de hele pagina plotseling herberekenen en omlaag schuiven. Dit verschijnsel heet **<abbr title="Cumulative Layout Shift: een prestatie-maatstaf die meet hoeveel zichtbare inhoud onverwacht verschuift tijdens het laden van de pagina">Cumulative Layout Shift (CLS)</abbr>** en is bijzonder storend voor gebruikers die al aan het lezen waren.
 
 Door `width` en `height` in de HTML vast te leggen, kan de browser vooraf de exacte beeldverhouding en benodigde ruimte reserveren. De pagina bouwt daardoor rustig en stabiel op.
 
@@ -240,8 +240,8 @@ Niet elk afbeeldingsbestand is geschikt voor gebruik op het internet. Een modern
 
 We onderscheiden twee grote categorieën:
 
-1. **Rasterafbeeldingen (pixelgebaseerd):** De afbeelding is opgebouwd uit een raster van gekleurde puntjes (pixels). Wanneer je inzoomt op een rasterafbeelding, zie je de afzonderlijke blokjes en treedt er kwaliteitsverlies op.
-2. **Vectorafbeeldingen:** De afbeelding is opgebouwd uit wiskundige formules die lijnen, curven, vormen en kleuren beschrijven. Een vectorafbeelding kan oneindig worden vergroot of verkleind zonder enig verlies van scherpte.
+1. **<dfn title="Een afbeelding die is opgebouwd uit een vast raster van gekleurde beeldpunten (pixels), waardoor kwaliteitsverlies optreedt bij vergroten">Rasterafbeeldingen</dfn> (pixelgebaseerd):** De afbeelding is opgebouwd uit een raster van gekleurde puntjes (pixels). Wanneer je inzoomt op een rasterafbeelding, zie je de afzonderlijke blokjes en treedt er kwaliteitsverlies op.
+2. **<dfn title="Een afbeelding opgebouwd uit wiskundige formules en vectoren (lijnen, vormen) die oneindig kan worden geschaald zonder enig kwaliteitsverlies">Vectorafbeeldingen</dfn>:** De afbeelding is opgebouwd uit wiskundige formules die lijnen, curven, vormen en kleuren beschrijven. Een vectorafbeelding kan oneindig worden vergroot of verkleind zonder enig verlies van scherpte.
 
 ![Raster- vs Vectorafbeeldingen](./afbeeldingen/raster_vs_vector.webp)
 
@@ -250,10 +250,10 @@ We onderscheiden twee grote categorieën:
 | Formaat | Categorie | Transparantie | Compressie | Ideaal voor |
 | --- | --- | --- | --- | --- |
 | **WebP** | Raster | Ja (volledig) | Lossy en Lossless | Foto's, banners en algemene webillustraties |
-| **SVG** | Vector | Ja (volledig) | Wiskundig / Lossless | Logo's, iconen, pictogrammen en eenvoudige illustraties |
-| **PNG** | Raster | Ja (volledig) | Lossless | Scherpe schermafbeeldingen en afbeeldingen met fijne tekst |
-| **JPEG** | Raster | Nee | Lossy | Klassiek fotoformaat (wordt vervangen door WebP) |
-| **GIF** | Raster | Beperkt (1 kleur) | Lossless (max. 256 kleuren) | Korte animaties (historisch) |
+| **<abbr title="Scalable Vector Graphics: het officiële W3C-vectorformaat voor schaalbare illustraties en logo's">SVG</abbr>** | Vector | Ja (volledig) | Wiskundig / Lossless | Logo's, iconen, pictogrammen en eenvoudige illustraties |
+| **<abbr title="Portable Network Graphics: een rasterformaat met verliesvrije compressie en transparantie">PNG</abbr>** | Raster | Ja (volledig) | Lossless | Scherpe schermafbeeldingen en afbeeldingen met fijne tekst |
+| **<abbr title="Joint Photographic Experts Group: het klassieke gecomprimeerde formaat voor digitale foto's">JPEG</abbr>** | Raster | Nee | Lossy | Klassiek fotoformaat (wordt vervangen door WebP) |
+| **<abbr title="Graphics Interchange Format: historisch 8-bits formaat met maximaal 256 kleuren voor eenvoudige animaties">GIF</abbr>** | Raster | Beperkt (1 kleur) | Lossless (max. 256 kleuren) | Korte animaties (historisch) |
 
 ::: tip Richtlijnen voor bestandsgrootte
 

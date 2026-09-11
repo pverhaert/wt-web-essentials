@@ -22,8 +22,7 @@ Na dit hoofdstuk kan je:
 
 ## Waarom Webfonts?
 
-Een **webfont** is een lettertypebestand dat op een webserver staat en door de webbrowser van de bezoeker automatisch wordt gedownload tijdens het laden van de pagina.
-
+Een **<dfn title="Een lettertypebestand dat op een webserver staat en automatisch door de browser gedownload wordt bij het openen van de pagina">webfont</dfn>** is een lettertypebestand dat op een webserver staat en door de webbrowser van de bezoeker automatisch wordt gedownload tijdens het laden van de pagina.
 
 - **Traditioneel systeemfont:**
 Browser zoekt lettertype op de computer van de bezoeker -> Gevonden? Toon lettertype. Niet gevonden? Toon fallback.
@@ -41,12 +40,11 @@ Browser downloadt lettertypebestand via het internet -> Lettertype wordt direct 
 Elk lettertype en elk gewicht (zoals normaal, halfvet of vet) is een afzonderlijk bestand dat de browser moet downloaden. Gebruik op een website maximaal twee verschillende lettertypefamilies (bijvoorbeeld een karaktervol lettertype voor titels en een neutraal, goed leesbaar lettertype voor alinea's) en laad enkel de gewichten in die je werkelijk gebruikt.
 :::
 
-
 ## Google Fonts en de Moderne CSS2 API
 
-**Google Fonts** is de populairste en meest gebruikte lettertypebibliotheek op het internet. De dienst is volledig gratis, biedt meer dan 1500 open-source lettertypen en levert de bestanden via een wereldwijd netwerk van snelle servers (een Content Delivery Network of CDN).
+**Google Fonts** is de populairste en meest gebruikte lettertypebibliotheek op het internet. De dienst is volledig gratis, biedt meer dan 1500 open-source lettertypen en levert de bestanden via een wereldwijd netwerk van snelle servers (een <abbr title="Content Delivery Network: een wereldwijd verspreid netwerk van proxyservers om bestanden snel en lokaal aan te leveren">CDN</abbr> of Content Delivery Network).
 
-Sinds de introductie van de **Google Fonts CSS2 API** (`/css2`) is de manier waarop webfonts werken fundamenteel vernieuwd. Waar je vroeger voor elke dikte een afzonderlijk bestand moest downloaden, levert Google Fonts vandaag standaard **variabele lettertypen (*Variable Fonts*)** met ingebouwde **optische schaling (*Optical Sizing*)**.
+Sinds de introductie van de **Google Fonts CSS2 <abbr title="Application Programming Interface: een interface waarmee systemen en software met elkaar communiceren">API</abbr>** (`/css2`) is de manier waarop webfonts werken fundamenteel vernieuwd. Waar je vroeger voor elke dikte een afzonderlijk bestand moest downloaden, levert Google Fonts vandaag standaard **<dfn title="Een fontformaat waarin meerdere gewichten, breedtes en stijlen in één enkel bestand zijn opgeslagen">variabele lettertypen (Variable Fonts)</dfn>** met ingebouwde **<dfn title="Het automatisch aanpassen van letterverhoudingen en lijndiktes aan de fysieke lettergrootte voor optimale leesbaarheid">optische schaling (Optical Sizing)</dfn>**.
 
 ### Wat zijn variabele lettertypen (Variable Fonts)?
 

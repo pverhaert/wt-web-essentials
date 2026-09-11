@@ -41,7 +41,7 @@ Plaats je cursor op een regel (of selecteer meerdere regels) en druk op `Ctrl` +
 
 ## Blokelementen en inline-elementen
 
-HTML-elementen worden opgesplitst in twee belangrijke hoofdcategorieën: blokelementen (block-level elements) en inline-elementen (inline elements).
+HTML-elementen worden opgesplitst in twee belangrijke hoofdcategorieën: <dfn title="Een HTML-element dat standaard op een nieuwe regel begint en de volledige breedte van zijn ouder inneemt">blokelementen</dfn> (block-level elements) en <dfn title="Een HTML-element dat in de lopende tekststroom blijft en uitsluitend de breedte van zijn eigen inhoud inneemt">inline-elementen</dfn> (inline elements).
 
 ### Blokelementen (block-level)
 
@@ -66,7 +66,7 @@ Naast elementen met een specifieke betekenis (zoals alinea's en koppen) kent HTM
 - **`<span>`:** Een neutraal **inline-element**. Het heeft eveneens geen eigen betekenis, maar dient om een specifiek stukje tekst binnen een zin te omvatten.
 
 ::: info Belangrijke opmerking over `<div>` en `<span>`
-Omdat `<div>` en `<span>` geen semantische betekenis hebben, gebruik je ze in HTML5 pas wanneer er geen geschikte semantische tag (zoals `<article>`, `<nav>` of `<strong>`) voorhanden is. Ze worden vooral gebruikt als kapstok om stijlen toe te passen met CSS of interactie toe te voegen met JavaScript. In het [CSS-gedeelte van deze cursus](/css/) komen `<div>` en `<span>` veel uitgebreider aan bod om vormgeving toe te kennen.
+Omdat `<div>` en `<span>` geen semantische betekenis hebben, gebruik je ze in HTML5 pas wanneer er geen geschikte semantische tag (zoals `<article>`, `<nav>` of `<strong>`) voorhanden is. Ze worden vooral gebruikt als kapstok om stijlen toe te passen met <abbr title="Cascading Style Sheets: de stijlen- en opmaaktaal voor websites">CSS</abbr> of interactie toe te voegen met JavaScript. In het [CSS-gedeelte van deze cursus](/css/) komen `<div>` en `<span>` veel uitgebreider aan bod om vormgeving toe te kennen.
 :::
 
 ## Koppen: `<h1>` tot en met `<h6>`
@@ -272,7 +272,7 @@ Wanneer je letterlijk een HTML-tag zoals `<h1>` binnen een `<code>`-element op h
 
 ## Semantische HTML5-structuurtags
 
-In plaats van een webpagina willekeurig vol te zetten met algemene blokken, biedt HTML5 betekenisvolle **structuurtags**. Deze elementen vertellen aan zoekmachines en ondersteunende software precies welk doel een bepaald gedeelte van je pagina heeft.
+In plaats van een webpagina willekeurig vol te zetten met algemene blokken, biedt HTML5 betekenisvolle <dfn title="HTML-elementen met een specifieke betekenis en functie (zoals header, nav, main, article) die de rol van de inhoud verduidelijken">semantische structuurtags</dfn>. Deze elementen vertellen aan zoekmachines en ondersteunende software precies welk doel een bepaald gedeelte van je pagina heeft. Raadpleeg voor het volledige overzicht de officiële documentatie op [MDN Web Docs](https://developer.mozilla.org/nl/docs/Web/HTML/Element).
 
 | Tag | Beschrijving | Typisch gebruik |
 |---|---|---|

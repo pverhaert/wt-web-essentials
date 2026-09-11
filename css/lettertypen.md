@@ -23,11 +23,11 @@ Wil je een uniek lettertype gebruiken dat niet standaard op de computer van de b
 
 ## Lettertypefamilies: `font-family`
 
-Elk stuk tekst op een webpagina heeft een lettertype. Welk lettertype de browser toont, hangt af van de eigenschap `font-family`.
+Elk stuk tekst op een webpagina heeft een lettertype. Welk lettertype de browser toont, hangt af van de eigenschap `font-family`. Meer details over font-eigenschappen vind je in de [MDN Web Docs over font-family](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family).
 
 Niet elke computer, tablet of smartphone beschikt over exact dezelfde collectie geïnstalleerde lettertypen. Zo staat het lettertype *Segoe UI* standaard op Windows, terwijl macOS en iOS de voorkeur geven aan *San Francisco* of *Helvetica Neue*.
 
-Om te voorkomen dat tekst terugvalt op een willekeurig lelijk lettertype wanneer jouw eerste keuze niet aanwezig is, geef je in CSS een reeks van voorkeuren op: een **font-stack** (lettertypestapel).
+Om te voorkomen dat tekst terugvalt op een willekeurig lelijk lettertype wanneer jouw eerste keuze niet aanwezig is, geef je in CSS een reeks van voorkeuren op: een **<dfn title="Een geordende lijst van lettertypen in CSS die de browser van links naar rechts afloopt tot een beschikbaar lettertype wordt gevonden">font-stack</dfn>** (lettertypestapel).
 
 ```css
 body {
@@ -44,7 +44,7 @@ De browser leest deze lijst van links naar rechts:
 ### Belangrijke regels voor `font-family`
 
 - **Aanhalingstekens bij meerdelige namen:** Bevat de naam van een lettertype een of meer spaties (zoals `"Times New Roman"` of `"Trebuchet MS"`), dan moet je die naam tussen aanhalingstekens plaatsen. Voor namen uit één woord (zoals `Arial` of `Verdana`) zijn aanhalingstekens niet nodig.
-- **Eindig altijd met een generieke familie:** De allerlaatste waarde in een `font-family` declaratie moet altijd een van de vijf standaard generieke families van het W3C zijn. Zo garandeer je dat de browser altijd een passend lettertype kiest.
+- **Eindig altijd met een generieke familie:** De allerlaatste waarde in een `font-family` declaratie moet altijd een van de vijf standaard generieke families van het <abbr title="World Wide Web Consortium: de officiële internationale standaardiseringsorganisatie voor het web">W3C</abbr> zijn. Zo garandeer je dat de browser altijd een passend lettertype kiest.
 
 ### De 5 generieke lettertypefamilies
 
@@ -85,7 +85,7 @@ In CSS bestaan tientallen maateenheden, maar voor moderne webontwikkeling zijn e
 
 ### 1. Pixels (`px`): absolute eenheid
 
-Een pixel is een vast meetpunt op het beeldscherm. Als je instelt:
+Een <dfn title="Picture element: het kleinste adresseerbare beeldpunt op een digitaal beeldscherm">pixel</dfn> is een vast meetpunt op het beeldscherm. Als je instelt:
 
 ```css
 p {
@@ -100,7 +100,7 @@ Dan heeft de tekst altijd een hoogte van exact 16 pixels.
 
 ### 2. Rem (`rem`): relatieve en moderne eenheid
 
-De eenheid **`rem`** staat voor *root em*. Een `rem` is een relatieve eenheid die berekend wordt op basis van de lettergrootte van het hoofdelement van de pagina (het `<html>`-element).
+De eenheid **`rem`** staat voor **<dfn title="Root em: een relatieve maateenheid die zich baseert op de lettergrootte van het root-element (html)">root em</dfn>**. Een `rem` is een relatieve eenheid die berekend wordt op basis van de lettergrootte van het hoofdelement van de pagina (het `<html>`-element).
 
 Standaard hanteert elke webbrowser een basislettergrootte van **16px** op het root-element.
 
@@ -192,7 +192,7 @@ em {
 
 ### `font-variant`
 
-Met `font-variant` kan je tekst weergeven in **kleinkapitalen** (*small caps*). Kleine letters worden dan getoond als hoofdletters, maar met de hoogte van een kleine letter:
+Met `font-variant` kan je tekst weergeven in **<dfn title="Typografische stijl waarbij kleine letters worden weergegeven als verkleinde hoofdletters met de romphoogte van minuskels">kleinkapitalen</dfn>** (*small caps*). Kleine letters worden dan getoond als hoofdletters, maar met de hoogte van een kleine letter:
 
 ```css
 h3 {
@@ -401,7 +401,7 @@ a:hover {
 
 Browsers onderlijnen hyperlinks standaard met een blauwe lijn. Veel ontwerpers zetten meteen `text-decoration: none;` op alle links om de lijn weg te halen.
 
-Volgens de internationale richtlijnen voor webtoegankelijkheid (**WCAG 2.1**) moet je hier echter heel voorzichtig mee zijn:
+Volgens de internationale richtlijnen voor webtoegankelijkheid (**<abbr title="Web Content Accessibility Guidelines: de officiële internationale richtlijnen voor toegankelijke webcontent">WCAG</abbr> 2.1**, zie de [W3C WCAG standaard](https://www.w3.org/WAI/standards-guidelines/wcag/)) moet je hier echter heel voorzichtig mee zijn:
 
 1. **Herkenbaarheid:** Als een link binnen een lopende alinea niet onderlijnd is, zien bezoekers (en zeker kleurenblinde gebruikers) vaak niet dat het om een klikbare link gaat.
 2. **Kleurcontrast:** Verwijder je de onderlijning in lopende tekst, dan moet de kleur van de link een contrastverhouding van minstens **3:1** hebben ten opzichte van de omringende tekst.

@@ -19,22 +19,22 @@ Na dit hoofdstuk kan je:
 
 ## Wat is HTML?
 
-HTML staat voor **HyperText Markup Language** (opmaaktaal voor hypertext). Het is de standaardtaal waarmee je de structuur en inhoud van webpagina's vastlegt.
+<abbr title="HyperText Markup Language: de standaard opmaaktaal voor de structuur en inhoud van webpagina's">HTML</abbr> staat voor **HyperText Markup Language** (opmaaktaal voor <dfn title="Tekst met interactieve verwijzingen (hyperlinks) naar andere documenten">hypertext</dfn>). Het is de standaardtaal waarmee je de structuur en inhoud van webpagina's vastlegt.
 
-HTML is geen programmeertaal. In een programmeertaal schrijf je logica, lussen en berekeningen. HTML is een **opmaaktaal** (markup language). Dat betekent dat je platte tekst markeert met speciale codes om aan te duiden welke functie die tekst heeft. Zo geef je aan wat een hoofding is, wat een alinea is, waar een afbeelding staat en waar een link naar een andere pagina leidt.
+HTML is geen programmeertaal. In een programmeertaal schrijf je logica, lussen en berekeningen. HTML is een <dfn title="Een formele taal om platte tekst van structuur en betekenis te voorzien via markeringen">opmaaktaal</dfn> (markup language). Dat betekent dat je platte tekst markeert met speciale codes om aan te duiden welke functie die tekst heeft. Zo geef je aan wat een hoofding is, wat een alinea is, waar een afbeelding staat en waar een link naar een andere pagina leidt.
 
 ## Waarom HTML?
 
 Wanneer je een website bouwt, wil je dat jouw inhoud aan twee belangrijke voorwaarden voldoet:
 
 - **Consistente weergave op alle apparaten:** Je inhoud moet correct en betrouwbaar worden getoond in elke webbrowser (zoals Google Chrome, Mozilla Firefox, Safari en Microsoft Edge) en op elk mogelijk schermformaat (desktopmonitoren, laptops, tablets en smartphones).
-- **Duidelijke scheiding van inhoud en vormgeving:** Door je inhoud uitsluitend in HTML te structureren en de vormgeving over te laten aan CSS, blijft je code overzichtelijk, onderhoudbaar en eenvoudig aan te passen.
+- **Duidelijke scheiding van inhoud en vormgeving:** Door je inhoud uitsluitend in HTML te structureren en de vormgeving over te laten aan <abbr title="Cascading Style Sheets: de stijlen- en opmaaktaal voor de vormgeving en lay-out van websites">CSS</abbr>, blijft je code overzichtelijk, onderhoudbaar en eenvoudig aan te passen.
 
 ## Webstandaarden en het W3C
 
 Om ervoor te zorgen dat elke browser HTML-code op exact dezelfde manier interpreteert en toont, zijn er duidelijke afspraken en **webstandaarden** nodig.
 
-- **Het World Wide Web Consortium (W3C):** Deze internationale organisatie stelt de officiële standaarden voor het web op. Webontwikkelaars en browserbouwers baseren zich op deze regels zodat websites overal hetzelfde werken. Op [www.w3.org](https://www.w3.org) vind je alle goedgekeurde standaarden en documenten die momenteel in ontwikkeling zijn.
+- **Het World Wide Web Consortium (<abbr title="World Wide Web Consortium: de officiële internationale standaardiseringsorganisatie voor het web">W3C</abbr>):** Deze internationale organisatie stelt de officiële standaarden voor het web op. Webontwikkelaars en browserbouwers baseren zich op deze regels zodat websites overal hetzelfde werken. Op [www.w3.org](https://www.w3.org) vind je alle goedgekeurde standaarden en documenten die momenteel in ontwikkeling zijn.
 - **De rol van de webontwikkelaar:** Niet alleen browserfabrikanten moeten de standaarden naleven. Als professioneel webontwikkelaar ben je verplicht om geldige, standaardconforme HTML-code te schrijven. Dit voorkomt weergavefouten en zorgt ervoor dat zoekmachines en schermlezers voor personen met een beperking jouw pagina vlot kunnen ontleden.
 
 ::: warning Valideer altijd je HTML-code
@@ -43,7 +43,7 @@ Voor elke webpagina die je bouwt, controleer je of de code aan de standaarden vo
 
 ## Geschiedenis van HTML
 
-De taal HTML ontstond in **1991** en werd bedacht door de Britse wetenschapper **Tim Berners-Lee** aan het onderzoeksinstituut **CERN** (het Europees laboratorium voor deeltjesfysica in Genève).
+De taal HTML ontstond in **1991** en werd bedacht door de Britse wetenschapper **Tim Berners-Lee** aan het onderzoeksinstituut **<abbr title="Conseil Européen pour la Recherche Nucléaire: het Europees laboratorium voor deeltjesfysica in Genève waar het web is ontstaan">CERN</abbr>** (het Europees laboratorium voor deeltjesfysica in Genève).
 
 ### Het oorspronkelijke doel
 
@@ -56,10 +56,10 @@ De allereerste versie van HTML bevatte slechts [18 elementen](http://info.cern.c
 Door de jaren heen heeft HTML een grote evolutie doorgemaakt:
 
 - **HTML 1.0 (1993):** De eerste informele beschrijving van de taal op het prille internet.
-- **HTML 2.0 (1995):** De eerste officiële internetstandaard (gepubliceerd als RFC 1866).
+- **HTML 2.0 (1995):** De eerste officiële internetstandaard (gepubliceerd als <abbr title="Request for Comments: officiële documenten waarin internetstandaarden en netwerkprotocollen worden vastgelegd">RFC</abbr> 1866).
 - **HTML 3.2 (Januari 1997):** De eerste versie die als officiële aanbeveling (Recommendation) werd uitgegeven door het W3C.
 - **HTML 4.01 (December 1999):** Een uiterst stabiele standaard die jarenlang de basis vormde voor vrijwel alle websites op het internet.
-- **HTML5 (2014 tot heden):** De moderne standaard die we vandaag gebruiken. HTML5 bracht ondersteuning voor audio en video zonder externe plugins, nieuwe semantische structuurtags en krachtige browser-API's. Vandaag wordt HTML beheerd als een **Living Standard** door de WHATWG en het W3C, wat betekent dat de specificatie continu meegroeit met nieuwe mogelijkheden op het web.
+- **HTML5 (2014 tot heden):** De moderne standaard die we vandaag gebruiken. HTML5 bracht ondersteuning voor audio en video zonder externe plugins, nieuwe semantische structuurtags en krachtige browser-API's. Vandaag wordt HTML beheerd als een **Living Standard** door de <abbr title="Web Hypertext Application Technology Working Group: het samenwerkingsverband van browserbouwers dat de Living Standard van HTML definieert">WHATWG</abbr> en het W3C, wat betekent dat de specificatie continu meegroeit met nieuwe mogelijkheden op het web.
 
 ## De drie pijlers van het web
 
@@ -79,14 +79,14 @@ Om HTML te begrijpen, moet je het verschil kennen tussen drie basisbegrippen: ta
 
 ### Tags
 
-Een tag (markering) is een trefwoord tussen punthaken (`<` en `>`). De meeste onderdelen in HTML hebben twee tags:
+Een <dfn title="Een trefwoord tussen punthaken waarmee de betekenis en structuur van inhoud in HTML wordt aangeduid">tag</dfn> (markering) is een trefwoord tussen punthaken (`<` en `>`). De meeste onderdelen in HTML hebben twee tags:
 
 - Een **openende tag**: geeft aan waar een element begint, bijvoorbeeld `<p>`.
 - Een **sluitende tag**: geeft aan waar een element eindigt, met een schuine streep voor de tagnaam, bijvoorbeeld `</p>`.
 
 ### Elementen
 
-Een HTML-element is het complete geheel: de openende tag, de tussenliggende inhoud en de sluitende tag.
+Een <dfn title="Het complete HTML-bouwblok, bestaande uit de openende tag, de tussenliggende inhoud en de sluitende tag">HTML-element</dfn> is het complete geheel: de openende tag, de tussenliggende inhoud en de sluitende tag.
 
 ```html
 <p>Dit is een alinea met tekst.</p>
@@ -94,7 +94,7 @@ Een HTML-element is het complete geheel: de openende tag, de tussenliggende inho
 
 In dit voorbeeld is `<p>` de openende tag, `Dit is een alinea met tekst.` de inhoud, en `</p>` de sluitende tag. Samen vormen ze een `<p>`-element (alinea-element).
 
-Er bestaan ook elementen zonder inhoud en zonder sluitende tag. Deze noem je **lege elementen** (void elements). Een voorbeeld is het regeleinde-element:
+Er bestaan ook elementen zonder inhoud en zonder sluitende tag. Deze noem je <dfn title="Een element zonder inhoud en zonder sluitende tag (zoals br, hr of img)">lege elementen</dfn> (void elements). Een voorbeeld is het regeleinde-element:
 
 ```html
 <br>
@@ -102,7 +102,7 @@ Er bestaan ook elementen zonder inhoud en zonder sluitende tag. Deze noem je **l
 
 ### Attributen
 
-Attributen geven extra eigenschappen of instellingen mee aan een element. Je plaatst attributen altijd in de **openende tag**. Een attribuut bestaat uit een naam en een waarde:
+<dfn title="Extra eigenschappen of instellingen die in de openende tag van een HTML-element worden meegegeven">Attributen</dfn> geven extra eigenschappen of instellingen mee aan een element. Je plaatst attributen altijd in de **openende tag**. Een attribuut bestaat uit een naam en een waarde:
 
 ```html
 <p title="Extra toelichting over deze tekst">Beweeg je muis over deze alinea.</p>
@@ -142,11 +142,11 @@ De documenttype-declaratie staat helemaal bovenaan op de eerste regel. Dit is st
 
 ### 2. `<html lang="nl">`
 
-Het `<html>`-element is het hoofdelement (root element) van de pagina. Alle andere elementen bevinden zich binnen dit element. Met het attribuut `lang="nl"` geef je aan dat de hoofdtaal van de inhoud Nederlands is. Dit is belangrijk voor zoekmachines en schermlezers voor slechtzienden.
+Het `<html>`-element is het <dfn title="Het allerhoogste element in de HTML-structuur dat alle andere tags op de pagina omvat">hoofdelement</dfn> (root element) van de pagina. Alle andere elementen bevinden zich binnen dit element. Met het attribuut `lang="nl"` geef je aan dat de hoofdtaal van de inhoud Nederlands is. Dit is belangrijk voor zoekmachines en schermlezers voor slechtzienden.
 
 ### 3. `<head>`
 
-Het `<head>`-element bevat metadata (gegevens over het document). De inhoud van het `<head>`-gedeelte wordt niet rechtstreeks in het browservenster getoond, met uitzondering van de paginatitel.
+Het `<head>`-element bevat <dfn title="Gegevens en configuraties over het HTML-document zelf (zoals tekenset, titel en mobiele viewport) die niet direct als pagina-inhoud getoond worden">metadata</dfn> (gegevens over het document). De inhoud van het `<head>`-gedeelte wordt niet rechtstreeks in het browservenster getoond, met uitzondering van de paginatitel.
 
 Binnen het `<head>`-element plaats je minstens:
 

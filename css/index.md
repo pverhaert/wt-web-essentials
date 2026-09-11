@@ -26,7 +26,7 @@ In dit inleidende hoofdstuk zie je al verschillende CSS-eigenschappen en waarden
 
 ## Wat is CSS?
 
-CSS staat voor **Cascading Style Sheets** (stijlbladen in watervalvorm). Het is de officiële standaardtaal waarmee je het uiterlijk en de lay-out van HTML-elementen vastlegt. Browsers zoals Google Chrome, Mozilla Firefox, Safari en Microsoft Edge weten precies hoe ze CSS-instructies moeten interpreteren om letters, kleuren, marges en posities op het scherm te tekenen.
+<abbr title="Cascading Style Sheets: de stijlen- en opmaaktaal voor het web">CSS</abbr> staat voor **<dfn title="Cascading Style Sheets: stijlbladen in watervalvorm waarmee je vormgeving scheidt van HTML-structuur">Cascading Style Sheets</dfn>** (stijlbladen in watervalvorm). Het is de officiële standaardtaal waarmee je het uiterlijk en de lay-out van HTML-elementen vastlegt. Browsers zoals Google Chrome, Mozilla Firefox, Safari en Microsoft Edge weten precies hoe ze CSS-instructies moeten interpreteren om letters, kleuren, marges en posities op het scherm te tekenen. Meer achtergrondinformatie over stijlbladen vind je in de [MDN Web Docs over CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
 
 ### Scheiding van inhoud en vormgeving
 
@@ -45,11 +45,11 @@ Deze scheiding levert grote praktische voordelen op:
 
 ### Webstandaarden en CSS3
 
-Net zoals HTML wordt CSS gestandaardiseerd door het **World Wide Web Consortium (W3C)**. De geschiedenis van CSS kent een boeiende evolutie:
+Net zoals HTML wordt CSS gestandaardiseerd door het **<abbr title="World Wide Web Consortium: de officiële internationale standaardiseringsorganisatie voor het web">W3C</abbr> (World Wide Web Consortium)**. De geschiedenis van CSS kent een boeiende evolutie:
 
 - **CSS1 (1996):** De allereerste specificatie met basale ondersteuning voor lettertypen, kleuren en marges.
 - **CSS2 (1998):** Introductie van absolute positionering, media-types voor afdrukken en verbeterde tabellen.
-- **CSS3 (vanaf 1999 tot heden):** In plaats van een enkel, log document werd CSS opgedeeld in tientallen afzonderlijke **modules** (zoals *Selectors*, *Color*, *Flexbox*, *Grid*, *Transforms* en *Transitions*). Elke module kan hierdoor zelfstandig evolueren en nieuwe versieniveaus krijgen. Er komt daarom nooit een centrale, monolithische "CSS4": nieuwe mogelijkheden worden continu als afzonderlijke features aan de bestaande modules toegevoegd.
+- **CSS3 (vanaf 1999 tot heden):** In plaats van een enkel, log document werd CSS opgedeeld in tientallen afzonderlijke **<dfn title="Zelfstandige specificatiedelen van CSS die onafhankelijk van elkaar worden ontwikkeld en uitgebreid">modules</dfn>** (zoals *Selectors*, *Color*, *Flexbox*, *Grid*, *Transforms* en *Transitions*). Elke module kan hierdoor zelfstandig evolueren en nieuwe versieniveaus krijgen. Er komt daarom nooit een centrale, monolithische "CSS4": nieuwe mogelijkheden worden continu als afzonderlijke features aan de bestaande modules toegevoegd.
 
 ::: warning Valideer je CSS
 Net zoals bij HTML controleer je al je geschreven stijlbladen op syntaxfouten en naleving van de W3C-standaarden. Gebruik hiervoor de officiële [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
@@ -130,7 +130,7 @@ In deze opleiding en al je projecten werken we **altijd met externe stijlbladen*
 
 ## Anatomie van een CSS-stijlregel
 
-Een CSS-bestand bestaat uit een reeks **stijlregels** (rulesets). Elke stijlregel vertelt de browser welk HTML-element geselecteerd moet worden en welke visuele eigenschappen dat element moet krijgen.
+Een CSS-bestand bestaat uit een reeks **<dfn title="Een stijlinstructie bestaande uit een selector en een declaratieblok die bepaalt welk element hoe wordt opgemaakt">stijlregels</dfn>** (rulesets). Elke stijlregel vertelt de browser welk HTML-element geselecteerd moet worden en welke visuele eigenschappen dat element moet krijgen.
 
 Bekijk het volgende voorbeeld:
 
@@ -333,13 +333,13 @@ Deze stijlregel geldt uitsluitend voor alinea's (`p`) die binnen een `<article>`
 
 ## De Cascade en stijlenconflicten
 
-De letter **C** in CSS staat voor **Cascading** (als een waterval neervallend). Wanneer er meerdere stijlregels van toepassing zijn op hetzelfde element en dezelfde eigenschap, moet de browser beslissen welke regel wint.
+De letter **C** in CSS staat voor **<dfn title="Het watervalalgoritme van de browser dat bepaalt welke stijlregel voorrang krijgt bij overlappende instructies">Cascading</dfn>** (als een waterval neervallend). Wanneer er meerdere stijlregels van toepassing zijn op hetzelfde element en dezelfde eigenschap, moet de browser beslissen welke regel wint. Lees meer over de achtergrond en werking in de [MDN documentatie over de Cascade](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance).
 
 ### De drie bronnen van stijlen
 
 Een HTML-document krijgt stijlen aangeleverd uit drie verschillende niveaus:
 
-1. **Browserstijlen (User Agent Stylesheet):** Elke browser heeft een ingebouwd standaardstijlblad. Hierdoor toont een browser een `<h1>` standaard groot en vet, krijgt een `<ul>` een insprong met bolletjes, en heeft een `<body>` een kleine buitenmarge van 8 pixels.
+1. **Browserstijlen (<dfn title="De ingebouwde standaardstijlen die elke webbrowser standaard toepast op HTML-elementen">User Agent Stylesheet</dfn>):** Elke browser heeft een ingebouwd standaardstijlblad. Hierdoor toont een browser een `<h1>` standaard groot en vet, krijgt een `<ul>` een insprong met bolletjes, en heeft een `<body>` een kleine buitenmarge van 8 pixels.
 2. **Bezoekersstijlen (User Stylesheet):** Bezoekers kunnen in hun browser instellingen opgeven, zoals een grotere minimumlettergrootte voor slechtzienden of een voorkeur voor donkere modus (*prefers-color-scheme*).
 3. **Auteursstijlen (Author Stylesheet):** Dit zijn de CSS-bestanden die jij als webontwikkelaar schrijft.
 
@@ -400,7 +400,8 @@ Test in het onderstaande interactieve voorbeeld hoe de cascade en bronvolgorde w
 /* Tweede regel met dezelfde specificiteit: overschrijft de tekstkleur*/
 .bericht {
   color: #8b0000;
-}'
+}
+'
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -419,14 +420,14 @@ Test in het onderstaande interactieve voorbeeld hoe de cascade en bronvolgorde w
 
 ## Overerving (Inheritance)
 
-HTML-documenten bezitten een duidelijke boomstructuur: het **DOM** (Document Object Model). Elementen kunnen andere elementen omsluiten:
+HTML-documenten bezitten een duidelijke boomstructuur: het **<abbr title="Document Object Model: de boomstructuur van HTML-elementen in het browsergeheugen">DOM</abbr>** (Document Object Model). Elementen kunnen andere elementen omsluiten:
 
 - Het omhullende element is het **ouderelement** (*parent*).
 - Het ingesloten element is het **kindelement** (*child*).
 
 ![DOM Boomstructuur](./introductie/parent_child.webp)
 
-In CSS geldt het principe van **overerving (inheritance)**: bepaalde eigenschappen die je instelt op een ouderelement, worden automatisch overgedragen op alle onderliggende kindelementen.
+In CSS geldt het principe van **<dfn title="Het automatische doorgeven van bepaalde eigenschappen van een bovenliggend element aan al zijn kindelementen">overerving (inheritance)</dfn>**: bepaalde eigenschappen die je instelt op een ouderelement, worden automatisch overgedragen op alle onderliggende kindelementen.
 
 Stel dat je het lettertype instelt op het `<body>`-element:
 

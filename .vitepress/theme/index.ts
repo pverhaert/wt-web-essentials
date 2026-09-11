@@ -22,6 +22,7 @@ import LineHeightGame from './components/LineHeightGame.vue'
 import GoogleFontsSimulator from './components/GoogleFontsSimulator.vue'
 import PageSummary from './components/PageSummary.vue'
 import PageSummaryModal from './components/PageSummaryModal.vue'
+import TermTooltip from './components/TermTooltip.vue'
 import NotFound from './NotFound.vue'
 import {
   Info,
@@ -44,6 +45,7 @@ export default {
         h(ConfirmModal),
         h(AiAssistantNavButton),
         h(PwaNotification),
+        h(TermTooltip),
       ],
     })
   },

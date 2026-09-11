@@ -24,13 +24,13 @@ Een browser leest een HTML-document van boven naar beneden en probeert de inhoud
 
 Als je in een wiskundige tekst schrijft: `5 < 8`, kan de browser in de war raken. Hij denkt mogelijk dat `< 8` het begin is van een nieuwe HTML-tag. Hierdoor kan een deel van je tekst plotseling verdwijnen of wordt de lay-out van je pagina verstoord.
 
-Om dergelijke verwarring te voorkomen, vervang je gereserveerde tekens door een **HTML-entiteit** (een speciale vervangingscode).
+Om dergelijke verwarring te voorkomen, vervang je gereserveerde tekens door een <dfn title="Een speciale code (beginnend met & en eindigend met ;) waarmee je gereserveerde tekens of symbolen veilig weergeeft">HTML-entiteit</dfn> (een speciale vervangingscode).
 
 ## UTF-8: Accenten en emoji's rechtstreeks kopiëren en plakken
 
 In oudere versies van HTML moesten webontwikkelaars alle letters met accenten (zoals `é`, `ë`, `à` of `ç`) omslachtig omzetten naar entiteiten zoals `&eacute;` of `&ccedil;`. Voor emoji's bestond er toen zelfs helemaal geen ondersteuning.
 
-In moderne webpagina's is dat dankzij de metatag `<meta charset="UTF-8">` in het `<head>`-element niet meer nodig. UTF-8 (Universal Character Set Transformation Format) ondersteunt vrijwel alle tekens, alfabetten en symbolen ter wereld:
+In moderne webpagina's is dat dankzij de metatag `<meta charset="UTF-8">` in het `<head>`-element niet meer nodig. <abbr title="Universal Character Set Transformation Format 8-bit: de universele tekencodering die vrijwel alle talen, schriften en symbolen ter wereld dekt">UTF-8</abbr> ondersteunt vrijwel alle tekens, alfabetten en symbolen ter wereld:
 
 - **Letters met accenten:** Woorden zoals `café`, `België`, `recepten` of `kopiëren` typ je gewoon rechtstreeks via je toetsenbord.
 - **Valutasymbolen:** Tekens zoals `€`, `$` of `£` typ je direct in je code.

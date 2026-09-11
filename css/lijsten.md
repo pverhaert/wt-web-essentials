@@ -6,7 +6,7 @@ title: Lijsten
 
 In het HTML-hoofdstuk over lijsten heb je geleerd hoe je ongeordende lijsten (`<ul>`), geordende lijsten (`<ol>`) en beschrijvingslijsten (`<dl>`) semantisch correct opbouwt. Je ontdekte ook dat een lijst binnen een `<nav>`-element de vaste basis vormt voor vrijwel elk websitemenu.
 
-Standaard voorziet de browser lijsten van ingebouwde stijlen: zwarte bolletjes (*bullets*), Arabische cijfers en een automatische linker binnenruimte van ongeveer `2.5rem` (40px). Met CSS kan je deze standaardopmaak volledig naar je hand zetten: van andere geometrische symbolen of Romeinse cijfers tot eigen afbeeldingsicoontjes, aangepaste kleuren met `::marker` of een volledige stijlreset voor navigatiebalken.
+Standaard voorziet de browser lijsten van ingebouwde stijlen: zwarte bolletjes (*bullets*), Arabische cijfers en een automatische linker binnenruimte van ongeveer `2.5rem` (40px). Met CSS kan je deze standaardopmaak volledig naar je hand zetten: van andere geometrische symbolen of Romeinse cijfers tot eigen afbeeldingsicoontjes, aangepaste kleuren met `::marker` of een volledige stijlreset voor navigatiebalken. Lees meer in de [MDN documentatie over lijsten en list-style](https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_lists).
 
 ## Leerdoelen
 
@@ -19,7 +19,6 @@ Na dit hoofdstuk kan je:
 - Opsommingstekens en cijfers afzonderlijk stijlen en kleuren met het `::marker` pseudo-element
 - Een lijst volledig ontdoen van lijststijlen (resetten) als voorbereiding op navigatiemenu's
 - Sneller coderen met Emmet-sneltoetsen in PhpStorm
-
 
 ## Opsommingstekens wijzigen: `list-style-type`
 

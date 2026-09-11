@@ -571,3 +571,52 @@
 #app {
   transition: filter 0.3s cubic-bezier(0.2, 0, 0.2, 1);
 }
+
+/* =============================================
+   FOOTER STYLING
+   ============================================= */
+.VPFooter .message a {
+  color: var(--vp-c-brand-1);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.VPFooter .message a:hover {
+  color: var(--vp-c-brand-2);
+}
+
+/* =============================================
+   ABBR & DFN VAKTERM TOOLTIPS
+   ============================================= */
+abbr[title],
+abbr[data-term-def],
+dfn[title],
+dfn[data-term-def],
+.keyterm {
+  text-decoration: underline dotted var(--vp-c-brand-1) !important;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px !important;
+  cursor: help;
+  font-style: normal;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+abbr[title]:hover,
+abbr[data-term-def]:hover,
+dfn[title]:hover,
+dfn[data-term-def]:hover,
+.keyterm:hover {
+  color: var(--vp-c-brand-1);
+}
+
+abbr[title]:focus-visible,
+abbr[data-term-def]:focus-visible,
+dfn[title]:focus-visible,
+dfn[data-term-def]:focus-visible,
+.keyterm:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

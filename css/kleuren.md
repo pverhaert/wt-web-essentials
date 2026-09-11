@@ -4,7 +4,7 @@ title: Kleuren
 
 # Kleuren
 
-Kleur brengt een webpagina tot leven: het bepaalt de sfeer, versterkt je merkidentiteit en zorgt voor visuele hiërarchie en leesbaarheid. In dit hoofdstuk ontdek je hoe je tekst- en achtergrondkleuren instelt met CSS, welke moderne kleursystemen (zoals HEX, RGB, HSL en OKLCH) er bestaan, hoe je transparantie regelt en hoe je met voldoende contrast zorgt voor een toegankelijke website voor elke bezoeker.
+Kleur brengt een webpagina tot leven: het bepaalt de sfeer, versterkt je merkidentiteit en zorgt voor visuele hiërarchie en leesbaarheid. In dit hoofdstuk ontdek je hoe je tekst- en achtergrondkleuren instelt met CSS, welke moderne kleursystemen (zoals <abbr title="Hexadecimale kleurcode: een zes- of achtcijferige kleurcode op basis van het zestientallig stelsel">HEX</abbr>, <abbr title="Rood, Groen, Blauw: het additieve primaire kleurenmodel voor beeldschermen">RGB</abbr>, <abbr title="Hue, Saturation, Lightness: kleurtoon, verzadiging en lichtheid">HSL</abbr> en <abbr title="Oklab Lightness, Chroma, Hue: een perceptueel uniform modern kleurmodel">OKLCH</abbr>) er bestaan, hoe je transparantie regelt en hoe je met voldoende contrast zorgt voor een toegankelijke website voor elke bezoeker. Raadpleeg voor een volledig overzicht ook de [MDN documentatie over CSS color](https://developer.mozilla.org/en-US/docs/Web/CSS/color).
 
 ## Leerdoelen
 
@@ -13,7 +13,7 @@ Na dit hoofdstuk kan je:
 - De CSS-eigenschappen `color` en `background-color` doelgericht toepassen op teksten en blok-elementen
 - Kleuren definiëren met verschillende CSS-kleursystemen (benoemde kleuren, hexadecimale codes, RGB, HSL en OKLCH)
 - Transparantie en dekking instellen met behulp van het alfakanaal (`rgba()`, moderne spatiesyntax en 8-cijferige hex)
-- De minimale WCAG-contrastratio van 4.5:1 controleren met browser DevTools voor optimale toegankelijkheid
+- De minimale <abbr title="Web Content Accessibility Guidelines: de officiële internationale richtlijnen voor toegankelijke webcontent">WCAG</abbr>-contrastratio van 4.5:1 controleren met browser DevTools voor optimale toegankelijkheid
 - Hyperlinks en interactieve knoppen stylen in de correcte volgorde met behulp van het *LoVe Fears HAte*-principe
 
 ## Tekstkleur en achtergrondkleur
@@ -163,7 +163,7 @@ h1 {
 
 ## Kleursystemen in CSS
 
-Op beeldschermen ontstaan kleuren volgens het **additieve kleurensysteem**: door rood, groen en blauw licht in verschillende sterktes met elkaar te combineren, produceert het scherm miljoenen verschillende tinten. CSS biedt verschillende notatiewijzen om kleuren aan te duiden, van eenvoudige namen tot wiskundige kleurmodellen.
+Op beeldschermen ontstaan kleuren volgens het **<dfn title="Kleursysteem waarbij kleuren ontstaan door licht van verschillende golflengten (rood, groen en blauw) bij elkaar op te tellen">additieve kleurensysteem</dfn>**: door rood, groen en blauw licht in verschillende sterktes met elkaar te combineren, produceert het scherm miljoenen verschillende tinten. CSS biedt verschillende notatiewijzen om kleuren aan te duiden, van eenvoudige namen tot wiskundige kleurmodellen.
 
 ### 1. Benoemde kleuren (Named Colors)
 
@@ -196,7 +196,7 @@ Hoewel kleurnamen handig zijn voor snelle prototypes en testen, gebruik je ze ze
 
 ### 2. Hexadecimale notatie (HEX)
 
-De hexadecimale notatie is de meest gebruikte manier om kleuren te noteren in CSS. Een hex-code begint altijd met een hekje (`#`), gevolgd door 6 hexadecimale cijfers: twee voor Rood, twee voor Groen en twee voor Blauw (`#RRGGBB`).
+De **<dfn title="Kleurwaarde geschreven in het 16-tallig stelsel met cijfers 0-9 en letters a-f voor de kanalen rood, groen en blauw (#RRGGBB)">hexadecimale notatie</dfn>** is de meest gebruikte manier om kleuren te noteren in CSS. Een hex-code begint altijd met een hekje (`#`), gevolgd door 6 hexadecimale cijfers: twee voor Rood, twee voor Groen en twee voor Blauw (`#RRGGBB`).
 
 In het hexadecimale talstelsel tel je van `0` tot `f` (`0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f`):
 - `00` betekent geen enkel licht (0% intensiteit)
@@ -237,7 +237,7 @@ De verkorte notatie is enkel mogelijk als **alle drie** de kleurparen dubbele te
 
 #### Transparantie met 8-cijferige HEX (#RRGGBBAA)
 
-Aan een hex-code kan je twee extra tekens toevoegen voor het **alfakanaal** (de dekking of doorzichtigheid). De eerste 6 tekens bepalen zoals gewoonlijk de kleur (`#RRGGBB`), en de laatste 2 tekens bepalen de doorzichtigheid (`AA`):
+Aan een hex-code kan je twee extra tekens toevoegen voor het **<dfn title="Het kanaal dat de mate van dekking of transparantie van een kleurwaarde bepaalt">alfakanaal</dfn>** (de dekking of doorzichtigheid). De eerste 6 tekens bepalen zoals gewoonlijk de kleur (`#RRGGBB`), en de laatste 2 tekens bepalen de doorzichtigheid (`AA`):
 - `00` staat voor 0% dekking (volledig transparant, 0 in decimaal)
 - `80` staat voor ongeveer 50% dekking (128 in decimaal)
 - `ff` staat voor 100% dekking (volledig dekkend, 255 in decimaal)

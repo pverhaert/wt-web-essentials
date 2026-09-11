@@ -30,13 +30,13 @@ Dit is vandaag de dag ten strengste verboden:
 
 - **Slecht voor toegankelijkheid:** Schermlezers voor slechtziende gebruikers proberen de tabel te ontleden als gegevens. Een pagina-indeling via tabellen klinkt voor hen als een onbegrijpelijke brij van rijen en cellen.
 - **Niet responsief:** Tabellen zijn van nature breed en passen zich erg moeilijk aan smartphoneschermen aan.
-- **Verkeerde semantiek:** HTML dient voor de betekenis en de structuur van de inhoud, terwijl CSS de visuele lay-out bepaalt.
+- **Verkeerde semantiek:** HTML dient voor de betekenis en de structuur van de inhoud, terwijl <abbr title="Cascading Style Sheets: de stijlen- en opmaaktaal voor webpagina's">CSS</abbr> de visuele lay-out bepaalt.
 
 Kort samengevat: gebruik tabellen enkel wanneer de gegevens logisch gezien in een spreadsheet (zoals Excel) zouden passen.
 :::
 
 ::: tip Tabellen vormgeven met CSS
-Standaard toont een webbrowser een HTML-tabel zonder duidelijke randen of achtergrondkleuren. De visuele opmaak (randen samenvoegen via `border-collapse`, opvulling met `padding`, wisselende rijkleuren) leer je in de cursus CSS bij het hoofdstuk [CSS3 Tabellen](/css/tabellen). In dit hoofdstuk focussen we zuiver op de HTML-structuur, al zie je in de interactieve sandboxes ter illustratie al enkele basisstijlen zodat de rijen en kolommen duidelijk herkenbaar zijn.
+Standaard toont een webbrowser een HTML-tabel zonder duidelijke randen of achtergrondkleuren. De visuele opmaak (randen samenvoegen via `border-collapse`, opvulling met `padding`, wisselende rijkleuren) leer je in de cursus CSS bij het hoofdstuk [CSS3 Tabellen](/css/tabellen). In dit hoofdstuk focussen we zuiver op de HTML-structuur, al zie je in de interactieve sandboxes ter illustratie al enkele basisstijlen zodat de rijen en kolommen duidelijk herkenbaar zijn. Raadpleeg ook de tabeldocumentatie op [MDN Web Docs](https://developer.mozilla.org/nl/docs/Web/HTML/Element/table).
 :::
 
 ## De basisstructuur van een tabel
@@ -190,8 +190,8 @@ In meer complexe overzichten komt het vaak voor dat een cel zich over meerdere k
 
 Hiervoor gebruik je de attributen `colspan` en `rowspan` op een `<th>` of `<td>`:
 
-- **`colspan="aantal"` (column span):** Voegt cellen **horizontaal** samen over meerdere kolommen.
-- **`rowspan="aantal"` (row span):** Voegt cellen **verticaal** samen over meerdere rijen.
+- **`<dfn title="Column Span: HTML-attribuut om een cel horizontaal samen te voegen over twee of meer kolommen">colspan="aantal"</dfn>`:** Voegt cellen **horizontaal** samen over meerdere kolommen.
+- **`<dfn title="Row Span: HTML-attribuut om een cel verticaal samen te voegen over twee of meer rijen">rowspan="aantal"</dfn>`:** Voegt cellen **verticaal** samen over meerdere rijen.
 
 ### Horizontaal samenvoegen met `colspan`
 

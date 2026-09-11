@@ -18,8 +18,6 @@ Na dit hoofdstuk kan je:
 - De juiste lijstsoort selecteren op basis van de betekenis van de inhoud
 - Lijststructuren snel genereren met Emmet-sneltoetsen in PhpStorm
 
----
-
 ## Waarom lijsten gebruiken?
 
 In plaats van losse alinea's (`<p>`) onder elkaar te zetten met een handmatig streepje of cijfer, gebruik je in HTML altijd de specifieke lijst-elementen. Dat biedt grote voordelen:
@@ -32,11 +30,9 @@ In plaats van losse alinea's (`<p>`) onder elkaar te zetten met een handmatig st
 Gebruik een lijst nooit puur om tekst visueel te laten inspringen op de pagina. Gebruik lijsten alleen wanneer de inhoud daadwerkelijk een opsomming of verzameling van items voorstelt. Visuele inspringing regel je later uitsluitend via CSS.
 :::
 
----
-
 ## Ongeordende lijsten (`<ul>`)
 
-Een **ongeordende lijst** gebruik je wanneer de volgorde van de items niet van cruciaal belang is. De betekenis van de inhoud verandert niet wanneer je de items van plaats wisselt (zoals bij een boodschappenlijstje of een overzicht van troeven van een opleiding).
+Een <dfn title="Een HTML-lijst (ul) voor opsommingen waarbij de volgorde van de items onderling willekeurig verwisselbaar is">ongeordende lijst</dfn> gebruik je wanneer de volgorde van de items niet van cruciaal belang is. De betekenis van de inhoud verandert niet wanneer je de items van plaats wisselt (zoals bij een boodschappenlijstje of een overzicht van troeven van een opleiding).
 
 Je bouwt een ongeordende lijst op met twee elementen:
 
@@ -73,11 +69,9 @@ In moderne webontwikkeling vormt een ongeordende lijst binnen een `<nav>`-elemen
 
 In het onderdeel over CSS leer je later hoe je de standaard opsommingstekens verwijdert en de lijstitems horizontaal naast elkaar zet om een professionele navigatiebalk te maken.
 
----
-
 ## Geordende lijsten (`<ol>`)
 
-Een **geordende lijst** gebruik je wanneer de volgorde van de items wél van wezenlijk belang is. Denk aan een stappenplan, een recept, de uitslag van een wedstrijd of een top tien.
+Een <dfn title="Een genummerde HTML-lijst (ol) voor stappenplannen of rangschikkingen waarbij de volgorde van de items essentieel is">geordende lijst</dfn> gebruik je wanneer de volgorde van de items wél van wezenlijk belang is. Denk aan een stappenplan, een recept, de uitslag van een wedstrijd of een top tien.
 
 Je maakt een geordende lijst met:
 
@@ -272,11 +266,9 @@ In onderstaand voorbeeld zie je een opleidingenoverzicht van Thomas More Campus 
   height="420px"
 />
 
----
-
 ## Beschrijvingslijsten (`<dl>`)
 
-Een **beschrijvingslijst** (in het Engels *Description List*, vroeger ook bekend als *Definition List*) gebruik je om paren van termen en toelichtingen te groeperen.
+Een <dfn title="Een HTML-lijst (dl) bestaande uit termen (dt) en bijbehorende beschrijvingen of definities (dd)">beschrijvingslijst</dfn> (in het Engels *Description List*, vroeger ook bekend als *Definition List*) gebruik je om paren van termen en toelichtingen te groeperen.
 
 Denk aan:
 - Een begrippenlijst of woordenboek (term en definitie)
@@ -388,8 +380,6 @@ Bekijk in dit voorbeeld hoe je een technische specificatiefiche voor een laptop 
   height="420px"
 />
 
----
-
 ## Keuzehulp: Welk lijsttype kies je wanneer?
 
 Twijfel je welke lijst geschikt is voor jouw inhoud? Gebruik dit eenvoudige beslissingsschema:
@@ -405,8 +395,6 @@ Vraag jezelf af: Wat voor soort gegevens wil ik weergeven?
     ├── JA  ──> Gebruik <dl> (bijv. specificaties, begrippen, FAQ)
     └── NEE ──> Gebruik <ul> (bijv. eigenschappen, navigatielinks, ingrediënten)
 ```
-
----
 
 ## Snel coderen met Emmet in PhpStorm
 
@@ -427,8 +415,6 @@ Typ de afkorting en druk meteen op de `Tab`-toets:
 Het dollarteken `$` in een Emmet-instructie fungeert als een teller. Emmet vervangt `$` automatisch door `1`, `2`, `3`, enzovoort. Gebruik je `$$`, dan vult Emmet getallen in met voorloopnullen (`01`, `02`, `03`).
 :::
 
----
-
 ## Veelgemaakte fouten
 
 Let bij het schrijven van lijsten goed op de volgende valkuilen:
@@ -444,8 +430,6 @@ Plaats een sublijst nooit tussen twee sluit- en openingstags `</li><li>` in. De 
 ::: warning Fout 3: Een `<ol>` gebruiken en zelf nummers typen
 Typ in een `<ol>` nooit zelf cijfers in de tekst (zoals `<li>1. Eerste stap</li>`). De browser voorziet de nummering automatisch. Doe je dit toch, dan krijgt de bezoeker een dubbele nummering te zien (`1. 1. Eerste stap`).
 :::
-
----
 
 <PageSummary>
 

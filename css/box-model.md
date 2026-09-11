@@ -4,7 +4,7 @@ title: Box Model & Randen
 
 # Box Model & Randen
 
-Elk HTML-element op een webpagina wordt door de browser behandeld als een rechthoekige doos of kader. Deze manier van kijken naar en berekenen van elementen noemen we het **CSS Box Model**. Begrijpen hoe dit model werkt is essentieel om marges, tussenruimte, randen en afmetingen op een webpagina nauwkeurig te beheren.
+Elk HTML-element op een webpagina wordt door de browser behandeld als een rechthoekige doos of kader. Deze manier van kijken naar en berekenen van elementen noemen we het **<dfn title="Het kernconcept in CSS waarbij elk element wordt voorgesteld als een rechthoekige doos bestaande uit content, padding, border en margin">CSS Box Model</dfn>**. Begrijpen hoe dit model werkt is essentieel om marges, tussenruimte, randen en afmetingen op een webpagina nauwkeurig te beheren. Raadpleeg voor meer voorbeelden de [MDN documentatie over het Box Model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model).
 
 ## Leerdoelen
 
@@ -29,10 +29,10 @@ Na dit hoofdstuk kan je:
 
 Elke doos in CSS bestaat van binnen naar buiten uit vier lagen:
 
-1. **Content (inhoud)**: Het eigenlijke tekstblok, de afbeelding of video. De afmetingen worden bepaald door de inhoud zelf of door de eigenschappen `width` en `height`.
-2. **Padding (binnenruimte)**: De transparante ruimte tussen de inhoud en de rand. Padding neemt altijd de achtergrondkleur van het element over.
-3. **Border (rand)**: De omranding die rond de padding en de inhoud ligt. Je kan hiervan de dikte, de stijl en de kleur bepalen.
-4. **Margin (buitenruimte)**: De transparante ruimte aan de buitenkant van de rand. Marges zorgen voor afstand ten opzichte van naburige elementen.
+1. **<dfn title="Het binnenste tekst-, afbeeldings- of videogedeelte van een element in het box model">Content (inhoud)</dfn>**: Het eigenlijke tekstblok, de afbeelding of video. De afmetingen worden bepaald door de inhoud zelf of door de eigenschappen `width` en `height`.
+2. **<dfn title="De transparante binnenruimte tussen de inhoud en de rand van een element">Padding (binnenruimte)</dfn>**: De transparante ruimte tussen de inhoud en de rand. Padding neemt altijd de achtergrondkleur van het element over.
+3. **<dfn title="De zichtbare omkadering rondom de padding en inhoud van een element">Border (rand)</dfn>**: De omranding die rond de padding en de inhoud ligt. Je kan hiervan de dikte, de stijl en de kleur bepalen.
+4. **<dfn title="De transparante buitenruimte aan de buitenkant van de rand die afstand creëert tot omliggende elementen">Margin (buitenruimte)</dfn>**: De transparante ruimte aan de buitenkant van de rand. Marges zorgen voor afstand ten opzichte van naburige elementen.
 
 ![Box model](./box-model/box-model.webp)
 
@@ -308,7 +308,7 @@ body {
 
 ### Samenvallende marges (Margin Collapse)
 
-Bij verticale marges (boven en onder) van opeenvolgende blokelementen treedt een bijzonder verschijnsel op: **margin collapse** (samenvallende marges). Wanneer twee verticale marges elkaar raken in de normale stroom van het document, worden ze niet bij elkaar opgeteld, maar vallen ze samen in de grootste marge van de twee.
+Bij verticale marges (boven en onder) van opeenvolgende blokelementen treedt een bijzonder verschijnsel op: **<dfn title="Het verschijnsel waarbij aangrenzende verticale marges niet bij elkaar worden opgeteld, maar samensmelten tot de grootste van de twee marges">margin collapse</dfn>** (samenvallende marges). Wanneer twee verticale marges elkaar raken in de normale stroom van het document, worden ze niet bij elkaar opgeteld, maar vallen ze samen in de grootste marge van de twee.
 
 Stel:
 - Blok 1 heeft `margin-bottom: 2rem;` (32px)

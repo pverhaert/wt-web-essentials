@@ -6,13 +6,13 @@ title: CSS Variabelen
 
 Naarmate een website groeit, groeit ook de hoeveelheid CSS-code. Bepaalde waarden, zoals de merkkleur van je organisatie, achtergrondtinten, vaste lettertypefamilies of standaard tussenruimtes, komen vaak tientallen keren terug op verschillende plaatsen in je stijlblad.
 
-Wanneer de huisstijl verandert, moet je zonder variabelen al die regels handmatig opsporen en aanpassen. Dit is tijdrovend en foutgevoelig. Met **CSS Variabelen** (officieel *CSS Custom Properties*) sla je waarden op één centrale plek op en hergebruik je ze overal in je stijlblad.
+Wanneer de huisstijl verandert, moet je zonder variabelen al die regels handmatig opsporen en aanpassen. Dit is tijdrovend en foutgevoelig. Met **<dfn title="Door de auteur gedefinieerde entiteiten in CSS die herbruikbare waarden bevatten en worden opgeroepen via de var() functie">CSS Variabelen</dfn>** (officieel *CSS Custom Properties*) sla je waarden op één centrale plek op en hergebruik je ze overal in je stijlblad. Meer informatie vind je in de [MDN Web Docs over CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties).
 
 ## Leerdoelen
 
 Na dit hoofdstuk kan je:
 
-- Het nut en de voordelen van CSS Variabelen toelichten (consistentie, onderhoudbaarheid en het DRY-principe: *Don't Repeat Yourself*)
+- Het nut en de voordelen van CSS Variabelen toelichten (consistentie, onderhoudbaarheid en het <abbr title="Don't Repeat Yourself: een belangrijk softwareprincipe gericht op het verminderen van herhaling van code">DRY</abbr>-principe: *Don't Repeat Yourself*)
 - CSS-variabelen globaal declareren met de `--naam`-syntaxis in de `:root`-pseudoklasse
 - Variabelen oproepen en hergebruiken met de functie `var()`
 - Een terugvalwaarde (fallback) voorzien in de `var()`-functie

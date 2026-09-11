@@ -1,8 +1,6 @@
 # AGENTS.md - Web Essentials Cursus
 
-Dit bestand bevat instructies en richtlijnen voor AI-assistenten die helpen bij het schrijven en uitbreiden van de Web Essentials cursus.
-
----
+Dit bestand bevat de kernregels voor AI-assistenten die helpen bij het schrijven en uitbreiden van de Web Essentials cursus. Gespecialiseerde richtlijnen staan in de skills onder `.agents/skills/`.
 
 ## Projectidentiteit
 
@@ -14,13 +12,9 @@ Dit bestand bevat instructies en richtlijnen voor AI-assistenten die helpen bij 
 **Platform:** VitePress, gehost op Netlify (https://wt-web-essentials.netlify.app)
 **Repository:** https://github.com/pverhaert/wt-web-essentials
 
----
-
 ## Doel van de cursus
 
 Web Essentials is een Nederlandstalige basiscursus HTML5 en CSS3 voor eerstejaars ICT-studenten. De cursus leidt studenten stap voor stap van een blanco pagina naar volwaardige, gestileerde en responsieve webpagina's. Naast HTML en CSS worden ook praktische tools behandeld zoals PhpStorm, Git en browser DevTools.
-
----
 
 ## Doelgroep in detail
 
@@ -29,8 +23,6 @@ Web Essentials is een Nederlandstalige basiscursus HTML5 en CSS3 voor eerstejaar
 - Taalvaardigheid: moedertaal of hoog niveau Nederlands
 - Motivatie: gevarieerd (van weinig tot sterk gemotiveerd)
 - Leeromgeving: blended learning (les op school + zelfstandig thuis)
-
----
 
 ## Schrijfstijl en Tone of Voice
 
@@ -48,6 +40,7 @@ Web Essentials is een Nederlandstalige basiscursus HTML5 en CSS3 voor eerstejaar
 
 - Geen emoji's in cursusteksten
 - Geen en-streepjes (--) of em-streepjes (---) als leestekens in lopende tekst
+- Geen drie streepjes / dashes (`---`) tussen titels of secties (gebruik NOOIT horizontale lijnen als scheiding tussen koppen; `---` mag uitsluitend in de YAML-frontmatter helemaal bovenaan het bestand staan)
 - Geen Engelse woorden als die een goede Nederlandse equivalent hebben
 - Geen aannames over voorkennis die studenten niet hebben
 - Geen zinnen die beginnen met "Uiteraard", "Zoals je weet", "Vanzelfsprekend" of vergelijkbare uitdrukkingen die voorkennis impliceren
@@ -63,124 +56,27 @@ Gebruik de Engelse term wanneer die de standaard is in de industrie, maar geef a
 Goed: "De `border-radius`-eigenschap (de eigenschap voor afgeronde hoeken) ..."
 Fout: "Geef de rand een border-radius."
 
----
+### Gebruik van `<abbr>` en `<dfn>` voor vaktermen en afkortingen
 
-## Werkwijze bij nieuwe hoofdstukken (Verplichte goedkeuring vooraf)
+Om studenten optimaal te ondersteunen en de officiële HTML5-semantiek direct in de praktijk te tonen, gebruik je in lopende teksten waar relevant de officiële HTML-tags:
 
-Voordat je start met het uitschrijven of programmeren van een nieuw cursushoofdstuk, presenteer je altijd eerst een voorstel aan de gebruiker:
+- **`<abbr title="...">` (Abbreviation):** Gebruik dit bij de eerste vermelding van een afkorting of acroniem (zoals `<abbr title="HyperText Markup Language: de standaard opmaaktaal voor webpagina's">HTML</abbr>`, `<abbr title="Cascading Style Sheets: de stijlen- en opmaaktaal voor het web">CSS</abbr>`, `<abbr title="World Wide Web Consortium: de officiële internationale standaardiseringsorganisatie voor het web">W3C</abbr>`, `<abbr title="Document Object Model: de boomstructuur van HTML-elementen">DOM</abbr>`). De cursus toont hier automatisch een interactieve tooltip in Thomas More-huisstijl bij.
+- **`<dfn title="...">` (Definition):** Gebruik dit wanneer een nieuw technisch begrip of concept voor het eerst geïntroduceerd of gedefinieerd wordt in de tekst (bijvoorbeeld `<dfn title="De volgorde en regels waarmee browsers bepalen welke CSS-stijlregel voorrang krijgt">de Cascade</dfn>`).
+- Gebruik **nooit** zelfbedachte componenten zoals `<KeyTerm>`; vertrouw altijd op de standaard semantische `<abbr>` en `<dfn>` tags.
 
-1. **Gedetailleerd inhoudelijk overzicht:**
-   - Geef altijd eerst een helder en gedetailleerd overzicht van wat de pagina gaat inhouden: de voorgestelde leerdoelen, de thematische tussenkopjes, de te behandelen theorie, welke interactieve `<CodeSandbox>`-voorbeelden er komen en welke praktische oefeningen worden voorzien.
-   - Start **nooit** direct met programmeren of het schrijven van bestanden voordat de gebruiker dit overzicht expliciet heeft goedgekeurd.
+Gedetailleerde richtlijnen en een lijst van veelgebruikte afkortingen staan in:
+`.agents/skills/abbr-dfn/SKILL.md`
 
-2. **Bij een link of referentie naar de oude cursus:**
-   - Wanneer de gebruiker een link of inhoud van de oude cursus meegeeft, analyseer je deze pagina grondig en licht je vooraf expliciet toe:
-     - Wat je gaat **weglaten** (en waarom, zoals verouderde technieken, overbodige ballast, externe afhankelijkheden of Engelstalige teksten).
-     - Wat je gaat **behouden en verbeteren**.
-     - Wat je gaat **toevoegen** (moderne standaarden, semantiek, toegankelijkheid, interactieve CodeSandbox-voorbeelden in pure HTML voor HTML-hoofdstukken, Emmet-sneltoetsen voor PhpStorm en gerichte oefeningen).
-   - Pas nadat de gebruiker akkoord gaat met dit overzicht en deze keuzes, start je met het schrijven en programmeren van het hoofdstuk.
+## Projectomgeving
 
----
-
-## Structuur van elke lespagina
-
-Elke lespagina volgt deze vaste structuur:
-
-```
----
-title: [Paginatitel]
----
-
-# [Paginatitel]
-
-[Korte, motiverende inleidende alinea over het onderwerp en de relevantie ervan voor webdesign]
-
-## Leerdoelen
-
-Na dit hoofdstuk kan je:
-
-- [concreet, meetbaar leerdoel in de je-vorm]
-- [concreet, meetbaar leerdoel in de je-vorm]
-- ...
-
-[Gestructureerde uitleg met tussenkopjes, codeblokken, interactieve voorbeelden (zoals CodeSandbox) en eventueel afbeeldingen]
-
-## Oefeningen
-
-[Concrete, stapsgewijze opdrachten die de leerstof oefenen]
-```
-
----
-
-## Leerdoelen schrijven
-
-Goede leerdoelen zijn:
-
-- Concreet en meetbaar
-- Geschreven in de je-vorm, na "Na dit hoofdstuk kan je:"
-- Beginnend met een werkwoord (uitleggen, toepassen, gebruiken, beschrijven, maken, vergelijken)
-- Realistisch voor beginners
-
-Goed voorbeeld:
-- "Een ongeordende lijst aanmaken met `<ul>` en `<li>`"
-- "Het verschil uitleggen tussen `margin` en `padding`"
-
-Slecht voorbeeld:
-- "Lijsten begrijpen" (niet meetbaar)
-- "HTML gebruiken" (te vaag)
-- "Kennis hebben van het box model" (niet concreet)
-
----
-
-## Codevoorbeelden en interactieve voorbeelden
-
-Plaats codevoorbeelden en interactieve previews (zoals CodeSandbox) altijd rechtstreeks bij het bijbehorende theorie-onderdeel, in plaats van in een afzonderlijke sectie achteraan de pagina. Zo kan de student het concept direct in actie zien.
-
-### Strikte beperking van CSS-eigenschappen (Geen voorkennis)
-
-Voorbeelden, oefeningen en `<CodeSandbox>`-toepassingen mogen **uitsluitend** gebruikmaken van CSS-eigenschappen die in het huidige hoofdstuk worden behandeld of in voorgaande CSS-hoofdstukken al zijn besproken.
-
-- Gebruik in eerdere hoofdstukken nooit eigenschappen uit latere hoofdstukken (zoals `display: flex`, `grid`, `position`, `transform`, `transition` of animaties) zolang deze niet eerder in de cursus aan bod zijn gekomen.
-- Uitzonderingen zijn enkel toegestaan mits de AI-assistent dit vooraf expliciet vraagt en de gebruiker hiervoor goedkeuring geeft.
-
-### Regels voor codeblokken
-
-- Gebruik altijd de juiste taalannotatie in markdown (` ```html `, ` ```css `, ` ```bash `)
-- Elk codevoorbeeld moet volledig en werkend zijn
-- Houd voorbeelden minimaal: toon alleen wat nodig is voor dit concept
-- Voeg altijd een korte uitleg toe voor elk codeblok
-- Gebruik betekenisvolle namen voor klassen, id's en variabelen (geen `div1`, `kleur2`)
-- Beperk CSS-eigenschappen tot de reeds behandelde leerstof (zie hierboven)
-
-### Gebruik van de CodeSandbox-component
-
-Gebruik de `<CodeSandbox>` component om live, interactieve voorbeelden te tonen:
-
-```markdown
-<CodeSandbox
-  src="https://vitepress-sandbox.js-bridge.com/?..."
-  title="Beschrijving van het voorbeeld"
-  height="400px"
-/>
-```
-
-Voeg altijd ook een statisch codeblok toe naast de CodeSandbox, zodat studenten de code kunnen lezen zonder de sandbox te openen.
-
----
-
-## Afbeeldingen
-
-- Gebruik afbeeldingen om concepten te verduidelijken, niet als decoratie
-- Zet altijd een beschrijvend `alt`-attribuut in de markdown: `![Beschrijving van de afbeelding](./pad/naar/afbeelding.png)`
-- Afbeeldingen worden automatisch zoom-baar via de medium-zoom-integratie
-- Sla afbeeldingen op in een `images/`-map naast de bijbehorende `.md`-bestanden
-- Gebruik bij voorkeur het WebP-formaat voor foto's, SVG voor diagrammen
-
----
+- **Editor voor de cursus:** PhpStorm
+- **Buildtool:** VitePress
+- **Developmentserver:** `npm run dev` op poort 5674
+- **Hosting:** Netlify (https://wt-web-essentials.netlify.app)
+- **Repository:** https://github.com/pverhaert/wt-web-essentials
+- **Versiebeheer:** Git (maak zelf NOOIT nieuwe branches aan en push NOOIT naar GitHub)
 
 ## Structuur van de cursus
-
-### Secties en pagina's
 
 **HTML5** (`/html/`)
 
@@ -233,8 +129,6 @@ Voeg altijd ook een statisch codeblok toe naast de CodeSandbox, zodat studenten 
 | `/tools/font-simulator` | Font Simulator |
 | `/tools/kleurenomzetter` | Kleurenomzetter |
 | `/sandbox` | Fullscreen Sandbox |
-
----
 
 ## Beschikbare VitePress-componenten
 
@@ -354,67 +248,6 @@ Vermijd dit: dit geeft problemen
 :::
 ```
 
----
-
-## Technische richtlijnen
-
-### Bestandsnamen
-
-- Gebruik altijd kleine letters
-- Gebruik koppeltekens (-) in plaats van underscores (_) of spaties
-- Gebruik Nederlandse bestandsnamen voor inhoudspagina's
-- Voorbeelden: `box-model.md`, `speciale-tekens.md`, `media-queries.md`
-
-### Frontmatter
-
-Elke pagina begint met:
-
-```yaml
----
-title: Paginatitel (Nederlands)
----
-```
-
-### Interne links
-
-Gebruik altijd relatieve paden voor interne links:
-
-```markdown
-Goed: [Basistags](./basistags)
-Goed: [Ga naar CSS3](/css/)
-Fout: [Basistags](https://web-essentials.be/html/basistags)
-```
-
----
-
-## Projectomgeving
-
-- **Editor voor de cursus:** PhpStorm
-- **Buildtool:** VitePress
-- **Developmentserver:** `npm run dev` op poort 5674
-- **Hosting:** Netlify (https://wt-web-essentials.netlify.app)
-- **Repository:** https://github.com/pverhaert/wt-web-essentials
-- **Versiebeheer:** Git (maak zelf NOOIT nieuwe branches aan en push NOOIT naar GitHub)
-
----
-
-## Kwaliteitscontrole
-
-Voor elke pagina die je schrijft of aanpast:
-
-1. Controleer of het gedetailleerde inhoudelijke overzicht (en bij een oude cursus: de analyse van weglaten en toevoegen) vooraf expliciet is goedgekeurd door de gebruiker
-2. Controleer of alle leerdoelen concreet en meetbaar zijn
-3. Controleer of de structuur (Leerdoelen / Theorie met geïntegreerde codevoorbeelden / Samenvatting & tips / Oefeningen) intact is
-4. Controleer of alle codeblokken volledig en werkend zijn
-5. Controleer of er geen emoji's, en-streepjes of em-streepjes in de tekst staan
-6. Controleer of alle technische termen uitgelegd worden bij de eerste vermelding
-7. Controleer of de jij-vorm consequent wordt gebruikt
-8. Controleer of interne links correct zijn (relatieve paden)
-9. Controleer of voorbeelden, oefeningen en CodeSandbox-toepassingen ENKEL gebruikmaken van CSS-eigenschappen die in het huidige of voorgaande CSS-hoofdstukken zijn behandeld (tenzij een uitzondering vooraf expliciet is goedgekeurd)
-10. Controleer of een `<PageSummary>`-blok aanwezig is boven de oefeningen (zie skill hieronder)
-
----
-
 ## Paginasamenvattingen (`<PageSummary>`)
 
 Elke cursuspagina eindigt met een beknopte, inklapbare referentiekaart voor de student. Deze kaart staat **boven de `## Oefeningen`-sectie** en bevat:
@@ -449,8 +282,39 @@ De component wordt als volgt opgenomen in een `.md`-bestand:
 **Gedetailleerde instructies** voor het schrijven van een samenvatting staan in de aparte skill:
 
 ```
-.gemini/skills/page-summary/SKILL.md
+.agents/skills/page-summary/SKILL.md
 ```
 
 Lees dit bestand altijd **voor** je een nieuwe samenvatting schrijft of een bestaande herziet.
 
+## Kwaliteitscontrole
+
+Voor elke pagina die je schrijft of aanpast:
+
+1. Controleer of het gedetailleerde inhoudelijke overzicht (en bij een oude cursus: de analyse van weglaten en toevoegen) vooraf expliciet is goedgekeurd door de gebruiker
+2. Controleer of alle leerdoelen concreet en meetbaar zijn
+3. Controleer of de structuur (Leerdoelen / Theorie met geïntegreerde codevoorbeelden / Samenvatting & tips / Oefeningen) intact is
+4. Controleer of alle codeblokken volledig en werkend zijn
+5. Controleer of er geen emoji's, en-streepjes, em-streepjes of drie dashes (`---` tussen titels of secties) in de tekst staan
+6. Controleer of alle technische termen uitgelegd worden bij de eerste vermelding
+7. Controleer of de jij-vorm consequent wordt gebruikt
+8. Controleer of interne links correct zijn (relatieve paden)
+9. Controleer of voorbeelden, oefeningen en CodeSandbox-toepassingen ENKEL gebruikmaken van CSS-eigenschappen die in het huidige of voorgaande CSS-hoofdstukken zijn behandeld (tenzij een uitzondering vooraf expliciet is goedgekeurd)
+10. Controleer of een `<PageSummary>`-blok aanwezig is boven de oefeningen (zie skill hieronder)
+11. Controleer of afkortingen en nieuw geïntroduceerde begrippen waar nuttig voorzien zijn van `<abbr title="...">` of `<dfn title="...">` tags (voor interactieve Thomas More-tooltips)
+
+## Skills-overzicht
+
+Gedetailleerde richtlijnen staan in de volgende skills:
+
+| Skill | Locatie | Gebruik voor |
+|---|---|---|
+| Werkwijze nieuwe hoofdstukken | `.agents/skills/new-chapter-workflow/SKILL.md` | Verplichte goedkeuringsstap vóór elk nieuw hoofdstuk |
+| Paginastructuur & leerdoelen | `.agents/skills/page-structure/SKILL.md` | Paginasjabloon en regels voor leerdoelen |
+| Codevoorbeelden & CodeSandbox | `.agents/skills/code-examples/SKILL.md` | Regels voor codeblokken en CodeSandbox |
+| VitePress-componenten | `.agents/skills/components/SKILL.md` | Volledige componentcatalogus met voorbeelden |
+| `<abbr>` en `<dfn>` | `.agents/skills/abbr-dfn/SKILL.md` | Afkortingen en begrippen markeren |
+| Afbeeldingen | `.agents/skills/images/SKILL.md` | Formaten, alt-tekst, mapstructuur |
+| Technische naamgeving | `.agents/skills/technical-conventions/SKILL.md` | Bestandsnamen, links, frontmatter |
+| Kwaliteitscontrole | `.agents/skills/quality-check/SKILL.md` | Volledige checklist na elke pagina |
+| Paginasamenvatting | `.agents/skills/page-summary/SKILL.md` | `<PageSummary>`-component schrijven |

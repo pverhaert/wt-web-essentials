@@ -230,9 +230,79 @@ export default defineConfig({
 
     // Footer
     footer: {
-      message: 'Web Essentials - Basiscursus HTML en CSS',
+      message: 'Web Essentials - Basiscursus HTML en CSS<br>Deze cursus is grotendeels geschreven en gecodeerd door <a href="https://antigravity.google/" target="_blank" rel="noopener noreferrer">Google Antigravity</a> onder supervisie van Patrick Verhaert',
       copyright: 'Thomas More Hogeschool - IT Factory',
     },
+  },
+
+  // Automatische vorige/volgende links (docFooter pagination) voor het leertraject
+  transformPageData(pageData) {
+    const courseSequence: Array<{ link: string; text: string }> = [
+      // HTML5
+      { link: '/html/', text: 'Introductie in HTML5' },
+      { link: '/html/basistags', text: 'Basistags' },
+      { link: '/html/afbeeldingen', text: 'Afbeeldingen' },
+      { link: '/html/hyperlinks', text: 'Hyperlinks' },
+      { link: '/html/speciale-tekens', text: 'Speciale Tekens' },
+      { link: '/html/lijsten', text: 'Lijsten' },
+      { link: '/html/tabellen', text: 'Tabellen' },
+
+      // CSS3
+      { link: '/css/', text: 'Introductie in CSS3' },
+      { link: '/css/lettertypen', text: 'Lettertypen' },
+      { link: '/css/webfonts', text: 'Webfonts & Iconen' },
+      { link: '/css/kleuren', text: 'Kleuren' },
+      { link: '/css/box-model', text: 'Box Model & Randen' },
+      { link: '/css/variabelen', text: 'CSS Variabelen' },
+      { link: '/css/lijsten', text: 'Lijsten' },
+      { link: '/css/tabellen', text: 'Tabellen' },
+      { link: '/css/display', text: 'Display' },
+      { link: '/css/afbeeldingen', text: 'Afbeeldingen & Achtergronden' },
+      { link: '/css/positionering', text: 'Positionering' },
+      { link: '/css/flexbox', text: 'Flexbox' },
+      { link: '/css/grid', text: 'Grid (Bootstrap)' },
+      { link: '/css/media-queries', text: 'Media Queries' },
+      { link: '/css/2d-transformaties', text: '2D Transformaties' },
+      { link: '/css/transities', text: 'Transities' },
+      { link: '/css/animaties', text: 'Animaties' },
+      { link: '/css/3d-transformaties', text: '3D Transformaties' },
+
+      // Tools & Webapps (Installatie & Ontwikkelomgeving)
+      { link: '/tools/phpstorm', text: 'PhpStorm Setup' },
+      { link: '/tools/git', text: 'Git Basics' },
+      { link: '/tools/devtools', text: 'Browser DevTools' },
+      { link: '/tools/ai-assistent', text: 'AI Cursusassistent' },
+    ]
+
+    const normalize = (p: string) => {
+      let clean = p.replace(/\\/g, '/').replace(/\.md$/, '')
+      if (clean.endsWith('/index')) {
+        clean = clean.slice(0, -5)
+      }
+      return clean.startsWith('/') ? clean : '/' + clean
+    }
+
+    const currentPath = normalize(pageData.relativePath)
+    const index = courseSequence.findIndex(
+      (item) => item.link === currentPath || item.link === currentPath + '/' || (currentPath.endsWith('/') && item.link === currentPath.slice(0, -1))
+    )
+
+    if (index !== -1) {
+      const prevItem = index > 0 ? courseSequence[index - 1] : undefined
+      const nextItem = index < courseSequence.length - 1 ? courseSequence[index + 1] : undefined
+
+      return {
+        frontmatter: {
+          ...pageData.frontmatter,
+          prev: pageData.frontmatter?.prev !== undefined
+            ? pageData.frontmatter.prev
+            : (prevItem ? { text: prevItem.text, link: prevItem.link } : false),
+          next: pageData.frontmatter?.next !== undefined
+            ? pageData.frontmatter.next
+            : (nextItem ? { text: nextItem.text, link: nextItem.link } : false),
+        },
+      }
+    }
   },
 
   // Zorg dat de standalone Thomas More 404.html gegarandeerd in de root van de dist-map staat voor Netlify

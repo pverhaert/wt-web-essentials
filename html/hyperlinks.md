@@ -48,15 +48,13 @@ In het `href`-attribuut plaats je het webadres, het bestandspad of het protocol 
 Typ `a` en druk op de `Tab`-toets. PhpStorm vult direct `<a href=""></a>` in en plaatst de cursor tussen de aanhalingstekens van het `href`-attribuut.
 :::
 
----
-
 ## Absolute versus Relatieve links
 
 Afhankelijk van waar het doeldocument zich bevindt, gebruik je een **absolute link** of een **relatieve link**.
 
 ### Absolute URL's
 
-Een **absolute URL** bevat het complete webadres van de pagina waarnaar je linkt. Dit omvat altijd:
+Een <dfn title="Een compleet internetadres inclusief protocol (zoals https://), domeinnaam en eventueel bestandspad">absolute URL</dfn> bevat het complete webadres van de pagina waarnaar je linkt. Een <abbr title="Uniform Resource Locator: het gestandaardiseerde webadres van een pagina of bron op internet">URL</abbr> omvat altijd:
 
 1. Het **protocol** (bij voorkeur `https://`)
 2. De **domeinnaam** (zoals `www.thomasmore.be` of `github.com`)
@@ -133,14 +131,12 @@ Daarom voeg je bij `target="_blank"` altijd het attribuut `rel="noopener norefer
 ```
 
 ::: warning Gebruik `_blank` met mate
-Gebruik `target="_blank"` enkel voor externe links of voor documenten die de bezoeker naast de huidige inhoud wil raadplegen (zoals een handleiding of een PDF). Gebruik het nooit voor gewone interne sitenavigatie. Het breekt immers de werking van de Terug-knop in de browser en kan verwarrend zijn voor gebruikers van mobiele toestellen of schermlezers.
+Gebruik `target="_blank"` enkel voor externe links of voor documenten die de bezoeker naast de huidige inhoud wil raadplegen (zoals een handleiding of een <abbr title="Portable Document Format: universeel documentformaat van Adobe">PDF</abbr>). Gebruik het nooit voor gewone interne sitenavigatie. Het breekt immers de werking van de Terug-knop in de browser en kan verwarrend zijn voor gebruikers van mobiele toestellen of schermlezers.
 :::
-
----
 
 ## Navigeren binnen een pagina: Ankers (`#id`)
 
-Met een **ankerlink** (fragment identifier) springt de browser direct naar een specifiek element op de pagina, zonder dat de pagina opnieuw moet laden. Dit is ideaal voor:
+Met een <dfn title="Een hyperlink die met behulp van een hekje (#) en een id-waarde direct naar een specifiek element op dezelfde pagina springt">ankerlink</dfn> (fragment identifier) springt de browser direct naar een specifiek element op de pagina, zonder dat de pagina opnieuw moet laden. Dit is ideaal voor:
 
 - Een inhoudsopgave bovenaan een lang artikel
 - Een *Back to top*-knop onderaan de pagina

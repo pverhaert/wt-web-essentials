@@ -43,18 +43,7 @@ Rechtsboven in het DevTools-venster vind je een knop met drie verticale puntjes 
 
 Wanneer DevTools opent, staat het tabblad **Elements** standaard actief. Dit paneel toont de actuele **DOM-boomstructuur** (Document Object Model) van de pagina.
 
-```
-+-------------------------------------------------------------------------+
-| [Pijltje] [Mobiel]  Elements  Console  Sources  Network  ...        [X] |
-+-------------------------------------------------------------------------+
-| <div class="container">                                                 |
-|   <header>                                                              |
-|     <h1>Thomas More Campus Geel</h1>                                    |
-|   </header>                                                             |
-| > <main class="hoofd-inhoud"> ... </main>                               |
-| </div>                                                                  |
-+-------------------------------------------------------------------------+
-```
+![DevTools Elements-paneel](./devtools/elements.webp)
 
 ### Belangrijke basisfuncties in het Elements-paneel:
 
@@ -73,25 +62,8 @@ Alles wat je in DevTools aanpast, gebeurt enkel in het tijdelijke werkgeheugen v
 
 Rechts van (of onder) de HTML-structuur vind je het tabblad **Styles**. Dit is het zenuwcentrum voor elke webdesigner. Hier zie je exact welke CSS-stijlregels van toepassing zijn op het element dat je op dat moment geselecteerd hebt.
 
-```
-+-------------------------------------------------------------------------+
-| Styles  Computed  Layout                                                |
-+-------------------------------------------------------------------------+
-| element.style {                                                         |
-| }                                                                       |
-|                                                                         |
-| .nieuws-kaart {                            stijl.css:14                 |
-|   background-color: #ffffff;                                            |
-|   border: 2px solid #1e2d5a;                                            |
-|   padding: 1.25rem;                                                     |
-| }                                                                       |
-|                                                                         |
-| body {                                     stijl.css:2                  |
-|   font-family: Verdana, Geneva, sans-serif;                             |
-|   color: #222222;                                                       |
-| }                                                                       |
-+-------------------------------------------------------------------------+
-```
+![DevTools Styles-paneel](./devtools/styles.webp)
+
 
 ### Handige trucjes in het Styles-paneel:
 
@@ -112,24 +84,7 @@ Rechts van (of onder) de HTML-structuur vind je het tabblad **Styles**. Dit is h
 
 Scroll in het Styles-tabblad helemaal naar beneden, of klik op het tabblad **Computed**. Daar vind je een interactief diagram van het **CSS Box Model**:
 
-```
-+-------------------------------------------------------------------------+
-|                                 margin                                  |
-|         +-----------------------------------------------------+         |
-|         |                       border                        |         |
-|         |         +---------------------------------+         |         |
-|         |         |             padding             |         |         |
-|         |         |         +-------------+         |         |         |
-|         |         |         |   content   |         |         |         |
-|         |         |         |  320 x 180  |         |         |         |
-|         |         |         +-------------+         |         |         |
-|         |         |             20   20             |         |         |
-|         |         +---------------------------------+         |         |
-|         |                       2     2                       |         |
-|         +-----------------------------------------------------+         |
-|                                 32   32                                 |
-+-------------------------------------------------------------------------+
-```
+![DevTools Box Model](./devtools/box.webp)
 
 1. **Afmetingen in één oogopslag:** Je ziet exact hoeveel pixels de browser heeft berekend voor de inhoud (*content*), de binnenruimte (*padding*), de rand (*border*) en de buitenruimte (*margin*).
 2. **Interactieve markering op de pagina:** Beweeg je muis over de verschillende kleurzones van dit diagram. De browser kleurt het element op je webpagina direct in:
@@ -146,6 +101,8 @@ In het Styles-paneel toont DevTools voor elke kleurwaarde een klein gekleurd vie
 - Klik op de pijltjes naast de kleurcode om direct te schakelen tussen **HEX**, **RGB**, **HSL** en **OKLCH**.
 - **WCAG Contrast-controle:** De kiezer berekent automatisch de contrastratio ten opzichte van de achtergrond. Een groen vinkje geeft aan dat je voldoet aan de AA-norm (minstens 4.5:1) voor toegankelijkheid.
 
+![DevTools Color Picker](./devtools/color-picker.webp)
+
 
 ## Mobiele Weergave Testen: Device Mode
 
@@ -153,11 +110,7 @@ Tijdens het ontwerpen wil je weten hoe je website eruitziet op smartphones en ta
 
 Klik linksboven in de balk van DevTools op het icoontje met de smartphone en tablet (sneltoets: `Ctrl + Shift + M` op Windows, `Cmd + Shift + M` op macOS).
 
-```
-+-------------------------------------------------------------------------+
-| Dimensions: Responsive  v   390 x 844   100% v   [Mobiel draaien]       |
-+-------------------------------------------------------------------------+
-```
+![DevTools Device Mode](./devtools/mobile.webp)
 
 - **Vooraf ingestelde toestellen:** Kies in het dropdown-menu uit populaire apparaten zoals iPhone 14, Samsung Galaxy of iPad Air.
 - **Vrij verslepen:** Kies **Responsive** en versleep de handgrepen aan de rechter- en onderkant van het scherm om elk denkbaar schermformaat traploos te testen.
