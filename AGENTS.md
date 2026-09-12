@@ -128,8 +128,8 @@ Gedetailleerde richtlijnen en een lijst van veelgebruikte afkortingen staan in:
 | `/tools/kleurenomzetter` | Kleurenomzetter |
 | `/tools/tabel-simulator` | Tabel Simulator |
 | `/tools/display-simulator` | Display Simulator |
-| `/tools/button-builder` | Button Builder |
 | `/tools/vertical-align-lab` | Vertical-align Lab |
+| `/tools/positioning-simulator` | Positioning Simulator |
 | `/tools/extensions` | Browser Extensies |
 | `/sandbox` | Fullscreen Sandbox |
 

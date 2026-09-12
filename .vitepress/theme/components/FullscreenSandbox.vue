@@ -558,9 +558,13 @@ import { autocompletion, closeBrackets } from '@codemirror/autocomplete'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { Compartment } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
+import { indentWithTab, toggleComment } from '@codemirror/commands'
+import { bracketMatching } from '@codemirror/language'
+import { highlightSelectionMatches } from '@codemirror/search'
 import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
 import { createLineHighlightExtension } from '../composables/useLineHighlight'
 import { createCodeIndentation, indentCode, restoreIndentation } from '../composables/useCodeIndentation'
+import { createColorPickerExtension } from '../composables/useColorPicker'
 
 const defaultHtml = `<!DOCTYPE html>
 <html lang="nl">
@@ -980,6 +984,16 @@ const createEditorInstance = (
     doc: docText,
     extensions: [
       basicSetup,
+      bracketMatching(),
+      highlightSelectionMatches(),
+      EditorView.lineWrapping,
+      createColorPickerExtension(),
+      keymap.of([
+        {
+          key: 'Mod-/',
+          run: toggleComment,
+        },
+      ]),
       createCodeIndentation(),
       langExt,
       highlightComp.of(createLineHighlightExtension(getHighlightRange)),

@@ -27,6 +27,9 @@ import VerticalAlignLab from './components/VerticalAlignLab.vue'
 import ObjectFitSimulator from './components/ObjectFitSimulator.vue'
 import BackgroundHeroSimulator from './components/BackgroundHeroSimulator.vue'
 import PositioningSimulator from './components/PositioningSimulator.vue'
+import FlexAxisViewer from './components/FlexAxisViewer.vue'
+import FlexAlignmentLab from './components/FlexAlignmentLab.vue'
+import FlexGrowShrinkVisualizer from './components/FlexGrowShrinkVisualizer.vue'
 import StorybookCard from './components/StorybookCard.vue'
 import PageSummary from './components/PageSummary.vue'
 import PageSummaryModal from './components/PageSummaryModal.vue'
@@ -82,6 +85,9 @@ export default {
     app.component('ObjectFitSimulator', ObjectFitSimulator)
     app.component('BackgroundHeroSimulator', BackgroundHeroSimulator)
     app.component('PositioningSimulator', PositioningSimulator)
+    app.component('FlexAxisViewer', FlexAxisViewer)
+    app.component('FlexAlignmentLab', FlexAlignmentLab)
+    app.component('FlexGrowShrinkVisualizer', FlexGrowShrinkVisualizer)
     app.component('StorybookCard', StorybookCard)
     app.component('PageSummary', PageSummary)
 

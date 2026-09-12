@@ -19,6 +19,21 @@ export default defineConfig({
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
     ['meta', { name: 'apple-mobile-web-app-title', content: 'Web Essentials' }],
     ['meta', { name: 'author', content: 'Patrick Verhaert' }],
+    // Open Graph (WhatsApp, Facebook, LinkedIn, ...)
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'Web Essentials' }],
+    ['meta', { property: 'og:title', content: 'Web Essentials' }],
+    ['meta', { property: 'og:description', content: 'Basiscursus HTML en CSS voor eerstejaars ICT-studenten - Thomas More Hogeschool' }],
+    ['meta', { property: 'og:url', content: 'https://wt-web-essentials.netlify.app/' }],
+    ['meta', { property: 'og:image', content: 'https://wt-web-essentials.netlify.app/og-preview.jpg' }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { property: 'og:image:alt', content: 'Web Essentials - Basiscursus HTML en CSS, Thomas More Hogeschool' }],
+    // Twitter / X Card
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'Web Essentials' }],
+    ['meta', { name: 'twitter:description', content: 'Basiscursus HTML en CSS voor eerstejaars ICT-studenten - Thomas More Hogeschool' }],
+    ['meta', { name: 'twitter:image', content: 'https://wt-web-essentials.netlify.app/og-preview.jpg' }],
   ],
 
   // Laatste wijzigingsdatum tonen
@@ -71,8 +86,9 @@ export default defineConfig({
     ],
   },
 
-  // Markdown-it configuratie: voorkom dat lege regels binnen <CodeSandbox> tags
-  // het CommonMark type 7 HTML-blok afbreken en <p>-tags injecteren.
+  // Markdown-it configuratie:
+  // 1. Voorkom dat lege regels binnen <CodeSandbox> tags het CommonMark type 7 HTML-blok afbreken.
+  // 2. Voorkom dat samenvattingkoppen (###) binnen <PageSummary> in de zijnavigatie (outline) belanden.
   markdown: {
     config(md) {
       md.core.ruler.before('normalize', 'fix-codesandbox-empty-lines', (state) => {
@@ -84,6 +100,11 @@ export default defineConfig({
             curr = curr.replace(/\n[ \t]*\n/g, '\n&#10;')
           } while (curr !== prev)
           return curr
+        })
+
+        // Vorm ### binnen <PageSummary> om naar #### zodat de outline (level [2, 3]) ze negeert
+        state.src = state.src.replace(/<PageSummary\b([\s\S]*?)<\/PageSummary>/g, (match) => {
+          return match.replace(/^([ \t]*)###([ \t]+)/gm, '$1####$2')
         })
       })
     },
@@ -170,6 +191,8 @@ export default defineConfig({
               { text: 'Vertical-align Lab', link: '/tools/vertical-align-lab', target: 'page2' },
               { text: 'Object-fit Simulator', link: '/tools/object-fit-simulator', target: 'page2' },
               { text: 'Background Simulator', link: '/tools/background-simulator', target: 'page2' },
+              { text: 'Positioning Simulator', link: '/tools/positioning-simulator', target: 'page2' },
+              { text: 'Flexbox Playground', link: 'https://itf-flexbox-playground.netlify.app/', target: 'page2' },
             ],
           },
           {

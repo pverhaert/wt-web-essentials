@@ -211,10 +211,13 @@ import { autocompletion, closeBrackets } from '@codemirror/autocomplete'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { Compartment } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
-import { indentWithTab } from '@codemirror/commands'
+import { indentWithTab, toggleComment } from '@codemirror/commands'
+import { bracketMatching } from '@codemirror/language'
+import { highlightSelectionMatches } from '@codemirror/search'
 import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
 import { createLineHighlightExtension } from '../composables/useLineHighlight'
 import { createCodeIndentation, indentCode, restoreIndentation } from '../composables/useCodeIndentation'
+import { createColorPickerExtension } from '../composables/useColorPicker'
 
 const props = withDefaults(
   defineProps<{
@@ -613,6 +616,16 @@ const initEditor = () => {
     doc: getActiveCode(),
     extensions: [
       basicSetup,
+      bracketMatching(),
+      highlightSelectionMatches(),
+      EditorView.lineWrapping,
+      createColorPickerExtension(),
+      keymap.of([
+        {
+          key: 'Mod-/',
+          run: toggleComment,
+        },
+      ]),
       createCodeIndentation(),
       languageCompartment.of(getLanguageExtension(activeCodeLanguage.value)),
       highlightCompartment.of(createLineHighlightExtension(() => getActiveHighlightRange())),

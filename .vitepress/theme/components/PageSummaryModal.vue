@@ -1123,7 +1123,8 @@ onUnmounted(() => {
    INHOUD STIJLEN (via v-html, scoped werkt niet
    → gebruik :deep() of voeg toe aan style.css)
    ============================================= */
-.ps-modal__body :deep(h3) {
+.ps-modal__body :deep(h3),
+.ps-modal__body :deep(h4) {
   font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1135,7 +1136,8 @@ onUnmounted(() => {
   border-bottom: 1px solid var(--vp-c-divider);
 }
 
-.ps-modal__body :deep(h3:first-child) {
+.ps-modal__body :deep(h3:first-child),
+.ps-modal__body :deep(h4:first-child) {
   margin-top: 0;
 }
 
