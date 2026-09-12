@@ -26,6 +26,8 @@ import ButtonBuilder from './components/ButtonBuilder.vue'
 import VerticalAlignLab from './components/VerticalAlignLab.vue'
 import ObjectFitSimulator from './components/ObjectFitSimulator.vue'
 import BackgroundHeroSimulator from './components/BackgroundHeroSimulator.vue'
+import PositioningSimulator from './components/PositioningSimulator.vue'
+import StorybookCard from './components/StorybookCard.vue'
 import PageSummary from './components/PageSummary.vue'
 import PageSummaryModal from './components/PageSummaryModal.vue'
 import TermTooltip from './components/TermTooltip.vue'
@@ -79,6 +81,8 @@ export default {
     app.component('VerticalAlignLab', VerticalAlignLab)
     app.component('ObjectFitSimulator', ObjectFitSimulator)
     app.component('BackgroundHeroSimulator', BackgroundHeroSimulator)
+    app.component('PositioningSimulator', PositioningSimulator)
+    app.component('StorybookCard', StorybookCard)
     app.component('PageSummary', PageSummary)
 
     // Registreer Lucide iconen

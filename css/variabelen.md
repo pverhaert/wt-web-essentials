@@ -150,16 +150,35 @@ Hieronder zie je in een interactieve sandbox hoe centraal themabeheer met `:root
 <CodeSandbox
   title="Themabeheer met CSS Variabelen in :root"
   height="480px"
+  initialTab="split"
+  activeCodeTab="css"
   highlightHtml=""
-  highlightCss=""
+  highlightCss="9-14,22,28-31,35,42-,45"
   highlightJs=""
-  css="/*Universele resetter*/
-- {
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Variabelen Demo</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <!-- Kaart van Thomas More Campus Geel -->
+  <div class="kaart">
+    <h3>Thomas More Campus Geel</h3>
+    <p>Ontdek onze IT-opleidingen en ervaar praktijkgericht onderwijs op onze groene campus.</p>
+    <button class="knop">Meer informatie</button>
+  </div>
+</body>
+</html>'
+  css='/* Universele resetter */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-/*Centrale variabelen in :root */
+/* Centrale variabelen in :root */
 :root {
   --hoofdkleur: #1e2d5a;
   --accentkleur: #EC6639;
@@ -170,7 +189,7 @@ Hieronder zie je in een interactieve sandbox hoe centraal themabeheer met `:root
 }
 /* Basisopmaak van de pagina */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   padding: 1.5rem;
   background-color: #ffffff;
@@ -190,7 +209,7 @@ body {
   color: var(--hoofdkleur);
   margin-bottom: 0.5rem;
 }
-/* Knop binnen de kaart*/
+/* Knop binnen de kaart */
 .knop {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
@@ -199,24 +218,8 @@ body {
   border: none;
   border-radius: var(--kaart-radius);
   font-size: 0.9rem;
-}"
-  html="<!DOCTYPE html>
-<html lang=&quot;nl&quot;>
-<head>
-  <meta charset=&quot;UTF-8&quot;>
-  <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-  <title>CSS Variabelen Demo</title>
-  <link rel=&quot;stylesheet&quot; href=&quot;stijl.css&quot;>
-</head>
-<body>
-  <!-- Kaart van Thomas More Campus Geel -->
-  <div class=&quot;kaart&quot;>
-    <h3>Thomas More Campus Geel</h3>
-    <p>Ontdek onze IT-opleidingen en ervaar praktijkgericht onderwijs op onze groene campus.</p>
-    <button class=&quot;knop&quot;>Meer informatie</button>
-  </div>
-</body>
-</html>"
+}'
+  js=''
 />
 
 ::: tip Zelf experimenteren in de sandbox
@@ -265,10 +268,27 @@ In de onderstaande sandbox zie je dit principe in actie:
 <CodeSandbox
   title="Componentvarianten via variabelen"
   height="440px"
-  highlightHtml=""
-  highlightCss="21-23,36,40,44-46"
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="21-23,25-27,36,40,44-46"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knoppen Varianten</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <h3>Knopvarianten met CSS Variabelen</h3>
+  <button class="knop">Standaard</button>
+  <button class="knop knop-primair">Inschrijven</button>
+  <button class="knop knop-succes">Bevestigen</button>
+  <button class="knop knop-omlijnd">Annuleren</button>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -277,7 +297,7 @@ In de onderstaande sandbox zie je dit principe in actie:
 }
 /* Paginastijl */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   padding: 1.5rem;
   background-color: #f8fafc;
@@ -292,7 +312,7 @@ h3 {
   --bg-kleur: #1e2d5a;
   --tekst-kleur: #ffffff;
   --rand-kleur: var(--bg-kleur);
-
+  /* Gebruik van de variabelen */
   background-color: var(--bg-kleur);
   color: var(--tekst-kleur);
   border: 2px solid var(--rand-kleur);
@@ -316,22 +336,7 @@ h3 {
   --tekst-kleur: #1e2d5a;
   --rand-kleur: #1e2d5a;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Knoppen Varianten</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <h3>Knopvarianten met CSS Variabelen</h3>
-  <button class="knop">Standaard</button>
-  <button class="knop knop-primair">Inschrijven</button>
-  <button class="knop knop-succes">Bevestigen</button>
-  <button class="knop knop-omlijnd">Annuleren</button>
-</body>
-</html>'
+  js=''
 />
 
 ## Rekenen met Variabelen: `calc()`

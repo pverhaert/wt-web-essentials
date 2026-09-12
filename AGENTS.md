@@ -43,11 +43,10 @@ Web Essentials is een Nederlandstalige basiscursus HTML5 en CSS3 voor eerstejaar
 - Geen drie streepjes / dashes (`---`) tussen titels of secties (gebruik NOOIT horizontale lijnen als scheiding tussen koppen; `---` mag uitsluitend in de YAML-frontmatter helemaal bovenaan het bestand staan)
 - Geen Engelse woorden als die een goede Nederlandse equivalent hebben
 - Geen aannames over voorkennis die studenten niet hebben
-- Geen zinnen die beginnen met "Uiteraard", "Zoals je weet", "Vanzelfsprekend" of vergelijkbare uitdrukkingen die voorkennis impliceren
-- Geen samentrekkingen zoals "kan't" of "isn't" (dit is een Nederlandse cursus)
 - Gebruik NOOIT "Campus De Nayer" of "Sint-Katelijne-Waver"; gebruik in alle voorbeelden en teksten altijd uitsluitend: Thomas More Campus Geel (Kleinhoefstraat 4, 2440 Geel)
 - Maak zelf NOOIT nieuwe branches aan in Git
 - Push zelf NOOIT naar GitHub (laat Git commits, branches en pushes altijd over aan de gebruiker)
+- **Componentaanpassingen verplicht via voorstel:** Pas bestaande Vue-componenten (zoals simulatoren, sandboxes, navigatiecomponenten) NOOIT direct aan zonder voorafgaand voorstel. Bij elke vraag om een bestaande component te wijzigen of uit te breiden: geef ALTIJD eerst een overzicht van mogelijke oplossingen en de voorgestelde aanpak, en wacht expliciet op akkoord van de gebruiker vóór je code begint te bewerken. Dit voorkomt dat de assistent vastloopt in herhaaldelijke lees- en zoeklussen in grote componentcode.
 
 ### Engelstalige technische termen
 
@@ -186,20 +185,33 @@ Toont een live, interactief codevoorbeeld met ingebouwde CodeMirror 6 editor en 
 #### Belangrijke richtlijnen voor CodeSandbox:
 - **Toon in alle sandboxen ALTIJD de volledige HTML-code:** Neem in alle sandboxen altijd de volledige HTML-structuur op (`<!DOCTYPE html>`, `<html lang="nl">`, `<head>`, `<meta charset="UTF-8">`, `<meta name="viewport" content="width=device-width, initial-scale=1.0">`, `<title>`, eventueel `<link rel="stylesheet" href="stijl.css">` en `<body>`). Toon nooit alleen losse HTML-fragmenten.
 - **GEEN lege regels binnen de CodeSandbox-attributen:** In Markdown-it veroorzaakt een lege regel binnen een componenttag een breuk in het HTML-blok, waardoor de markdown-parser onbedoeld `<p>`-tags middenin attributen zoals `css` of `html` injecteert. Laat daarom NOOIT lege regels vallen binnen de code van de attributen; gebruik om regels of blokken te scheiden altijd echte, inhoudelijke commentaarregels (bijvoorbeeld `/* Algemene paginastijl */` of `<!-- Hoofdnavigatie -->`) en GEEN loze opvulcommentaar zoals `/* --- */`.
-- **Enkel reeds behandelde CSS:** Gebruik in sandboxen uitsluitend CSS-eigenschappen die in het huidige of in voorgaande CSS-hoofdstukken zijn besproken. Uitzonderingen zijn enkel toegestaan als je dit vooraf expliciet aan de gebruiker vraagt en goedkeuring krijgt.
-- **Universele resetter bovenaan elke stylesheet:** Vanaf het hoofdstuk Box Model start elke CSS-stylesheet in een CodeSandbox altijd bovenaan met de universele resetter (`* { box-sizing: border-box; margin: 0; padding: 0; }`).
+- **CSS3 Progressiematrix & Cumulatieve standaarden:** Volg strikt de progressiematrix uit `.agents/skills/code-examples/SKILL.md`:
+  - **VERBODEN:** Gebruik nooit CSS-eigenschappen die pas in een later hoofdstuk worden behandeld.
+  - **TOEGESTAAN:** Eigenschappen uit reeds behandelde hoofdstukken mogen vrij gecombineerd worden.
+- **Vaste volgorde en verplichte aanwezigheid van ALLE 10 props:** Elk `<CodeSandbox>`-codevoorbeeld moet ALTIJD alle 10 onderstaande properties bevatten in deze exacte volgorde, ook als ze leeg zijn:
+  1. `title`
+  2. `height`
+  3. `initialTab`
+  4. `activeCodeTab`
+  5. `highlightHtml`
+  6. `highlightCss`
+  7. `highlightJs`
+  8. `html`
+  9. `css`
+  10. `js`
+- **Automatische regelmarkering (`highlightCss` & `highlightHtml`):** Laat `highlightCss` (en waar relevant `highlightHtml`) nooit zomaar leeg bij voorbeelden over een nieuw concept. Markeer altijd de sleutelregels van de les (bijv. bij CSS-variabelen zowel de declaraties in `:root` als het gebruik via `var(--...)`; bij Display de `display: inline-block` en afmetingen).
 - **Nette inspringing:** Zorg dat zowel HTML als CSS netjes en consistent zijn ingesprongen (2 spaties per inspringniveau).
 
 ```vue
-<!-- Volledige HTML met CSS (toont tabbladen [HTML] [CSS]) -->
+<!-- Volledige CodeSandbox met alle 10 props in de vaste volgorde -->
 <CodeSandbox
   title="Voorbeeld met styling"
   height="450px"
+  initialTab="split"
   activeCodeTab="css"
-  css='h1 {
-  color: #EC6639;
-  font-family: sans-serif;
-}'
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -212,6 +224,11 @@ Toont een live, interactief codevoorbeeld met ingebouwde CodeMirror 6 editor en 
   <h1>Oranje titel</h1>
 </body>
 </html>'
+  css='h1 {
+  color: #EC6639;
+  font-family: sans-serif;
+}'
+  js=''
 />
 ```
 
@@ -305,7 +322,7 @@ Voor elke pagina die je schrijft of aanpast:
 6. Controleer of alle technische termen uitgelegd worden bij de eerste vermelding
 7. Controleer of de jij-vorm consequent wordt gebruikt
 8. Controleer of interne links correct zijn (relatieve paden)
-9. Controleer of voorbeelden, oefeningen en CodeSandbox-toepassingen ENKEL gebruikmaken van CSS-eigenschappen die in het huidige of voorgaande CSS-hoofdstukken zijn behandeld (tenzij een uitzondering vooraf expliciet is goedgekeurd)
+9. Controleer of voorbeelden, oefeningen en CodeSandbox-toepassingen voldoen aan de CSS3 Progressiematrix (geen toekomstige eigenschappen, wel verplichte cumulatieve eigenschappen zoals font-family op body, resetter, variabelen)
 10. Controleer of een `<PageSummary>`-blok aanwezig is boven de oefeningen (zie skill hieronder)
 11. Controleer of afkortingen en nieuw geïntroduceerde begrippen waar nuttig voorzien zijn van `<abbr title="...">` of `<dfn title="...">` tags (voor interactieve Thomas More-tooltips)
 

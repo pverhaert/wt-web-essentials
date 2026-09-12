@@ -33,59 +33,65 @@
           </div>
         </div>
 
-        <!-- Keuze voor container aspect ratio / formaat -->
-        <div class="of-control-group">
-          <label class="of-group-label">2. Afmetingen van de afbeeldingskader (ouder/kaart):</label>
-          <div class="of-pill-group">
-            <button
-              v-for="ratio in ratioOptions"
-              :key="ratio.id"
-              type="button"
-              class="of-pill"
-              :class="{ 'is-active': activeRatio === ratio.id }"
-              @click="activeRatio = ratio.id"
-            >
-              {{ ratio.name }} ({{ ratio.dims }})
-            </button>
-          </div>
-        </div>
+        <!-- 2-koloms rij: Links instellingen 2 & 3, Rechts gegenereerde CSS -->
+        <div class="of-controls-row">
+          <!-- Linker kolom: Dimensies en Positie -->
+          <div class="of-controls-col">
+            <!-- Keuze voor container aspect ratio / formaat -->
+            <div class="of-control-group">
+              <label class="of-group-label">2. Afmetingen van het afbeeldingskader (ouder/kaart):</label>
+              <div class="of-pill-group">
+                <button
+                  v-for="ratio in ratioOptions"
+                  :key="ratio.id"
+                  type="button"
+                  class="of-pill"
+                  :class="{ 'is-active': activeRatio === ratio.id }"
+                  @click="activeRatio = ratio.id"
+                >
+                  {{ ratio.name }} ({{ ratio.dims }})
+                </button>
+              </div>
+            </div>
 
-        <!-- 3x3 Positierooster voor object-position -->
-        <div class="of-control-group" :class="{ 'is-disabled': activeFit === 'fill' }">
-          <div class="of-group-label-row">
-            <label class="of-group-label">3. Kies uitsnede met <code>object-position</code>:</label>
-            <span v-if="activeFit === 'fill'" class="of-disabled-note">(geen effect bij fill)</span>
+            <!-- 3x3 Positierooster voor object-position -->
+            <div class="of-control-group" :class="{ 'is-disabled': activeFit === 'fill' }">
+              <div class="of-group-label-row">
+                <label class="of-group-label">3. Kies uitsnede met <code>object-position</code>:</label>
+                <span v-if="activeFit === 'fill'" class="of-disabled-note">(geen effect bij fill)</span>
+              </div>
+              <div class="of-pos-grid">
+                <button
+                  v-for="pos in positionOptions"
+                  :key="pos.value"
+                  type="button"
+                  class="of-pos-btn"
+                  :class="{ 'is-active': activePos === pos.value }"
+                  :disabled="activeFit === 'fill'"
+                  @click="activePos = pos.value"
+                  :title="pos.value"
+                >
+                  <span class="of-pos-dot"></span>
+                  <span class="of-pos-label">{{ pos.shortLabel }}</span>
+                </button>
+              </div>
+              <div class="of-pos-current">
+                Geselecteerde positie: <code>object-position: {{ activePos }};</code>
+              </div>
+            </div>
           </div>
-          <div class="of-pos-grid">
-            <button
-              v-for="pos in positionOptions"
-              :key="pos.value"
-              type="button"
-              class="of-pos-btn"
-              :class="{ 'is-active': activePos === pos.value }"
-              :disabled="activeFit === 'fill'"
-              @click="activePos = pos.value"
-              :title="pos.value"
-            >
-              <span class="of-pos-dot"></span>
-              <span class="of-pos-label">{{ pos.shortLabel }}</span>
-            </button>
-          </div>
-          <div class="of-pos-current">
-            Geselecteerde positie: <code>object-position: {{ activePos }};</code>
-          </div>
-        </div>
 
-        <!-- 4. GHOST EFFECT SCHAKELAAR -->
-        <div class="of-control-group">
-          <div class="of-ghost-toggle-row">
-            <label class="of-ghost-toggle">
-              <input type="checkbox" v-model="showGhost" class="of-checkbox" />
-              <span class="of-ghost-label">
-                <strong>Toon afgeknipte zones (Ghost effect)</strong>
-                <span class="of-ghost-sub">Maakt zichtbaar welke delen van de afbeelding buiten het kader vallen of afgesneden worden</span>
-              </span>
-            </label>
+          <!-- Rechter kolom: Gegenereerde CSS code -->
+          <div class="of-code-col">
+            <div class="of-code-panel">
+              <div class="of-code-header">
+                <span class="of-code-label">Gegenereerde CSS</span>
+                <button type="button" class="of-copy-btn" @click="copyCode">
+                  {{ copied ? 'Gekopieerd!' : 'Kopieer CSS' }}
+                </button>
+              </div>
+              <pre class="of-pre"><code>{{ generatedCss }}</code></pre>
+            </div>
           </div>
         </div>
       </div>
@@ -123,7 +129,7 @@
           <span class="of-stage-title">Visueel resultaat in browser</span>
           <div class="of-stage-legend">
             <span class="of-legend-item"><span class="of-legend-box cadre"></span> Kader</span>
-            <span v-if="showGhost" class="of-legend-item"><span class="of-legend-box ghost"></span> Afgeknipt (Ghost)</span>
+            <span v-if="hasClippedAreas" class="of-legend-item"><span class="of-legend-box ghost"></span> Afgeknipt (Ghost)</span>
           </div>
         </div>
 
@@ -137,7 +143,7 @@
           >
             <!-- GHOST LAAG: toont de volledige afbeelding op ware geschaalde positie buiten het kader -->
             <div
-              v-if="showGhost && hasClippedAreas"
+              v-if="hasClippedAreas"
               class="of-ghost-layer"
               :style="ghostLayerStyle"
             >
@@ -152,7 +158,7 @@
             <!-- ECHTE BROWSER KADER (OVERFLOW CLIP) -->
             <div
               class="of-target-frame"
-              :class="{ 'has-ghost-active': showGhost && hasClippedAreas }"
+              :class="{ 'has-ghost-active': hasClippedAreas }"
             >
               <img
                 :src="sampleImgUrl"
@@ -170,17 +176,6 @@
           </div>
         </div>
       </div>
-
-      <!-- 4. GEGENEREERDE CODE -->
-      <div class="of-code-panel">
-        <div class="of-code-header">
-          <span class="of-code-label">Gegenereerde CSS</span>
-          <button type="button" class="of-copy-btn" @click="copyCode">
-            {{ copied ? 'Gekopieerd!' : 'Kopieer CSS' }}
-          </button>
-        </div>
-        <pre class="of-pre"><code>{{ generatedCss }}</code></pre>
-      </div>
     </div>
   </div>
 </template>
@@ -191,7 +186,6 @@ import { ref, computed } from 'vue'
 const activeFit = ref<'cover' | 'contain' | 'fill' | 'none' | 'scale-down'>('cover')
 const activeRatio = ref<'wide' | 'square' | 'portrait'>('wide')
 const activePos = ref<string>('center center')
-const showGhost = ref<boolean>(true)
 const copied = ref<boolean>(false)
 
 // Sample foto: 800 x 533 pixels (verhouding 3:2 oftewel 1.5)
@@ -618,40 +612,39 @@ async function copyCode() {
   font-weight: 700;
 }
 
-/* Ghost Toggle */
-.of-ghost-toggle-row {
-  background-color: var(--vp-c-bg-soft, #f8fafc);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px dashed var(--vp-c-divider, #cbd5e1);
+/* 2-koloms indeling voor punt 2, 3 en gegenereerde code */
+.of-controls-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
 }
 
-.of-ghost-toggle {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  cursor: pointer;
-}
-
-.of-checkbox {
-  margin-top: 0.2rem;
-  width: 18px;
-  height: 18px;
-  accent-color: #e87722;
-  cursor: pointer;
-}
-
-.of-ghost-label {
+.of-controls-col {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  font-size: 0.85rem;
-  color: var(--vp-c-text-1, #1e293b);
+  gap: 1.25rem;
 }
 
-.of-ghost-sub {
-  font-size: 0.78rem;
-  color: var(--vp-c-text-2, #64748b);
+.of-code-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.of-code-col .of-code-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.of-code-col .of-pre {
+  flex: 1;
+}
+
+@media (max-width: 860px) {
+  .of-controls-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .of-explanation-card {

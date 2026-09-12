@@ -40,12 +40,19 @@ Zie skill `page-structure` voor volledige richtlijnen.
 
 Zie skill `page-structure` en skill `page-summary`.
 
-### 4. Codeblokken
+### 4. Codeblokken en CSS3 Progressiematrix
 
 - [ ] Zijn alle codeblokken voorzien van de juiste taalannotatie (` ```html `, ` ```css `, enz.)?
 - [ ] Zijn alle CodeSandbox-voorbeelden voorzien van de volledige HTML-structuur?
-- [ ] Bevatten CodeSandbox-attributen geen lege regels?
-- [ ] Staat de universele resetter bovenaan de CSS in CodeSandboxen (vanaf Box Model)?
+- [ ] Bevatten alle `<CodeSandbox>`-componenten **alle 10 props in de exacte vaste volgorde** (ook als ze leeg zijn: `title`, `height`, `initialTab`, `activeCodeTab`, `highlightHtml`, `highlightCss`, `highlightJs`, `html`, `css`, `js`)?
+- [ ] Zijn in `highlightCss` (en/of `highlightHtml`) de belangrijkste regels van de les daadwerkelijk gemarkeerd (bijv. de declaratie én het gebruik van CSS-variabelen, of de display/boxmodel eigenschappen)?
+- [ ] Voldoen alle CSS-voorbeelden aan de **CSS3 Progressiematrix** (zie `code-examples`):
+  - [ ] Geen CSS-eigenschappen gebruikt uit latere, nog niet behandelde hoofdstukken?
+  - [ ] Vanaf *Kleuren*: expliciete `font-family` op de `body` (Segoe UI of Arial stack)?
+  - [ ] Vanaf *Box Model*: universele resetter bovenaan (`* { box-sizing: border-box; margin: 0; padding: 0; }`)?
+  - [ ] Vanaf *CSS Variabelen*: variabelen via `:root` en `var()` toegepast waar zinvol?
+  - [ ] Vanaf *Display*: knoppen/inline-elementen met afmetingen voorzien van `display: inline-block` of `block`?
+  - [ ] Vanaf *Afbeeldingen*: afbeeldingen voorzien van `max-width: 100%; height: auto` of `object-fit: cover`?
 
 Zie skill `code-examples`.
 

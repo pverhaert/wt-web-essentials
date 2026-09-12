@@ -119,9 +119,6 @@ In de onderstaande interactieve simulator experimenteer je live met de verschill
 
 <ObjectFitSimulator />
 
-::: info Ook beschikbaar in Tools & Webapps
-Deze tool is eveneens als zelfstandige webapp te raadplegen via [Object-fit Simulator](/tools/object-fit-simulator) onder het menu **Tools & Webapps**.
-:::
 
 ## Codevoorbeeld: Responsieve afbeeldingskaarten met `object-fit`
 
@@ -129,8 +126,39 @@ In de onderstaande CodeSandbox zie je hoe je met een consistente container en `o
 
 <CodeSandbox
   title="Afbeeldingskaarten met object-fit"
-  activeCodeTab="css"
   height="480px"
+  initialTab="split"
+  activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="35-37"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Geel Nieuws</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <div class="nieuws-grid">
+    <article class="kaart">
+      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&auto=format&fit=crop&q=80" alt="Studenten overleggen in de agora van Campus Geel">
+      <div class="kaart-inhoud">
+        <h2 class="kaart-titel">Welkom op Campus Geel</h2>
+        <p class="kaart-tekst">De introductiedagen voor eerstejaarsstudenten starten volgende week in de centrale hal.</p>
+      </div>
+    </article>
+    <article class="kaart">
+      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&auto=format&fit=crop&q=80" alt="Studenten programmeren in het computerlokaal">
+      <div class="kaart-inhoud">
+        <h2 class="kaart-titel">IT Factory Hackathon</h2>
+        <p class="kaart-tekst">Schrijf je in met je team en bouw gedurende 24 uur aan innovatieve webtoepassingen.</p>
+      </div>
+    </article>
+  </div>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -139,7 +167,7 @@ In de onderstaande CodeSandbox zie je hoe je met een consistente container en `o
 }
 /* Algemene paginastijl */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #212529;
   background-color: #f8fafc;
   padding: 2rem;
@@ -180,33 +208,7 @@ body {
   font-size: 0.9rem;
   color: #64748b;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Campus Geel Nieuws</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="nieuws-grid">
-    <article class="kaart">
-      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&auto=format&fit=crop&q=80" alt="Studenten overleggen in de agora van Campus Geel">
-      <div class="kaart-inhoud">
-        <h2 class="kaart-titel">Welkom op Campus Geel</h2>
-        <p class="kaart-tekst">De introductiedagen voor eerstejaarsstudenten starten volgende week in de centrale hal.</p>
-      </div>
-    </article>
-    <article class="kaart">
-      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&auto=format&fit=crop&q=80" alt="Studenten programmeren in het computerlokaal">
-      <div class="kaart-inhoud">
-        <h2 class="kaart-titel">IT Factory Hackathon</h2>
-        <p class="kaart-tekst">Schrijf je in met je team en bouw gedurende 24 uur aan innovatieve webtoepassingen.</p>
-      </div>
-    </article>
-  </div>
-</body>
-</html>'
+  js=''
 />
 
 ## Achtergrondafbeeldingen in CSS: `background-image`
@@ -420,10 +422,6 @@ Met de onderstaande simulator ontdek je direct het effect van `background-size: 
 
 <BackgroundHeroSimulator />
 
-::: info Ook beschikbaar in Tools & Webapps
-Deze tool is eveneens als zelfstandige webapp te raadplegen via [Background Simulator](/tools/background-simulator) onder het menu **Tools & Webapps**.
-:::
-
 ## Tekstomloop met `float` en `clear`
 
 In vroege versies van CSS werd de eigenschap `float` vaak oneigenlijk gebruikt om complete lay-outs en kolommen te bouwen. Dat leidde regelmatig tot ingewikkelde bugs en onvoorspelbaar gedrag.
@@ -493,8 +491,33 @@ In het onderstaande interactieve voorbeeld zie je een artikel over Campus Geel w
 
 <CodeSandbox
   title="Tekstomloop met float en display: flow-root"
-  activeCodeTab="css"
   height="480px"
+  initialTab="split"
+  activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="17,27,30-32"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thomas More Campus Geel</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <article class="artikel">
+    <h1 class="artikel-titel">Innovatie in de Kempen</h1>
+    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80" alt="Groene buitenomgeving van Thomas More Campus Geel" class="artikel-foto">
+    <p class="artikel-tekst">
+      Thomas More Campus Geel biedt een inspirerende leeromgeving waar theorie en praktijk elkaar continu ontmoeten. Studenten werken in moderne labo&#39;s aan uitdagende projecten voor echte bedrijven en organisaties uit de regio.
+    </p>
+    <p class="artikel-tekst">
+      Dankzij de groene campusomgeving en de kleinschalige groepen geniet je van een persoonlijke begeleiding door ervaren docenten uit het werkveld.
+    </p>
+  </article>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -503,7 +526,7 @@ In het onderstaande interactieve voorbeeld zie je een artikel over Campus Geel w
 }
 /* Algemene paginastijl */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #212529;
   background-color: #f1f5f9;
   padding: 2rem;
@@ -540,27 +563,7 @@ body {
   color: #334155;
   margin-bottom: 0.75rem;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thomas More Campus Geel</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <article class="artikel">
-    <h1 class="artikel-titel">Innovatie in de Kempen</h1>
-    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80" alt="Groene buitenomgeving van Thomas More Campus Geel" class="artikel-foto">
-    <p class="artikel-tekst">
-      Thomas More Campus Geel biedt een inspirerende leeromgeving waar theorie en praktijk elkaar continu ontmoeten. Studenten werken in moderne labo&#39;s aan uitdagende projecten voor echte bedrijven en organisaties uit de regio.
-    </p>
-    <p class="artikel-tekst">
-      Dankzij de groene campusomgeving en de kleinschalige groepen geniet je van een persoonlijke begeleiding door ervaren docenten uit het werkveld.
-    </p>
-  </article>
-</body>
-</html>'
+  js=''
 />
 
 ## Handige Emmet-sneltoetsen in PhpStorm

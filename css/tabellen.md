@@ -86,57 +86,12 @@ In het onderstaande voorbeeld zie je direct het visuele verschil tussen het mode
 
 <CodeSandbox
   title="Voorbeeld: border-collapse en border-spacing"
-  activeCodeTab="css"
   height="480px"
+  initialTab="split"
+  activeCodeTab="css"
   highlightHtml=""
   highlightCss="17,31-32"
   highlightJs=""
-  css='/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-/* Basisinrichting pagina */
-body {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: #212529;
-  padding: 1rem;
-}
-/* Samengevouwen randen (meest gebruikt) */
-.tabel-samengevouwen {
-  width: 100%;
-  margin-bottom: 2rem;
-  border-collapse: collapse;
-}
-.tabel-samengevouwen th,
-.tabel-samengevouwen td {
-  border: 1px solid #1e2d5a;
-  padding: 0.6rem 0.8rem;
-}
-.tabel-samengevouwen th {
-  background-color: #1e2d5a;
-  color: #ffffff;
-}
-/* Gescheiden randen met tussenruimte */
-.tabel-gescheiden {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 6px;
-}
-.tabel-gescheiden th,
-.tabel-gescheiden td {
-  border: 1px solid #e87722;
-  padding: 0.6rem 0.8rem;
-}
-.tabel-gescheiden th {
-  background-color: #e87722;
-  color: #ffffff;
-}
-caption {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}'
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -193,6 +148,53 @@ caption {
   </table>
 </body>
 </html>'
+  css='/* Universele resetter */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Basisinrichting pagina */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #212529;
+  padding: 1rem;
+}
+/* Samengevouwen randen (meest gebruikt) */
+.tabel-samengevouwen {
+  width: 100%;
+  margin-bottom: 2rem;
+  border-collapse: collapse;
+}
+.tabel-samengevouwen th,
+.tabel-samengevouwen td {
+  border: 1px solid #1e2d5a;
+  padding: 0.6rem 0.8rem;
+}
+.tabel-samengevouwen th {
+  background-color: #1e2d5a;
+  color: #ffffff;
+}
+/* Gescheiden randen met tussenruimte */
+.tabel-gescheiden {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 6px;
+}
+.tabel-gescheiden th,
+.tabel-gescheiden td {
+  border: 1px solid #e87722;
+  padding: 0.6rem 0.8rem;
+}
+.tabel-gescheiden th {
+  background-color: #e87722;
+  color: #ffffff;
+}
+caption {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}'
+  js=''
 />
 
 ## Positie van het bijschrift: `caption-side`
@@ -393,79 +395,12 @@ In het onderstaande voorbeeld zie je hoe `thead`, `tbody`, `tfoot`, zebra-stripi
 
 <CodeSandbox
   title="Voorbeeld: Professionele datatabel met zebra-striping en hover"
-  activeCodeTab="css"
   height="520px"
+  initialTab="split"
+  activeCodeTab="css"
   highlightHtml=""
-  highlightCss="41-44,50-60"
+  highlightCss="54-55,58-59"
   highlightJs=""
-  css='/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-/* Pagina lettertype en achtergrond */
-body {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: #2b2d42;
-  padding: 1.5rem;
-}
-/* Tabel basisopmaak */
-.campus-statistiek {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
-}
-/* Titel van de tabel */
-.campus-statistiek caption {
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-align: left;
-  margin-bottom: 0.75rem;
-  color: #1e2d5a;
-}
-/* Cellen opmaken */
-.campus-statistiek th,
-.campus-statistiek td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #dee2e6;
-}
-/* Koprij stijlen */
-.campus-statistiek thead th {
-  background-color: #1e2d5a;
-  color: #ffffff;
-  font-weight: 600;
-  text-align: right;
-}
-/* Eerste kolom altijd links uitlijnen */
-.campus-statistiek th:first-child,
-.campus-statistiek td:first-child {
-  text-align: left;
-}
-/* Cijferkolommen standaard rechts */
-.campus-statistiek tbody td {
-  text-align: right;
-}
-/* Eerste kolom in gegevensrijen accentueren */
-.campus-statistiek tbody td:first-child {
-  font-weight: 500;
-}
-/* Zebra-striping op even rijen */
-.campus-statistiek tbody tr:nth-child(even) {
-  background-color: #f8f9fa;
-}
-/* Interactief hover effect */
-.campus-statistiek tbody tr:hover {
-  background-color: #e8f0fe;
-}
-/* Voettekst styling */
-.campus-statistiek tfoot th,
-.campus-statistiek tfoot td {
-  font-weight: bold;
-  background-color: #edf2f7;
-  border-top: 2px solid #1e2d5a;
-  text-align: right;
-}'
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -528,6 +463,75 @@ body {
   </table>
 </body>
 </html>'
+  css='/* Universele resetter */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Pagina lettertype en achtergrond */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #2b2d42;
+  padding: 1.5rem;
+}
+/* Tabel basisopmaak */
+.campus-statistiek {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+/* Titel van de tabel */
+.campus-statistiek caption {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0.75rem;
+  color: #1e2d5a;
+}
+/* Cellen opmaken */
+.campus-statistiek th,
+.campus-statistiek td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+/* Koprij stijlen */
+.campus-statistiek thead th {
+  background-color: #1e2d5a;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: right;
+}
+/* Eerste kolom altijd links uitlijnen */
+.campus-statistiek th:first-child,
+.campus-statistiek td:first-child {
+  text-align: left;
+}
+/* Cijferkolommen standaard rechts */
+.campus-statistiek tbody td {
+  text-align: right;
+}
+/* Eerste kolom in gegevensrijen accentueren */
+.campus-statistiek tbody td:first-child {
+  font-weight: 500;
+}
+/* Zebra-striping op even rijen */
+.campus-statistiek tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+/* Interactief hover effect */
+.campus-statistiek tbody tr:hover {
+  background-color: #e8f0fe;
+}
+/* Voettekst styling */
+.campus-statistiek tfoot th,
+.campus-statistiek tfoot td {
+  font-weight: bold;
+  background-color: #edf2f7;
+  border-top: 2px solid #1e2d5a;
+  text-align: right;
+}'
+  js=''
 />
 
 ## Tabelbreedte en lay-outalgoritme: `table-layout`
@@ -595,48 +599,12 @@ In het onderstaande voorbeeld voorzien we de kolom met de totaalscore van een op
 
 <CodeSandbox
   title="Voorbeeld: Kolommen stijlen met colgroup en col"
-  activeCodeTab="css"
   height="440px"
-  highlightCss="17-19,21-24"
-  css='/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-body {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: #212529;
-  padding: 1.5rem;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-/* Kolomstijlen via col en colgroup */
-.kolom-accent {
-  background-color: #fff3cd;
-}
-.kolom-belangrijk {
-  background-color: #fce8e6;
-  border-left: 2px solid #e87722;
-}
-caption {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  text-align: left;
-}
-th, td {
-  padding: 0.6rem 1rem;
-  border: 1px solid #dee2e6;
-}
-thead th {
-  background-color: #1e2d5a;
-  color: #ffffff;
-}
-td:last-child {
-  font-weight: bold;
-}'
+  initialTab="split"
+  activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="18,21-22"
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -675,6 +643,46 @@ td:last-child {
   </table>
 </body>
 </html>'
+  css='/* Universele resetter */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #212529;
+  padding: 1.5rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+/* Kolomstijlen via col en colgroup */
+.kolom-accent {
+  background-color: #fff3cd;
+}
+.kolom-belangrijk {
+  background-color: #fce8e6;
+  border-left: 2px solid #e87722;
+}
+caption {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+th, td {
+  padding: 0.6rem 1rem;
+  border: 1px solid #dee2e6;
+}
+thead th {
+  background-color: #1e2d5a;
+  color: #ffffff;
+}
+td:last-child {
+  font-weight: bold;
+}'
+  js=''
 />
 
 ## Responsieve tabellen op mobiele toestellen

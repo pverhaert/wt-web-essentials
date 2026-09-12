@@ -84,8 +84,32 @@ In de onderstaande sandbox zie je het verschil tussen alinea's (blok) en spans/l
 
 <CodeSandbox
   title="Voorbeeld: Blok versus Inline"
-  activeCodeTab="css"
   height="460px"
+  initialTab="split"
+  activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="34-35,41"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blok versus Inline</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <div class="vak-blok">
+    <h2>Blokelement (h2)</h2>
+    <p>Dit is een alinea. Alineas zijn blokelementen en vullen automatisch de hele breedte van hun ouder.</p>
+  </div>
+
+  <p class="tekst-met-inline">
+    In deze alinea bevindt zich een <span class="inline-accent">span met stijlen</span> en een
+    <a href="#" class="inline-link">hyperlink</a>. Merk op hoe beide elementen netjes meevloeien met de omringende tekst en hun opgegeven breedte van 250px negeren.
+  </p>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -94,7 +118,7 @@ In de onderstaande sandbox zie je het verschil tussen alinea's (blok) en spans/l
 }
 /* Algemene paginastijl */
 body {
-  font-family: system-ui, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #212529;
   padding: 1.5rem;
   line-height: 1.6;
@@ -130,26 +154,7 @@ body {
   font-weight: 600;
   width: 200px; /* Heeft GEEN effect op inline */
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blok versus Inline</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="vak-blok">
-    <h2>Blokelement (h2)</h2>
-    <p>Dit is een alinea. Alineas zijn blokelementen en vullen automatisch de hele breedte van hun ouder.</p>
-  </div>
-
-  <p class="tekst-met-inline">
-    In deze alinea bevindt zich een <span class="inline-accent">span met stijlen</span> en een
-    <a href="#" class="inline-link">hyperlink</a>. Merk op hoe beide elementen netjes meevloeien met de omringende tekst en hun opgegeven breedte van 250px negeren.
-  </p>
-</body>
-</html>'
+  js=''
 />
 
 ## Het weergavetype wijzigen: `display: block` en `display: inline`
@@ -256,9 +261,31 @@ In het onderstaande voorbeeld transformeren we gewone ankerlinks (`<a>`) naar ee
 
 <CodeSandbox
   title="Voorbeeld: Knoppenbalk met inline-block"
-  activeCodeTab="css"
-  highlightCss="27-31"
   height="440px"
+  initialTab="split"
+  activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="28-32"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knoppenbalk met inline-block</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <div class="knoppen-container">
+    <h2>IT Factory - Thomas More Campus Geel</h2>
+    <nav>
+      <a href="#" class="knop knop-primair">Inschrijven voor 2026-2027</a>
+      <a href="#" class="knop knop-secundair">Infodag bezoeken</a>
+      <a href="#" class="knop knop-omlijnd">Brochure downloaden</a>
+    </nav>
+  </div>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -267,7 +294,7 @@ In het onderstaande voorbeeld transformeren we gewone ankerlinks (`<a>`) naar ee
 }
 /* Pagina lettertype */
 body {
-  font-family: system-ui, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #2b2d42;
   padding: 2rem;
   background-color: #f8fafc;
@@ -325,25 +352,7 @@ body {
   border-color: #1e2d5a;
   background-color: #f1f5f9;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Knoppenbalk met inline-block</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="knoppen-container">
-    <h2>IT Factory - Thomas More Campus Geel</h2>
-    <nav>
-      <a href="#" class="knop knop-primair">Inschrijven voor 2026-2027</a>
-      <a href="#" class="knop knop-secundair">Infodag bezoeken</a>
-      <a href="#" class="knop knop-omlijnd">Brochure downloaden</a>
-    </nav>
-  </div>
-</body>
-</html>'
+  js=''
 />
 
 ## Elementen verbergen: `display: none` versus `visibility: hidden`
@@ -397,9 +406,36 @@ In het onderstaande voorbeeld staan drie identieke informatieblokken. Blok 2 is 
 
 <CodeSandbox
   title="Voorbeeld: display: none versus visibility: hidden"
-  activeCodeTab="css"
-  highlightCss="38-40,42-44"
   height="480px"
+  initialTab="split"
+  activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="39,43"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>display: none vs visibility: hidden</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <h2>Situatie 1: display: none (Vak 2 verdwijnt, Vak 3 schuift op)</h2>
+  <div class="rij">
+    <div class="vak">Vak 1</div>
+    <div class="vak verberg-display">Vak 2 (display: none)</div>
+    <div class="vak">Vak 3</div>
+  </div>
+
+  <h2>Situatie 2: visibility: hidden (Vak 5 is onzichtbaar, maar behoudt zijn plek)</h2>
+  <div class="rij">
+    <div class="vak">Vak 4</div>
+    <div class="vak verberg-visibility">Vak 5 (visibility: hidden)</div>
+    <div class="vak">Vak 6</div>
+  </div>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -408,7 +444,7 @@ In het onderstaande voorbeeld staan drie identieke informatieblokken. Blok 2 is 
 }
 /* Paginastijl */
 body {
-  font-family: system-ui, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #212529;
   padding: 1.5rem;
 }
@@ -444,30 +480,7 @@ h2 {
 .verberg-visibility {
   visibility: hidden;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>display: none vs visibility: hidden</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <h2>Situatie 1: display: none (Vak 2 verdwijnt, Vak 3 schuift op)</h2>
-  <div class="rij">
-    <div class="vak">Vak 1</div>
-    <div class="vak verberg-display">Vak 2 (display: none)</div>
-    <div class="vak">Vak 3</div>
-  </div>
-
-  <h2>Situatie 2: visibility: hidden (Vak 5 is onzichtbaar, maar behoudt zijn plek)</h2>
-  <div class="rij">
-    <div class="vak">Vak 4</div>
-    <div class="vak verberg-visibility">Vak 5 (visibility: hidden)</div>
-    <div class="vak">Vak 6</div>
-  </div>
-</body>
-</html>'
+  js=''
 />
 
 ### Zelf experimenteren met de display-simulator

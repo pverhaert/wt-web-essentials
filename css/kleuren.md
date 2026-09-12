@@ -72,7 +72,7 @@ In onderstaand voorbeeld zie je hoe `color` en `background-color` worden toegepa
 ```css
 /* Algemene paginastijl */
 body {
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #1e2d5a;
@@ -108,13 +108,31 @@ h1 {
 <CodeSandbox
   title="Basis tekst- en achtergrondkleuren"
   height="460px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="6-7,11,16,20-21,28"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kleuren Voorbeeld</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <h1>Thomas More Campus Geel</h1>
+  <p class="inleiding">Welkom bij de opleiding Toegepaste Informatica.</p>
+  <div class="infoblok">
+    <h2>Belangrijke mededeling</h2>
+    <p>De lessen webontwikkeling starten stipt in lokaal B102.</p>
+  </div>
+</body>
+</html>'
   css='/* Algemene paginastijl */
 body {
-  font-family: sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #1e2d5a;
@@ -141,23 +159,7 @@ h1 {
 .infoblok h2 {
   color: #1e2d5a;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kleuren Voorbeeld</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <h1>Thomas More Campus Geel</h1>
-  <p class="inleiding">Welkom bij de opleiding Toegepaste Informatica.</p>
-  <div class="infoblok">
-    <h2>Belangrijke mededeling</h2>
-    <p>De lessen webontwikkeling starten stipt in lokaal B102.</p>
-  </div>
-</body>
-</html>'
+  js=''
 />
 
 
@@ -492,7 +494,7 @@ In onderstaande sandbox kan je met de muis over de link bewegen en met de linker
 ```css
 /* Pagina-achtergrond en algemene tekstkleur */
 body {
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   background-color: #f1f5f9;
@@ -541,13 +543,30 @@ body {
 <CodeSandbox
   title="Interactieve linkstijlen met het LVFHA-principe"
   height="450px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="18,24,28-29,33,38"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link Kleuren</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <div class="kaart">
+    <h2>Thomas More ICT Opleidingen</h2>
+    <p>Ontdek alles over programmeren, netwerken en cloud engineering in Geel.</p>
+    <a href="https://www.thomasmore.be" class="cta-link">Bezoek de campuswebsite</a>
+  </div>
+</body>
+</html>'
   css='/* Pagina-achtergrond en algemene tekstkleur */
 body {
-  font-family: sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   background-color: #f1f5f9;
@@ -585,24 +604,13 @@ body {
 .cta-link:active {
   color: #9a3412;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Link Kleuren</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="kaart">
-    <h2>Thomas More ICT Opleidingen</h2>
-    <p>Ontdek alles over programmeren, netwerken en cloud engineering in Geel.</p>
-    <a href="https://www.thomasmore.be" class="cta-link">Bezoek de campuswebsite</a>
-  </div>
-</body>
-</html>'
+  js=''
 />
 
+::: info Belangrijke regels voor pseudo-klassen
+- **De volgorde is bindend, maar niet elke klasse is verplicht:** De volgorde van het *LoVe Fears HAte*-principe (`:link`, `:visited`, `:focus`, `:hover`, `:active`) moet altijd gerespecteerd worden. Gebruik je bijvoorbeeld enkel `:hover` en `:focus`, dan plaats je `:focus` vóór `:hover`. Laat je `:visited` of `:active` weg, dan behouden de overige klassen gewoon hun onderlinge volgorde.
+- **`:hover` op andere elementen:** De pseudo-klasse `:hover` is niet beperkt tot hyperlinks. Je kunt `:hover` toepassen op vrijwel elk HTML-element. Denk bijvoorbeeld aan een productkaart of infoblok (`<div>`) dat subtiel van achtergrondkleur verandert of een schaduw krijgt wanneer de bezoeker er met de muis over beweegt, of een tabelrij (`<tr>`) die oplicht om de leesbaarheid van brede gegevenstabellen te vergroten.
+:::
 
 ## PhpStorm en Emmet sneltoetsen
 
@@ -634,12 +642,14 @@ In PhpStorm kan je met behulp van Emmet-afkortingen binnen enkele toetsaanslagen
 ### Regels en afspraken
 
 - **WCAG Contrastnorm:** Zorg voor minimaal **4.5:1** contrastverhouding tussen tekst en achtergrond voor normale tekst (3:1 voor grote tekst vanaf 24px of vet 18.5px).
-- **LoVe Fears HAte volgorde:** Schrijf interactieve pseudo-klassen voor links altijd in deze exacte volgorde:
+- **LoVe Fears HAte volgorde:** Schrijf interactieve pseudo-klassen altijd in deze vaste volgorde:
   1. `:link` (ongebezochte link)
   2. `:visited` (al bezochte link)
   3. `:focus` (toetsenbordfocus)
   4. `:hover` (muisaanwijzer erboven)
   5. `:active` (ingedrukt)
+  Niet alle vijf de klassen zijn verplicht, maar de onderlinge volgorde van de gekozen klassen moet altijd behouden blijven (bijvoorbeeld `:focus` vóór `:hover`).
+- **`:hover` op andere elementen:** De pseudo-klasse `:hover` werkt op vrijwel elk HTML-element (zoals kaarten, knoppen of tabelrijen), niet alleen op hyperlinks.
 - **Kleurharmonie:** Gebruik HSL als je eenvoudig lichtere of donkerdere tinten van dezelfde merkkleur wilt maken door enkel de `L` (lichtheid) aan te passen.
 
 ### Veelgemaakte fouten

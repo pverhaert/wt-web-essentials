@@ -241,8 +241,8 @@ export default defineConfig({
 
     // Footer
     footer: {
-      copyright: 'Thomas More Hogeschool - IT Factory',
-      message: 'Web Essentials - Basiscursus HTML en CSS<br><div style="color: silver; font-size: .7rem; line-height: 1.; font-weight: 400">Deze cursus is grotendeels geschreven en gecodeerd door <a href="https://antigravity.google/" target="_blank" rel="noopener noreferrer">Google Antigravity</a><br>onder supervisie van Patrick Verhaert en bevat tevens AI-gegenereerde illustraties.</div>',
+      copyright: 'Web Essentials - Basiscursus HTML en CSS<br>Thomas More Hogeschool - IT Factory',
+      message: 'Deze cursus is grotendeels geschreven en gecodeerd door <a href="https://antigravity.google/" target="_blank" rel="noopener noreferrer">Google Antigravity</a> onder supervisie van Patrick Verhaert en bevat tevens AI-gegenereerde illustraties.',
     },
   },
 

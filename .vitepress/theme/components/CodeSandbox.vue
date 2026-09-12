@@ -230,7 +230,6 @@ const props = withDefaults(
     highlightHtml?: string
     highlightCss?: string
     highlightJs?: string
-    highlightLines?: string
   }>(),
   {
     src: '',
@@ -245,7 +244,6 @@ const props = withDefaults(
     highlightHtml: '',
     highlightCss: '',
     highlightJs: '',
-    highlightLines: '',
   }
 )
 

@@ -75,10 +75,32 @@ In het onderstaande interactieve voorbeeld zie je het cruciale verschil tussen e
 <CodeSandbox
   title="Vaste breedte versus Maximale breedte"
   height="450px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="28,32-33"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breedte en Max-width Demo</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <!-- Starre vaste breedte -->
+  <div class="kader vaste-breedte">
+    <h4>Star: width: 28rem</h4>
+    <p>Dit kader blijft altijd exact 28rem (448px) breed. Maak het venster of de preview maar eens smaller: het kader breekt uit beeld.</p>
+  </div>
+  <!-- Flexibele maximale breedte -->
+  <div class="kader flexibele-breedte">
+    <h4>Flexibel: width: 100%; max-width: 28rem</h4>
+    <p>Dit kader is nooit breder dan 28rem, maar krimpt vloeiend mee zodra het scherm smaller wordt. Ideaal voor smartphones en tablets.</p>
+  </div>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -87,7 +109,7 @@ In het onderstaande interactieve voorbeeld zie je het cruciale verschil tussen e
 }
 /* Basisinstellingen */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   padding: 1.5rem;
   background-color: #ffffff;
@@ -115,27 +137,7 @@ body {
   background-color: #eff6ff;
   border-color: #2563eb;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Breedte en Max-width Demo</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <!-- Starre vaste breedte -->
-  <div class="kader vaste-breedte">
-    <h4>Star: width: 28rem</h4>
-    <p>Dit kader blijft altijd exact 28rem (448px) breed. Maak het venster of de preview maar eens smaller: het kader breekt uit beeld.</p>
-  </div>
-  <!-- Flexibele maximale breedte -->
-  <div class="kader flexibele-breedte">
-    <h4>Flexibel: width: 100%; max-width: 28rem</h4>
-    <p>Dit kader is nooit breder dan 28rem, maar krimpt vloeiend mee zodra het scherm smaller wordt. Ideaal voor smartphones en tablets.</p>
-  </div>
-</body>
-</html>'
+  js=''
 />
 
 ## Binnenruimte: Padding
@@ -171,38 +173,11 @@ Hieronder zie je hoe padding direct zorgt voor leesbare en luchtige tekstblokken
 <CodeSandbox
   title="Padding instellen"
   height="420px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
-  css='/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-/* Algemene paginastijl */
-body {
-  font-family: Verdana, Geneva, sans-serif;
-  line-height: 1.5;
-  padding: 1.5rem;
-  background-color: #ffffff;
-  color: #222222;
-}
-/* Stijl voor de voorbeeldboxen */
-.box {
-  background-color: #f8fafc;
-  border: 2px solid #1e2d5a;
-  margin-bottom: 1.5rem;
-}
-/* Zonder padding plakt de tekst tegen de rand */
-.geen-padding {
-  padding: 0;
-}
-/* Met padding ontstaat er ademruimte rondom */
-.met-padding {
-  padding: 1.25rem 1.5rem;
-}'
+  highlightHtml=""
+  highlightCss="23,27"
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -222,6 +197,35 @@ body {
   </div>
 </body>
 </html>'
+  css='/* Universele resetter */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Algemene paginastijl */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  color: #222222;
+}
+/* Stijl voor de voorbeeldboxen */
+.box {
+  background-color: #f8fafc;
+  border: 2px solid #1e2d5a;
+  margin-bottom: 1.5rem;
+}
+/* Zonder padding plakt de tekst tegen de rand */
+.geen-padding {
+  padding: 0;
+}
+/* Met padding ontstaat er ademruimte rondom */
+.met-padding {
+  padding: 1.25rem 1.5rem;
+}'
+  js=''
 />
 
 ## Buitenruimte: Margin
@@ -262,32 +266,11 @@ De browser verdeelt de resterende beschikbare horizontale ruimte gelijk over de 
 <CodeSandbox
   title="Margin en Centreren"
   height="420px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
-  css='/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-/* Algemene container */
-body {
-  font-family: Verdana, Geneva, sans-serif;
-  background-color: #ffffff;
-  padding: 1.5rem;
-}
-/* Gecentreerde box met een vaste breedte */
-.gecentreerd {
-  width: 20rem;
-  margin: 2rem auto;
-  padding: 1.25rem;
-  background-color: #f5f5f7;
-  border: 2px solid #EC6639;
-  text-align: center;
-  color: #1e2d5a;
-}'
+  highlightHtml=""
+  highlightCss="16-17"
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -304,6 +287,29 @@ body {
   </div>
 </body>
 </html>'
+  css='/* Universele resetter */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Algemene container */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  padding: 1.5rem;
+}
+/* Gecentreerde box met een vaste breedte */
+.gecentreerd {
+  width: 20rem;
+  margin: 2rem auto;
+  padding: 1.25rem;
+  background-color: #f5f5f7;
+  border: 2px solid #EC6639;
+  text-align: center;
+  color: #1e2d5a;
+}'
+  js=''
 />
 
 ### Samenvallende marges (Margin Collapse)
@@ -321,14 +327,47 @@ In de onderstaande sandbox zie je dit effect gedemonstreerd op ruitjespapier. De
 <CodeSandbox
   title="Samenvallende marges (Margin Collapse)"
   height="460px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
-  css='/* Ruitjesachtergrond op lijn 8 tot en met 11 om afstanden zichtbaar te maken */
-/* De tekst binnen de blokken beschrijft de werking van de marges ;-) */
+  highlightHtml=""
+  highlightCss="33,38-39,44"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Margin Collapse Demo</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <h3>Margin Collapse</h3>
+  <!-- Blok 1 met margin-bottom: 2rem -->
+  <div class="box box-1">
+    <strong>Blok 1</strong> (margin-bottom: 2rem)<br>
+    Dit blok duwt naar onder met een marge van 2rem (32px).
+  </div>
+  <!-- Blok 2 met margin-top: 1rem en margin-bottom: 2rem -->
+  <div class="box box-2">
+    <strong>Blok 2</strong> (margin-top: 1rem &amp; margin-bottom: 2rem)<br>
+    De marge tussen Blok 1 en 2 telt niet op tot 3rem, maar valt samen naar 2rem.
+  </div>
+  <!-- Blok 3 met margin-top: 1rem -->
+  <div class="box box-3">
+    <strong>Blok 3</strong> (margin-top: 1rem)<br>
+    Ook hier bedraagt de tussenruimte exact 2rem: de grootste marge wint altijd.
+  </div>
+</body>
+</html>'
+  css='/* Universele resetter */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Ruitjesachtergrond om afstanden zichtbaar te maken */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #222222;
   margin: 0;
   padding: 1.5rem;
@@ -365,33 +404,7 @@ h3 {
   background-color: #ffd8cc;
   margin-top: 1rem;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Margin Collapse Demo</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <h3>Margin Collapse</h3>
-  <!-- Blok 1 met margin-bottom: 2rem -->
-  <div class="box box-1">
-    <strong>Blok 1</strong> (margin-bottom: 2rem)<br>
-    Dit blok duwt naar onder met een marge van 2rem (32px).
-  </div>
-  <!-- Blok 2 met margin-top: 1rem en margin-bottom: 2rem -->
-  <div class="box box-2">
-    <strong>Blok 2</strong> (margin-top: 1rem &amp; margin-bottom: 2rem)<br>
-    De marge tussen Blok 1 en 2 telt niet op tot 3rem, maar valt samen naar 2rem.
-  </div>
-  <!-- Blok 3 met margin-top: 1rem -->
-  <div class="box box-3">
-    <strong>Blok 3</strong> (margin-top: 1rem)<br>
-    Ook hier bedraagt de tussenruimte exact 2rem: de grootste marge wint altijd.
-  </div>
-</body>
-</html>'
+  js=''
 />
 
 
@@ -477,11 +490,35 @@ Voeg je het trefwoord `inset` toe aan het begin of einde van de notatie, dan val
 <CodeSandbox
   title="Randen en afronding"
   height="480px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
-  css="/* Universele resetter */
+  highlightHtml=""
+  highlightCss="20,41,43-44"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Randen en Border-radius</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <!-- Infokaart met border-left -->
+  <div class="info-kaart">
+    <h4>Info</h4>
+    <p>Randen hoeven niet rondom een element te lopen. Met een specifieke zijderand zoals border-left creëer je in een handomdraai een professioneel accent.</p>
+  </div>
+  <!-- Ingelijste foto met figcaption -->
+  <figure class="fotokader">
+    <img
+      src="https://picsum.photos/id/124/300/200"
+      alt="Bootje op een kalm meer">
+    <figcaption>© Anton Sulsky</figcaption>
+  </figure>
+</body>
+</html>'
+  css='/* Universele resetter */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -489,7 +526,7 @@ Voeg je het trefwoord `inset` toe aan het begin of einde van de notatie, dan val
 }
 /* Ruitjesachtergrond om afmetingen en marges te visualiseren */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 1rem;
   background-image:
@@ -527,36 +564,13 @@ body {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, .5);
   padding: 1.5rem;
 }
-/* Het bijschrift onder de foto*/
+/* Het bijschrift onder de foto */
 .fotokader figcaption {
   font-size: 0.85rem;
   color: #475569;
   margin-top: 0.5rem;
-}"
-  html="<!DOCTYPE html>
-<html lang=&quot;nl&quot;>
-<head>
-  <meta charset=&quot;UTF-8&quot;>
-  <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-  <title>Randen en Border-radius</title>
-  <link rel=&quot;stylesheet&quot; href=&quot;stijl.css&quot;>
-</head>
-<body>
-  <!-- Infokaart met border-left -->
-  <div class=&quot;info-kaart&quot;>
-    <h4>Info</h4>
-    <p>Randen hoeven niet rondom een element te lopen.
-      Met een specifieke zijderand zoals border-left creëer je in een handomdraai een professioneel accent.
-  </div>
-  <!-- Ingeijste foto met figcaption -->
-  <figure class=&quot;fotokader&quot;>
-    <img
-      src=&quot;https://picsum.photos/id/124/300/200&quot;
-      alt=&quot;Bootje op een kalm meer&quot;>
-    <figcaption>© Anton Sulsky</figcaption>
-  </figure>
-</body>
-</html>"
+}'
+  js=''
 />
 
 ## Box Sizing: Content-box versus Border-box
@@ -603,15 +617,37 @@ Hieronder vergelijken we beide instellingen visueel:
 <CodeSandbox
   title="Content-box versus Border-box"
   height="460px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
-  css="html {
+  highlightHtml=""
+  highlightCss="31,35"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Box Sizing Vergelijking</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <!-- Box met content-box -->
+  <div class="box content-box">
+    <p class="bold">box-sizing: content-box</p>
+    <p>Breedte (20rem) + padding (2 x 1rem) + border (2 x 1rem) = 24rem werkelijke breedte.</p>
+  </div>
+  <!-- Box met border-box -->
+  <div class="box border-box">
+    <p class="bold">box-sizing: border-box</p>
+    <p>Totale breedte blijft exact 20rem. De padding en border zitten inbegrepen.</p>
+  </div>
+</body>
+</html>'
+  css='html {
   font-size: 14px;
 }
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 1rem;
   line-height: 1.5;
@@ -620,7 +656,7 @@ body {
     linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
   background-size: 16px 16px;
 }
-/*vette tekst */
+/* Vette tekst */
 .bold {
   font-weight: bold;
 }
@@ -635,35 +671,15 @@ body {
 .box p {
   margin: 0;
 }
-/* Standaard model: wordt in totaal 332px breed */
+/* Standaard model: wordt in totaal 24rem breed */
 .content-box {
   box-sizing: content-box;
 }
-/* Modern model: blijft exact 280px breed*/
+/* Modern model: blijft exact 20rem breed */
 .border-box {
   box-sizing: border-box;
-}"
-  html="<!DOCTYPE html>
-<html lang=&quot;nl&quot;>
-<head>
-  <meta charset=&quot;UTF-8&quot;>
-  <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-  <title>Box Sizing Vergelijking</title>
-  <link rel=&quot;stylesheet&quot; href=&quot;stijl.css&quot;>
-</head>
-<body>
-  <!-- Box met content-box -->
-  <div class=&quot;box content-box&quot;>
-    <p class=&quot;bold&quot;>box-sizing: content-box</p>
-    <p>Breedte (20rem) + padding (2 x 1rem) + border ( 2 x 1rem) = 24rem werkelijke breedte.
-  </div>
-  <!-- Box met border-box -->
-  <div class=&quot;box border-box&quot;>
-    <p class=&quot;bold&quot;>box-sizing: border-box</p>
-    <p>Totale breedte blijft exact 20rem. De padding en border zitten inbegrepen.
-  </div>
-</body>
-</html>"
+}'
+  js=''
 />
 
 ### De universele reset voor elk project
@@ -716,22 +732,55 @@ In de onderstaande sandbox kan je het gedrag van de vier waarden rechtstreeks ve
 <CodeSandbox
   title="Overflow mogelijkheden"
   height="500px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="45,49,53,57"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overflow Demo</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <h3>CSS Overflow Eigenschappen</h3>
+  <!-- 1. Visible -->
+  <h4>1. overflow: visible (standaard)</h4>
+  <div class="box overflow-visible">
+    <p>Deze tekst is te lang voor de vaste hoogte van 5.5rem. Bij visible loopt de inhoud ongehinderd buiten de randen van het kader en overlapt met onderliggende inhoud op de pagina.</p>
+  </div>
+  <!-- 2. Hidden -->
+  <h4>2. overflow: hidden</h4>
+  <div class="box overflow-hidden">
+    <p>Deze tekst is ook te lang voor de vaste hoogte. Bij hidden snijdt de browser alle overlopende zinnen netjes af aan de rand; de rest van de tekst blijft onzichtbaar en onbereikbaar.</p>
+  </div>
+  <!-- 3. Scroll -->
+  <h4>3. overflow: scroll</h4>
+  <div class="box overflow-scroll">
+    <p>Bij scroll toont het kader altijd schuifbalken (zowel horizontaal als verticaal), ongeacht of de tekst effectief te lang is of er perfect in past.</p>
+  </div>
+  <!-- 4. Auto -->
+  <h4>4. overflow: auto</h4>
+  <div class="box overflow-auto">
+    <p>Auto is de meest gebruikte en gebruiksvriendelijke instelling. Alleen wanneer de tekst het kader overschrijdt, verschijnt er automatisch een handige verticale schuifbalk.</p>
+  </div>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 /* Basisinstellingen */
 html {
   font-size: 16px;
 }
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   padding: 1rem;
   background-color: lightcoral;
@@ -778,38 +827,7 @@ h4 {
 .overflow-auto {
   overflow: auto;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Overflow Demo</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <h3>CSS Overflow Eigenschappen</h3>
-  <!-- 1. Visible -->
-  <h4>1. overflow: visible (standaard)</h4>
-  <div class="box overflow-visible">
-    <p>Deze tekst is te lang voor de vaste hoogte van 5.5rem. Bij visible loopt de inhoud ongehinderd buiten de randen van het kader en overlapt met onderliggende inhoud op de pagina.</p>
-  </div>
-  <!-- 2. Hidden -->
-  <h4>2. overflow: hidden</h4>
-  <div class="box overflow-hidden">
-    <p>Deze tekst is ook te lang voor de vaste hoogte. Bij hidden snijdt de browser alle overlopende zinnen netjes af aan de rand; de rest van de tekst blijft onzichtbaar en onbereikbaar.</p>
-  </div>
-  <!-- 3. Scroll -->
-  <h4>3. overflow: scroll</h4>
-  <div class="box overflow-scroll">
-    <p>Bij scroll toont het kader altijd schuifbalken (zowel horizontaal als verticaal), ongeacht of de tekst effectief te lang is of er perfect in past.</p>
-  </div>
-  <!-- 4. Auto -->
-  <h4>4. overflow: auto</h4>
-  <div class="box overflow-auto">
-    <p>Auto is de meest gebruikte en gebruiksvriendelijke instelling. Alleen wanneer de tekst het kader overschrijdt, verschijnt er automatisch een handige verticale schuifbalk.</p>
-  </div>
-</body>
-</html>'
+  js=''
 />
 
 

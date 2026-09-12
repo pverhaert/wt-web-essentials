@@ -91,12 +91,34 @@ In de onderstaande sandbox zie je het verschil tussen `outside` en `inside` dire
 
 <CodeSandbox
   title="List style types en positionering"
-  highlightHtml=""
-  highlightCss="34,35,39,40"
-  highlightJs=""
   height="480px"
-
+  initialTab="split"
   activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="34-35,39-40"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lijststijlen en Positie</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <h3>1. list-style-position: outside (standaard)</h3>
+  <ul class="buiten">
+    <li>Het vierkantje bevindt zich links buiten de achtergrond van het lijstitem.</li>
+    <li>Als een tekst langer is en doorloopt naar een tweede regel, blijft de tekst netjes ingesprongen staan naast de marker.</li>
+  </ul>
+
+  <h3>2. list-style-position: inside</h3>
+  <ul class="binnen">
+    <li>De open cirkel bevindt zich nu binnen de achtergrond en de rand van het lijstitem.</li>
+    <li>Als de tekst afbreekt, loopt de tweede regel direct onder het opsommingsteken door.</li>
+  </ul>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -105,7 +127,7 @@ In de onderstaande sandbox zie je het verschil tussen `outside` en `inside` dire
 }
 /* Basisinstellingen */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   padding: 1.5rem;
   background-color: #ffffff;
@@ -138,28 +160,7 @@ ul.binnen {
   list-style-type: circle;
   list-style-position: inside;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lijststijlen en Positie</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <h3>1. list-style-position: outside (standaard)</h3>
-  <ul class="buiten">
-    <li>Het vierkantje bevindt zich links buiten de achtergrond van het lijstitem.</li>
-    <li>Als een tekst langer is en doorloopt naar een tweede regel, blijft de tekst netjes ingesprongen staan naast de marker.</li>
-  </ul>
-
-  <h3>2. list-style-position: inside</h3>
-  <ul class="binnen">
-    <li>De open cirkel bevindt zich nu binnen de achtergrond en de rand van het lijstitem.</li>
-    <li>Als de tekst afbreekt, loopt de tweede regel direct onder het opsommingsteken door.</li>
-  </ul>
-</body>
-</html>'
+  js=''
 />
 
 ## Eigen afbeeldingen als opsommingsteken: `list-style-image`
@@ -226,10 +227,31 @@ In de onderstaande sandbox combineren we `::marker` met CSS-variabelen voor een 
 <CodeSandbox
   title="Opsommingstekens stijlen met ::marker"
   height="460px"
-  highlightHtml=""
-  highlightCss="10,44-48"
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
+  highlightHtml=""
+  highlightCss="10,43-45"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marker Styling Demo</title>
+  <link rel="stylesheet" href="stijl.css">
+</head>
+<body>
+  <div class="checklist-container">
+    <h3>Thomas More Campus Geel</h3>
+    <ol>
+      <li>Activeer je studentenaccount en paswoord</li>
+      <li>Verken het lessenrooster in het studentenportaal</li>
+      <li>Installeer PhpStorm en Git op je laptop</li>
+      <li>Start met de cursus Web Essentials</li>
+    </ol>
+  </div>
+</body>
+</html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
@@ -244,7 +266,7 @@ In de onderstaande sandbox combineren we `::marker` met CSS-variabelen voor een 
 }
 /* Basisinstellingen */
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
   padding: 1.5rem;
   background-color: #f8fafc;
@@ -278,26 +300,7 @@ ol li::marker {
   font-weight: bold;
   font-size: 1.1rem;
 }'
-  html='<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marker Styling Demo</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="checklist-container">
-    <h3>Thomas More Campus Geel</h3>
-    <ol>
-      <li>Activeer je studentenaccount en paswoord</li>
-      <li>Verken het lessenrooster in het studentenportaal</li>
-      <li>Installeer PhpStorm en Git op je laptop</li>
-      <li>Start met de cursus Web Essentials</li>
-    </ol>
-  </div>
-</body>
-</html>'
+  js=''
 />
 
 ## De Lijst-Reset voor Navigatiemenu's

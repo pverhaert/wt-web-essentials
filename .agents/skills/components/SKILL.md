@@ -10,21 +10,32 @@ description: >
 
 Alle onderstaande componenten zijn globaal geregistreerd en direct beschikbaar in elk `.md`-bestand zonder extra import.
 
+## Verplichte werkwijze bij aanpassen van bestaande componenten
+
+Wanneer de gebruiker vraagt om een bestaande Vue-component aan te passen of uit te breiden:
+1. **NOOIT direct de code induiken of blindelings bewerken:** Ga niet herhaaldelijk door de componentcode zoeken of lezen.
+2. **Eerst voorstellen formuleren:** Geef altijd eerst een beknopte opsomming van mogelijke oplossingsrichtingen en hoe de aanpassing aangepakt kan worden.
+3. **Wacht op akkoord:** Pas nadat de gebruiker een keuze heeft gemaakt of akkoord heeft gegeven, wordt de concrete code-aanpassing uitgevoerd.
+
+---
+
 ## CodeSandbox
 
 Toont een live, interactief codevoorbeeld met ingebouwde CodeMirror 6 editor en live preview. Ondersteunt HTML, CSS en JavaScript.
 
 Zie de skill `code-examples` voor de volledige gebruiksregels en beperkingen.
 
+**Dwingende eis:** Elk CodeSandbox-element bevat **altijd alle 10 onderstaande props in deze exacte volgorde** (ook als ze leeg zijn):
+
 ```vue
 <CodeSandbox
   title="Voorbeeld met styling"
   height="450px"
+  initialTab="split"
   activeCodeTab="css"
-  css='h1 {
-  color: #EC6639;
-  font-family: sans-serif;
-}'
+  highlightHtml=""
+  highlightCss=""
+  highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -37,8 +48,26 @@ Zie de skill `code-examples` voor de volledige gebruiksregels en beperkingen.
   <h1>Oranje titel</h1>
 </body>
 </html>'
+  css='h1 {
+  color: #EC6639;
+  font-family: sans-serif;
+}'
+  js=''
 />
 ```
+
+| Nr | Prop | Type | Beschrijving |
+|:---:|---|---|---|
+| 1 | `title` | string | Titelbalk boven het codevoorbeeld |
+| 2 | `height` | string | Hoogte van het werkgebied (bijv. `450px`) |
+| 3 | `initialTab` | `'preview' \| 'code' \| 'split'` | Initiële weergavemodus |
+| 4 | `activeCodeTab` | `'html' \| 'css' \| 'js'` | Actieve codetab in de editor |
+| 5 | `highlightHtml` | string | Regelnummers om te markeren in HTML (bijv. `'3,5-7'`) |
+| 6 | `highlightCss` | string | Regelnummers om te markeren in CSS |
+| 7 | `highlightJs` | string | Regelnummers om te markeren in JS |
+| 8 | `html` | string | Volledige HTML-broncode |
+| 9 | `css` | string | CSS-stijlblad |
+| 10 | `js` | string | JavaScript-code |
 
 ## PageSummary
 
