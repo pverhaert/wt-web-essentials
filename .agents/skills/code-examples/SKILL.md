@@ -253,9 +253,9 @@ Vanaf het hoofdstuk **Box Model** start elke CSS-stylesheet in een CodeSandbox a
 
 Gebruik 2 spaties per inspringniveau, zowel voor HTML als CSS.
 
-### Naast de sandbox altijd een statisch codeblok
+### Didactische introductie in plaats van redundante statische codeblokken
 
-Voeg naast elke `<CodeSandbox>` ook een statisch markdown-codeblok toe, zodat studenten de code kunnen lezen zonder de sandbox te openen.
+Plaats **geen** volledig statisch HTML- of CSS-codeblok direct boven een `<CodeSandbox>` die exact dezelfde code toont (voorkom een 'wall of code'). Vervang dit altijd door een didactische toelichting met elementopbouw in selectornotatie en een overzichtstabel volgens de richtlijnen in `.agents/skills/sandbox-intro/SKILL.md`.
 
 ## Syntax van de CodeSandbox-component
 

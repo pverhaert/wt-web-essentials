@@ -415,13 +415,14 @@ Een declaratie met `!important` overschrijft alle voorgaande en latere normale d
 In goed gestructureerde CSS heb je `!important` vrijwel nooit nodig. Wanneer je `!important` gebruikt om snel een hardnekkig stijlenconflict op te lossen, doorbreek je de natuurlijke werking van de cascade. Voor je het weet moet je overal `!important` toevoegen om eerdere regels weer te overrulen, waardoor je CSS ononderhoudbaar wordt. Gebruik het dus uitsluitend in uitzonderlijke situaties.
 :::
 
-Test in het onderstaande interactieve voorbeeld hoe de cascade en bronvolgorde werken:
+Test in het onderstaande interactieve voorbeeld hoe de cascade en bronvolgorde werken:  
+Geef de blauwe tekstkleur maar eens voorrang op de rode tekstkleur door `!important` achter de kleurwaarde te plaatsen.
 
 <CodeSandbox
   title="De Cascade en bronvolgorde"
   height="450px"
   highlightHtml=""
-  highlightCss=""
+  highlightCss="3,10"
   highlightJs=""
   activeCodeTab="css"
   css='/*Eerste regel: blauw */

@@ -1,5 +1,5 @@
 <template>
-  <div class="fs-sandbox-page" :class="{ 'is-dark': isDark }">
+  <div class="fs-sandbox-page" :class="{ 'is-dark': isDark, 'is-dev': isDev }">
     <!-- Header balk -->
     <header class="fs-header">
       <div class="fs-header-left">
@@ -432,23 +432,21 @@
 
           <div class="fs-modal-body">
             <p class="fs-modal-desc">
-              Kopieer onderstaande component-code en plak deze direct in je Markdown-bestand in PhpStorm. De buitenste aanhalingstekens (bij <code>title=&quot;...&quot;</code> en <code>html=&quot;...&quot;</code>) zijn verplicht voor Vue. Alle aanhalingstekens <strong>binnenin jouw eigen code</strong> (zoals <code>class=&quot;...&quot;</code> of <code>src=&quot;...&quot;</code>) worden automatisch geconverteerd naar <code>&amp;quot;</code>.
+              Kopieer onderstaande component-code en plak deze direct in je Markdown-bestand in PhpStorm. De code bevat alle 10 verplichte properties in de exacte volgorde conform de cursusrichtlijnen van Web Essentials.
             </p>
 
             <div class="fs-modal-status-bar">
-              <div v-if="escapedQuoteCount > 0" class="fs-modal-status-item is-converted">
+              <div v-if="escapedSingleQuoteCount > 0" class="fs-modal-status-item is-converted">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                <span><strong>{{ escapedQuoteCount }}</strong> interne aanhalingstekens omgezet naar <code>&amp;quot;</code></span>
+                <span><strong>{{ escapedSingleQuoteCount }}</strong> interne enkele aanhalingstekens (<code>'</code>) veilig omgezet naar <code>&amp;#39;</code></span>
               </div>
-              <div v-else class="fs-modal-status-item is-zero">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="16" x2="12" y2="12" />
-                  <line x1="12" y1="8" x2="12.01" y2="8" />
+              <div v-else class="fs-modal-status-item is-converted">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
-                <span><strong>0</strong> interne aanhalingstekens in deze code (deze HTML bevat geen attributen zoals <code>class</code> of <code>src</code>)</span>
+                <span>Alle 10 verplichte properties aanwezig in de exacte volgorde</span>
               </div>
             </div>
 
@@ -466,7 +464,7 @@
             <!-- Optioneel regelaccentuering instellen -->
             <div class="fs-modal-highlights">
               <div class="fs-modal-highlight-row">
-                <span class="fs-modal-highlight-title">Regels accentueren (optioneel, bijv. <code>8</code> of <code>20-25</code>):</span>
+                <span class="fs-modal-highlight-title">Regels accentueren (klik op regelnummers in de editor of vul hieronder in):</span>
               </div>
               <div class="fs-modal-highlight-grid">
                 <div class="fs-modal-highlight-field">
@@ -562,7 +560,7 @@ import { indentWithTab, toggleComment } from '@codemirror/commands'
 import { bracketMatching } from '@codemirror/language'
 import { highlightSelectionMatches } from '@codemirror/search'
 import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
-import { createLineHighlightExtension } from '../composables/useLineHighlight'
+import { createLineHighlightExtension, toggleLineInRange } from '../composables/useLineHighlight'
 import { createCodeIndentation, indentCode, restoreIndentation } from '../composables/useCodeIndentation'
 import { createColorPickerExtension } from '../composables/useColorPicker'
 
@@ -980,7 +978,7 @@ const createEditorInstance = (
     langExt = [html({ autoCloseTags: true }), autoCloseTags]
   }
 
-  return new EditorView({
+  const view = new EditorView({
     doc: docText,
     extensions: [
       basicSetup,
@@ -1066,6 +1064,38 @@ const createEditorInstance = (
     ],
     parent: container,
   })
+
+  // Directe DOM event listener op view.dom in capture-fase zodat klikken op de gutter altijd worden opgevangen
+  view.dom.addEventListener('mousedown', (event: MouseEvent) => {
+    if (!isDev.value || event.button !== 0) return
+    const target = event.target as HTMLElement | null
+    if (!target) return
+
+    const gutterLineEl = target.closest('.cm-lineNumbers .cm-gutterElement') as HTMLElement | null
+    if (!gutterLineEl) return
+
+    let lineNum = parseInt(gutterLineEl.textContent?.trim() || '', 10)
+    if (isNaN(lineNum) || lineNum <= 0) {
+      const rect = gutterLineEl.getBoundingClientRect()
+      const y = (rect.top + rect.bottom) / 2
+      const line = view.lineBlockAtHeight(y - view.documentTop)
+      lineNum = view.state.doc.lineAt(line.from).number
+    }
+
+    if (lineNum > 0 && lineNum <= view.state.doc.lines) {
+      activeCodeLanguage.value = lang
+      if (lang === 'html') {
+        savedHighlightHtml.value = toggleLineInRange(savedHighlightHtml.value, lineNum)
+      } else if (lang === 'css') {
+        savedHighlightCss.value = toggleLineInRange(savedHighlightCss.value, lineNum)
+      } else if (lang === 'js') {
+        savedHighlightJs.value = toggleLineInRange(savedHighlightJs.value, lineNum)
+      }
+      event.preventDefault()
+    }
+  }, true)
+
+  return view
 }
 
 const initAllEditors = () => {
@@ -1203,20 +1233,15 @@ const isExportCopied = ref(false)
 const removeEmptyLines = ref(true)
 const exportTextareaRef = ref<HTMLTextAreaElement | null>(null)
 
-const escapedQuoteCount = computed(() => {
+const escapedSingleQuoteCount = computed(() => {
   let count = 0
-  if (currentCode.value) {
-    const matches = currentCode.value.match(/"/g)
-    if (matches) count += matches.length
+  const countIn = (str: string) => {
+    const matches = str.match(/'/g)
+    return matches ? matches.length : 0
   }
-  if (currentCss.value) {
-    const matches = currentCss.value.match(/"/g)
-    if (matches) count += matches.length
-  }
-  if (currentJs.value) {
-    const matches = currentJs.value.match(/"/g)
-    if (matches) count += matches.length
-  }
+  count += countIn(currentCode.value || '')
+  count += countIn(currentCss.value || '')
+  count += countIn(currentJs.value || '')
   return count
 })
 
@@ -1247,8 +1272,8 @@ const handleTextareaClick = (event: MouseEvent) => {
   }
 }
 
-const escapeForAttribute = (code: string, stripEmptyLines = false): string => {
-  if (!code) return ''
+const formatCodeProp = (code: string, stripEmptyLines = false): string => {
+  if (!code || !code.trim()) return "''"
   let processed = code
   if (stripEmptyLines) {
     processed = processed
@@ -1256,39 +1281,23 @@ const escapeForAttribute = (code: string, stripEmptyLines = false): string => {
       .filter((line) => line.trim().length > 0)
       .join('\n')
   }
-  return processed.replace(/"/g, '&quot;')
+  return `'${processed.replace(/'/g, '&#39;')}'`
 }
 
 const generatedSnippet = computed(() => {
   const parts: string[] = ['<CodeSandbox']
 
-  if (currentTitle.value && currentTitle.value.trim().length > 0) {
-    parts.push(`  title="${currentTitle.value.replace(/"/g, '&quot;')}"`)
-  }
-
+  const titleVal = (currentTitle.value || 'Live codevoorbeeld').replace(/"/g, '&quot;')
+  parts.push(`  title="${titleVal}"`)
   parts.push(`  height="${savedHeight.value || '450px'}"`)
-
-  if (hasCss.value || hasJs.value) {
-    if (activeCodeLanguage.value !== 'html') {
-      parts.push(`  activeCodeTab="${activeCodeLanguage.value}"`)
-    }
-  }
-
+  parts.push(`  initialTab="${activeTab.value || 'split'}"`)
+  parts.push(`  activeCodeTab="${activeCodeLanguage.value || 'html'}"`)
   parts.push(`  highlightHtml="${savedHighlightHtml.value || ''}"`)
   parts.push(`  highlightCss="${savedHighlightCss.value || ''}"`)
   parts.push(`  highlightJs="${savedHighlightJs.value || ''}"`)
-
-  if (hasCss.value && currentCss.value.trim().length > 0) {
-    parts.push(`  css="${escapeForAttribute(currentCss.value, removeEmptyLines.value)}"`)
-  }
-
-  if (hasJs.value && currentJs.value.trim().length > 0) {
-    parts.push(`  js="${escapeForAttribute(currentJs.value, removeEmptyLines.value)}"`)
-  }
-
-  if (currentCode.value && currentCode.value.trim().length > 0) {
-    parts.push(`  html="${escapeForAttribute(currentCode.value, removeEmptyLines.value)}"`)
-  }
+  parts.push(`  html=${formatCodeProp(currentCode.value, removeEmptyLines.value)}`)
+  parts.push(`  css=${formatCodeProp(currentCss.value, removeEmptyLines.value)}`)
+  parts.push(`  js=${formatCodeProp(currentJs.value, removeEmptyLines.value)}`)
 
   parts.push('/>')
   return parts.join('\n')
@@ -2525,5 +2534,20 @@ onBeforeUnmount(() => {
 :deep(.is-dark .cm-activeLineGutter) {
   background-color: rgba(255, 255, 255, 0.08) !important;
   color: #f1f5f9 !important;
+}
+
+/* Dev-modus: interactieve gutter om regelaccentuering direct aan/uit te klikken */
+:deep(.is-dev .cm-lineNumbers .cm-gutterElement),
+.is-dev :deep(.cm-lineNumbers .cm-gutterElement) {
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+:deep(.is-dev .cm-lineNumbers .cm-gutterElement:hover),
+.is-dev :deep(.cm-lineNumbers .cm-gutterElement:hover) {
+  color: #e87722 !important;
+  font-weight: bold;
+  background-color: rgba(232, 119, 34, 0.14);
+  border-radius: 2px;
 }
 </style>

@@ -47,63 +47,25 @@ p {
 
 ### Live voorbeeld: Tekst- en achtergrondkleuren
 
-In onderstaand voorbeeld zie je hoe `color` en `background-color` worden toegepast op koppen, alinea's en een informatiekader voor Thomas More Campus Geel.
+In het onderstaande interactieve voorbeeld zie je hoe `color` en `background-color` samenwerken om hiërarchie en contrast aan te brengen op een campuspagina voor Thomas More Campus Geel.
 
-```html
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kleuren Voorbeeld</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <h1>Thomas More Campus Geel</h1>
-  <p class="inleiding">Welkom bij de opleiding Toegepaste Informatica.</p>
-  <div class="infoblok">
-    <h2>Belangrijke mededeling</h2>
-    <p>De lessen webontwikkeling starten stipt in lokaal B102.</p>
-  </div>
-</body>
-</html>
-```
+#### Opbouw van de elementen
 
-```css
-/* Algemene paginastijl */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #1e2d5a;
-  background-color: #f8fafc;
-}
+- `body`: zet de donkerblauwe basiskleur (`color: #1e2d5a`) op een heel lichte achtergrond (`background-color: #f8fafc`) en definieert een duidelijke font-stack.
+- `h1`: de hoofdtitel in opvallend Thomas More-oranje (`color: #e87722`).
+- `p.inleiding`: een zachtgrijze inleidende alinea (`color: #64748b`) met iets grotere tekst.
+- `div.infoblok`: een afzonderlijk kader met een contrasterende grijze achtergrond (`background-color: #e2e8f0`), donkere tekst (`#0f172a`) en een oranje accentrand.
+- `div.infoblok h2`: de tussentitel binnen het kader die de herkenbare donkerblauwe themakleur (`#1e2d5a`) herhaalt.
 
-/* Hoofdtitel in Thomas More oranje */
-h1 {
-  color: #e87722;
-}
+#### Kleurinstellingen en hiërarchie
 
-/* Inleidende alinea in zachter leisteengrijs */
-.inleiding {
-  font-size: 1.1rem;
-  color: #64748b;
-}
-
-/* Informatieblok met lichte achtergrond en oranje rand */
-.infoblok {
-  background-color: #e2e8f0;
-  color: #0f172a;
-  /* padding en border worden later in het Box Model hoofdstuk in detail behandeld */
-  padding: 16px;
-  border-left: 4px solid #e87722;
-}
-
-/* Tussentitel binnen het informatieblok */
-.infoblok h2 {
-  color: #1e2d5a;
-}
-```
+| Element | Voorgrondkleur (`color`) | Achtergrondkleur (`background-color`) | Doel in het ontwerp |
+|---|---|---|---|
+| `body` | `#1e2d5a` (donkerblauw) | `#f8fafc` (zacht wit/grijs) | Rustige basisleesbaarheid met hoog contrast |
+| `h1` | `#e87722` (oranje) | Geërfd / transparant | Primaire aandachttrekker voor de paginatitel |
+| `p.inleiding` | `#64748b` (leisteengrijs) | Geërfd / transparant | Subtiele introductie met secundaire prioriteit |
+| `div.infoblok` | `#0f172a` (diepblauw/zwart) | `#e2e8f0` (lichtgrijs) | Opvallend kader voor belangrijke mededelingen |
+| `div.infoblok h2` | `#1e2d5a` (donkerblauw) | Geërfd | Herkenbare structuurkop binnen het kader |
 
 <CodeSandbox
   title="Basis tekst- en achtergrondkleuren"
@@ -470,75 +432,24 @@ a:active {
 
 ### Live voorbeeld: Hyperlinks stylen
 
-In onderstaande sandbox kan je met de muis over de link bewegen en met de linkermuisknop ingedrukt houden om de overgang tussen `:hover` en `:active` te ervaren.
+In het onderstaande interactieve voorbeeld zie je hoe je hyperlinks stap voor stap vormgeeft volgens de verplichte volgorde van het *LoVe Fears HAte*-principe (`:link`, `:visited`, `:focus`, `:hover`, `:active`). Beweeg met de muis over de link of houd de linkermuisknop ingedrukt om de verschillende visuele reacties uit te proberen.
 
-```html
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Link Kleuren</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="kaart">
-    <h2>Thomas More ICT Opleidingen</h2>
-    <p>Ontdek alles over programmeren, netwerken en cloud engineering in Geel.</p>
-    <a href="https://www.thomasmore.be" class="cta-link">Bezoek de campuswebsite</a>
-  </div>
-</body>
-</html>
-```
+#### Opbouw van de elementen
 
-```css
-/* Pagina-achtergrond en algemene tekstkleur */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  background-color: #f1f5f9;
-  color: #0f172a;
-}
+- `div.kaart`: een witte containerkaart met een contrasterende donkerblauwe bovenrand (`border-top: 4px solid #1e2d5a`).
+- `div.kaart h2`: de titel van de kaart in donkerblauw.
+- `div.kaart p`: een informatieve alinea met een toelichting over de opleidingen.
+- `a.cta-link`: de actiehyperlink met interactieve toestanden (`:link`, `:visited`, `:focus`, `:hover`, `:active`) voor duidelijke visuele feedback.
 
-/* Witte kaart met donkerblauwe bovenrand */
-.kaart {
-  background-color: #ffffff;
-  color: #0f172a;
-  /* padding en border worden later in het Box Model hoofdstuk in detail behandeld */
-  padding: 24px;
-  border-top: 4px solid #1e2d5a;
-}
+#### Interactieve toestanden (LoVe Fears HAte)
 
-/* 1. Niet-bezochte link (:link) */
-.cta-link:link {
-  color: #1e2d5a;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-/* 2. Reeds bezochte link (:visited) */
-.cta-link:visited {
-  color: #334155;
-}
-
-/* 3. Focus via toetsenbordnavigatie (:focus) */
-.cta-link:focus {
-  color: #0f172a;
-  background-color: #fed7aa;
-}
-
-/* 4. Muisaanwijzer boven link (:hover) */
-.cta-link:hover {
-  color: #e87722;
-  text-decoration: underline;
-}
-
-/* 5. Link ingedrukt (:active) */
-.cta-link:active {
-  color: #9a3412;
-}
-```
+| Toestand | Pseudo-klasse | Toegepaste stijlen | Gebruikersactie |
+|---|---|---|---|
+| **1. Unvisited** | `.cta-link:link` | `color: #1e2d5a; font-weight: bold; text-decoration: none;` | Standaardweergave van een niet-bezochte link |
+| **2. Visited** | `.cta-link:visited` | `color: #334155;` | Subtielere grijstint na een eerder bezoek |
+| **3. Focus** | `.cta-link:focus` | `color: #0f172a; background-color: #fed7aa;` | Zachte oranje achtergrond bij toetsenbordnavigatie (`Tab`) |
+| **4. Hover** | `.cta-link:hover` | `color: #e87722; text-decoration: underline;` | Oranje kleur en onderlijning wanneer de cursor erover beweegt |
+| **5. Active** | `.cta-link:active` | `color: #9a3412;` | Diepere steenrode tint op het moment van aanklikken |
 
 <CodeSandbox
   title="Interactieve linkstijlen met het LVFHA-principe"
@@ -546,23 +457,23 @@ body {
   initialTab="split"
   activeCodeTab="css"
   highlightHtml=""
-  highlightCss="18,24,28-29,33,38"
+  highlightCss="19-21, 25, 29-30, 34-35, 39"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Link Kleuren</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="kaart">
-    <h2>Thomas More ICT Opleidingen</h2>
-    <p>Ontdek alles over programmeren, netwerken en cloud engineering in Geel.</p>
-    <a href="https://www.thomasmore.be" class="cta-link">Bezoek de campuswebsite</a>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Kleuren</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="kaart">
+      <h2>Thomas More ICT Opleidingen</h2>
+      <p>Ontdek alles over programmeren, netwerken en cloud engineering in Geel.</p>
+      <a href="https://www.thomasmore.be" class="cta-link">Bezoek de campuswebsite</a>
+    </div>
+  </body>
 </html>'
   css='/* Pagina-achtergrond en algemene tekstkleur */
 body {

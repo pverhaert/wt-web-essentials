@@ -122,42 +122,60 @@ In de onderstaande interactieve simulator experimenteer je live met de verschill
 
 ## Codevoorbeeld: Responsieve afbeeldingskaarten met `object-fit`
 
-In de onderstaande CodeSandbox zie je hoe je met een consistente container en `object-fit: cover` een strakke rij nieuwsberichten voor Thomas More Campus Geel presenteert, zonder dat verschillende fotoformaten de lay-out verstoren:
+In het onderstaande interactieve voorbeeld zie je hoe je met een consistente kaartcontainer en `object-fit: cover` een uniforme rij nieuwsberichten voor Thomas More Campus Geel bouwt. Zelfs wanneer bronfoto's verschillende oorspronkelijke verhoudingen hebben, blijven alle kaarten visueel exact gelijk van hoogte zonder dat foto's worden uitgerekt of ingedrukt.
+
+### Opbouw van de elementen
+
+- `div.nieuws-grid`: de gecentreerde hoofdcontainer met een maximale breedte (`max-width: 680px`).
+- `article.kaart`: de individuele nieuwskaarten (`display: inline-block; width: 320px;`) met een witte achtergrond, afgeronde hoeken (`border-radius: 8px`) en `overflow: hidden` zodat de foto mooi meeloopt met de kaartrand.
+- `article.kaart img`: de foto bovenaan de kaart met een vaste hoogte (`height: 180px`), volle breedte (`width: 100%`) en `object-fit: cover`, waardoor het kader altijd volledig gevuld is en de oorspronkelijke beeldverhouding behouden blijft.
+- `div.kaart-inhoud`: de tekstcontainer met binnenruimte (`padding: 1.25rem`).
+- `h2.kaart-titel`: de titel van het nieuwsbericht in het vertrouwde Thomas More-donkerblauw (`#1e2d5a`).
+- `p.kaart-tekst`: de begeleidende introtekst in leisteengrijs (`#64748b`).
+
+### Werking van `object-fit` binnen de kaart
+
+| Eigenschap | Waarde | Waarom toegepast? |
+|---|---|---|
+| `width` & `height` | `100%` & `180px` | Dwingt elk beeld in exact hetzelfde vaste rechthoekige kader |
+| `object-fit` | `cover` | Vult het volledige kader op zonder dat het beeld vervormt of vertekent |
+| `object-position` | `center` | Centreert de uitsnede zodat het belangrijkste centrale deel van de foto zichtbaar blijft |
+| `overflow` (op `.kaart`) | `hidden` | Snijdt de bovenhoeken van de foto af conform de `border-radius: 8px` van de kaart |
 
 <CodeSandbox
   title="Afbeeldingskaarten met object-fit"
   height="480px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="35-37"
+  highlightHtml="10-11, 13-15, 18, 20-22"
+  highlightCss="17-18, 21-24, 32-34, 39, 42, 47"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Campus Geel Nieuws</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="nieuws-grid">
-    <article class="kaart">
-      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&auto=format&fit=crop&q=80" alt="Studenten overleggen in de agora van Campus Geel">
-      <div class="kaart-inhoud">
-        <h2 class="kaart-titel">Welkom op Campus Geel</h2>
-        <p class="kaart-tekst">De introductiedagen voor eerstejaarsstudenten starten volgende week in de centrale hal.</p>
-      </div>
-    </article>
-    <article class="kaart">
-      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&auto=format&fit=crop&q=80" alt="Studenten programmeren in het computerlokaal">
-      <div class="kaart-inhoud">
-        <h2 class="kaart-titel">IT Factory Hackathon</h2>
-        <p class="kaart-tekst">Schrijf je in met je team en bouw gedurende 24 uur aan innovatieve webtoepassingen.</p>
-      </div>
-    </article>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Geel Nieuws</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="nieuws-grid">
+      <article class="kaart">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&auto=format&fit=crop&q=80" alt="Studenten overleggen in de agora van Campus Geel">
+        <div class="kaart-inhoud">
+          <h2 class="kaart-titel">Welkom op Campus Geel</h2>
+          <p class="kaart-tekst">De introductiedagen voor eerstejaarsstudenten starten volgende week in de centrale hal.</p>
+        </div>
+      </article>
+      <article class="kaart">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&auto=format&fit=crop&q=80" alt="Studenten programmeren in het computerlokaal">
+        <div class="kaart-inhoud">
+          <h2 class="kaart-titel">IT Factory Hackathon</h2>
+          <p class="kaart-tekst">Schrijf je in met je team en bouw gedurende 24 uur aan innovatieve webtoepassingen.</p>
+        </div>
+      </article>
+    </div>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
@@ -180,33 +198,33 @@ body {
 }
 .kaart {
   display: inline-block;
-  vertical-align: top;
   width: 320px;
-  margin: 0.5rem;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
   border-radius: 8px;
   overflow: hidden;
+  margin: 0.5rem;
+  vertical-align: top;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 /* Vaste hoogte met cover voorkomt vervorming */
 .kaart img {
-  display: block;
-  width: 100%;
   height: 180px;
   object-fit: cover;
   object-position: center;
+  display: block;
+  width: 100%;
 }
 .kaart-inhoud {
   padding: 1.25rem;
 }
 .kaart-titel {
-  font-size: 1.15rem;
   color: #1e2d5a;
+  font-size: 1.15rem;
   margin-bottom: 0.5rem;
 }
 .kaart-tekst {
-  font-size: 0.9rem;
   color: #64748b;
+  font-size: 0.9rem;
 }'
   js=''
 />
@@ -487,15 +505,32 @@ Dankzij `display: flow-root` maakt de browser een nieuwe interne opmaakcontext (
 
 ## Live voorbeeld: Tekstomloop en clearfix
 
-In het onderstaande interactieve voorbeeld zie je een artikel over Campus Geel waarin een afbeelding netjes links zweeft, voorzien is van marges en waarin de container dankzij `display: flow-root` haar volledige hoogte behoudt:
+In het onderstaande interactieve voorbeeld zie je een campusartikel voor Thomas More Campus Geel waarin een afbeelding links zweeft (`float: left`) en een korte tekst eromheen staat. 
+
+Schakel in het CSS-tabblad de regel `display: flow-root;` maar eens uit (zet er `/* ... */` omheen): je ziet dan meteen hoe de witte artikelcontainer in elkaar zakt en de foto aan de onderkant uit de kaart steekt en over de volgende sectie heen valt!
+
+### Opbouw van de elementen
+
+- `article.artikel`: de witte artikelkaart met een donkere rand. Dankzij `display: flow-root` omsluit de kaart haar zwevende foto volledig. Zonder `flow-root` telt de hoogte van de foto niet mee en steekt deze lelijk uit over de onderrand.
+- `h1.artikel-titel`: de koptitel van het artikel in donkerblauw (`#1e2d5a`).
+- `img.artikel-foto`: de afbeelding die naar links zweeft (`float: left`), `object-fit: cover` gebruikt en met `margin-right` witruimte vrijhoudt.
+- `p.artikel-tekst`: een korte alinea tekst. Omdat de tekst korter is dan de foto, wordt het inzakkingsprobleem meteen zichtbaar als de clearfix ontbreekt.
+- `section.volgende-sectie`: een gekleurde sectie direct onder het artikel die aantoont wat er gebeurt als een zwevend element niet wordt ingesloten.
+
+### Werking van tekstomloop en clearfix
+
+| Situatie | Eigenschap op `article.artikel` | Visueel resultaat in de preview |
+|---|---|---|
+| **Met clearfix (aanbevolen)** | `display: flow-root;` | De witte container groeit mee met de foto; de volgende sectie sluit netjes daaronder aan |
+| **Zonder clearfix (in commentaar)** | *(geen `display: flow-root`)* | De container zakt in tot de hoogte van de korte tekst; de foto steekt uit en overlapt de volgende sectie |
 
 <CodeSandbox
   title="Tekstomloop met float en display: flow-root"
-  height="480px"
+  height="500px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="17,27,30-32"
+  highlightHtml="10, 12, 16"
+  highlightCss="17, 27-28"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
@@ -510,12 +545,14 @@ In het onderstaande interactieve voorbeeld zie je een artikel over Campus Geel w
     <h1 class="artikel-titel">Innovatie in de Kempen</h1>
     <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80" alt="Groene buitenomgeving van Thomas More Campus Geel" class="artikel-foto">
     <p class="artikel-tekst">
-      Thomas More Campus Geel biedt een inspirerende leeromgeving waar theorie en praktijk elkaar continu ontmoeten. Studenten werken in moderne labo&#39;s aan uitdagende projecten voor echte bedrijven en organisaties uit de regio.
-    </p>
-    <p class="artikel-tekst">
-      Dankzij de groene campusomgeving en de kleinschalige groepen geniet je van een persoonlijke begeleiding door ervaren docenten uit het werkveld.
+      Thomas More Campus Geel biedt een inspirerende leeromgeving waar theorie en praktijk elkaar ontmoeten.
     </p>
   </article>
+
+  <section class="volgende-sectie">
+    <h2>Volgende lessectie</h2>
+    <p>Als display: flow-root uitstaat, overlapt de zwevende foto dit gekleurde blok.</p>
+  </section>
 </body>
 </html>'
   css='/* Universele resetter */
@@ -529,39 +566,56 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #212529;
   background-color: #f1f5f9;
-  padding: 2rem;
+  padding: 1.5rem;
   line-height: 1.6;
 }
-/* Artikelcontainer met flow-root voorkomt inzakkende container */
+/* Schakel display: flow-root uit om het inzakken te zien! */
 .artikel {
   display: flow-root;
-  max-width: 650px;
-  margin: 0 auto;
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto;
   background-color: #ffffff;
-  padding: 1.75rem;
+  padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid #cbd5e1;
+  border: 2px solid #cbd5e1;
 }
 /* Zwevende afbeelding */
 .artikel-foto {
   float: left;
-  width: 220px;
-  height: 150px;
   object-fit: cover;
   margin-right: 1.25rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+  width: 220px;
+  height: 160px;
   border-radius: 6px;
   border: 1px solid #e2e8f0;
 }
 .artikel-titel {
   color: #1e2d5a;
-  font-size: 1.35rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 .artikel-tekst {
   font-size: 0.95rem;
   color: #334155;
-  margin-bottom: 0.75rem;
+}
+/* Volgende sectie toont de impact op de omringende lay-out */
+.volgende-sectie {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #e0f2fe;
+  border: 2px solid #bae6fd;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+}
+.volgende-sectie h2 {
+  color: #0369a1;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+.volgende-sectie p {
+  font-size: 0.9rem;
+  color: #0c4a6e;
 }'
   js=''
 />

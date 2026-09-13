@@ -139,35 +139,23 @@ In het onderstaande interactieve lab kan je alle waarden van `justify-content`, 
 
 ### Praktijkvoorbeeld 1: Navigatiebalk en perfect centreren
 
-In het onderstaande voorbeeld zie je twee klassieke toepassingen:
-1. Een navigatiebalk met een logo links en menuknoppen rechts dankzij `justify-content: space-between`.
-2. Een banner waarin tekst zowel horizontaal als verticaal exact in het midden staat dankzij `justify-content: center` en `align-items: center`.
+In het onderstaande interactieve voorbeeld zie je twee van de meest voorkomende toepassingen van Flexbox in moderne webinterfaces: een responsieve navigatiebalk met uiterste spreiding (`justify-content: space-between`) en een hero-banner waarin inhoud zowel horizontaal als verticaal moeiteloos gecentreerd wordt.
 
-```html
-<header class="site-header">
-  <div class="logo">Thomas More</div>
-  <nav class="hoofdmenu">
-    <a href="#opleiding">Opleiding</a>
-    <a href="#campussen">Campussen</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-```
+#### Opbouw van de elementen
 
-```css
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+- `header.hoofdbalk`: de flexbox-container voor de navigatie. Dankzij `justify-content: space-between` wordt het logo helemaal links geduwd en de navigatielinks helemaal rechts, terwijl `align-items: center` beide verticaal strak uitlijnt.
+- `div.merk`: het campuslogo in opvallend oranje (`var(--oranje)`).
+- `nav.nav-links`: een geneste flexbox-container voor de menulinks (`a`), waarbij `gap: 1.25rem` zorgt voor een consistente tussenruimte zonder marges op de knoppen.
+- `section.held-sectie`: de bannercontainer (`height: 240px`) die met `display: flex`, `justify-content: center` en `align-items: center` het 'heilige graal'-probleem van CSS (perfecte 2D-centrering) in slechts twee declaraties oplost.
+- `div.gecentreerde-kaart`: de tekstkaart met titel (`h1`) en alinea (`p`) die exact in het optische midden van de banner zweeft.
 
-.banner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-}
-```
+#### Flexbox-uitlijning en gedrag
+
+| Onderdeel | Flexbox-eigenschappen | Hoofdas (`justify-content`) | Kruisas (`align-items`) | Visueel resultaat |
+|---|---|---|---|---|
+| `header.hoofdbalk` | `display: flex;` | `space-between` | `center` | Logo links, menuknoppen rechts, verticaal gecentreerd |
+| `nav.nav-links` | `display: flex; gap: 1.25rem;` | `flex-start` (standaard) | `stretch` (standaard) | Horizontale rij links met 20px tussenruimte |
+| `section.held-sectie` | `display: flex;` | `center` | `center` | Inhoudskaart staat perfect in het midden van de banner |
 
 <CodeSandbox
   title="Klassieke navigatiebalk en perfect centreren"
@@ -375,19 +363,24 @@ Gebruik `order` met mate. Het verandert alleen de visuele presentatie op het sch
 
 ### Praktijkvoorbeeld 2: Responsief kaartenrooster met `flex-wrap` en `gap`
 
-In dit voorbeeld zie je hoe een groep infokaarten automatisch netjes naar een tweede rij springt zodra er te weinig ruimte is. Dankzij `flex: 1 1 220px` zijn de kaarten flexibel: ze nemen minstens 220 pixels in, maar delen de resterende ruimte op elke rij netjes onder elkaar.
+In het onderstaande interactieve voorbeeld zie je hoe je zonder een enkele media query een natuurlijk responsief kaartenrooster bouwt. Zodra het scherm smaller wordt of wanneer je de scheidingsbalk in de sandbox versleept, wikkelen de kaarten dankzij `flex-wrap: wrap` automatisch door naar een volgende regel, terwijl `flex: 1 1 220px` ervoor zorgt dat de resterende breedte op elke regel harmonieus verdeeld wordt.
 
-```css
-.kaarten-groep {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
+#### Opbouw van de elementen
 
-.kaart {
-  flex: 1 1 220px;
-}
-```
+- `h2`: de sectietitel in het herkenbare blauw (`var(--blauw)`).
+- `div.kaarten-overzicht`: de flexbox-container met `flex-wrap: wrap` en `gap: 1.25rem` (20px), die bepaalt hoe de kaarten gegroepeerd en gespatieerd worden.
+- `article.module-kaart`: de individuele modulekaarten met een witte achtergrond, afgeronde hoeken, een oranje accentrand bovenaan (`border-top: 4px solid var(--oranje)`) en de shorthand `flex: 1 1 220px`.
+- `article.module-kaart h3`: de moduletitel.
+- `article.module-kaart p`: de beschrijving van het vak in zacht leisteengrijs (`#64748b`).
+
+#### Responsief gedrag en flex-instellingen
+
+| Eigenschap | Waarde | Effect op de lay-out |
+|---|---|---|
+| `display` (container) | `flex;` | Activeert de flexbox-opmaakcontext voor alle modulekaarten |
+| `flex-wrap` (container) | `wrap;` | Laat kaarten automatisch doorvloeien naar een nieuwe regel zodra de breedte tekortschiet |
+| `gap` (container) | `1.25rem;` | Consistente tussenruimte tussen kaarten (zowel horizontaal als verticaal tussen regels) |
+| `flex` (items) | `1 1 220px;` | **Basisbreedte 220px**: mag groeien (`flex-grow: 1`) om de rij te vullen en mag krimpen (`flex-shrink: 1`) |
 
 <CodeSandbox
   title="Responsief kaartenrooster met flex-wrap en gap"
@@ -486,41 +479,22 @@ h2 {
 
 ### Praktijkvoorbeeld 3: Flexibele contentverdeling met `flex-grow` en `align-self`
 
-In dit voorbeeld bouwen we een herkenbare layout met een hoofdinhoud en een zijbalk. De hoofdinhoud krijgt `flex: 2` (groeit twee keer zo snel), terwijl de zijbalk `flex: 1` krijgt. Bovendien gebruikt de knop in de zijbalk `align-self: flex-start` zodat hij niet ongewenst uitgerekt wordt over de volle breedte.
+In het onderstaande interactieve voorbeeld zie je hoe je een asymmetrische twee-kolommen-layout bouwt (een hoofdinhoud met een zijpaneel). Door `flex: 2 1 280px` toe te kennen aan het hoofdartikel en `flex: 1 1 180px` aan het zijpaneel, krijgt het hoofdartikel automatisch tweemaal zoveel vrije restruimte. Bovendien gebruikt de actieknop in het zijpaneel `align-self: flex-start` om te vermijden dat hij over de volle breedte wordt uitgerekt.
 
-```html
-<main class="hoofd-layout">
-  <article class="artikel-deel">
-    <h2>Belang van Semantiek</h2>
-    <p>Semantische elementen geven structuur en betekenis aan je code.</p>
-  </article>
-  <aside class="zijbalk">
-    <h3>Snelle links</h3>
-    <button class="actie-knop">Meer info</button>
-  </aside>
-</main>
-```
+#### Opbouw van de elementen
 
-```css
-.hoofd-layout {
-  display: flex;
-  gap: 1.5rem;
-}
+- `div.layout-container`: de flexbox-container die het hoofdartikel en het zijpaneel naast elkaar plaatst met een tussenruimte van `gap: 1.5rem`.
+- `article.hoofd-artikel`: het belangrijkste inhoudsblok met `flex: 2 1 280px`, waardoor het tweemaal zo snel groeit als het zijpaneel.
+- `aside.zijpaneel`: het ondersteunende zijpaneel met `flex: 1 1 180px` dat zelf ook een verticale flexbox-container is (`flex-direction: column; gap: 0.75rem`).
+- `a.rooster-knop`: de actieknop binnen het zijpaneel die met `align-self: flex-start` haar natuurlijke breedte behoudt en via `margin-top: auto` strak onderaan het paneel aansluit.
 
-.artikel-deel {
-  flex: 2 1 300px;
-}
+#### Verdeling van de vrije ruimte en kruisas-uitlijning
 
-.zijbalk {
-  flex: 1 1 180px;
-  display: flex;
-  flex-direction: column;
-}
-
-.actie-knop {
-  align-self: flex-start;
-}
-```
+| Element | Flex-rol | `flex`-shorthand | `align-self` | Doel in de lay-out |
+|---|---|---|---|---|
+| `article.hoofd-artikel` | Flex-item | `2 1 280px` | `stretch` (standaard) | Eist 2/3 van de beschikbare vrije breedte op |
+| `aside.zijpaneel` | Flex-item & flex-container | `1 1 180px` | `stretch` (standaard) | Eist 1/3 van de vrije breedte op; gelijke hoogte als artikel |
+| `a.rooster-knop` | Flex-item (verticaal) | Standaard | `flex-start` | Voorkomt uitrekking over volle paneelbreedte; sluit onderaan aan |
 
 <CodeSandbox
   title="Contentverdeling en align-self"

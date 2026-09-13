@@ -341,3 +341,4 @@ Gedetailleerde richtlijnen staan in de volgende skills:
 | Technische naamgeving | `.agents/skills/technical-conventions/SKILL.md` | Bestandsnamen, links, frontmatter |
 | Kwaliteitscontrole | `.agents/skills/quality-check/SKILL.md` | Volledige checklist na elke pagina |
 | Paginasamenvatting | `.agents/skills/page-summary/SKILL.md` | `<PageSummary>`-component schrijven |
+| CodeSandbox-introductie | `.agents/skills/sandbox-intro/SKILL.md` | Didactische introductie met selectornotatie en tabellen i.p.v. statische codeblokken |

@@ -230,27 +230,27 @@ In de onderstaande sandbox combineren we `::marker` met CSS-variabelen voor een 
   initialTab="split"
   activeCodeTab="css"
   highlightHtml=""
-  highlightCss="10,43-45"
+  highlightCss="10, 45"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marker Styling Demo</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="checklist-container">
-    <h3>Thomas More Campus Geel</h3>
-    <ol>
-      <li>Activeer je studentenaccount en paswoord</li>
-      <li>Verken het lessenrooster in het studentenportaal</li>
-      <li>Installeer PhpStorm en Git op je laptop</li>
-      <li>Start met de cursus Web Essentials</li>
-    </ol>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marker Styling Demo</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="checklist-container">
+      <h3>Thomas More Campus Geel</h3>
+      <ol>
+        <li>Activeer je studentenaccount en paswoord</li>
+        <li>Verken het lessenrooster in het studentenportaal</li>
+        <li>Installeer PhpStorm en Git op je laptop</li>
+        <li>Start met de cursus Web Essentials</li>
+      </ol>
+    </div>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {

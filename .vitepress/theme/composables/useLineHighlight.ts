@@ -1,5 +1,5 @@
 import { RangeSetBuilder, type Extension } from '@codemirror/state'
-import { Decoration, type DecorationSet, EditorView } from '@codemirror/view'
+import { Decoration, type DecorationSet, EditorView, ViewPlugin, type ViewUpdate } from '@codemirror/view'
 
 /**
  * Ontleedt een reeks zoals "8, 20-25, 30" naar een Set van regelnummers.
@@ -32,6 +32,47 @@ export function parseLineRange(str?: string): Set<number> {
   return result
 }
 
+/**
+ * Formatteert een verzameling regelnummers naar een compacte, gesorteerde reeks (bijv. "4, 7-9, 12").
+ */
+export function formatLineRange(numbers: Iterable<number>): string {
+  const arr = Array.from(numbers).filter((n) => typeof n === 'number' && !isNaN(n) && n > 0)
+  if (arr.length === 0) return ''
+  arr.sort((a, b) => a - b)
+  const unique = Array.from(new Set(arr))
+
+  const ranges: string[] = []
+  let rangeStart = unique[0]
+  let prev = unique[0]
+
+  for (let i = 1; i < unique.length; i++) {
+    const curr = unique[i]
+    if (curr === prev + 1) {
+      prev = curr
+    } else {
+      ranges.push(rangeStart === prev ? String(rangeStart) : `${rangeStart}-${prev}`)
+      rangeStart = curr
+      prev = curr
+    }
+  }
+
+  ranges.push(rangeStart === prev ? String(rangeStart) : `${rangeStart}-${prev}`)
+  return ranges.join(', ')
+}
+
+/**
+ * Schakelt een regelnummer aan of uit binnen een bestaande reeks (bijv. toggleLineInRange("8, 20-25", 8) -> "20-25").
+ */
+export function toggleLineInRange(currentRange: string | undefined, lineNum: number): string {
+  const lines = parseLineRange(currentRange)
+  if (lines.has(lineNum)) {
+    lines.delete(lineNum)
+  } else {
+    lines.add(lineNum)
+  }
+  return formatLineRange(lines)
+}
+
 const lineHighlightDeco = Decoration.line({
   class: 'cm-highlight-line',
 })
@@ -54,10 +95,21 @@ export function buildHighlightDecorations(doc: any, rangeStr: string): Decoratio
 }
 
 /**
- * Maakt een CodeMirror 6 extensie aan die dynamisch reageert op wijzigingen in het document.
+ * Maakt een CodeMirror 6 extensie aan die dynamisch reageert op wijzigingen in het document en reconfigures.
  */
 export function createLineHighlightExtension(getRangeStr: () => string): Extension {
-  return EditorView.decorations.compute(['doc'], (state) => {
-    return buildHighlightDecorations(state.doc, getRangeStr())
-  })
+  return ViewPlugin.fromClass(
+    class {
+      decorations: DecorationSet
+      constructor(view: EditorView) {
+        this.decorations = buildHighlightDecorations(view.state.doc, getRangeStr())
+      }
+      update(update: ViewUpdate) {
+        this.decorations = buildHighlightDecorations(update.state.doc, getRangeStr())
+      }
+    },
+    {
+      decorations: (v) => v.decorations,
+    }
+  )
 }

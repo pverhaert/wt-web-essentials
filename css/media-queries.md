@@ -96,79 +96,22 @@ Gebruik in je stylesheets altijd `min-width`. Daarmee vertrek je vanaf de mobiel
 
 ## Live demonstratie van breekpunten
 
-In het onderstaande interactieve voorbeeld zie je hoe de achtergrondkleur en de informatieve tekst automatisch verspringen naarmate de beschikbare breedte toeneemt. Versleep de scheidingsbalk in de sandbox om het venster breder of smaller te maken:
+In het onderstaande interactieve voorbeeld zie je hoe het trapsgewijze mobile-first principe in de praktijk werkt. Versleep de verticale scheidingsbalk in de sandbox om het venster breder of smaller te maken en observeer hoe de opmaak direct reageert:
 
-```html
-<div class="status-kaart">
-  <h1>Schermformaat testen</h1>
-  <p class="toelichting">Versleep het venster om de breekpunten te zien schakelen.</p>
-  <div class="badge">Huidige weergave</div>
-</div>
-```
+### Opbouw van de elementen
 
-```css
-/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-/* 1. Mobiele basisstijl (smartphone) */
-body {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: #212529;
-  background-color: #fff3cd;
-  padding: 1.5rem;
-}
-.status-kaart {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 1.5rem;
-  border: 2px solid #ffeeba;
-}
-.badge {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  background-color: #856404;
-  color: #ffffff;
-  font-weight: bold;
-}
-.badge::after {
-  content: " Mobiel (< 768px)";
-}
-/* 2. Tablet breekpunt */
-@media (min-width: 768px) {
-  body {
-    background-color: #d4edda;
-  }
-  .status-kaart {
-    border-color: #c3e6cb;
-  }
-  .badge {
-    background-color: #155724;
-  }
-  .badge::after {
-    content: " Tablet (>= 768px)";
-  }
-}
-/* 3. Laptop breekpunt */
-@media (min-width: 992px) {
-  body {
-    background-color: #cce5ff;
-  }
-  .status-kaart {
-    border-color: #b8daff;
-  }
-  .badge {
-    background-color: #004085;
-  }
-  .badge::after {
-    content: " Laptop / Desktop (>= 992px)";
-  }
-}
-```
+- `body`: bevat de mobiele basisopmaak met een zachtgele achtergrond (`#fff3cd`).
+- `div.status-kaart`: een witte kaart met afgeronde hoeken (`padding: 1.5rem` en `border-radius: 8px`) die de meldingen bundelt.
+- `p.toelichting`: de instructietekst onder de titel.
+- `div.badge` met `::after`: toont via de CSS-eigenschap `content` automatisch de naam van het actieve breekpunt.
+
+### Trapsgewijze werking van de breekpunten
+
+| Weergave | Breekpunt (Media Query) | Toegepaste stijlen & badge |
+|---|---|---|
+| **Mobiel (basis)** | Standaard (geen query) | Gele achtergrond (`#fff3cd`), badge toont `Mobiel (< 768px)` |
+| **Tablet** | `@media (min-width: 768px)` | Groene achtergrond (`#d4edda`), badge toont `Tablet (>= 768px)` |
+| **Laptop / Desktop** | `@media (min-width: 992px)` | Blauwe achtergrond (`#cce5ff`), badge toont `Laptop / Desktop (>= 992px)` |
 
 <CodeSandbox
   title="Breekpunten demonstratie met achtergrondkleur"
@@ -363,165 +306,64 @@ Het krachtigste samenspel van media queries ontstaat in combinatie met **Flexbox
 - Vanaf **tabletformaat (`768px`)** schakelt de navigatie om naar een horizontale balk (`flex-direction: row`) en komen de kaarten paarsgewijs naast elkaar te staan.
 - Vanaf **laptopformaat (`992px`)** vormen de kaarten een strak rooster van drie kolommen en wordt de breedte van de hoofdcontainer netjes gecentreerd.
 
-```html
-<div class="hoofd-container">
-  <header class="kop">
-    <div class="logo">IT Factory</div>
-    <nav class="hoofd-nav">
-      <a href="#home">Home</a>
-      <a href="#opleidingen">Opleidingen</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-  <main class="kaarten-rooster">
-    <article class="kaart">
-      <h2>Web Essentials</h2>
-      <p>Leer HTML5 en CSS3 vanaf de basis.</p>
-    </article>
-    <article class="kaart">
-      <h2>Programmeren</h2>
-      <p>Ontwikkel logisch inzicht en algoritmes.</p>
-    </article>
-    <article class="kaart">
-      <h2>Databases</h2>
-      <p>Ontwerp en beheer relationele datastructuren.</p>
-    </article>
-  </main>
-</div>
-```
+### Opbouw van de elementen
 
-```css
-/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-/* Basisstijlen mobiel */
-body {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: #212529;
-  background-color: #f4f6f8;
-  padding: 1rem;
-}
-.hoofd-container {
-  width: 100%;
-}
-.kop {
-  background-color: #1e2d5a;
-  color: #ffffff;
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1.5rem;
-}
-.logo {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 0.75rem;
-}
-.hoofd-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.hoofd-nav a {
-  color: #ffffff;
-  text-decoration: none;
-  background-color: #2a3d75;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-}
-.kaarten-rooster {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.kaart {
-  background-color: #ffffff;
-  border: 1px solid #dcdfe3;
-  border-radius: 6px;
-  padding: 1.25rem;
-}
-.kaart h2 {
-  color: #ec6639;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-/* Tablet breekpunt (>= 768px) */
-@media (min-width: 768px) {
-  .kop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .logo {
-    margin-bottom: 0;
-  }
-  .hoofd-nav {
-    flex-direction: row;
-  }
-  .kaarten-rooster {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .kaart {
-    flex: 0 0 calc(50% - 0.5rem);
-  }
-}
-/* Laptop breekpunt (>= 992px) */
-@media (min-width: 992px) {
-  .hoofd-container {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .kaart {
-    flex: 0 0 calc(33.333% - 0.667rem);
-  }
-}
-```
+- `div.hoofd-container`: omvat de volledige pagina en krijgt op grotere schermen een maximale breedte (`max-width: 1000px`) met automatische centrering (`margin: 0 auto`).
+- `header.kop`: bevat `div.logo` en de navigatie (`nav.hoofd-nav`).
+- `nav.hoofd-nav`: bundelt de navigatielinks (`a`) in een flexbox-container.
+- `main.kaarten-rooster`: de flexbox-container voor de artikelen (`article.kaart`).
+- `article.kaart`: de individuele inhoudskaarten met titel (`h2`) en tekst (`p`).
+
+### Trapsgewijze werking van de breekpunten
+
+| Weergave | Breekpunt (Media Query) | Navigatie (`header.kop` & `nav`) | Kaartenrooster (`article.kaart`) |
+|---|---|---|---|
+| **Mobiel (basis)** | Standaard (geen query) | Links verticaal onder elkaar (`flex-direction: column`) | 1 kolom: kaarten vullen de volle breedte |
+| **Tablet** | `@media (min-width: 768px)` | Horizontale balk met `justify-content: space-between` | 2 kolommen: `flex: 0 0 calc(50% - 0.5rem)` |
+| **Laptop / Desktop** | `@media (min-width: 992px)` | Compacte navigatie in gecentreerde container | 3 kolommen: `flex: 0 0 calc(33.333% - 0.667rem)` |
 
 <CodeSandbox
   title="Responsieve layout met navigatie en kaartenrooster"
   height="500px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="50-70,72-81"
+  highlightHtml="10-11, 13, 19, 24, 28"
+  highlightCss="29-33, 41-45, 59-63, 67-76, 84-86"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsieve Layout</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="hoofd-container">
-    <header class="kop">
-      <div class="logo">IT Factory</div>
-      <nav class="hoofd-nav">
-        <a href="#home">Home</a>
-        <a href="#opleidingen">Opleidingen</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
-    <main class="kaarten-rooster">
-      <article class="kaart">
-        <h2>Web Essentials</h2>
-        <p>Leer HTML5 en CSS3 vanaf de basis.</p>
-      </article>
-      <article class="kaart">
-        <h2>Programmeren</h2>
-        <p>Ontwikkel logisch inzicht en algoritmes.</p>
-      </article>
-      <article class="kaart">
-        <h2>Databases</h2>
-        <p>Ontwerp en beheer relationele datastructuren.</p>
-      </article>
-    </main>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsieve Layout</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="hoofd-container">
+      <header class="kop">
+        <div class="logo">IT Factory</div>
+        <nav class="hoofd-nav">
+          <a href="#home">Home</a>
+          <a href="#opleidingen">Opleidingen</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+      <main class="kaarten-rooster">
+        <article class="kaart">
+          <h2>Web Essentials</h2>
+          <p>Leer HTML5 en CSS3 vanaf de basis.</p>
+        </article>
+        <article class="kaart">
+          <h2>Programmeren</h2>
+          <p>Ontwikkel logisch inzicht en algoritmes.</p>
+        </article>
+        <article class="kaart">
+          <h2>Databases</h2>
+          <p>Ontwerp en beheer relationele datastructuren.</p>
+        </article>
+      </main>
+    </div>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {

@@ -82,71 +82,87 @@ table {
 
 ### Codevoorbeeld: Samengevouwen versus gescheiden randen
 
-In het onderstaande voorbeeld zie je direct het visuele verschil tussen het moderne samengevouwen randenmodel (`collapse`) en het traditionele gescheiden model met `border-spacing`.
+In het onderstaande interactieve voorbeeld zie je het visuele contrast tussen de twee randenmodellen in CSS: het moderne en strakke samengevouwen model (`border-collapse: collapse`) en het traditionele gescheiden model (`border-collapse: separate`) met instelbare tussenruimte via `border-spacing`.
+
+#### Opbouw van de elementen
+
+- `table.tabel-samengevouwen`: past `border-collapse: collapse` toe, waardoor aangrenzende celranden naadloos samensmelten tot één doorlopende lijn.
+- `table.tabel-gescheiden`: gebruikt `border-collapse: separate` in combinatie met `border-spacing: 6px`, waardoor elke cel als een zelfstandig eilandje met eigen randen wordt getekend.
+- `caption`: het bijschrift boven elke tabel dat de actieve randinstelling toelicht.
+- `thead th`: de kolomkoppen met een donkerblauwe achtergrond (`#1e2d5a` bij tabel 1) of oranje achtergrond (`#e87722` bij tabel 2).
+- `tbody td`: de datacellen met duidelijke celranden en binnenruimte (`padding: 0.6rem 0.8rem`).
+
+#### Vergelijking van de randmodellen
+
+| Eigenschap | `border-collapse: collapse` | `border-collapse: separate` |
+|---|---|---|
+| **Visueel resultaat** | Enkele, strakke scheidingslijnen | Zichtbare spatiëring tussen cellen |
+| **Tussenruimte** | `border-spacing` heeft geen effect | Instelbaar via `border-spacing: 6px` |
+| **Toepassing** | Moderne standaardtabel in 95% van de ontwerpen | Gespecialiseerde layouts (bv. kaart- of tegelrijen) |
+| **Afronding (`border-radius`)** | Niet ondersteund op individuele cellen | Volledig ondersteund per cel |
 
 <CodeSandbox
   title="Voorbeeld: border-collapse en border-spacing"
   height="480px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="17,31-32"
+  highlightHtml="10, 33"
+  highlightCss="17, 25, 31-32, 40"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tabelranden vergelijken</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <table class="tabel-samengevouwen">
-    <caption>Tabel 1: border-collapse: collapse (samengevoegd)</caption>
-    <thead>
-      <tr>
-        <th scope="col">Opleiding</th>
-        <th scope="col">Campus</th>
-        <th scope="col">Traject</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Graduaat Programmeren</td>
-        <td>Thomas More Geel</td>
-        <td>Dagdagonderwijs</td>
-      </tr>
-      <tr>
-        <td>Toegepaste Informatica</td>
-        <td>Thomas More Geel</td>
-        <td>Bachelor 3 jaar</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table class="tabel-gescheiden">
-    <caption>Tabel 2: border-collapse: separate met border-spacing: 6px</caption>
-    <thead>
-      <tr>
-        <th scope="col">Opleiding</th>
-        <th scope="col">Campus</th>
-        <th scope="col">Traject</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Graduaat Programmeren</td>
-        <td>Thomas More Geel</td>
-        <td>Dagdagonderwijs</td>
-      </tr>
-      <tr>
-        <td>Toegepaste Informatica</td>
-        <td>Thomas More Geel</td>
-        <td>Bachelor 3 jaar</td>
-      </tr>
-    </tbody>
-  </table>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabelranden vergelijken</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <table class="tabel-samengevouwen">
+      <caption>Tabel 1: border-collapse: collapse (samengevoegd)</caption>
+      <thead>
+        <tr>
+          <th scope="col">Opleiding</th>
+          <th scope="col">Campus</th>
+          <th scope="col">Traject</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Graduaat Programmeren</td>
+          <td>Thomas More Geel</td>
+          <td>Dagdagonderwijs</td>
+        </tr>
+        <tr>
+          <td>Toegepaste Informatica</td>
+          <td>Thomas More Geel</td>
+          <td>Bachelor 3 jaar</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="tabel-gescheiden">
+      <caption>Tabel 2: border-collapse: separate met border-spacing: 6px</caption>
+      <thead>
+        <tr>
+          <th scope="col">Opleiding</th>
+          <th scope="col">Campus</th>
+          <th scope="col">Traject</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Graduaat Programmeren</td>
+          <td>Thomas More Geel</td>
+          <td>Dagdagonderwijs</td>
+        </tr>
+        <tr>
+          <td>Toegepaste Informatica</td>
+          <td>Thomas More Geel</td>
+          <td>Bachelor 3 jaar</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
@@ -337,131 +353,98 @@ td:last-child {
 
 ### Codevoorbeeld: Professionele tabel met zebra-striping en hover
 
-In het onderstaande voorbeeld zie je hoe `thead`, `tbody`, `tfoot`, zebra-striping en een `:hover`-effect samenkomen in een overzichtelijke campusstatistiek.
+In het onderstaande interactieve voorbeeld komen semantische tabelsecties (`thead`, `tbody`, `tfoot`), automatische zebra-striping (`:nth-child(even)`), gerichte kolomuitlijning en een dynamische hover-toestand samen tot een professionele campusstatistiek.
 
-```html
-<table class="campus-statistiek">
-  <caption>Inschrijvingen IT Factory - Thomas More Campus Geel</caption>
-  <thead>
-    <tr>
-      <th scope="col">Opleiding</th>
-      <th scope="col">Fase 1</th>
-      <th scope="col">Fase 2</th>
-      <th scope="col">Fase 3</th>
-      <th scope="col">Totaal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Graduaat Programmeren</td>
-      <td>95</td>
-      <td>70</td>
-      <td>-</td>
-      <td>165</td>
-    </tr>
-    <tr>
-      <td>Graduaat Systeem- en Netwerkbeheer</td>
-      <td>80</td>
-      <td>58</td>
-      <td>-</td>
-      <td>138</td>
-    </tr>
-    <tr>
-      <td>Toegepaste Informatica (Applicatieontwikkeling)</td>
-      <td>110</td>
-      <td>85</td>
-      <td>72</td>
-      <td>267</td>
-    </tr>
-    <tr>
-      <td>Toegepaste Informatica (Cloud Infrastructure)</td>
-      <td>65</td>
-      <td>50</td>
-      <td>44</td>
-      <td>159</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <th scope="row">Totaal studenten</th>
-      <td>350</td>
-      <td>263</td>
-      <td>116</td>
-      <td>729</td>
-    </tr>
-  </tfoot>
-</table>
-```
+#### Opbouw van de elementen
+
+- `table.campus-statistiek`: de centrale tabel met `border-collapse: collapse` en een volle breedte (`100%`).
+- `caption`: een links uitgelijnde titel in het herkenbare donkerblauw (`#1e2d5a`).
+- `thead th`: de donkerblauwe koprij met witte tekst; de eerste kolom is links uitgelijnd en de cijferkolommen zijn rechts uitgelijnd.
+- `tbody tr:nth-child(even)`: kleurt elke even rij zachtgrijs (`#f8f9fa`) voor optimale scanbaarheid bij veel rijen (zebra-striping).
+- `tbody tr:hover`: laat de actieve rij oplichten in zachtblauw (`#e8f0fe`) wanneer de bezoeker met de cursor over de tabel beweegt.
+- `tfoot tr`: de samenvattende voettekst met een stevige donkerblauwe bovenrand (`border-top: 2px solid #1e2d5a`) en vetgedrukte totalen.
+
+#### Vormgeving en interactie
+
+| Onderdeel / Selector | Stijlregel | Visuele rol in de tabel |
+|---|---|---|
+| `caption` | `text-align: left; font-weight: bold;` | Duidelijke context boven de gegevenstabel |
+| `thead th` | `background-color: #1e2d5a; color: #fff;` | Krachtige, herkenbare kolomkoppen |
+| `tbody td:first-child` | `text-align: left; font-weight: 500;` | Tekstuele labels links met een iets zwaarder lettergewicht |
+| `tbody td` | `text-align: right;` | Cijfers netjes rechts uitgelijnd voor snelle vergelijking |
+| `tbody tr:nth-child(even)` | `background-color: #f8f9fa;` | Zebra-striping die vermoeidheid bij het lezen voorkomt |
+| `tbody tr:hover` | `background-color: #e8f0fe;` | Visuele leesliniaal die de cursor volgt |
+| `tfoot th, tfoot td` | `background-color: #edf2f7; border-top: 2px solid ...` | Onderscheidend totaalblok onderaan |
 
 <CodeSandbox
   title="Voorbeeld: Professionele datatabel met zebra-striping en hover"
   height="520px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="54-55,58-59"
+  highlightHtml="10"
+  highlightCss="16, 25, 35, 43, 47, 55, 59, 64"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inschrijvingen IT Factory</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <table class="campus-statistiek">
-    <caption>Inschrijvingen IT Factory - Thomas More Campus Geel</caption>
-    <thead>
-      <tr>
-        <th scope="col">Opleiding</th>
-        <th scope="col">Fase 1</th>
-        <th scope="col">Fase 2</th>
-        <th scope="col">Fase 3</th>
-        <th scope="col">Totaal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Graduaat Programmeren</td>
-        <td>95</td>
-        <td>70</td>
-        <td>-</td>
-        <td>165</td>
-      </tr>
-      <tr>
-        <td>Graduaat Systeem- en Netwerkbeheer</td>
-        <td>80</td>
-        <td>58</td>
-        <td>-</td>
-        <td>138</td>
-      </tr>
-      <tr>
-        <td>Toegepaste Informatica (Applicatieontwikkeling)</td>
-        <td>110</td>
-        <td>85</td>
-        <td>72</td>
-        <td>267</td>
-      </tr>
-      <tr>
-        <td>Toegepaste Informatica (Cloud Infrastructure)</td>
-        <td>65</td>
-        <td>50</td>
-        <td>44</td>
-        <td>159</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <th scope="row">Totaal studenten</th>
-        <td>350</td>
-        <td>263</td>
-        <td>116</td>
-        <td>729</td>
-      </tr>
-    </tfoot>
-  </table>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inschrijvingen IT Factory</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <table class="campus-statistiek">
+      <caption>Inschrijvingen IT Factory - Thomas More Campus Geel</caption>
+      <thead>
+        <tr>
+          <th scope="col">Opleiding</th>
+          <th scope="col">Fase 1</th>
+          <th scope="col">Fase 2</th>
+          <th scope="col">Fase 3</th>
+          <th scope="col">Totaal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Graduaat Programmeren</td>
+          <td>95</td>
+          <td>70</td>
+          <td>-</td>
+          <td>165</td>
+        </tr>
+        <tr>
+          <td>Graduaat Systeem- en Netwerkbeheer</td>
+          <td>80</td>
+          <td>58</td>
+          <td>-</td>
+          <td>138</td>
+        </tr>
+        <tr>
+          <td>Toegepaste Informatica (Applicatieontwikkeling)</td>
+          <td>110</td>
+          <td>85</td>
+          <td>72</td>
+          <td>267</td>
+        </tr>
+        <tr>
+          <td>Toegepaste Informatica (Cloud Infrastructure)</td>
+          <td>65</td>
+          <td>50</td>
+          <td>44</td>
+          <td>159</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Totaal studenten</th>
+          <td>350</td>
+          <td>263</td>
+          <td>116</td>
+          <td>729</td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
@@ -497,10 +480,10 @@ body {
 }
 /* Koprij stijlen */
 .campus-statistiek thead th {
+  text-align: right;
   background-color: #1e2d5a;
   color: #ffffff;
   font-weight: 600;
-  text-align: right;
 }
 /* Eerste kolom altijd links uitlijnen */
 .campus-statistiek th:first-child,
@@ -526,10 +509,10 @@ body {
 /* Voettekst styling */
 .campus-statistiek tfoot th,
 .campus-statistiek tfoot td {
+  text-align: right;
   font-weight: bold;
   background-color: #edf2f7;
   border-top: 2px solid #1e2d5a;
-  text-align: right;
 }'
   js=''
 />
@@ -595,53 +578,70 @@ Eigenschappen zoals `color`, `font-weight`, `text-align` en `padding` hebben **g
 
 ### Codevoorbeeld: Kolommen accentueren via `<col>`
 
-In het onderstaande voorbeeld voorzien we de kolom met de totaalscore van een opvallende accentkleur via een klasse op het `<col>`-element:
+In het onderstaande interactieve voorbeeld zie je hoe je met `<colgroup>` en `<col>` een volledige verticale gegevenskolom (zoals een vakcijfer of een eindtotaal) in één stijlregel kleurt, zonder dat je elke individuele cel (`<td>`) van klassen hoeft te voorzien.
+
+#### Opbouw van de elementen
+
+- `colgroup`: bundelt de drie kolommen van de tabel semantisch vóór het `<thead>`-blok.
+- `col`: de eerste kolom (studentennummer) zonder speciale achtergrondopmaak.
+- `col.kolom-accent`: geeft de tweede kolom (resultaten van Web Essentials) een zachte gele achtergrond (`background-color: #fff3cd`).
+- `col.kolom-belangrijk`: accentueert de derde kolom (de totaalscore) met een zachte rode achtergrond (`#fce8e6`) en een opvallende oranje scheidingsrand (`border-left: 2px solid #e87722`).
+- `thead th`: de donkerblauwe kolomkoppen die bovenop de kolomachtergrond liggen.
+
+#### Kolomaccentuering via `<col>`
+
+| Element / Klasse | Toegestane CSS-eigenschap | Waarde | Visuele rol in de tabel |
+|---|---|---|---|
+| `col.kolom-accent` | `background-color` | `#fff3cd` (zachtgeel) | Markeert de modulekolom Web Essentials |
+| `col.kolom-belangrijk` | `background-color` | `#fce8e6` (zachtrood) | Markeert de kolom met het eindresultaat |
+| `col.kolom-belangrijk` | `border-left` | `2px solid #e87722` | Extra oranje verticale scheidingslijn (werkt bij `collapse`) |
+| `td:last-child` | `font-weight` | `bold` | Vetgedrukte eindpercentages (geregeld via cel, niet via `col`) |
 
 <CodeSandbox
   title="Voorbeeld: Kolommen stijlen met colgroup en col"
   height="440px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="18,21-22"
+  highlightHtml="12-16"
+  highlightCss="18, 21-22, 38"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kolommen stijlen met colgroup</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <table>
-    <caption>Examenresultaten - Thomas More Campus Geel</caption>
-    <colgroup>
-      <col>
-      <col class="kolom-accent">
-      <col class="kolom-belangrijk">
-    </colgroup>
-    <thead>
-      <tr>
-        <th scope="col">Student</th>
-        <th scope="col">Web Essentials</th>
-        <th scope="col">Totaalscore</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>r0123456</td>
-        <td>15 / 20</td>
-        <td>75%</td>
-      </tr>
-      <tr>
-        <td>r0654321</td>
-        <td>17 / 20</td>
-        <td>85%</td>
-      </tr>
-    </tbody>
-  </table>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolommen stijlen met colgroup</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <table>
+      <caption>Examenresultaten - Thomas More Campus Geel</caption>
+      <colgroup>
+        <col>
+        <col class="kolom-accent">
+        <col class="kolom-belangrijk">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col">Student</th>
+          <th scope="col">Web Essentials</th>
+          <th scope="col">Totaalscore</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>r0123456</td>
+          <td>15 / 20</td>
+          <td>75%</td>
+        </tr>
+        <tr>
+          <td>r0654321</td>
+          <td>17 / 20</td>
+          <td>85%</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {

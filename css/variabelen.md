@@ -145,32 +145,53 @@ p {
 }
 ```
 
-Hieronder zie je in een interactieve sandbox hoe centraal themabeheer met `:root` in de praktijk werkt:
+### Live voorbeeld: Themabeheer met CSS-variabelen in `:root`
+
+In het onderstaande interactieve voorbeeld zie je hoe je een compleet ontwerpthema (huisstijlkleuren, marges en afrondingen) centraal vastlegt in `:root`. Wijzig je straks één variabele in `:root`, dan werken alle gerelateerde stijlen zich automatisch over de hele pagina bij.
+
+#### Opbouw van de elementen
+
+- `:root`: de centrale opslagplaats voor alle globale variabelen (`--hoofdkleur`, `--accentkleur`, `--achtergrond`, `--tekstkleur`, `--basis-padding` en `--kaart-radius`).
+- `body`: gebruikt `var(--tekstkleur)` voor een consistente basisleesbaarheid op een helderwitte achtergrond.
+- `div.kaart`: een afgebakende informatiekaart waarvan de achtergrond (`var(--achtergrond)`), randkleur (`var(--hoofdkleur)`), hoekafronding (`var(--kaart-radius)`) en binnenruimte (`var(--basis-padding)`) rechtstreeks worden aangestuurd door de `:root`-variabelen.
+- `div.kaart h3`: de titel die automatisch kleurt volgens `var(--hoofdkleur)`.
+- `button.knop`: de actieknop die opvalt met `var(--accentkleur)` en dezelfde afgeronde hoeken deelt via `var(--kaart-radius)`.
+
+#### Centraal themabeheer in `:root`
+
+| Variabele | Standaardwaarde | Toegepast op elementen | Visuele rol in het thema |
+|---|---|---|---|
+| `--hoofdkleur` | `#1e2d5a` (donkerblauw) | `div.kaart` (rand), `h3` (titel) | Primaire Thomas More-themakleur |
+| `--accentkleur` | `#EC6639` (oranje) | `button.knop` (achtergrond) | Opvallende kleur voor actieknoppen |
+| `--achtergrond` | `#f8fafc` (zachtgrijs) | `div.kaart` (achtergrond) | Rustig contrast met de witte pagina |
+| `--tekstkleur` | `#222222` (antraciet) | `body` (tekstkleur) | Contrastrijke en rustige leesbaarheid |
+| `--basis-padding`| `1.25rem` (20px) | `div.kaart` (binnenruimte) | Consistente witruimte binnen het kader |
+| `--kaart-radius` | `0.5rem` (8px) | `div.kaart`, `button.knop` | Uniforme afgeronde hoeken in de hele interface |
 
 <CodeSandbox
   title="Themabeheer met CSS Variabelen in :root"
   height="480px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="9-14,22,28-31,35,42-,45"
+  highlightHtml="11, 14"
+  highlightCss="9-14,22,28-31,35,42,45"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSS Variabelen Demo</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <!-- Kaart van Thomas More Campus Geel -->
-  <div class="kaart">
-    <h3>Thomas More Campus Geel</h3>
-    <p>Ontdek onze IT-opleidingen en ervaar praktijkgericht onderwijs op onze groene campus.</p>
-    <button class="knop">Meer informatie</button>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Variabelen Demo</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <!-- Kaart van Thomas More Campus Geel -->
+    <div class="kaart">
+      <h3>Thomas More Campus Geel</h3>
+      <p>Ontdek onze IT-opleidingen en ervaar praktijkgericht onderwijs op onze groene campus.</p>
+      <button class="knop">Meer informatie</button>
+    </div>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
@@ -230,40 +251,24 @@ Pas in het tabblad `CSS` van de bovenstaande sandbox de waarden in `:root` eens 
 
 Een van de krachtigste toepassingen van CSS-variabelen is het ontwerpen van **modulaire componenten** met stijlvarianten.
 
-Stel dat je knoppen wil ontwerpen: een gewone knop, een succesknop en een waarschuwingsknop. In plaats van alle eigenschappen (`padding`, `border-radius`, `font-family`) telkens te herhalen, definieer je een basisknop met variabelen. De specifieke varianten hoeven alleen de kleurvariabele te overschrijven:
+Stel dat je vier soorten knoppen wilt aanbieden: een standaardknop, een opvallende actieknop, een succesknop en een neutrale annuleerknop. In plaats van alle gedeelde eigenschappen (`padding`, `border-radius`, `font-size`) telkens opnieuw te typen, definieer je een modulaire basisklasse met lokale variabelen. De specifieke variantklassen hoeven dan enkel de relevante kleurvariabelen te overschrijven.
 
-```css
-/* Basisknop met lokale variabelen */
-.knop {
-  --knop-bg: #1e2d5a;
-  --knop-tekst: #ffffff;
-  
-  background-color: var(--knop-bg);
-  color: var(--knop-tekst);
-  padding: 0.6rem 1.2rem;
-  border: 2px solid var(--knop-bg);
-  border-radius: 0.35rem;
-}
+### Opbouw van de elementen
 
-/* Variant 1: Oranje accentknop */
-.knop-accent {
-  --knop-bg: #EC6639;
-}
+- `h3`: de introtitel voor de knoppengroep in de donkerblauwe huiskleur (`#1e2d5a`).
+- `button.knop`: de basiscomponent waarin alle structurele layout (`padding`, `border-radius`, `font-size`) én de lokale variabelen (`--bg-kleur`, `--tekst-kleur`, `--rand-kleur`) worden gedeclareerd en toegepast.
+- `button.knop.knop-primair`: een variant die uitsluitend `--bg-kleur` overschrijft naar het Thomas More-oranje (`#EC6639`).
+- `button.knop.knop-succes`: een variant die `--bg-kleur` overschrijft naar frisgroen (`#10b981`).
+- `button.knop.knop-omlijnd`: een transparante knopvariant die `--bg-kleur`, `--tekst-kleur` en `--rand-kleur` herdefinieert voor een subtielere visuele hiërarchie.
 
-/* Variant 2: Groene succesknop */
-.knop-succes {
-  --knop-bg: #10b981;
-}
+### Modulaire knopvarianten en variabele-overschrijvingen
 
-/* Variant 3: Omlijnde knop (outline) */
-.knop-omlijnd {
-  --knop-bg: transparent;
-  --knop-tekst: #1e2d5a;
-  border-color: #1e2d5a;
-}
-```
-
-In de onderstaande sandbox zie je dit principe in actie:
+| Component / Klasse | Overschreven variabele(n) | Nieuwe waarde | Visuele rol in de interface |
+|---|---|---|---|
+| `button.knop` (Basis) | `--bg-kleur`<br>`--tekst-kleur` | `#1e2d5a`<br>`#ffffff` | Standaard donkerblauwe actieknop |
+| `button.knop-primair` | `--bg-kleur` | `#EC6639` (oranje) | Primaire knop (*Call-to-Action*, bijv. "Inschrijven") |
+| `button.knop-succes` | `--bg-kleur` | `#10b981` (groen) | Positieve bevestiging (bijv. "Opslaan" of "Voltooid") |
+| `button.knop-omlijnd` | `--bg-kleur`<br>`--tekst-kleur`<br>`--rand-kleur` | `transparent`<br>`#1e2d5a`<br>`#1e2d5a` | Neutrale secundaire actie (bijv. "Annuleren") |
 
 <CodeSandbox
   title="Componentvarianten via variabelen"
@@ -271,23 +276,23 @@ In de onderstaande sandbox zie je dit principe in actie:
   initialTab="split"
   activeCodeTab="css"
   highlightHtml=""
-  highlightCss="21-23,25-27,36,40,44-46"
+  highlightCss="21-23, 25-27, 36, 40, 44-46"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Knoppen Varianten</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <h3>Knopvarianten met CSS Variabelen</h3>
-  <button class="knop">Standaard</button>
-  <button class="knop knop-primair">Inschrijven</button>
-  <button class="knop knop-succes">Bevestigen</button>
-  <button class="knop knop-omlijnd">Annuleren</button>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knoppen Varianten</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <h3>Knopvarianten met CSS Variabelen</h3>
+    <button class="knop">Standaard</button>
+    <button class="knop knop-primair">Inschrijven</button>
+    <button class="knop knop-succes">Bevestigen</button>
+    <button class="knop knop-omlijnd">Annuleren</button>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {

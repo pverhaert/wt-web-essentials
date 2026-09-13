@@ -791,14 +791,35 @@ const renderMarkdown = (raw: string): string => {
 }
 
 /**
- * Afhandeling van klikacties binnen gerenderde markdown (kopieerknop van codeblokken)
+ * Afhandeling van klikacties binnen gerenderde markdown (hyperlinks en kopieerknop van codeblokken)
  */
 const handleContentClick = async (e: MouseEvent) => {
   const target = e.target as HTMLElement | null
+
+  // 1. Klik op een hyperlink
+  const anchor = target?.closest('a') as HTMLAnchorElement | null
+
+  if (anchor) {
+    const href = anchor.getAttribute('href') || ''
+    // Interne cursuslink (startend met / of relatief binnen de site)
+    if (href && (href.startsWith('/') || href.startsWith('./') || href.startsWith('../'))) {
+      e.preventDefault()
+      router.go(href)
+      return
+    } else if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+      // Externe link in nieuw venster openen voor veiligheid
+      anchor.setAttribute('target', '_blank')
+      anchor.setAttribute('rel', 'noopener noreferrer')
+    }
+    return
+  }
+
+  // 2. Klik op de kopieerknop van een codeblok
   const btn = target?.closest('.ai-copy-code-btn') as HTMLButtonElement | null
   if (!btn) return
 
   const wrapper = btn.closest('.ai-code-block-wrapper')
+
   const codeEl = wrapper?.querySelector('pre code') || wrapper?.querySelector('pre')
   if (!codeEl) return
 
@@ -1261,6 +1282,37 @@ const handleContentClick = async (e: MouseEvent) => {
 
 .msg-user .ai-message-content :deep(strong) {
   color: #ffffff;
+}
+
+/* Hyperlinks in antwoorden van de tutor */
+.ai-message-content :deep(a) {
+  color: var(--vp-c-brand-1, #ec6639);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.ai-message-content :deep(a:hover) {
+  color: var(--vp-c-brand-2, #d05a32);
+  text-decoration-thickness: 2px;
+}
+
+.dark .ai-message-content :deep(a) {
+  color: var(--tm-orange-text, #f09040);
+}
+
+.dark .ai-message-content :deep(a:hover) {
+  color: #ffaa5e;
+}
+
+.msg-user .ai-message-content :deep(a) {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
 }
 
 .ai-message-content :deep(code) {

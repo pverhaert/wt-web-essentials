@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 import { VitePWA } from 'vite-plugin-pwa'
 import fs from 'node:fs'
 import path from 'node:path'
+import { generateLlmsFiles } from './generateLlms.mts'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -42,6 +43,16 @@ export default defineConfig({
   // Vite plugins (PWA)
   vite: {
     plugins: [
+      {
+        name: 'vite-plugin-generate-llms',
+        buildStart() {
+          try {
+            generateLlmsFiles(process.cwd())
+          } catch (e) {
+            console.warn('[LLMs Generator] Fout bij genereren tijdens buildStart:', e)
+          }
+        },
+      },
       VitePWA({
         registerType: 'autoUpdate',
         outDir: '.vitepress/dist',
@@ -161,11 +172,11 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Tools & Webapps',
-        activeMatch: '/tools/|/sandbox',
+        text: 'Tools',
+        activeMatch: '^/tools/(phpstorm|git|devtools|ai-assistent|afbeeldingen-optimaliseren|realfavicongenerator|favicon-generator|extensions|semantiscope|validify|aspectsnap)',
         items: [
           {
-            text: 'Installatie & Ontwikkelomgeving',
+            text: 'Ontwikkelomgeving',
             items: [
               { text: 'PhpStorm Setup', link: '/tools/phpstorm' },
               { text: 'Git Basics', link: '/tools/git' },
@@ -174,17 +185,41 @@ export default defineConfig({
             ],
           },
           {
-            text: 'Webapps & Simulators',
+            text: 'Media & Hulpbronnen',
             items: [
               { text: 'Afbeeldingen Optimaliseren', link: '/tools/afbeeldingen-optimaliseren', target: 'page2' },
               { text: 'Photo Edit Pro', link: 'https://photo-edit-pro.netlify.app/', target: 'page2' },
               { text: 'RealFaviconGenerator', link: '/tools/realfavicongenerator', target: 'page2' },
               { text: 'Favicon Generator (.ico)', link: '/tools/favicon-generator', target: 'page2' },
+            ],
+          },
+          {
+            text: 'Browser Extensies',
+            items: [
+              { text: 'Validify (W3C validator)', link: '/tools/validify', target: 'page2' },
+              { text: 'Semantiscope (HTML structuur)', link: '/tools/semantiscope', target: 'page2' },
+              { text: 'AspectSnap (screen capture)', link: '/tools/aspectsnap', target: 'page2' },
+            ],
+          },
+        ],
+      },
+      {
+        text: 'Simulators',
+        activeMatch: '^/tools/(line-height-spel|font-simulator|kleurenomzetter|tabel-simulator|display-simulator|button-builder|vertical-align-lab|object-fit-simulator|background-simulator|positioning-simulator)|^/sandbox',
+        items: [
+          {
+            text: 'Typografie & Kleuren',
+            items: [
               { text: 'Line-height Spel', link: '/tools/line-height-spel', target: 'page2' },
               { text: 'Font Simulator', link: '/tools/font-simulator', target: 'page2' },
               { text: 'Kleurenomzetter', link: '/tools/kleurenomzetter', target: 'page2' },
               { text: 'CSS Colors Timeline', link: 'https://css-colors-timeline.netlify.app/', target: 'page2' },
               { text: 'CSS Theme Studio', link: 'https://css-theme-studio.netlify.app/', target: 'page2' },
+            ],
+          },
+          {
+            text: 'Layout & Box Model',
+            items: [
               { text: 'Tabel Simulator', link: '/tools/tabel-simulator', target: 'page2' },
               { text: 'Display Simulator', link: '/tools/display-simulator', target: 'page2' },
               { text: 'Button Builder', link: '/tools/button-builder', target: 'page2' },
@@ -198,7 +233,6 @@ export default defineConfig({
           {
             // Zonder text toont VitePress een strakke horizontale scheidingslijn
             items: [
-              { text: 'Browser Extensies', link: '/tools/extensions', target: 'page2' },
               { text: 'Fullscreen Sandbox', link: '/sandbox', target: 'page2' },
             ],
           },
@@ -339,7 +373,7 @@ export default defineConfig({
     }
   },
 
-  // Zorg dat de standalone Thomas More 404.html gegarandeerd in de root van de dist-map staat voor Netlify
+  // Zorg dat de standalone Thomas More 404.html en llms.txt gegarandeerd in de root van de dist-map staan voor Netlify
   buildEnd: async (siteConfig) => {
     const custom404Source = path.resolve(siteConfig.root, 'public/404.html')
     const dist404Target = path.resolve(siteConfig.outDir, '404.html')
@@ -347,5 +381,13 @@ export default defineConfig({
       fs.copyFileSync(custom404Source, dist404Target)
       console.log('Custom Thomas More 404.html succesvol naar dist/404.html gekopieerd voor Netlify.')
     }
+
+    // Genereer llms.txt, llms-full.txt en course-topics.json naar public én dist
+    try {
+      await generateLlmsFiles(siteConfig.root, siteConfig.outDir)
+    } catch (err) {
+      console.error('[LLMs Generator] Fout bij buildEnd:', err)
+    }
   },
 })
+

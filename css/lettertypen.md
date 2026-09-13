@@ -264,26 +264,44 @@ In de praktijk schrijven webontwikkelaars eigenschappen als `font-family`, `font
 
 ## Live voorbeeld: Lettertypen en regelhoogte
 
-In het onderstaande interactieve voorbeeld zie je het verschil tussen verschillende lettertypefamilies, het effect van `rem`-schaling en hoe belangrijk een aangename `line-height` is.
+In het onderstaande interactieve voorbeeld zie je het verschil tussen verschillende lettertypefamilies, het effect van `rem`-schaling en hoe belangrijk een aangename `line-height` is.  
+Wijzig op lijn 2 de lettergrootte naar `14px` en daarna naar `20px` en merk het verschil in de leesbaarheid op.
 
 <CodeSandbox
   title="Lettertypen, schaling en regelhoogte"
   height="450px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
-  css="body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  highlightHtml=""
+  highlightCss="2, 12-13, 19, 26-27"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8">
+    <title>Typografie voorbeeld</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <h1>Thomas More Campus Geel</h1>
+    <p class="intro">Welkom bij de opleiding Toegepaste Informatica in de IT Factory.</p>
+    <p>In deze module leer je hoe je professionele en toegankelijke typografie ontwerpt. Door het combineren van een betrouwbare font stack met relatieve eenheden zoals <span class="code-voorbeeld">rem</span> blijft jouw website vlot leesbaar op elk denkbaar beeldscherm.</p>
+  </body>
+</html>'
+  css='html {
+  font-size: 16px;
+}
+body {
+  font-family: &#39;Segoe UI&#39;, Tahoma, Geneva, Verdana, sans-serif;
   color: #1e2d5a;
   background-color: #f8fafc;
   padding: 20px;
 }
 h1 {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: Georgia, &#39;Times New Roman&#39;, serif;
   font-size: 2rem;
-  font-weight: 700;
   line-height: 1.2;
+  font-weight: 700;
   color: #e87722;
   margin-bottom: 0.5rem;
 }
@@ -293,31 +311,18 @@ h1 {
   line-height: 1.5;
   color: #334155;
 }
-
 p {
   font-size: 1rem;
   line-height: 1.6;
   color: #475569;
 }
 .code-voorbeeld {
-  font-family: Consolas, 'Courier New', monospace;
+  font-family: Consolas, &#39;Courier New&#39;, monospace;
   background-color: #e2e8f0;
   padding: 2px 6px;
   border-radius: 4px;
-}"
-  html="<!DOCTYPE html>
-<html lang=&quot;nl&quot;>
-<head>
-  <meta charset=&quot;UTF-8&quot;>
-  <title>Typografie voorbeeld</title>
-  <link rel=&quot;stylesheet&quot; href=&quot;stijl.css&quot;>
-</head>
-<body>
-  <h1>Thomas More Campus Geel</h1>
-  <p class=&quot;intro&quot;>Welkom bij de opleiding Toegepaste Informatica in de IT Factory.</p>
-  <p>In deze module leer je hoe je professionele en toegankelijke typografie ontwerpt. Door het combineren van een betrouwbare font stack met relatieve eenheden zoals <span class=&quot;code-voorbeeld&quot;>rem</span> blijft jouw website vlot leesbaar op elk denkbaar beeldscherm.</p>
-</body>
-</html>"
+}'
+  js=''
 />
 
 ## Tekstuitlijning: `text-align`
@@ -450,21 +455,56 @@ Gebruik voor moderne ontwerpen altijd een deels transparante kleur (zoals `rgba(
 
 ## Live voorbeeld: Tekstopmaak, knoppen en schaduwen
 
-In dit voorbeeld combineren we `text-transform`, `text-decoration`, `text-shadow` en toegankelijke links tot een aantrekkelijk geheel:
+In het onderstaande interactieve voorbeeld komen de behandelde typografische eigenschappen samen in een praktische informatiekaart. Let op hoe tekstschaduw, hoofdletters, spatiëring en toegankelijke linkstijlen de hiërarchie en leesbaarheid versterken.
+
+### Opbouw van de elementen
+
+- `div.kaart`: de omringende kaart met een witte achtergrond, een lichte rand en een maximale breedte (`max-width: 500px`).
+- `h2`: de koptitel van de kaart, getoond in hoofdletters (`text-transform: uppercase`) met extra letterspatiëring (`letter-spacing: 1px`) en een subtiele blauwe tekstschaduw (`text-shadow: 1px 1px 2px rgba(30, 45, 90, 0.2)`).
+- `p`: de toelichtende alinea met een comfortabele regelhoogte (`line-height: 1.6`).
+- `p a`: de inline hyperlink binnen de tekst, voorzien van een duidelijke onderlijning (`text-decoration: underline`) en een halfvette dikte (`font-weight: 600`) voor optimale toegankelijkheid (WCAG).
+- `a.knop`: de actieknop (`display: inline-block`) waarin de onderlijning bewust is uitgezet (`text-decoration: none`) en teksttransformatie (`uppercase`), letterdikte (`bold`) en spatiëring zorgen voor een opvallend uiterlijk.
+
+### Typografische eigenschappen en interactie
+
+| Element / Toestand | Eigenschap | Effect in de weergave |
+|---|---|---|
+| `h2` (Koptekst) | `text-transform: uppercase`<br>`text-shadow: 1px 1px 2px ...` | Hoofdletters zonder HTML-aanpassing; lichte schaduw voor diepte |
+| `p` (Alinea) | `line-height: 1.6` | Rustige en comfortabele regelafstand |
+| `p a` (Hyperlink) | `text-decoration: underline` | Blijft herkenbaar als link voor alle gebruikers (WCAG) |
+| `p a:hover` | `color: #0369a1` | Donkerdere blauwtint bij cursorinteractie |
+| `a.knop` (Actieknop) | `text-transform: uppercase`<br>`letter-spacing: 0.5px` | Compacte knoptekst met professionele uitstraling |
+| `a.knop:hover` | `background-color: #d4641a` | Donkerder oranje als directe visuele feedback |
 
 <CodeSandbox
   title="Tekstopmaak, links en schaduw"
   height="460px"
-  highlightHtml=""
-  highlightCss=""
-  highlightJs=""
+  initialTab="split"
   activeCodeTab="css"
-  css="body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  highlightHtml=""
+  highlightCss="16-17, 22, 27, 31, 36-38, 46"
+  highlightJs=""
+  html='<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaart voorbeeld</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="kaart">
+      <h2>Informatiedag</h2>
+      <p>Bezoek onze campus en ontdek de opleidingen van de IT Factory. Raadpleeg het volledige programma op de <a href="https://thomasmore.be" target="_blank">website van Thomas More</a>.</p>
+      <a href="#" class="knop">Schrijf je in</a>
+    </div>
+  </body>
+</html>'
+  css='body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   background-color: #f1f5f9;
   padding: 24px;
 }
-
 .kaart {
   background-color: #ffffff;
   padding: 24px;
@@ -472,62 +512,42 @@ In dit voorbeeld combineren we `text-transform`, `text-decoration`, `text-shadow
   border: 1px solid #e2e8f0;
   max-width: 500px;
 }
-
 h2 {
   font-size: 1.5rem;
   color: #1e2d5a;
   text-transform: uppercase;
-  letter-spacing: 1px;
   text-shadow: 1px 1px 2px rgba(30, 45, 90, 0.2);
+  letter-spacing: 1px;
   margin-top: 0;
 }
-
 p {
   line-height: 1.6;
   color: #334155;
 }
-
 p a {
   color: #0284c7;
   text-decoration: underline;
   font-weight: 600;
 }
-
 p a:hover {
   color: #0369a1;
 }
-
 .knop {
-  display: inline-block;
-  background-color: #e87722;
   color: #ffffff;
+  background-color: #e87722;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   padding: 10px 20px;
   border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  letter-spacing: 0.5px;
+  display: inline-block;
 }
-
 .knop:hover {
   background-color: #d4641a;
-}"
-  html="<!DOCTYPE html>
-<html lang=&quot;nl&quot;>
-<head>
-  <meta charset=&quot;UTF-8&quot;>
-  <title>Kaart voorbeeld</title>
-  <link rel=&quot;stylesheet&quot; href=&quot;stijl.css&quot;>
-</head>
-<body>
-  <div class=&quot;kaart&quot;>
-    <h2>Informatiedag</h2>
-    <p>Bezoek onze campus en ontdek de opleidingen van de IT Factory. Raadpleeg het volledige programma op de <a href=&quot;https://thomasmore.be&quot; target=&quot;_blank&quot;>website van Thomas More</a>.</p>
-    <a href=&quot;#&quot; class=&quot;knop&quot;>Schrijf je in</a>
-  </div>
-</body>
-</html>"
+}'
+  js=''
 />
 
 ## Handige Emmet-sneltoetsen in PhpStorm

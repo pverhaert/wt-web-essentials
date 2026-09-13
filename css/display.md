@@ -66,21 +66,25 @@ Een afbeelding (`<img>`) is een speciaal soort inline-element, namelijk een *ver
 
 ### Codevoorbeeld: Blok versus Inline visualiseren
 
-In de onderstaande sandbox zie je het verschil tussen alinea's (blok) en spans/links (inline). Merk op hoe de ingestelde `width` en `height` op de inline `span` en link volledig genegeerd worden door de browser.
+In het onderstaande interactieve voorbeeld zie je het fundamentele verschil tussen blokelementen (`div`, `h2`, `p`) en inline-elementen (`span`, `a`). Merk op hoe de opgegeven breedte (`width: 250px`) en hoogte op de inline `span` en link volledig genegeerd worden door de browser.
 
-```html
-<!-- Blokelementen: starten op een nieuwe regel en nemen de volle breedte -->
-<div class="vak-blok">
-  <h2>Blokelement (h2)</h2>
-  <p>Dit is een alinea. Alineas zijn blokelementen en vullen automatisch de hele breedte.</p>
-</div>
+#### Opbouw van de elementen
 
-<!-- Inline-elementen: vloeien mee in de regel -->
-<p class="tekst-met-inline">
-  In deze tekst staat een <span class="inline-accent">span met vaste breedte</span> en een
-  <a href="#" class="inline-link">hyperlink</a> die gewoon meevloeien op dezelfde regel.
-</p>
-```
+- `div.vak-blok`: een blokelement dat automatisch op een nieuwe regel start en de volledige beschikbare breedte van zijn ouder inneemt.
+- `div.vak-blok h2`: de koptitel binnen het blok (eveneens een blokelement).
+- `div.vak-blok p`: de alinea binnen het blok.
+- `p.tekst-met-inline`: een omhullende alinea waarin inline-elementen zijn opgenomen.
+- `span.inline-accent`: een inline-element met een zachte gele achtergrond (`#fde68a`); ondanks `width: 250px` en `height: 60px` in de CSS blijft het netjes meevloeien op dezelfde regel.
+- `a.inline-link`: een inline hyperlink die eveneens meevloeit in de regeltekst.
+
+#### Gedragsverschillen in de praktijk
+
+| Eigenschap / Kenmerk | `div.vak-blok` (Blok) | `span.inline-accent` & `a.inline-link` (Inline) |
+|---|---|---|
+| **Nieuwe regel?** | Begint altijd op een eigen nieuwe regel | Vloeit mee in de lopende tekstregel |
+| **Breedte (`width`)** | Vult standaard de volle 100% | Neemt uitsluitend de breedte van de inhoud in |
+| **Afmetingen instelbaar?** | `width` en `height` worden gerespecteerd | `width` en `height` worden **genegeerd** |
+| **Verticale witruimte?** | `margin-top/bottom` duwt omliggende elementen weg | Duwt regels erboven of eronder **niet** weg |
 
 <CodeSandbox
   title="Voorbeeld: Blok versus Inline"
@@ -249,15 +253,25 @@ Omdat `inline-block` elementen worden behandeld als tekstkarakters, telt elke sp
 
 ### Codevoorbeeld: Professionele knoppenbalk met `inline-block`
 
-In het onderstaande voorbeeld transformeren we gewone ankerlinks (`<a>`) naar een aantrekkelijke knoppenrij met `display: inline-block`, `padding`, een hover-effect en `vertical-align`.
+In het onderstaande interactieve voorbeeld transformeren we gewone inline ankerlinks (`<a>`) naar een aantrekkelijke, klikbare knoppenrij. Door `display: inline-block` toe te voegen kunnen we binnenruimte (`padding`), marges en een achtergrondkleur instellen, terwijl de knoppen toch netjes naast elkaar op één regel blijven staan.
 
-```html
-<nav class="campus-acties">
-  <a href="#" class="knop knop-primair">Inschrijven voor campus Geel</a>
-  <a href="#" class="knop knop-secundair">Infodag bezoeken</a>
-  <a href="#" class="knop knop-subtiel">Contact opnemen</a>
-</nav>
-```
+#### Opbouw van de elementen
+
+- `div.knoppen-container`: een witte containerkaart met een subtiele rand en padding.
+- `div.knoppen-container h2`: de koptekst in donkerblauw (`#1e2d5a`).
+- `nav`: het navigatie-element dat de knoppenrij groepeert.
+- `a.knop`: de basisklasse voor alle hyperlinks met `display: inline-block`, `vertical-align: middle`, `padding: 0.75rem 1.5rem` en afgeronde hoeken (`border-radius: 6px`).
+- `a.knop-primair`: de opvallende oranje knop (`#e87722`) voor de belangrijkste actie.
+- `a.knop-secundair`: de donkerblauwe knop (`#1e2d5a`) voor een ondersteunende actie.
+- `a.knop-omlijnd`: de transparante outline-knop voor een neutrale actie.
+
+#### Knopvarianten en gedrag
+
+| Knop / Klasse | Kleurstelling | Rand / Achtergrond | Doel in de gebruikersinterface |
+|---|---|---|---|
+| `a.knop-primair` | Oranje (`#e87722`), witte tekst | Gevulde achtergrond, donkerder bij `:hover` | Primaire actie (*Inschrijven*) |
+| `a.knop-secundair` | Donkerblauw (`#1e2d5a`), witte tekst | Gevulde achtergrond, verdiept bij `:hover` | Secundaire actie (*Infodag bezoeken*) |
+| `a.knop-omlijnd` | Transparante achtergrond, blauwe tekst | `border: 2px solid #1e2d5a` | Tertiaire actie (*Brochure downloaden*) |
 
 <CodeSandbox
   title="Voorbeeld: Knoppenbalk met inline-block"

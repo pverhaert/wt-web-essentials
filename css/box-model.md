@@ -487,36 +487,56 @@ Voeg je het trefwoord `inset` toe aan het begin of einde van de notatie, dan val
 
 ## Voorbeeld randen en afrondingen
 
+In het onderstaande interactieve voorbeeld zie je hoe je randen, specifieke zijderanden, afgeronde hoeken (`border-radius`) en schaduwen (`box-shadow`) combineert om componenten visuele diepte en karakter te geven.
+
+### Opbouw van de elementen
+
+- `div.info-kaart`: een infoblok met een lichtgrijze achtergrond (`#f1f5f9`), waarbij enkel aan de linkerzijde een dikke groene accentrand (`border-left: 6px solid #10b981`) is geplaatst in plaats van een rand rondom.
+- `div.info-kaart h4`: de donkerblauwe kop van het informatieblok.
+- `div.info-kaart p`: de begeleidende tekst met een compactere lettergrootte (`0.9rem`).
+- `figure.fotokader`: de omhullende container voor de foto en het bijschrift.
+- `figure.fotokader img`: de ingelijste foto die dankzij padding (`1.5rem`), een dunne rand (`border: 1px solid ...`), afgeronde hoeken (`border-radius: .5rem`) en een opvallende schaduw (`box-shadow: 10px 10px 5px rgba(0, 0, 0, .5)`) oogt als een fysiek Polaroid-kader.
+- `figure.fotokader figcaption`: het auteursrecht-bijschrift onder de foto in subtiel leisteengrijs (`#475569`).
+
+### Randen, afrondingen en schaduwen in detail
+
+| Element | Eigenschap | Waarde | Visueel effect |
+|---|---|---|---|
+| `div.info-kaart` | `border-left` | `6px solid #10b981` | Solide groene accentlijn uitsluitend aan de linkerkant |
+| `figure.fotokader img` | `border` | `1px solid rgba(23, 22, 22, .5)` | Subtiele, halftransparante omlijning rond de afbeelding |
+| `figure.fotokader img` | `border-radius` | `.5rem` (8px) | Zachte, afgeronde hoeken aan het frame |
+| `figure.fotokader img` | `box-shadow` | `10px 10px 5px rgba(0, 0, 0, .5)` | Diepe schaduw rechtsonder die het kader laat zweven |
+
 <CodeSandbox
   title="Randen en afronding"
   height="480px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="20,41,43-44"
+  highlightHtml="11, 16"
+  highlightCss="20, 27, 32, 37, 41, 43-44, 51"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Randen en Border-radius</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <!-- Infokaart met border-left -->
-  <div class="info-kaart">
-    <h4>Info</h4>
-    <p>Randen hoeven niet rondom een element te lopen. Met een specifieke zijderand zoals border-left creëer je in een handomdraai een professioneel accent.</p>
-  </div>
-  <!-- Ingelijste foto met figcaption -->
-  <figure class="fotokader">
-    <img
-      src="https://picsum.photos/id/124/300/200"
-      alt="Bootje op een kalm meer">
-    <figcaption>© Anton Sulsky</figcaption>
-  </figure>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randen en Border-radius</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <!-- Infokaart met border-left -->
+    <div class="info-kaart">
+      <h4>Info</h4>
+      <p>Randen hoeven niet rondom een element te lopen. Met een specifieke zijderand zoals border-left creëer je in een handomdraai een professioneel accent.</p>
+    </div>
+    <!-- Ingelijste foto met figcaption -->
+    <figure class="fotokader">
+      <img
+        src="https://picsum.photos/id/124/300/200"
+        alt="Bootje op een kalm meer">
+      <figcaption>© Anton Sulsky</figcaption>
+    </figure>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {

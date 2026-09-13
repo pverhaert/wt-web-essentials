@@ -37,6 +37,21 @@ const isLoading = ref(false)
 const errorMessage = ref<string | null>(null)
 const isInitialized = ref(false)
 const isDrawerOpen = ref(false)
+const courseLlmsContext = ref<string>('')
+
+async function loadCourseContext() {
+  if (courseLlmsContext.value || typeof window === 'undefined') return
+  try {
+    const res = await fetch('/llms.txt')
+    if (res.ok) {
+      const txt = await res.text()
+      // Bewaar een schone versie van de sitemap & speciale technische verwijzingen
+      courseLlmsContext.value = txt
+    }
+  } catch (e) {
+    console.warn('Kon /llms.txt niet laden voor AI context:', e)
+  }
+}
 
 export function useAiTutor() {
   const init = () => {
@@ -80,6 +95,8 @@ export function useAiTutor() {
       if (apiKey.value) {
         fetchModels()
       }
+
+      loadCourseContext()
 
       isInitialized.value = true
     }
@@ -252,19 +269,32 @@ export function useAiTutor() {
     try {
       const ai = new GoogleGenAI({ apiKey: apiKey.value })
 
+      if (!courseLlmsContext.value) {
+        await loadCourseContext()
+      }
+
       const systemInstruction = `Je bent de virtuele AI-tutor voor het opleidingsonderdeel 'Web Essentials' aan Thomas More Hogeschool (Campus Geel, IT Factory).
 De doelgroep bestaat uit eerstejaarsstudenten ICT zonder voorkennis van programmeren of webontwikkeling.
 ${studentName.value ? `De student waarmee je praat heet ${studentName.value}. Spreek de student vriendelijk en bemoedigend aan met de voornaam.` : ''}
 ${pageContext ? `De student bekijkt momenteel de cursuspagina: "${pageContext.title}" (route: ${pageContext.path}). Gebruik deze context indien de vraag betrekking heeft op het huidige onderwerp.` : ''}
+
+${courseLlmsContext.value ? `Hieronder vind je de officiële inhoudsopgave, onderwerpenmatrix en technische verwijzingen van de cursus Web Essentials:
+---
+${courseLlmsContext.value}
+---` : ''}
 
 Didactische richtlijnen voor jouw antwoorden:
 1. Spreek altijd in correct, helder Nederlands en gebruik consequent de jij-vorm (geen "u" of "jullie").
 2. Leg technische begrippen altijd meteen begrijpelijk uit bij de eerste vermelding.
 3. Begeleid de student didactisch (scaffolding): leg denkstappen uit, geef hints en toon compacte, duidelijke codefragmenten. Kauw grotere opdrachten of huiswerktaken niet zomaar integraal voor, maar laat de student zelf nadenken.
 4. Focus strikt op moderne standaarden: HTML5 en CSS3 conform de cursus. Vermeld geen frameworks zoals React, Vue, Angular, Bootstrap of Tailwind tenzij de student er expliciet naar informeert.
-5. Houd codevoorbeelden minimaal, semantisch correct en werkend.
-6. Geen emoji's in je uitleg. Geen en-streepjes of em-streepjes als leestekens in lopende zinnen.
-7. Gebruik in voorbeelden uitsluitend Thomas More Campus Geel (Kleinhoefstraat 4, 2440 Geel).`
+5. Wanneer een student vraagt waar een bepaalde tag, eigenschap of techniek in de cursus staat (bijvoorbeeld display: flow-root, flexbox, box-sizing, transformaties):
+   - Raadpleeg dan altijd de bovenstaande cursusstructuur en technische verwijzingen.
+   - Geef direct het exacte hoofdstuk en link daar naartoe met een Markdown-link (bijv. "Dat bespreken we in het hoofdstuk [Afbeeldingen & Achtergronden](/css/afbeeldingen#het-probleem-van-de-inzakkende-container-clearfix) bij de uitleg over clearfix en float.").
+   - Leg kort uit waarom het juist in dát hoofdstuk aan bod komt.
+6. Houd codevoorbeelden minimaal, semantisch correct en werkend.
+7. Geen emoji's in je uitleg. Geen en-streepjes of em-streepjes als leestekens in lopende zinnen.
+8. Gebruik in voorbeelden uitsluitend Thomas More Campus Geel (Kleinhoefstraat 4, 2440 Geel).`
 
       // Converteer voorgaande berichten naar het formaat voor de Gemini API
       // We nemen maximaal de laatste 12 berichten mee voor een compacte context

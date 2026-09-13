@@ -1,0 +1,821 @@
+[
+  {
+    "title": "Introductie in HTML5",
+    "path": "/html",
+    "category": "HTML5",
+    "sections": [
+      "Wat is HTML?",
+      "Waarom HTML?",
+      "Webstandaarden en het W3C",
+      "Geschiedenis van HTML",
+      "Het oorspronkelijke doel",
+      "De evolutie naar HTML5",
+      "De drie pijlers van het web",
+      "Tags, elementen en attributen",
+      "Tags",
+      "Elementen"
+    ],
+    "keyTerms": [
+      "HTML",
+      "hypertext",
+      "opmaaktaal",
+      "CSS",
+      "W3C",
+      "CERN",
+      "RFC",
+      "WHATWG",
+      "tag",
+      "HTML-element"
+    ],
+    "codeFeatures": []
+  },
+  {
+    "title": "Basistags",
+    "path": "/html/basistags",
+    "category": "HTML5",
+    "sections": [
+      "Commentaar in HTML",
+      "Blokelementen en inline-elementen",
+      "Blokelementen (block-level)",
+      "Inline-elementen (inline)",
+      "De neutrale containers: `<div>` en `<span>`",
+      "Koppen: `<h1>` tot en met `<h6>`",
+      "Regels voor een goede koppenhiërarchie",
+      "Alinea's: `<p>`",
+      "Onderbrekingen: `<hr>` en `<br>`",
+      "Thematische scheiding: `<hr>`"
+    ],
+    "keyTerms": [
+      "blokelementen",
+      "inline-elementen",
+      "CSS",
+      "semantische structuurtags"
+    ],
+    "codeFeatures": []
+  },
+  {
+    "title": "Afbeeldingen",
+    "path": "/html/afbeeldingen",
+    "category": "HTML5",
+    "sections": [
+      "Het `<img>`-element",
+      "Essentiële attributen van `<img>`",
+      "Het `src`-attribuut",
+      "Het `alt`-attribuut en toegankelijkheid",
+      "De attributen `width` en `height`",
+      "Luie laadtijd: `loading=\"lazy\"`",
+      "Voorbeeld: Reeks afbeeldingen met attributen en lazy loading",
+      "Afbeeldingsformaten voor het web",
+      "Overzichtstabel",
+      "WebP: de moderne webstandaard"
+    ],
+    "keyTerms": [
+      "SEO",
+      "Cumulative Layout Shift (CLS)",
+      "Rasterafbeeldingen",
+      "Vectorafbeeldingen",
+      "SVG",
+      "PNG",
+      "JPEG",
+      "GIF"
+    ],
+    "codeFeatures": []
+  },
+  {
+    "title": "Hyperlinks",
+    "path": "/html/hyperlinks",
+    "category": "HTML5",
+    "sections": [
+      "Het `<a>`-element",
+      "Het `href`-attribuut",
+      "Absolute versus Relatieve links",
+      "Absolute URL's",
+      "Relatieve paden",
+      "Het openen van links: `target` en veiligheid",
+      "Waarom `rel=\"noopener noreferrer\"` essentieel is",
+      "Navigeren binnen een pagina: Ankers (`#id`)",
+      "Hoe maak je een ankerlink?",
+      "Springen naar de bovenkant van de pagina"
+    ],
+    "keyTerms": [
+      "absolute URL",
+      "URL",
+      "PDF",
+      "ankerlink"
+    ],
+    "codeFeatures": []
+  },
+  {
+    "title": "Speciale Tekens",
+    "path": "/html/speciale-tekens",
+    "category": "HTML5",
+    "sections": [
+      "Waarom speciale tekens coderen?",
+      "UTF-8: Accenten en emoji's rechtstreeks kopiëren en plakken",
+      "Hoe voeg je emoji's in?",
+      "De opbouw van een HTML-entiteit",
+      "De vijf gereserveerde tekens",
+      "Ampersands in lopende tekst en links",
+      "Codevoorbeeld: HTML-tags als tekst tonen",
+      "De vaste spatie: `&nbsp;` (non-breaking space)",
+      "Waar gebruik je de vaste spatie?",
+      "Codevoorbeeld: Het effect van `&nbsp;`"
+    ],
+    "keyTerms": [
+      "HTML-entiteit",
+      "UTF-8"
+    ],
+    "codeFeatures": []
+  },
+  {
+    "title": "Lijsten",
+    "path": "/html/lijsten",
+    "category": "HTML5",
+    "sections": [
+      "Waarom lijsten gebruiken?",
+      "Ongeordende lijsten (`<ul>`)",
+      "Lijsten als basis voor navigatie",
+      "Geordende lijsten (`<ol>`)",
+      "Attributen van `<ol>`",
+      "Het `value`-attribuut op `<li>`",
+      "Live voorbeeld: Ongeordende en geordende lijsten",
+      "Geneste lijsten (Lijsten in lijsten)",
+      "De gouden regel voor geneste lijsten",
+      "Live voorbeeld: Geneste lijsten"
+    ],
+    "keyTerms": [
+      "ongeordende lijst",
+      "geordende lijst",
+      "beschrijvingslijst"
+    ],
+    "codeFeatures": []
+  },
+  {
+    "title": "Tabellen",
+    "path": "/html/tabellen",
+    "category": "HTML5",
+    "sections": [
+      "Waarvoor dienen tabellen (en waarvoor niet)?",
+      "De basisstructuur van een tabel",
+      "Toegankelijkheid met het `scope`-attribuut",
+      "Codevoorbeeld: Eenvoudige tabel met koppen en caption",
+      "Cellen samenvoegen: `colspan` en `rowspan`",
+      "Horizontaal samenvoegen met `colspan`",
+      "Verticaal samenvoegen met `rowspan`",
+      "Codevoorbeeld: Lesrooster met `colspan` en `rowspan`",
+      "Semantische groepering: `<thead>`, `<tbody>` en `<tfoot>`",
+      "Waarom zijn deze elementen nuttig?"
+    ],
+    "keyTerms": [
+      "CSS",
+      "colspan=\"aantal\"",
+      "rowspan=\"aantal\""
+    ],
+    "codeFeatures": []
+  },
+  {
+    "title": "Introductie in CSS3",
+    "path": "/css",
+    "category": "CSS3",
+    "sections": [
+      "Wat is CSS?",
+      "Scheiding van inhoud en vormgeving",
+      "Webstandaarden en CSS3",
+      "Waar schrijf je CSS?",
+      "1. Externe stijlbladen (External CSS)",
+      "2. Interne stijlbladen (Internal of Embedded CSS)",
+      "3. Inline stijlen (Inline CSS)",
+      "Anatomie van een CSS-stijlregel",
+      "Meervoudige waarden en aanhalingstekens",
+      "Commentaar in CSS"
+    ],
+    "keyTerms": [
+      "CSS",
+      "Cascading Style Sheets",
+      "W3C",
+      "modules",
+      "stijlregels",
+      "Cascading",
+      "User Agent Stylesheet",
+      "DOM",
+      "overerving (inheritance)"
+    ],
+    "codeFeatures": [
+      "background-image"
+    ]
+  },
+  {
+    "title": "Lettertypen en Tekstopmaak",
+    "path": "/css/lettertypen",
+    "category": "CSS3",
+    "sections": [
+      "Lettertypefamilies: `font-family`",
+      "Belangrijke regels voor `font-family`",
+      "De 5 generieke lettertypefamilies",
+      "Maateenheden voor lettergrootte: `font-size`",
+      "1. Pixels (`px`): absolute eenheid",
+      "2. Rem (`rem`): relatieve en moderne eenheid",
+      "Letterdikte: `font-weight`",
+      "Cursief en variant: `font-style` en `font-variant`",
+      "`font-style`",
+      "`font-variant`"
+    ],
+    "keyTerms": [
+      "font-stack",
+      "W3C",
+      "pixel",
+      "root em",
+      "kleinkapitalen",
+      "WCAG"
+    ],
+    "codeFeatures": [
+      "display: inline-block"
+    ]
+  },
+  {
+    "title": "Webfonts en Iconen",
+    "path": "/css/webfonts",
+    "category": "CSS3",
+    "sections": [
+      "Waarom Webfonts?",
+      "De voordelen van webfonts",
+      "Google Fonts en de Moderne CSS2 API",
+      "Wat zijn variabele lettertypen (Variable Fonts)?",
+      "Wat is optische schaling (Optical Sizing: `opsz`)?",
+      "De opbouw van een moderne Google Fonts URL",
+      "Koppelen: `@import` in CSS versus `<link>` in HTML",
+      "Koppelen in CSS via `@import` (Beste voor centraal beheer)",
+      "Koppelen in HTML via `<link>` (Beste voor maximale laadsnelheid)",
+      "Het lettertype toepassen in CSS"
+    ],
+    "keyTerms": [
+      "webfont",
+      "CDN",
+      "API",
+      "variabele lettertypen (Variable Fonts)",
+      "optische schaling (Optical Sizing)"
+    ],
+    "codeFeatures": []
+  },
+  {
+    "title": "Kleuren",
+    "path": "/css/kleuren",
+    "category": "CSS3",
+    "sections": [
+      "Tekstkleur en achtergrondkleur",
+      "De speciale waarden transparent en inherit",
+      "Live voorbeeld: Tekst- en achtergrondkleuren",
+      "Kleursystemen in CSS",
+      "1. Benoemde kleuren (Named Colors)",
+      "2. Hexadecimale notatie (HEX)",
+      "3. RGB en RGBA",
+      "4. HSL (Hue, Saturation, Lightness)",
+      "5. OKLCH (perceptuele uniformiteit)",
+      "Kleurcontrast en Toegankelijkheid"
+    ],
+    "keyTerms": [
+      "HEX",
+      "RGB",
+      "HSL",
+      "OKLCH",
+      "WCAG",
+      "additieve kleurensysteem",
+      "hexadecimale notatie",
+      "alfakanaal"
+    ],
+    "codeFeatures": [
+      "display: inline-block",
+      "display: block",
+      "overflow:",
+      "background-image",
+      "background-size",
+      "background-position",
+      "linear-gradient"
+    ]
+  },
+  {
+    "title": "Box Model & Randen",
+    "path": "/css/box-model",
+    "category": "CSS3",
+    "sections": [
+      "De vier lagen van het Box Model",
+      "Breedte instellen: `width`, `max-width` en `min-width`",
+      "Hoogte instellen: `height`, `min-height` en `max-height`",
+      "Binnenruimte: Padding",
+      "Individuele zijden",
+      "Korte notatie (Shorthand)",
+      "Buitenruimte: Margin",
+      "Horizontaal centreren met `margin: auto`",
+      "Samenvallende marges (Margin Collapse)",
+      "Randen: Border"
+    ],
+    "keyTerms": [
+      "CSS Box Model",
+      "Content (inhoud)",
+      "Padding (binnenruimte)",
+      "Border (rand)",
+      "Margin (buitenruimte)",
+      "margin collapse"
+    ],
+    "codeFeatures": [
+      "box-sizing: content-box",
+      "box-sizing: border-box",
+      "overflow-y:",
+      "overflow:",
+      "background-image",
+      "background-size",
+      "linear-gradient"
+    ]
+  },
+  {
+    "title": "CSS Variabelen",
+    "path": "/css/variabelen",
+    "category": "CSS3",
+    "sections": [
+      "Waarom CSS Variabelen?",
+      "Syntaxis: Declareren en Oproepen",
+      "1. Een variabele declareren: `--naam`",
+      "2. Een variabele oproepen: `var()`",
+      "Terugvalwaarde (Fallback)",
+      "Bereik (Scope): Globaal versus Lokaal",
+      "Globaal bereik: `:root`",
+      "Lokaal bereik: Binnen een specifieke selector",
+      "Live voorbeeld: Themabeheer met CSS-variabelen in `:root`",
+      "Modulaire Componenten: Variabelen Overschrijven"
+    ],
+    "keyTerms": [
+      "CSS Variabelen",
+      "DRY"
+    ],
+    "codeFeatures": [
+      "box-sizing: border-box",
+      "var(--tm-oranje)",
+      "var(--hoofdkleur)",
+      "var(--hoofd-font)",
+      "var(--basis-ruimte)",
+      "var(--accentkleur)",
+      "var(--tekst-kleur)",
+      "var(--tekstkleur)",
+      "var(--achtergrond)",
+      "var(--kaart-radius)",
+      "var(--basis-padding)",
+      "var(--bg-kleur)"
+    ]
+  },
+  {
+    "title": "Lijsten",
+    "path": "/css/lijsten",
+    "category": "CSS3",
+    "sections": [
+      "Opsommingstekens wijzigen: `list-style-type`",
+      "Veelgebruikte waarden voor ongeordende lijsten (`<ul>`)",
+      "Veelgebruikte waarden voor geordende lijsten (`<ol>`)",
+      "Eigen tekens als opsommingsteken (String literals)",
+      "Positie van de markering: `list-style-position`",
+      "Eigen afbeeldingen als opsommingsteken: `list-style-image`",
+      "Korte notatie: `list-style` (Shorthand)",
+      "Kleur en formaat aanpassen: het `::marker` pseudo-element",
+      "De Lijst-Reset voor Navigatiemenu's",
+      "Sneller werken met Emmet in PhpStorm"
+    ],
+    "keyTerms": [],
+    "codeFeatures": [
+      "box-sizing: border-box",
+      "var(--tm-blauw)",
+      "var(--tm-oranje)",
+      ":root"
+    ]
+  },
+  {
+    "title": "Tabellen",
+    "path": "/css/tabellen",
+    "category": "CSS3",
+    "sections": [
+      "Randen beheren: `border-collapse` en `border-spacing`",
+      "Randen samenvoegen: `border-collapse`",
+      "Tussenruimte bij gescheiden randen: `border-spacing`",
+      "Lege cellen verbergen: `empty-cells`",
+      "Codevoorbeeld: Samengevouwen versus gescheiden randen",
+      "Positie van het bijschrift: `caption-side`",
+      "Cellen vormgeven en uitlijnen",
+      "Binnenruimte toevoegen met `padding`",
+      "Horizontale uitlijning met `text-align`",
+      "Verticale uitlijning met `vertical-align`"
+    ],
+    "keyTerms": [
+      "CSS",
+      "zebra-striping",
+      "border-collapse",
+      "Zebra-striping",
+      "table-layout"
+    ],
+    "codeFeatures": [
+      "box-sizing: border-box",
+      "vertical-align",
+      "overflow-x:"
+    ]
+  },
+  {
+    "title": "Display",
+    "path": "/css/display",
+    "category": "CSS3",
+    "sections": [
+      "De natuurlijke documentstroom: Blok versus Inline",
+      "Blokelementen (`display: block`)",
+      "Inline-elementen (`display: inline`)",
+      "Vergelijking van het boxmodel per weergavetype",
+      "Codevoorbeeld: Blok versus Inline visualiseren",
+      "Het weergavetype wijzigen: `display: block` en `display: inline`",
+      "Praktijktoepassing: Hyperlinks als brede knoppen (`display: block`)",
+      "Het beste van twee werelden: `display: inline-block`",
+      "Stapsgewijze demonstratie: Een knop transformeren",
+      "Verticale uitlijning met `vertical-align`"
+    ],
+    "keyTerms": [
+      "display",
+      "documentstroom (normal flow)",
+      "(block-level elements)",
+      "(inline elements)",
+      "inline-block",
+      "display: none",
+      "visibility: hidden"
+    ],
+    "codeFeatures": [
+      "display: inline-block",
+      "display: none",
+      "display: block",
+      "display: inline",
+      "display: flex",
+      "display: grid",
+      "box-sizing: border-box",
+      "vertical-align"
+    ]
+  },
+  {
+    "title": "Afbeeldingen en Achtergronden",
+    "path": "/css/afbeeldingen",
+    "category": "CSS3",
+    "sections": [
+      "Afbeeldingen dimensioneren met CSS",
+      "De gouden regel voor responsieve afbeeldingen",
+      "Vaste beeldverhoudingen bewaken met `aspect-ratio`",
+      "Afbeeldingen passend maken met `object-fit`",
+      "De uitsnede sturen met `object-position`",
+      "Interactieve Simulator: `object-fit` & `object-position`",
+      "Codevoorbeeld: Responsieve afbeeldingskaarten met `object-fit`",
+      "Opbouw van de elementen",
+      "Werking van `object-fit` binnen de kaart",
+      "Achtergrondafbeeldingen in CSS: `background-image`"
+    ],
+    "keyTerms": [
+      "CLS",
+      "aspect-ratio",
+      "object-fit",
+      "object-position",
+      "background-image",
+      "background-repeat",
+      "background-position",
+      "background-size",
+      "background",
+      "float"
+    ],
+    "codeFeatures": [
+      "display: flow-root",
+      "display: inline-block",
+      "display: block",
+      "float: left",
+      "float: right",
+      "float: none",
+      "clear: both",
+      "object-fit: cover",
+      "object-fit: contain",
+      "box-sizing: border-box",
+      "vertical-align",
+      "overflow:"
+    ]
+  },
+  {
+    "title": "Positionering",
+    "path": "/css/positionering",
+    "category": "CSS3",
+    "sections": [
+      "Wat is de normale documentstroom? (`position: static`)",
+      "Relatieve positionering (`position: relative`)",
+      "Absolute positionering (`position: absolute`)",
+      "De gouden combinatie: relative ouder + absolute kind",
+      "Vaste positionering (`position: fixed`)",
+      "Klevende positionering (`position: sticky`)",
+      "Stapelvolgorde met `z-index`",
+      "De z-index eigenschap",
+      "Negatieve z-index",
+      "Interactieve Positioning Simulator"
+    ],
+    "keyTerms": [
+      "`position`",
+      "`position: static`",
+      "de normale documentstroom",
+      "`position: relative`",
+      "`position: absolute`",
+      "DOM",
+      "positioneringscontext",
+      "`position: fixed`",
+      "`position: sticky`",
+      "de stapelvolgorde (stacking order)"
+    ],
+    "codeFeatures": [
+      "display: block",
+      "position: relative",
+      "position: absolute",
+      "position: fixed",
+      "position: sticky",
+      "object-fit: cover",
+      "box-sizing: border-box",
+      "overflow:"
+    ]
+  },
+  {
+    "title": "Flexbox",
+    "path": "/css/flexbox",
+    "category": "CSS3",
+    "sections": [
+      "Het mentale model: Containers, Items en Assen",
+      "Ouder (Flex Container) vs. Directe kinderen (Flex Items)",
+      "De Hoofdas (*Main Axis*) en de Dwarsas (*Cross Axis*)",
+      "Eigenschappen voor de Flex-container",
+      "1. `display: flex`",
+      "2. De richting bepalen: `flex-direction`",
+      "3. Verdelen langs de hoofdas: `justify-content`",
+      "4. Tussenruimte instellen: `gap`",
+      "5. Uitlijnen langs de dwarsas: `align-items`",
+      "Praktijkvoorbeeld 1: Navigatiebalk en perfect centreren"
+    ],
+    "keyTerms": [
+      "Flexbox",
+      "flex-container",
+      "flex-items"
+    ],
+    "codeFeatures": [
+      "display: flex",
+      "display: inline",
+      "box-sizing: border-box",
+      "flex-direction",
+      "flex-wrap",
+      "flex-grow",
+      "flex-shrink",
+      "flex-basis",
+      "justify-content",
+      "align-items",
+      "align-self",
+      "align-content"
+    ]
+  },
+  {
+    "title": "Grid (Bootstrap)",
+    "path": "/css/grid",
+    "category": "CSS3",
+    "sections": [],
+    "keyTerms": [],
+    "codeFeatures": []
+  },
+  {
+    "title": "Media Queries",
+    "path": "/css/media-queries",
+    "category": "CSS3",
+    "sections": [
+      "De basis: de viewport-metatag",
+      "De syntaxis van een Media Query",
+      "Mobile-First: De industriestandaard",
+      "Wat is Mobile-First?",
+      "Waarom wordt Desktop-First afgeraden?",
+      "Live demonstratie van breekpunten",
+      "Opbouw van de elementen",
+      "Trapsgewijze werking van de breekpunten",
+      "Eén CSS-bestand structureren: breekpunten in de praktijk",
+      "Gangbare breekpunten"
+    ],
+    "keyTerms": [
+      "Responsief webdesign",
+      "media queries",
+      "viewport-metatag",
+      "breekpunt",
+      "mobile-first",
+      "PDF"
+    ],
+    "codeFeatures": [
+      "display: inline-block",
+      "display: flex",
+      "display: none",
+      "box-sizing: border-box",
+      "flex-direction",
+      "flex-wrap",
+      "justify-content",
+      "align-items"
+    ]
+  },
+  {
+    "title": "2D Transformaties",
+    "path": "/css/2d-transformaties",
+    "category": "CSS3",
+    "sections": [
+      "Wat is een transformatie?",
+      "Elementen verplaatsen: translate()",
+      "Verplaatsen met percentages",
+      "Elementen schalen: scale()",
+      "Spiegelen met negatieve getallen",
+      "Live demonstratie: translate() en scale()",
+      "Elementen draaien: rotate()",
+      "Eenheden voor rotatie",
+      "Elementen schuin trekken: skew()",
+      "Meerdere transformaties combineren"
+    ],
+    "keyTerms": [
+      "CSS 2D-transformaties",
+      "GPU",
+      "ankerpunt"
+    ],
+    "codeFeatures": [
+      "display: flex",
+      "display: inline-block",
+      "position: absolute",
+      "box-sizing: border-box",
+      "transform: translate(20px",
+      "transform: translatex(1",
+      "transform: translatey(",
+      "transform: translatex(",
+      "transform: scale(1",
+      "transform: scalex(1",
+      "transform: scaley(0",
+      "transform: scalex("
+    ]
+  },
+  {
+    "title": "Transities",
+    "path": "/css/transities",
+    "category": "CSS3",
+    "sections": [
+      "Wat is een transitie?",
+      "Welke eigenschappen kan je animeren?",
+      "Direct vergelijken: met en zonder transitie",
+      "De vier transitie-eigenschappen",
+      "1. transition-property",
+      "2. transition-duration",
+      "3. transition-timing-function",
+      "4. transition-delay",
+      "De samengestelde eigenschap: transition (shorthand)",
+      "De gouden regel voor tijdeenheden"
+    ],
+    "keyTerms": [
+      "CSS-transities",
+      "GPU",
+      "timingfunctie"
+    ],
+    "codeFeatures": [
+      "display: none",
+      "display: block",
+      "display: flex",
+      "display: inline-block",
+      "box-sizing: border-box",
+      "transform: scale(1",
+      "transform: translatex(260px)",
+      "transform: scale(1)",
+      "transform: translatey(",
+      "transform: translatex(4px)",
+      "transform: rotate(",
+      "transition:"
+    ]
+  },
+  {
+    "title": "Animaties",
+    "path": "/css/animaties",
+    "category": "CSS3",
+    "sections": [
+      "De twee bouwstenen van een animatie",
+      "De tijdlijn definiëren: @keyframes",
+      "Nauwkeurige fasen met percentages",
+      "Stappen groeperen en rustpunten inbouwen",
+      "De animatie-eigenschappen in detail",
+      "1. animation-name en animation-duration",
+      "2. animation-iteration-count",
+      "3. animation-direction",
+      "4. animation-timing-function",
+      "5. animation-delay"
+    ],
+    "keyTerms": [
+      "CSS-animaties",
+      "@keyframes",
+      "animation-fill-mode"
+    ],
+    "codeFeatures": [
+      "display: flex",
+      "position: relative",
+      "position: absolute",
+      "box-sizing: border-box",
+      "transform: scale(1)",
+      "transform: scale(1",
+      "transform: scale(0",
+      "transform: rotate(0deg)",
+      "transform: rotate(360deg)",
+      "transform: translatex(40px)",
+      "transform: translatex(240px)",
+      "transform: translatey("
+    ]
+  },
+  {
+    "title": "3D Transformaties",
+    "path": "/css/3d-transformaties",
+    "category": "CSS3",
+    "sections": [
+      "Het driedimensionale assenstelsel",
+      "Perspectief toevoegen: `perspective`",
+      "De impact van de perspectiefwaarde",
+      "Het kijkpunt verleggen: `perspective-origin`",
+      "3D Transformatiefuncties",
+      "1. Roteren in de ruimte: `rotateX()`, `rotateY()` en `rotateZ()`",
+      "2. Diepteverplaatsing: `translateZ()` en `translate3d()`",
+      "3. Schalen in de diepte: `scaleZ()` en `scale3d()`",
+      "De 3D-ruimte bewaren: `transform-style: preserve-3d`",
+      "De achterkant beheren: `backface-visibility`"
+    ],
+    "keyTerms": [
+      "CSS",
+      "3D transformaties",
+      "`perspective`",
+      "HTML",
+      "`transform-style: preserve-3d`",
+      "`backface-visibility`"
+    ],
+    "codeFeatures": [
+      "display: flex",
+      "display: inline-block",
+      "position: relative",
+      "position: absolute",
+      "box-sizing: border-box",
+      "transform: rotatey(45deg)",
+      "transform: rotatex(40deg)",
+      "transform: translate3d(10px",
+      "transform: rotatex(15deg)",
+      "transform: translatez(40px)",
+      "transform: translatez(30px)",
+      "transform: rotatey(0deg)"
+    ]
+  },
+  {
+    "title": "PhpStorm Setup",
+    "path": "/tools/phpstorm",
+    "category": "Tools",
+    "sections": [
+      "Codevoorbeelden"
+    ],
+    "keyTerms": [],
+    "codeFeatures": []
+  },
+  {
+    "title": "Git Basics",
+    "path": "/tools/git",
+    "category": "Tools",
+    "sections": [
+      "Codevoorbeelden"
+    ],
+    "keyTerms": [],
+    "codeFeatures": []
+  },
+  {
+    "title": "Browser DevTools",
+    "path": "/tools/devtools",
+    "category": "Tools",
+    "sections": [
+      "DevTools Openen",
+      "Het Elements-paneel: HTML Inspecteren",
+      "Belangrijke basisfuncties in het Elements-paneel:",
+      "Het Styles-paneel: CSS Live Debuggen",
+      "Handige trucjes in het Styles-paneel:",
+      "Het Box Model Diagram & Kleurenkiezer",
+      "Het Box Model inspecteren",
+      "De geïntegreerde Kleurenkiezer (Color Picker)",
+      "Mobiele Weergave Testen: Device Mode",
+      "Eerste Hulp bij Fouten: De Console"
+    ],
+    "keyTerms": [],
+    "codeFeatures": [
+      "display: inline-block",
+      "box-sizing: border-box"
+    ]
+  },
+  {
+    "title": "AI Cursusassistent",
+    "path": "/tools/ai-assistent",
+    "category": "Tools",
+    "sections": [
+      "Wat is de AI Cursusassistent?",
+      "Stappenplan: Jouw gratis API-sleutel aanmaken",
+      "Jouw assistent instellen",
+      "Hoe gebruik je de assistent effectief?",
+      "1. Paginacontekst benutten",
+      "2. Code debuggen en fouten opsporen",
+      "3. Het chatvenster aanpassen en formatteren",
+      "Beveiliging en privacy"
+    ],
+    "keyTerms": [],
+    "codeFeatures": []
+  }
+]
