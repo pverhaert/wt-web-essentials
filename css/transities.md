@@ -22,7 +22,7 @@ Na dit hoofdstuk kan je:
 
 ## Wat is een transitie?
 
-Een transitie is een geleidelijke overgang tussen twee verschillende stijltoestanden van hetzelfde HTML-element. In het vorige hoofdstuk zag je bijvoorbeeld hoe een knop bij `:hover` kan vergroten met `transform: scale(1.1)`. Zonder transitie verspringt die knop bij het aanwijzen met de muis onmiddellijk naar zijn grotere formaat. Met een transitie berekent de browser automatisch alle tussenliggende schaalstappen en kleurschakeringen over een door jou gekozen tijdsduur, bijvoorbeeld 300 milliseconden.
+Een transitie is een geleidelijke overgang tussen twee verschillende stijltoestanden van hetzelfde HTML-element. In het vorige hoofdstuk zag je bijvoorbeeld hoe een knop bij `:hover` kan vergroten met bijvoorbeeld `transform: scale(1.1)`. Zonder transitie verspringt die knop bij het aanwijzen met de muis onmiddellijk naar zijn grotere formaat. Met een transitie berekent de browser automatisch alle tussenliggende schaalstappen en kleurschakeringen over een door jou gekozen tijdsduur, bijvoorbeeld 300 milliseconden.
 
 Een transitie treedt op wanneer een element van toestand verandert. Veelvoorkomende interactietoestanden zijn:
 
@@ -44,38 +44,61 @@ Het soepelst animeren eigenschappen die de grafische processor (<abbr title="Gra
 
 ## Direct vergelijken: met en zonder transitie
 
-In het onderstaande interactieve voorbeeld zie je twee knoppen. Beweeg je muis over beide knoppen om het visuele verschil tussen een abrupte stijlverspringing en een vloeiende transitie zelf te ervaren:
+In het onderstaande interactieve voorbeeld zie je twee identiek vormgegeven knoppen. Beweeg je muisaanwijzer over beide knoppen om het visuele verschil tussen een abrupte stijlverspringing en een vloeiende transitie zelf te ervaren.
+
+Bij de eerste knop schakelt de browser in 0 milliseconden direct over naar de nieuwe opmaak zodra de muis de knop aanwijst. Bij de tweede knop berekent de browser gedurende 300 milliseconden (`300ms`) alle tussenliggende kleurschakeringen tussen het oorspronkelijke blauw (`#0056b3`) en het oranje (`#e87722`). Doordat de eigenschap `transition` op het basisknoopelement `.knop-vloeiend` staat, keert de knop bij het weghalen van de muis ook weer even soepel en geleidelijk terug naar zijn rusttoestand.
+
+### Opbouw van de elementen
+
+- `div.knoppen-groep`: de flex-container die beide knoppen netjes gecentreerd naast elkaar plaatst (`display: flex`, `gap: 1.5rem`).
+- `button.knop`: de gemeenschappelijke basisopmaak voor beide knoppen (typografie, padding, blauwe achtergrond en afgeronde rand).
+- `button.knop-direct`: de knop zonder transitie. Bij `:hover` verspringen de achtergrondkleur en randkleur direct en schokkerig.
+- `button.knop-vloeiend`: de knop met CSS-transitie (`transition: background-color 300ms ease, border-color 300ms ease`).
+
+### Wat zie je in deze vergelijking?
+
+| Knop / Klasse | CSS-definitie | Gedrag bij aanwijzen (`:hover`) | Gedrag bij muis weghalen |
+|---|---|---|---|
+| **Zonder transitie** (`.knop-direct`) | Geen `transition` gedefinieerd | Schakelt abrupt en direct in 0 milliseconden om naar oranje. | Schakelt direct en plotseling terug naar blauw. |
+| **Met transitie** (`.knop-vloeiend`) | `transition: background-color 300ms ease, border-color 300ms ease;` | Vloeit in 300 milliseconden geleidelijk en zacht over van blauw naar oranje. | Vloeit in 300 milliseconden even rustig terug naar het oorspronkelijke blauw. |
 
 <CodeSandbox
   title="Vergelijking: met en zonder CSS-transitie"
-  height="420px"
+  height="430px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="19,25"
+  highlightHtml="10, 12, 14"
+  highlightCss="25-26, 41-42, 46, 49-50"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vergelijking transities</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="knoppen-groep">
-    <!-- Knop 1 wisselt direct zonder overgang -->
-    <button class="knop knop-direct">Zonder transitie</button>
-    <!-- Knop 2 vloeit soepel over -->
-    <button class="knop knop-vloeiend">Met transitie</button>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vergelijking transities</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="knoppen-groep">
+      <!-- Knop 1 wisselt direct zonder overgang -->
+      <button class="knop knop-direct">Zonder transitie</button>
+      <!-- Knop 2 vloeit soepel over -->
+      <button class="knop knop-vloeiend">Met transitie</button>
+    </div>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+/* CSS variabelen */
+:root {
+  --kleur-primair: #0056b3;
+  --kleur-accent: #e87722;
+  --kleur-achtergrond: #f4f6f8;
+  --kleur-wit: #ffffff;
 }
 /* Paginastijl */
 body {
@@ -84,7 +107,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f4f6f8;
+  background-color: var(--kleur-achtergrond);
 }
 /* Knoppengroep */
 .knoppen-groep {
@@ -96,24 +119,24 @@ body {
   font-size: 1rem;
   font-weight: 600;
   padding: 0.85rem 1.6rem;
-  color: #ffffff;
-  background-color: #0056b3;
-  border: 2px solid #0056b3;
+  color: var(--kleur-wit);
+  background-color: var(--kleur-primair);
+  border: 2px solid var(--kleur-primair);
   border-radius: 0.5rem;
   cursor: pointer;
 }
 /* Knop 1: directe sprong bij hover */
 .knop-direct:hover {
-  background-color: #e87722;
-  border-color: #e87722;
+  background-color: var(--kleur-accent);
+  border-color: var(--kleur-accent);
 }
 /* Knop 2: vloeiende overgang van 300 milliseconden */
 .knop-vloeiend {
   transition: background-color 300ms ease, border-color 300ms ease;
 }
 .knop-vloeiend:hover {
-  background-color: #e87722;
-  border-color: #e87722;
+  background-color: var(--kleur-accent);
+  border-color: var(--kleur-accent);
 }'
   js=''
 />
@@ -184,6 +207,8 @@ De meest gebruikte ingebouwde sleutelwoorden zijn:
 
 Voor maximale controle kan je ook een eigen Bézier-kromme definiëren via `cubic-bezier(x1, y1, x2, y2)`. In de DevTools van Chrome of Firefox kan je op het icoontje naast de timingfunctie klikken om deze kromme visueel met handvatten af te stellen.
 
+![DevTools Timing](./transities/devtools_timing.webp)
+
 ### 4. transition-delay
 
 Met `transition-delay` stel je een wachttijd in alvorens de transitie effectief begint te lopen. Ook hier gebruik je seconden (`s`) of milliseconden (`ms`).
@@ -218,6 +243,23 @@ Als je geen vertraging nodig hebt en tevreden bent met de standaard timingfuncti
 }
 ```
 
+### De meest beknopte vorm: enkel de duur
+
+Je mag in de shorthand zelfs uitsluitend een tijdsduur noteren:
+
+```css
+.knop {
+  transition: 300ms;
+}
+```
+
+Wanneer je alleen een duur meegeeft, vult de browser voor alle weggelaten onderdelen automatisch zijn standaardwaarden in:
+- `transition-property` valt terug op `all` (elke animeerbare eigenschap die verandert, vloeit geleidelijk over)
+- `transition-timing-function` valt terug op de standaardcurve `ease`
+- `transition-delay` valt terug op `0s` (de overgang start onmiddellijk zonder wachttijd)
+
+De korte declaratie `transition: 300ms;` is voor de browser dus exact hetzelfde als `transition: all 300ms ease 0s;`. Dit is praktisch voor snelle knoppen of eenvoudige componenten, al blijft het voor de prestaties op complexe pagina's aanbevolen om specifieke eigenschappen te benoemen.
+
 ### De gouden regel voor tijdeenheden
 
 In de shorthand staan soms twee tijdseenheden achter elkaar:
@@ -249,47 +291,77 @@ Hierdoor kan de achtergrondkleur razendsnel oplichten in 200 milliseconden, terw
 
 ## Live demonstratie: timingfuncties en vertragingen
 
-In het onderstaande voorbeeld zie je vier balken met identiek dezelfde afstand. Beweeg je muis over het kader om te zien hoe de timingfunctie en de vertraging de waargenomen snelheid en cadans van de beweging bepalen:
+In het onderstaande interactieve voorbeeld zie je vier balken op een testbaan. Ze leggen allemaal exact dezelfde afstand af (`translateX(340px)`) en de overgangsduur is voor elke balk identiek (`1.2s`). Toch arriveren ze heel verschillend en voelt elke beweging compleet anders aan.
+
+Beweeg je muisaanwijzer over het kader om de race te starten. Haal de muis weg om te zien hoe de lopers weer volgens hun eigen timingfunctie terugkeren naar de startlijn.
+
+### Opbouw van de elementen
+
+- `div.testbaan`: het omlijstende testkader (`max-width: 500px`, padding, schaduw). De hover-toestand is gekoppeld aan dit ouderelement (`.testbaan:hover .loper`), zodat alle vier de lopers gelijktijdig vertrekken zodra je de muis ergens in het kader plaatst.
+- `div.spoor`: de afzonderlijke grijze achtergrondbanen (`background-color: var(--kleur-spoor)`) waarin de balken horizontaal glijden.
+- `div.loper`: de gekleurde balken met afgeronde hoeken die via `transform: translateX(...)` verplaatst worden.
+
+### Overzicht van de timingfuncties en vertragingen
+
+| Loper / Klasse | Transitie-declaratie | Wat zie je gebeuren in de preview? |
+|---|---|---|
+| **Blauw** (`.loper-linear`) | `transition: transform 1.2s linear;` | Beweegt met een constante, gelijkmatige snelheid van start tot finish zonder te versnellen of af te remmen. |
+| **Oranje** (`.loper-ease`) | `transition: transform 1.2s ease;` | Start rustig, versnelt merkbaar in het midden en remt geleidelijk af aan het einde (de standaard CSS-curve). |
+| **Groen** (`.loper-ease-in-out`) | `transition: transform 1.2s ease-in-out;` | Start merkbaar trager dan ease, bouwt een krachtige versnelling op in het midden en remt symmetrisch zachtjes af bij de finish. |
+| **Paars** (`.loper-vertraagd`) | `transition: transform 1.2s ease-out 300ms;` | Wacht eerst 300 milliseconden (`transition-delay`), schiet dan snel uit de startblokken en remt op het einde zachtjes af (`ease-out`). |
 
 <CodeSandbox
   title="Demonstratie van timingfuncties en startvertraging"
-  height="460px"
+  height="480px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="30,34,38,42"
+  highlightHtml="10-13, 15-16, 18-19, 21-22"
+  highlightCss="33, 65-66, 69-70, 73-74, 77-78, 82"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timingfuncties en vertraging</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="testbaan">
-    <p class="toelichting">Beweeg je muis over dit kader:</p>
-    <div class="spoor">
-      <div class="loper loper-linear">linear</div>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timingfuncties en vertraging</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="testbaan">
+      <p class="toelichting">Beweeg je muis over dit kader:</p>
+      <div class="spoor">
+        <div class="loper loper-linear">linear</div>
+      </div>
+      <div class="spoor">
+        <div class="loper loper-ease">ease</div>
+      </div>
+      <div class="spoor">
+        <div class="loper loper-ease-in-out">ease-in-out</div>
+      </div>
+      <div class="spoor">
+        <div class="loper loper-vertraagd">vertraagd (delay)</div>
+      </div>
     </div>
-    <div class="spoor">
-      <div class="loper loper-ease">ease</div>
-    </div>
-    <div class="spoor">
-      <div class="loper loper-ease-in-out">ease-in-out</div>
-    </div>
-    <div class="spoor">
-      <div class="loper loper-vertraagd">vertraagd (delay)</div>
-    </div>
-  </div>
-</body>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+/* CSS variabelen */
+:root {
+  --kleur-linear: #007acc;
+  --kleur-ease: #e87722;
+  --kleur-ease-in-out: #28a745;
+  --kleur-vertraagd: #6f42c1;
+  --kleur-achtergrond: #eef2f5;
+  --kleur-kaart: #ffffff;
+  --kleur-spoor: #f1f3f5;
+  --kleur-rand: #ced4da;
+  --kleur-tekst-muted: #6c757d;
+  --kleur-wit: #ffffff;
 }
 /* Paginastijl */
 body {
@@ -298,27 +370,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #eef2f5;
+  background-color: var(--kleur-achtergrond);
   padding: 1.5rem;
 }
 /* Testbaan kader */
 .testbaan {
   width: 100%;
   max-width: 500px;
-  background-color: #ffffff;
-  border: 1px solid #ced4da;
+  background-color: var(--kleur-kaart);
+  border: 1px solid var(--kleur-rand);
   border-radius: 0.5rem;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 .toelichting {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: var(--kleur-tekst-muted);
   margin-bottom: 1rem;
 }
 /* Afzonderlijke sporen */
 .spoor {
-  background-color: #f1f3f5;
+  background-color: var(--kleur-spoor);
   border-radius: 0.25rem;
   margin-bottom: 0.75rem;
   overflow: hidden;
@@ -331,29 +403,29 @@ body {
   text-align: center;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--kleur-wit);
   border-radius: 0.25rem;
 }
 /* Verschillende timingfuncties */
 .loper-linear {
-  background-color: #007acc;
+  background-color: var(--kleur-linear);
   transition: transform 1.2s linear;
 }
 .loper-ease {
-  background-color: #e87722;
+  background-color: var(--kleur-ease);
   transition: transform 1.2s ease;
 }
 .loper-ease-in-out {
-  background-color: #28a745;
+  background-color: var(--kleur-ease-in-out);
   transition: transform 1.2s ease-in-out;
 }
 .loper-vertraagd {
-  background-color: #6f42c1;
+  background-color: var(--kleur-vertraagd);
   transition: transform 1.2s ease-out 300ms;
 }
 /* Verplaatsing bij hover over het hele kader */
 .testbaan:hover .loper {
-  transform: translateX(260px);
+  transform: translateX(340px);
 }'
   js=''
 />
@@ -421,38 +493,67 @@ Hierdoor hoeft de bezoeker niet precies op de kleine knop te mikken; zodra de cu
 
 ## Praktijkvoorbeeld: een interactieve productkaart
 
-In het onderstaande voorbeeld passen we alle geleerde concepten samen toe in een herkenbare component: een interactieve kaart met zweefeffect (*rising card*), een badge en een actieknop die simultaan reageren op de bezoeker:
+In het onderstaande voorbeeld passen we alle geleerde concepten samen toe in een herkenbare component: een interactieve kaart met zweefeffect (*rising card*), een badge en een actieknop die simultaan reageren op de bezoeker.
+
+Hier zie je het principe van interactie via een ouder-element in actie: door met je muis over het hoofdelement `.kaart` te bewegen, activeer je tegelijk de verhoging van de kaart én de schaling van de badge. De knop onderaan reageert bovendien met een eigen interactie wanneer je specifiek daarover beweegt.
+
+### Opbouw van de elementen
+
+- `article.kaart`: de basiscontainer (`max-width: 320px`, afgeronde hoeken, lichte schaduw en rand). Hierop staat een samengestelde transitie voor positie (`transform`), schaduwdiepte (`box-shadow`) en randkleur (`border-color`).
+- `span.badge`: een oranje aandachtslabel (`background-color: var(--kleur-accent)`). Het label schaalt subtiel via `transform: scale(1.08)` zodra je over de kaart beweegt.
+- `h2.kaart-titel` en `p.kaart-tekst`: de inhoudelijke tekstelementen, gestyled met CSS-variabelen voor typografie en kleuren.
+- `a.kaart-knop`: de interactieve knop met een eigen transitie op zowel `background-color` als `transform`.
+
+### Overzicht van de gecoördineerde transities
+
+| Element / Klasse | Geanimeerde stijlen | Duur & Timing | Visuele reactie bij interactie |
+|---|---|---|---|
+| **Kaart** (`.kaart`) | `transform`, `box-shadow`, `border-color` | `300ms ease` | Bij `.kaart:hover` veert de kaart 6px omhoog (`translateY(-6px)`), wordt de schaduw dieper en kleurt de rand blauw. |
+| **Badge** (`.badge`) | `transform` | `300ms ease` | Bij `.kaart:hover .badge` vergroot het label naar 108% (`scale(1.08)`). |
+| **Knop** (`.kaart-knop`) | `background-color`, `transform` | `250ms ease` | Bij `.kaart-knop:hover` kleurt de knop donkerder blauw en schuift hij 4px naar rechts (`translateX(4px)`). |
 
 <CodeSandbox
   title="Praktijkvoorbeeld: interactieve kaart met samengestelde transities"
-  height="480px"
+  height="490px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="26,38,48,53"
+  highlightHtml="10-12, 14"
+  highlightCss="34-36, 42-44, 57, 60, 84, 87-88"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactieve kaart</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <article class="kaart">
-    <span class="badge">Nieuw</span>
-    <h2 class="kaart-titel">Web Essentials</h2>
-    <p class="kaart-tekst">Leer moderne websites bouwen met semantische HTML5 en modulaire CSS3.</p>
-    <a href="#" class="kaart-knop">Bekijk cursus</a>
-  </article>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactieve kaart</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <article class="kaart">
+      <span class="badge">Nieuw</span>
+      <h2 class="kaart-titel">Web Essentials</h2>
+      <p class="kaart-tekst">Leer moderne websites bouwen met semantische HTML5 en modulaire CSS3.</p>
+      <a href="#" class="kaart-knop">Bekijk cursus</a>
+    </article>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+/* CSS variabelen */
+:root {
+  --kleur-primair: #0056b3;
+  --kleur-primair-donker: #003d82;
+  --kleur-accent: #e87722;
+  --kleur-achtergrond: #f0f4f8;
+  --kleur-kaart: #ffffff;
+  --kleur-rand: #dcdfe3;
+  --kleur-titel: #1a202c;
+  --kleur-tekst: #4a5568;
+  --kleur-wit: #ffffff;
 }
 /* Paginastijl */
 body {
@@ -461,25 +562,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f4f8;
+  background-color: var(--kleur-achtergrond);
   padding: 1.5rem;
 }
 /* De productkaart */
 .kaart {
   width: 100%;
   max-width: 320px;
-  background-color: #ffffff;
-  border: 1px solid #dcdfe3;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
+  background-color: var(--kleur-kaart);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
   transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  border: 1px solid var(--kleur-rand);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
 }
 /* Kaart tilt op bij hover */
 .kaart:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  border-color: #0056b3;
+  border-color: var(--kleur-primair);
 }
 /* Badge */
 .badge {
@@ -487,8 +588,8 @@ body {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: #ffffff;
-  background-color: #e87722;
+  color: var(--kleur-wit);
+  background-color: var(--kleur-accent);
   padding: 0.25rem 0.6rem;
   border-radius: 1rem;
   margin-bottom: 0.75rem;
@@ -500,12 +601,12 @@ body {
 /* Titel en tekst */
 .kaart-titel {
   font-size: 1.35rem;
-  color: #1a202c;
+  color: var(--kleur-titel);
   margin-bottom: 0.5rem;
 }
 .kaart-tekst {
   font-size: 0.95rem;
-  color: #4a5568;
+  color: var(--kleur-tekst);
   line-height: 1.5;
   margin-bottom: 1.25rem;
 }
@@ -515,14 +616,14 @@ body {
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #ffffff;
-  background-color: #0056b3;
+  color: var(--kleur-wit);
+  background-color: var(--kleur-primair);
   padding: 0.6rem 1.2rem;
   border-radius: 0.375rem;
   transition: background-color 250ms ease, transform 250ms ease;
 }
 .kaart-knop:hover {
-  background-color: #003d82;
+  background-color: var(--kleur-primair-donker);
   transform: translateX(4px);
 }'
   js=''
@@ -563,6 +664,7 @@ In PhpStorm genereer je de eigenschappen voor transities in een handomdraai met 
 | Wat | Hoe | Voorbeeld |
 |---|---|---|
 | Samengestelde transitie | `transition: [prop] [duur] [timing] [delay];` | `transition: color 0.3s ease;` |
+| Minimale shorthand | Enkel de duur (defaults `all`, `ease`, `0s`) | `transition: 300ms;` |
 | Meerdere eigenschappen | Scheiden met een komma | `transition: color 0.2s, transform 0.3s;` |
 | Overgangsduur | Waarde in `s` of `ms` | `transition-duration: 250ms;` |
 | Snelheidscurve | `ease`, `linear`, `ease-in-out` | `transition-timing-function: ease-out;` |

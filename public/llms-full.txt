@@ -8604,7 +8604,24 @@ Wanneer je een negatieve factor meegeeft aan `scale()`, keert de browser het ele
 
 ## Live demonstratie: translate() en scale()
 
-In de onderstaande sandbox zie je het effect van `translate()` en `scale()` in actie. Merk op dat de omringende kaders netjes blijven staan, terwijl de getransformeerde vlakken buiten hun grenzen reiken:
+In de onderstaande demonstratie zie je het effect van `translate()` en `scale()` in actie. Elk gekleurd element bevindt zich binnen een grijs stippelkader (`.kader`). Dit stippelkader toont de **oorspronkelijke plek en afmetingen** van het element in de normale documentstroom.
+
+Merk op hoe de stippelkaders allemaal netjes op hun vaste plaats in de indeling blijven staan: een transformatie verandert de normale documentstroom immers niet, maar tekent het resultaat als een visuele laag bovenop de pagina.
+
+### Opbouw van de elementen
+
+- `div.galerij`: de flex-container die de vier demonstratiekaders netjes centreert en ordent (`display: flex`, `flex-wrap: wrap`, `gap: 1.5rem`).
+- `div.kader`: het vaste referentiekader met een grijze stippelrand (`border: 2px dashed #b0bec5`) van 140 bij 140 pixels. Dit toont waar het element zich volgens de lay-out bevindt.
+- `div.kaart`: het gekleurde binnenelement dat de transformatie ondergaat (`border-radius: 0.5rem`, gecentreerde witte tekst).
+
+### Overzicht van de getoonde transformaties
+
+| Kaart / Klasse | Toegepaste transformatie | Visueel effect in de preview |
+|---|---|---|
+| **Blauw** (`.kaart-translate`) | `transform: translate(20px, -15px)` | Verschuift 20 pixels naar rechts en 15 pixels omhoog. Het stippelkader blijft roerloos op zijn plaats staan. |
+| **Oranje** (`.kaart-scale`) | `transform: scale(0.8)` | Verkleint de kaart met 20% (factor 0.8) vanuit het middelpunt. |
+| **Groen** (`.kaart-scale-asymmetrisch`) | `transform: scale(1.2, 0.85)` | Asymmetrische schaling: 20% breder (factor `1.2`), maar tegelijk 15% minder hoog (factor `0.85`). |
+| **Paars** (`.kaart-spiegel`) | `transform: scaleX(-1)` | Horizontale spiegeling: het element klapt om langs de horizontale X-as, waardoor ook de tekst in spiegelschrift staat. |
 
 > [Codevoorbeeld: Demonstratie van translate() en scale()]
 
@@ -8713,7 +8730,22 @@ Mogelijke waarden zijn:
 
 ## Live demonstratie: roteren, ankerpunten en combinaties
 
-In de onderstaande sandbox ontdek je hoe het verleggen van `transform-origin` het draaipunt volledig transformeert, en hoe een gecombineerde transformatie een professionele interactieve kaart oplevert:
+In de onderstaande demonstratie zie je het effect van rotatie, het verleggen van het ankerpunt (`transform-origin`), schuin trekken en gecombineerde transformaties. Net zoals in het vorige voorbeeld toont het grijze stippelkader (`.kader`) steeds de oorspronkelijke positie van het bord in de normale documentstroom.
+
+### Opbouw van de elementen
+
+- `div.speelveld`: de flex-container die de vier demonstratieborden centreert en ordent (`display: flex`, `flex-wrap: wrap`, `gap: 2rem`).
+- `div.kader`: het vaste referentiekader met een grijze stippelrand (`border: 2px dashed #b0bec5`) van 140 bij 100 pixels. Dit toont de rustpositie van het element in de normale documentstroom.
+- `div.bord`: het gekleurde binnenelement dat de transformaties ondergaat (`border-radius: 0.5rem`, gecentreerde witte tekst).
+
+### Overzicht van de getoonde transformaties
+
+| Bord / Klasse | Eigenschappen & Waarden | Wat zie je gebeuren? |
+|---|---|---|
+| **Blauw** (`.bord-midden`) | `transform: rotate(15deg)` | Draait 15 graden met de klok mee rond het standaard middelpunt (`50% 50%`). Alle vier de hoeken steken evenredig buiten het stippelkader uit. |
+| **Oranje** (`.bord-hoek`) | `transform-origin: top left`<br>`transform: rotate(15deg)` | Draait eveneens 15 graden, maar nu rond de **linkerbovenhoek**. Die hoek blijft exact op de linkerbovenhoek van het stippelkader vastgeprikt, terwijl de rest van het bord naar beneden zwenkt. |
+| **Groen** (`.bord-skew`) | `transform: skewX(-15deg)` | Vervormt de rechthoek tot een schuin parallellogram. De horizontale boven- en onderkant blijven netjes op de stippellijnen liggen, maar de zijkanten hellen 15 graden schuin. |
+| **Paars** (`.bord-combinatie`) | `:hover`<br>`transform: translateY(-8px) scale(1.08) rotate(-3deg)` | **Beweeg met je muis over het paarse bord**: drie transformaties worden gelijktijdig toegepast. Het bord zweeft 8 pixels omhoog, wordt 8% groter en kantelt 3 graden tegen de klok in. |
 
 > [Codevoorbeeld: Demonstratie van rotate(), transform-origin en gecombineerde transformaties]
 
@@ -8814,7 +8846,7 @@ Na dit hoofdstuk kan je:
 
 ## Wat is een transitie?
 
-Een transitie is een geleidelijke overgang tussen twee verschillende stijltoestanden van hetzelfde HTML-element. In het vorige hoofdstuk zag je bijvoorbeeld hoe een knop bij `:hover` kan vergroten met `transform: scale(1.1)`. Zonder transitie verspringt die knop bij het aanwijzen met de muis onmiddellijk naar zijn grotere formaat. Met een transitie berekent de browser automatisch alle tussenliggende schaalstappen en kleurschakeringen over een door jou gekozen tijdsduur, bijvoorbeeld 300 milliseconden.
+Een transitie is een geleidelijke overgang tussen twee verschillende stijltoestanden van hetzelfde HTML-element. In het vorige hoofdstuk zag je bijvoorbeeld hoe een knop bij `:hover` kan vergroten met bijvoorbeeld `transform: scale(1.1)`. Zonder transitie verspringt die knop bij het aanwijzen met de muis onmiddellijk naar zijn grotere formaat. Met een transitie berekent de browser automatisch alle tussenliggende schaalstappen en kleurschakeringen over een door jou gekozen tijdsduur, bijvoorbeeld 300 milliseconden.
 
 Een transitie treedt op wanneer een element van toestand verandert. Veelvoorkomende interactietoestanden zijn:
 
@@ -8836,7 +8868,23 @@ Het soepelst animeren eigenschappen die de grafische processor (GPU (Graphics Pr
 
 ## Direct vergelijken: met en zonder transitie
 
-In het onderstaande interactieve voorbeeld zie je twee knoppen. Beweeg je muis over beide knoppen om het visuele verschil tussen een abrupte stijlverspringing en een vloeiende transitie zelf te ervaren:
+In het onderstaande interactieve voorbeeld zie je twee identiek vormgegeven knoppen. Beweeg je muisaanwijzer over beide knoppen om het visuele verschil tussen een abrupte stijlverspringing en een vloeiende transitie zelf te ervaren.
+
+Bij de eerste knop schakelt de browser in 0 milliseconden direct over naar de nieuwe opmaak zodra de muis de knop aanwijst. Bij de tweede knop berekent de browser gedurende 300 milliseconden (`300ms`) alle tussenliggende kleurschakeringen tussen het oorspronkelijke blauw (`#0056b3`) en het oranje (`#e87722`). Doordat de eigenschap `transition` op het basisknoopelement `.knop-vloeiend` staat, keert de knop bij het weghalen van de muis ook weer even soepel en geleidelijk terug naar zijn rusttoestand.
+
+### Opbouw van de elementen
+
+- `div.knoppen-groep`: de flex-container die beide knoppen netjes gecentreerd naast elkaar plaatst (`display: flex`, `gap: 1.5rem`).
+- `button.knop`: de gemeenschappelijke basisopmaak voor beide knoppen (typografie, padding, blauwe achtergrond en afgeronde rand).
+- `button.knop-direct`: de knop zonder transitie. Bij `:hover` verspringen de achtergrondkleur en randkleur direct en schokkerig.
+- `button.knop-vloeiend`: de knop met CSS-transitie (`transition: background-color 300ms ease, border-color 300ms ease`).
+
+### Wat zie je in deze vergelijking?
+
+| Knop / Klasse | CSS-definitie | Gedrag bij aanwijzen (`:hover`) | Gedrag bij muis weghalen |
+|---|---|---|---|
+| **Zonder transitie** (`.knop-direct`) | Geen `transition` gedefinieerd | Schakelt abrupt en direct in 0 milliseconden om naar oranje. | Schakelt direct en plotseling terug naar blauw. |
+| **Met transitie** (`.knop-vloeiend`) | `transition: background-color 300ms ease, border-color 300ms ease;` | Vloeit in 300 milliseconden geleidelijk en zacht over van blauw naar oranje. | Vloeit in 300 milliseconden even rustig terug naar het oorspronkelijke blauw. |
 
 > [Codevoorbeeld: Vergelijking: met en zonder CSS-transitie]
 
@@ -8906,6 +8954,8 @@ De meest gebruikte ingebouwde sleutelwoorden zijn:
 
 Voor maximale controle kan je ook een eigen Bézier-kromme definiëren via `cubic-bezier(x1, y1, x2, y2)`. In de DevTools van Chrome of Firefox kan je op het icoontje naast de timingfunctie klikken om deze kromme visueel met handvatten af te stellen.
 
+![DevTools Timing](./transities/devtools_timing.webp)
+
 ### 4. transition-delay
 
 Met `transition-delay` stel je een wachttijd in alvorens de transitie effectief begint te lopen. Ook hier gebruik je seconden (`s`) of milliseconden (`ms`).
@@ -8940,6 +8990,23 @@ Als je geen vertraging nodig hebt en tevreden bent met de standaard timingfuncti
 }
 ```
 
+### De meest beknopte vorm: enkel de duur
+
+Je mag in de shorthand zelfs uitsluitend een tijdsduur noteren:
+
+```css
+.knop {
+  transition: 300ms;
+}
+```
+
+Wanneer je alleen een duur meegeeft, vult de browser voor alle weggelaten onderdelen automatisch zijn standaardwaarden in:
+- `transition-property` valt terug op `all` (elke animeerbare eigenschap die verandert, vloeit geleidelijk over)
+- `transition-timing-function` valt terug op de standaardcurve `ease`
+- `transition-delay` valt terug op `0s` (de overgang start onmiddellijk zonder wachttijd)
+
+De korte declaratie `transition: 300ms;` is voor de browser dus exact hetzelfde als `transition: all 300ms ease 0s;`. Dit is praktisch voor snelle knoppen of eenvoudige componenten, al blijft het voor de prestaties op complexe pagina's aanbevolen om specifieke eigenschappen te benoemen.
+
 ### De gouden regel voor tijdeenheden
 
 In de shorthand staan soms twee tijdseenheden achter elkaar:
@@ -8971,7 +9038,24 @@ Hierdoor kan de achtergrondkleur razendsnel oplichten in 200 milliseconden, terw
 
 ## Live demonstratie: timingfuncties en vertragingen
 
-In het onderstaande voorbeeld zie je vier balken met identiek dezelfde afstand. Beweeg je muis over het kader om te zien hoe de timingfunctie en de vertraging de waargenomen snelheid en cadans van de beweging bepalen:
+In het onderstaande interactieve voorbeeld zie je vier balken op een testbaan. Ze leggen allemaal exact dezelfde afstand af (`translateX(340px)`) en de overgangsduur is voor elke balk identiek (`1.2s`). Toch arriveren ze heel verschillend en voelt elke beweging compleet anders aan.
+
+Beweeg je muisaanwijzer over het kader om de race te starten. Haal de muis weg om te zien hoe de lopers weer volgens hun eigen timingfunctie terugkeren naar de startlijn.
+
+### Opbouw van de elementen
+
+- `div.testbaan`: het omlijstende testkader (`max-width: 500px`, padding, schaduw). De hover-toestand is gekoppeld aan dit ouderelement (`.testbaan:hover .loper`), zodat alle vier de lopers gelijktijdig vertrekken zodra je de muis ergens in het kader plaatst.
+- `div.spoor`: de afzonderlijke grijze achtergrondbanen (`background-color: var(--kleur-spoor)`) waarin de balken horizontaal glijden.
+- `div.loper`: de gekleurde balken met afgeronde hoeken die via `transform: translateX(...)` verplaatst worden.
+
+### Overzicht van de timingfuncties en vertragingen
+
+| Loper / Klasse | Transitie-declaratie | Wat zie je gebeuren in de preview? |
+|---|---|---|
+| **Blauw** (`.loper-linear`) | `transition: transform 1.2s linear;` | Beweegt met een constante, gelijkmatige snelheid van start tot finish zonder te versnellen of af te remmen. |
+| **Oranje** (`.loper-ease`) | `transition: transform 1.2s ease;` | Start rustig, versnelt merkbaar in het midden en remt geleidelijk af aan het einde (de standaard CSS-curve). |
+| **Groen** (`.loper-ease-in-out`) | `transition: transform 1.2s ease-in-out;` | Start merkbaar trager dan ease, bouwt een krachtige versnelling op in het midden en remt symmetrisch zachtjes af bij de finish. |
+| **Paars** (`.loper-vertraagd`) | `transition: transform 1.2s ease-out 300ms;` | Wacht eerst 300 milliseconden (`transition-delay`), schiet dan snel uit de startblokken en remt op het einde zachtjes af (`ease-out`). |
 
 > [Codevoorbeeld: Demonstratie van timingfuncties en startvertraging]
 
@@ -9038,7 +9122,24 @@ Hierdoor hoeft de bezoeker niet precies op de kleine knop te mikken; zodra de cu
 
 ## Praktijkvoorbeeld: een interactieve productkaart
 
-In het onderstaande voorbeeld passen we alle geleerde concepten samen toe in een herkenbare component: een interactieve kaart met zweefeffect (*rising card*), een badge en een actieknop die simultaan reageren op de bezoeker:
+In het onderstaande voorbeeld passen we alle geleerde concepten samen toe in een herkenbare component: een interactieve kaart met zweefeffect (*rising card*), een badge en een actieknop die simultaan reageren op de bezoeker.
+
+Hier zie je het principe van interactie via een ouder-element in actie: door met je muis over het hoofdelement `.kaart` te bewegen, activeer je tegelijk de verhoging van de kaart én de schaling van de badge. De knop onderaan reageert bovendien met een eigen interactie wanneer je specifiek daarover beweegt.
+
+### Opbouw van de elementen
+
+- `article.kaart`: de basiscontainer (`max-width: 320px`, afgeronde hoeken, lichte schaduw en rand). Hierop staat een samengestelde transitie voor positie (`transform`), schaduwdiepte (`box-shadow`) en randkleur (`border-color`).
+- `span.badge`: een oranje aandachtslabel (`background-color: var(--kleur-accent)`). Het label schaalt subtiel via `transform: scale(1.08)` zodra je over de kaart beweegt.
+- `h2.kaart-titel` en `p.kaart-tekst`: de inhoudelijke tekstelementen, gestyled met CSS-variabelen voor typografie en kleuren.
+- `a.kaart-knop`: de interactieve knop met een eigen transitie op zowel `background-color` als `transform`.
+
+### Overzicht van de gecoördineerde transities
+
+| Element / Klasse | Geanimeerde stijlen | Duur & Timing | Visuele reactie bij interactie |
+|---|---|---|---|
+| **Kaart** (`.kaart`) | `transform`, `box-shadow`, `border-color` | `300ms ease` | Bij `.kaart:hover` veert de kaart 6px omhoog (`translateY(-6px)`), wordt de schaduw dieper en kleurt de rand blauw. |
+| **Badge** (`.badge`) | `transform` | `300ms ease` | Bij `.kaart:hover .badge` vergroot het label naar 108% (`scale(1.08)`). |
+| **Knop** (`.kaart-knop`) | `background-color`, `transform` | `250ms ease` | Bij `.kaart-knop:hover` kleurt de knop donkerder blauw en schuift hij 4px naar rechts (`translateX(4px)`). |
 
 > [Codevoorbeeld: Praktijkvoorbeeld: interactieve kaart met samengestelde transities]
 
@@ -9075,6 +9176,7 @@ In PhpStorm genereer je de eigenschappen voor transities in een handomdraai met 
 | Wat | Hoe | Voorbeeld |
 |---|---|---|
 | Samengestelde transitie | `transition: [prop] [duur] [timing] [delay];` | `transition: color 0.3s ease;` |
+| Minimale shorthand | Enkel de duur (defaults `all`, `ease`, `0s`) | `transition: 300ms;` |
 | Meerdere eigenschappen | Scheiden met een komma | `transition: color 0.2s, transform 0.3s;` |
 | Overgangsduur | Waarde in `s` of `ms` | `transition-duration: 250ms;` |
 | Snelheidscurve | `ease`, `linear`, `ease-in-out` | `transition-timing-function: ease-out;` |
@@ -9213,9 +9315,11 @@ Als een element op verschillende momenten dezelfde stijl moet aannemen, kan je d
 
 ```css
 @keyframes knipperen {
+  /* Volledig zichtbaar bij de start (0%) en aan het einde van de cyclus (100%) */
   0%, 100% {
     opacity: 1;
   }
+  /* Rustpunt: tussen 40% en 60% verandert de dekking niet en blijft het element gedimd */
   40%, 60% {
     opacity: 0.2;
   }
@@ -9354,26 +9458,67 @@ Als je zowel een duur als een vertraging opgeeft in de shorthand, hanteert de br
 
 ## Live demonstratie: pulseren en interactief pauzeren
 
-In het onderstaande interactieve voorbeeld zie je een live-statusindicator en een draaiende radar. Beweeg je muis over het kader om de animaties tijdelijk te bevriezen via `animation-play-state: paused`:
+In het onderstaande interactieve voorbeeld zie je twee verschillende zelfstandig lopende animaties: een gloeiende en pulserende statusbol voor een live-uitzending en een continu ronddraaiende radarwijzer. Zodra je met de muis over de kaart beweegt, worden beide animaties ter plekke bevroren via `animation-play-state: paused`.
+
+### Opbouw van de elementen
+
+- `div.kaart`: de centrale container (`max-width: 340px`, afgeronde hoeken, padding en schaduw). De hover-toestand is aan deze kaart gekoppeld (`.kaart:hover`), waardoor beide kind-animaties gelijktijdig pauzeren.
+- `span.puls-bol`: een cirkelvormig element (`border-radius: 50%`) dat via keyframes ritmisch groter en feller gloeit met `box-shadow`.
+- `div.radar-container`: het ronde referentiekader met een stippelrand (`border: 2px dashed var(--kleur-radar-rand)`).
+- `div.radar-wijzer`: de naald die met `transform-origin: bottom center` vanuit het midden van de radar ronddraait.
+
+### Overzicht van de animaties en interactie
+
+| Element / Klasse | Animatie-eigenschappen | Keyframes-werking | Effect bij hover over de kaart |
+|---|---|---|---|
+| **Live-indicator** (`.puls-bol`) | `animation: gloeien 1.2s ease-in-out infinite alternate;` | Schaalt van 90% naar 125% terwijl een oranje `box-shadow` uitdijt en vervaagt. Keert dankzij `alternate` soepel om. | `animation-play-state: paused;` (de bol bevriest in zijn huidige schaal). |
+| **Radarwijzer** (`.radar-wijzer`) | `animation: draaien 3s linear infinite;` | Roteert continu 360 graden rond zijn basis (`bottom center`) met een gelijkmatige snelheid (`linear`). | `animation-play-state: paused;` (de wijzer stopt op zijn actuele hoek). |
 
 > [Codevoorbeeld: Demonstratie: statusbadge en interactief pauzeren]
 
 ## Live demonstratie: animation-fill-mode ontleed
 
-Om het abstracte verschil tussen `none`, `forwards`, `backwards` en `both` visueel inzichtelijk te maken, toont de onderstaande sandbox vier identieke balken. Elke balk heeft een startvertraging van 1 seconde en schuift vervolgens 200 pixels naar rechts.
+Om het abstracte verschil tussen `none`, `forwards`, `backwards`, `both` én herhalingspatronen zoals `infinite` visueel inzichtelijk te maken, toont de onderstaande testbaan zes identieke balken. Elke balk heeft een startvertraging van 1 seconde (`1s`) en schuift vervolgens in 1,5 seconde 200 pixels naar rechts met een kleurwissel van oranje naar blauw.
 
-Klik of beweeg je muis over het speelveld om te zien wat er gebeurt:
+Beweeg je muisaanwijzer over het testkader om de animaties gelijktijdig te triggeren.
 
-> [Codevoorbeeld: Vergelijking van de vier animation-fill-mode waarden]
+### Opbouw van de elementen
 
-Merk de cruciale verschillen op:
-- **`forwards`:** blijft op het einde netjes rechts staan in het blauw (`100%`).
-- **`backwards`:** springt al tijdens de wachttijd van 1 seconde direct naar de oranje startpositie (`0%`), maar schiet na afloop weer terug naar de donkere basiskleur.
-- **`both`:** combineert het beste van beide: start direct in de startpositie en blijft na afloop perfect in de eindpositie staan.
+- `div.testbaan`: het testkader (`max-width: 480px`, padding, schaduw). De animaties starten bij `:hover` over dit kader (`.testbaan:hover .blok-...`).
+- `div.spoor`: de grijze achtergrondsporen (`background-color: var(--kleur-spoor)`) waarin de blokken glijden.
+- `div.blok`: de bewegende blokken met een donkergrijze basiskleur (`var(--kleur-blok)`).
+
+### Overzicht van de animatie-instellingen en gedrag
+
+| Waarde / Klasse | Gedrag tijdens delay (eerste seconde) | Gedrag na afloop of tijdens herhaling |
+|---|---|---|
+| **none** (`.blok-none`) | Blijft donkergrijs op de ruststand (`0px`). | Schiet na afloop direct terug naar de donkergrijze ruststand. |
+| **forwards** (`.blok-forwards`) | Blijft donkergrijs op de ruststand (`0px`). | **Blijft permanent blauw aan de finish staan** (`translateX(240px)`). |
+| **backwards** (`.blok-backwards`) | **Springt tijdens de delay direct naar oranje** (`translateX(40px)`). | Schiet na afloop direct terug naar de donkergrijze ruststand. |
+| **both** (`.blok-both`) | **Springt tijdens de delay direct naar oranje**. | **Blijft na afloop permanent blauw aan de finish staan**. |
+| **infinite** (`.blok-infinite`) | Blijft donkergrijs op de ruststand (`0px`). | **Stopt nooit**: herhaalt de cyclus oneindig en springt na elke ronde terug naar de start. |
+| **infinite alternate** (`.blok-infinite-alt`) | Blijft donkergrijs op de ruststand (`0px`). | **Pendelt continu**: keert aan de finish soepel om en glijdt vloeiend heen en weer. |
+
+> [Codevoorbeeld: Vergelijking van animation-fill-mode en herhalingsgedrag]
 
 ## Praktijkvoorbeeld: geanimeerde laadcirkel (spinner)
 
-Een van de meest voorkomende toepassingen van CSS-animaties in webapplicaties is een laadindicator. In onderstaand voorbeeld combineren we een ronde rand met een transparant deel en een oneindige `linear`-rotatie:
+Een van de meest voorkomende toepassingen van CSS-animaties in moderne webapplicaties is een laadindicator (*spinner*). In onderstaand voorbeeld combineren we een ronde cirkel met een contrasterende bovenrand en een oneindige, vloeiende rotatie via de `linear` timingfunctie.
+
+### Opbouw van de elementen
+
+- `div.laad-kader`: de gecentreerde kaart (`padding: 2rem`, lichte rand en schaduw) die het laadproces omsluit.
+- `div.spinner`: de laadring zelf. Deze is perfect rond (`border-radius: 50%`) en heeft een grijze basisrand met één opvallende blauwe bovenrand (`border-top-color: var(--kleur-primair)`).
+- `p.laad-tekst`: de begeleidende statustekst onder de cirkel.
+
+### Werking van de laadanimatie
+
+| Eigenschap | Waarde | Waarom deze keuze? |
+|---|---|---|
+| `@keyframes spin` | `from { transform: rotate(0deg); }`<br>`to { transform: rotate(360deg); }` | Laat de cirkel een volledige omwenteling van 360 graden maken. |
+| `animation-duration` | `0.8s` | Zorgt voor een vlotte, natuurlijke rotatiesnelheid (niet te snel, niet te traag). |
+| `animation-timing-function` | `linear` | Beweegt met een volkomen constante snelheid zonder te vertragen of haperen op het breekpunt. |
+| `animation-iteration-count` | `infinite` | Blijft continu doordraaien zolang de bezoeker wacht op het laden van de gegevens. |
 
 > [Codevoorbeeld: Praktijkvoorbeeld: oneindig draaiende laadindicator]
 
@@ -9486,7 +9631,7 @@ Bouw een meldingstrook die subtiel van bovenaf binnenglijdt, enkele seconden bli
 # 3D Transformaties
 
 ::: info Optionele leerstof
-Dit hoofdstuk is optionele verdieping voor wie visueel creatieve webinterfaces wil bouwen. De basisprincipes van CSS (Cascading Style Sheets: de stijlen- en opmaaktaal voor het web) transities en animaties uit de voorgaande hoofdstukken volstaan voor de meeste standaardwebsites.
+Dit hoofdstuk is optionele verdieping voor wie visueel creatieve webinterfaces wil bouwen. De basisprincipes van CSS transities en animaties uit de voorgaande hoofdstukken volstaan voor de meeste standaardwebsites.
 :::
 
 In het hoofdstuk over [2D Transformaties](/css/2d-transformaties) leerde je elementen verplaatsen, schalen, roteren en vervormen op een tweedimensionaal vlak via de horizontale X-as en de verticale Y-as. Met **3D transformaties** (CSS-eigenschappen waarmee je elementen in een virtuele driedimensionale ruimte kunt roteren, kantelen en verplaatsen langs de Z-as) voeg je hier een derde as aan toe: de **Z-as**.
@@ -9562,7 +9707,21 @@ Standaard kijkt de virtuele camera recht naar het midden van de container (`50% 
 
 Mogelijke waarden zijn sleutelwoorden (`left`, `center`, `right`, `top`, `bottom`) of percentages en lengtematen.
 
-In de onderstaande CodeSandbox zie je het directe verschil tussen een rotatie zonder perspectief, met een sterk perspectief (`300px`) en met een natuurlijk perspectief (`800px`). Beweeg je muis over de kaarten om het effect te bekijken.
+In de onderstaande CodeSandbox zie je het directe effect van de eigenschap `perspective` op een 3D-rotatie over de Y-as (`rotateY(45deg)`). Beweeg je muisaanwijzer over de verschillende scènes om de kaarten te laten kantelen.
+
+### Opbouw van de elementen
+
+- `main.grid`: de flex-container die de drie testscènes netjes naast elkaar centreert (`display: flex`, `gap: 1.5rem`).
+- `div.scene`: de scènecontainer waarin de `perspective`-afstand voor de virtuele camera wordt vastgelegd.
+- `div.kaart`: de blauwe kaart die bij een hover 45 graden om haar verticale Y-as draait (`transform: rotateY(45deg)`) en oranje kleurt.
+
+### Overzicht van de getoonde perspectieven
+
+| Scène / Klasse | Perspectiefwaarde | Visueel effect bij hover |
+|---|---|---|
+| **Geen perspectief** (`.scene-none`) | Geen `perspective` ingesteld | Lijkt op een platte, tweedimensionale krimp van de breedte. Het menselijk oog ervaart geen diepte. |
+| **Dichtbij** (`.scene-close`) | `perspective: 300px;` | Sterk, dramatisch groothoekperspectief. De rand die naar voren komt lijkt veel groter dan de rand die naar achteren wijkt. |
+| **Natuurlijk** (`.scene-natural`) | `perspective: 800px;` | Realistische ruimtelijke diepte zoals je die in het echte leven waarneemt. De standaardkeuze voor webinterfaces. |
 
 > [Codevoorbeeld: Perspectief vergelijken bij 3D-rotatie]
 
@@ -9621,7 +9780,25 @@ Wil je dat kindelementen hun eigen zelfstandige positie en diepte op de Z-as beh
 }
 ```
 
-Het onderstaande voorbeeld toont een zwevende kaart waarin een knop en een badge dankzij `preserve-3d` en `translateZ` virtueel op verschillende dieptelagen boven de kaart zweven.
+Het onderstaande interactieve voorbeeld toont een ruimtelijk zwevende kaart. Door `transform-style: preserve-3d` op het roterende hoofdelement te combineren met verschillende `translateZ`-waarden op de kindelementen, zweven de badge en de knop virtueel op afzonderlijke dieptelagen boven het kaartoppervlak.
+
+Beweeg je muisaanwijzer over de kaart om de ruimtelijke diepte in actie te zien.
+
+### Opbouw van de elementen
+
+- `div.scene`: de overkoepelende 3D-scène met perspectief (`perspective: 900px`).
+- `article.card`: het hoofdkaartje met `transform-style: preserve-3d`. Bij `:hover` kantelt de kaart in 3D en trekt zij met `scale(0.95)` iets naar achteren (`rotateX(15deg) rotateY(-20deg) scale(0.95)`).
+- `span.badge`: een oranje label dat bij rust 40px zweeft (`translateZ(40px)`). Bij `:hover` komt het extra ver naar voren (`translateZ(65px) scale(1.1)`).
+- `h2` en `p`: de platte tekst die direct op het kaartoppervlak blijft liggen (`translateZ: 0`).
+- `button.knop`: de actieknop die bij rust 30px zweeft (`translateZ(30px)`). Bij `:hover` springt de knop naar voren (`translateZ(50px) scale(1.08)`).
+
+### Overzicht van de dieptelagen op de Z-as
+
+| Element / Klasse | Diepte in ruststand | Diepte en effect bij `:hover` | Visuele werking |
+|---|---|---|---|
+| **Kaartoppervlak** (`.card`) | `translateZ(0)` | `rotateX(15deg) rotateY(-20deg) scale(0.95)` | Kantelt ruimtelijk weg en trekt iets naar achteren waardoor de dieptewerking versterkt. |
+| **Statusbadge** (`.badge`) | `transform: translateZ(40px);` | `translateZ(65px) scale(1.1)` | Komt opvallend naar voren en vergroot subtiel als de hoogste visuele laag. |
+| **Actieknop** (`.knop`) | `transform: translateZ(30px);` | `translateZ(50px) scale(1.08)` | Zweeft 50 pixels boven het oppervlak uit en vergroot voelbaar naar de kijker toe. |
 
 > [Codevoorbeeld: Gelaagde diepte met translateZ en preserve-3d]
 
@@ -9642,16 +9819,24 @@ Met de eigenschap **`backface-visibility`** (CSS-eigenschap die bepaalt of de ac
 
 ## Praktijkvoorbeeld: De 3D Flip Card ontleden
 
-Het bekendste en meest toegepaste 3D-patroon op het web is de dubbelzijdige kaart die bij een hover of klik soepel omklapt naar haar achterzijde. De constructie bestaat altijd uit vier structurele niveaus:
+Het bekendste en meest toegepaste 3D-patroon op het web is de dubbelzijdige kaart die bij een muisbeweging vloeiend omklapt naar haar achterzijde. De constructie steunt op het samenspel tussen perspectief, het bewaren van de 3D-ruimte en het verbergen van de afgewende achterkant.
 
-1. **De Scène (`.scene`):** Zorgt voor het perspectief (`perspective: 1000px`).
-2. **De Kaartcontainer (`.flip-card`):** Bewaart de 3D-ruimte voor haar kinderen (`transform-style: preserve-3d`) en verzorgt de draaianimatie (`transition: transform 0.6s`).
-3. **De Voorkant (`.card-front`):** Staat initieel op `transform: rotateY(0deg)` en heeft `backface-visibility: hidden`.
-4. **De Achterkant (`.card-back`):** Is vooraf al 180 graden gedraaid (`transform: rotateY(180deg)`) en heeft eveneens `backface-visibility: hidden`.
+Beweeg je muisaanwijzer over het visitekaartje om de kaart 180 graden om te laten klappen.
 
-Wanneer de gebruiker met de muis over `.scene` beweegt, draait de hele kaartcontainer 180 graden om haar Y-as:
-- De voorkant draait naar 180 graden en wordt dankzij `backface-visibility: hidden` onzichtbaar
-- De achterkant draait van 180 graden naar 360 graden (of 0 graden) en wordt perfect leesbaar zichtbaar
+### Opbouw van de elementen
+
+- `div.scene`: de vaste scène (`width: 240px`, `height: 320px`, `perspective: 800px`) die het gezichtspunt voor de virtuele camera levert.
+- `div.card`: de draaiende kaartcontainer (`transform-style: preserve-3d`, `transition: transform 0.6s ease`). Bij `.scene:hover` draait dit element 180 graden om de Y-as (`transform: rotateY(180deg)`).
+- `div.card-face`: de gedeelde basisopmaak voor beide zijden (`position: absolute`, volle breedte en hoogte, afgeronde hoeken en `backface-visibility: hidden`).
+- `div.card-front`: het blauwe voorvlak (start op `rotateY(0deg)`).
+- `div.card-back`: het oranje achtervlak (start vooraf reeds 180 graden gedraaid via `transform: rotateY(180deg)`).
+
+### Werking van de flip-animatie
+
+| Toestand | Positie voorkant (`.card-front`) | Positie achterkant (`.card-back`) | Wat ziet de gebruiker? |
+|---|---|---|---|
+| **Ruststand** | `rotateY(0deg)` (naar voren gericht, zichtbaar) | `rotateY(180deg)` (weggedraaid, verborgen via `backface-visibility: hidden`) | De blauwe voorkant met titel en laptopicoon. |
+| **Hover (`.scene:hover`)** | Roteert naar `180deg` (wordt onzichtbaar) | Roteert naar `360deg` (keert naar voren en wordt zichtbaar) | De oranje achterkant met cursusinhoud en campuslocatie. |
 
 > [Codevoorbeeld: Interactieve 3D Flip Card met twee zijden]
 

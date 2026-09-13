@@ -5,7 +5,7 @@ title: 3D Transformaties
 # 3D Transformaties
 
 ::: info Optionele leerstof
-Dit hoofdstuk is optionele verdieping voor wie visueel creatieve webinterfaces wil bouwen. De basisprincipes van <abbr title="Cascading Style Sheets: de stijlen- en opmaaktaal voor het web">CSS</abbr> transities en animaties uit de voorgaande hoofdstukken volstaan voor de meeste standaardwebsites.
+Dit hoofdstuk is optionele verdieping voor wie visueel creatieve webinterfaces wil bouwen. De basisprincipes van CSS transities en animaties uit de voorgaande hoofdstukken volstaan voor de meeste standaardwebsites.
 :::
 
 In het hoofdstuk over [2D Transformaties](/css/2d-transformaties) leerde je elementen verplaatsen, schalen, roteren en vervormen op een tweedimensionaal vlak via de horizontale X-as en de verticale Y-as. Met <dfn title="CSS-eigenschappen waarmee je elementen in een virtuele driedimensionale ruimte kunt roteren, kantelen en verplaatsen langs de Z-as">3D transformaties</dfn> voeg je hier een derde as aan toe: de **Z-as**.
@@ -81,75 +81,99 @@ Standaard kijkt de virtuele camera recht naar het midden van de container (`50% 
 
 Mogelijke waarden zijn sleutelwoorden (`left`, `center`, `right`, `top`, `bottom`) of percentages en lengtematen.
 
-In de onderstaande CodeSandbox zie je het directe verschil tussen een rotatie zonder perspectief, met een sterk perspectief (`300px`) en met een natuurlijk perspectief (`800px`). Beweeg je muis over de kaarten om het effect te bekijken.
+In de onderstaande CodeSandbox zie je het directe effect van de eigenschap `perspective` op een 3D-rotatie over de Y-as (`rotateY(45deg)`). Beweeg je muisaanwijzer over de verschillende scènes om de kaarten te laten kantelen.
+
+### Opbouw van de elementen
+
+- `main.grid`: de flex-container die de drie testscènes netjes naast elkaar centreert (`display: flex`, `gap: 1.5rem`).
+- `div.scene`: de scènecontainer waarin de `perspective`-afstand voor de virtuele camera wordt vastgelegd.
+- `div.kaart`: de blauwe kaart die bij een hover 45 graden om haar verticale Y-as draait (`transform: rotateY(45deg)`) en oranje kleurt.
+
+### Overzicht van de getoonde perspectieven
+
+| Scène / Klasse | Perspectiefwaarde | Visueel effect bij hover |
+|---|---|---|
+| **Geen perspectief** (`.scene-none`) | Geen `perspective` ingesteld | Lijkt op een platte, tweedimensionale krimp van de breedte. Het menselijk oog ervaart geen diepte. |
+| **Dichtbij** (`.scene-close`) | `perspective: 300px;` | Sterk, dramatisch groothoekperspectief. De rand die naar voren komt lijkt veel groter dan de rand die naar achteren wijkt. |
+| **Natuurlijk** (`.scene-natural`) | `perspective: 800px;` | Realistische ruimtelijke diepte zoals je die in het echte leven waarneemt. De standaardkeuze voor webinterfaces. |
 
 <CodeSandbox
   title="Perspectief vergelijken bij 3D-rotatie"
   height="460px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="19-21, 23-25, 27-29"
+  highlightHtml="10-11, 14, 17"
+  highlightCss="34, 37, 40, 56, 60-61"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Perspectief</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <main class="grid">
-    <div class="scene scene-none">
-      <div class="kaart">Geen perspectief</div>
-    </div>
-    <div class="scene scene-close">
-      <div class="kaart">Dichtbij (300px)</div>
-    </div>
-    <div class="scene scene-natural">
-      <div class="kaart">Natuurlijk (800px)</div>
-    </div>
-  </main>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Perspectief</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <main class="grid">
+      <div class="scene scene-none">
+        <div class="kaart">Geen perspectief</div>
+      </div>
+      <div class="scene scene-close">
+        <div class="kaart">Dichtbij (300px)</div>
+      </div>
+      <div class="scene scene-natural">
+        <div class="kaart">Natuurlijk (800px)</div>
+      </div>
+    </main>
+  </body>
 </html>'
-  css='* {
+  css='/* Universele resetter */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f8fafc;
-  color: #1e293b;
-  padding: 2rem;
+/* CSS variabelen */
+:root {
+  --kleur-primair: #0284c7;
+  --kleur-accent: #e87722;
+  --kleur-achtergrond: #f8fafc;
+  --kleur-tekst: #1e293b;
+  --kleur-wit: #ffffff;
 }
-
+/* Paginastijl */
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  background-color: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .grid {
   display: flex;
   gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
 }
-
+/* Scènes met verschillende perspectieven */
 .scene-none {
   /* Geen perspective gedefinieerd */
 }
-
 .scene-close {
   perspective: 300px;
 }
-
 .scene-natural {
   perspective: 800px;
 }
-
+/* Basisopmaak van de kaart */
 .kaart {
   width: 180px;
   height: 220px;
-  background-color: #0284c7;
-  color: #ffffff;
+  background-color: var(--kleur-primair);
+  color: var(--kleur-wit);
   font-weight: 600;
   border-radius: 8px;
   display: flex;
@@ -160,10 +184,10 @@ body {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease, background-color 0.4s ease;
 }
-
+/* Rotatie bij hover */
 .scene:hover .kaart {
   transform: rotateY(45deg);
-  background-color: #e87722;
+  background-color: var(--kleur-accent);
 }'
   js=''
 />
@@ -223,59 +247,89 @@ Wil je dat kindelementen hun eigen zelfstandige positie en diepte op de Z-as beh
 }
 ```
 
-Het onderstaande voorbeeld toont een zwevende kaart waarin een knop en een badge dankzij `preserve-3d` en `translateZ` virtueel op verschillende dieptelagen boven de kaart zweven.
+Het onderstaande interactieve voorbeeld toont een ruimtelijk zwevende kaart. Door `transform-style: preserve-3d` op het roterende hoofdelement te combineren met verschillende `translateZ`-waarden op de kindelementen, zweven de badge en de knop virtueel op afzonderlijke dieptelagen boven het kaartoppervlak.
+
+Beweeg je muisaanwijzer over de kaart om de ruimtelijke diepte in actie te zien.
+
+### Opbouw van de elementen
+
+- `div.scene`: de overkoepelende 3D-scène met perspectief (`perspective: 900px`).
+- `article.card`: het hoofdkaartje met `transform-style: preserve-3d`. Bij `:hover` kantelt de kaart in 3D en trekt zij met `scale(0.95)` iets naar achteren (`rotateX(15deg) rotateY(-20deg) scale(0.95)`).
+- `span.badge`: een oranje label dat bij rust 40px zweeft (`translateZ(40px)`). Bij `:hover` komt het extra ver naar voren (`translateZ(65px) scale(1.1)`).
+- `h2` en `p`: de platte tekst die direct op het kaartoppervlak blijft liggen (`translateZ: 0`).
+- `button.knop`: de actieknop die bij rust 30px zweeft (`translateZ(30px)`). Bij `:hover` springt de knop naar voren (`translateZ(50px) scale(1.08)`).
+
+### Overzicht van de dieptelagen op de Z-as
+
+| Element / Klasse | Diepte in ruststand | Diepte en effect bij `:hover` | Visuele werking |
+|---|---|---|---|
+| **Kaartoppervlak** (`.card`) | `translateZ(0)` | `rotateX(15deg) rotateY(-20deg) scale(0.95)` | Kantelt ruimtelijk weg en trekt iets naar achteren waardoor de dieptewerking versterkt. |
+| **Statusbadge** (`.badge`) | `transform: translateZ(40px);` | `translateZ(85px) scale(1.3)` | Komt opvallend naar voren en vergroot subtiel als de hoogste visuele laag. |
+| **Actieknop** (`.knop`) | `transform: translateZ(30px);` | `translateZ(50px) scale(1.2)` | Zweeft 50 pixels boven het oppervlak uit en vergroot voelbaar naar de kijker toe. |
 
 <CodeSandbox
   title="Gelaagde diepte met translateZ en preserve-3d"
   height="460px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="26-28, 43-45, 54-56"
+  highlightHtml="10-12, 15"
+  highlightCss="30, 40-41, 46, 58-59, 63, 84-85, 89"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Z-as lagen</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="scene">
-    <article class="card">
-      <span class="badge">Nieuw</span>
-      <h2>Web Essentials</h2>
-      <p>Beweeg je muis over deze kaart om het gelaagde 3D-effect te zien.</p>
-      <button class="knop">Ontdek meer</button>
-    </article>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-as lagen</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="scene">
+      <article class="card">
+        <span class="badge">Nieuw</span>
+        <h2>Web Essentials</h2>
+        <p>Beweeg je muis over deze kaart om het gelaagde 3D-effect te zien.</p>
+        <button class="knop">Ontdek meer</button>
+      </article>
+    </div>
+  </body>
 </html>'
-  css='* {
+  css='/* Universele resetter */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
+/* CSS variabelen */
+:root {
+  --kleur-primair: #0284c7;
+  --kleur-accent: #e87722;
+  --kleur-achtergrond: #0f172a;
+  --kleur-kaart: #1e293b;
+  --kleur-rand: #334155;
+  --kleur-tekst: #f8fafc;
+  --kleur-tekst-muted: #94a3b8;
+  --kleur-wit: #ffffff;
+}
+/* Paginastijl */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #0f172a;
-  color: #f8fafc;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  background-color: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
-
+/* 3D Scène */
 .scene {
   perspective: 900px;
 }
-
+/* Kaart met behoud van 3D context */
 .card {
   width: 280px;
-  background-color: #1e293b;
-  border: 1px solid #334155;
+  background-color: var(--kleur-kaart);
+  border: 1px solid var(--kleur-rand);
   border-radius: 12px;
   padding: 2rem;
   position: relative;
@@ -283,44 +337,52 @@ body {
   transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
-
+/* Kaart kantelt en verkleint lichtjes naar achteren op hover */
 .scene:hover .card {
-  transform: rotateX(15deg) rotateY(-20deg);
+  transform: rotateX(15deg) rotateY(-20deg) scale(0.95);
 }
-
+/* Badge zweeft op de Z-as */
 .badge {
   display: inline-block;
-  background-color: #e87722;
-  color: #ffffff;
+  background-color: var(--kleur-accent);
+  color: var(--kleur-wit);
   font-size: 0.75rem;
   font-weight: 700;
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
   margin-bottom: 1rem;
   transform: translateZ(40px);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-
+/* Badge komt extra naar voren en vergroot op hover */
+.scene:hover .badge {
+  transform: translateZ(85px) scale(1.3);
+}
 h2 {
   font-size: 1.4rem;
   margin-bottom: 0.75rem;
 }
-
 p {
-  color: #94a3b8;
+  color: var(--kleur-tekst-muted);
   font-size: 0.95rem;
   line-height: 1.5;
   margin-bottom: 1.5rem;
 }
-
+/* Knop zweeft op de Z-as */
 .knop {
-  background-color: #0284c7;
-  color: #ffffff;
+  background-color: var(--kleur-primair);
+  color: var(--kleur-wit);
   border: none;
   border-radius: 6px;
   padding: 0.6rem 1.2rem;
   font-weight: 600;
   cursor: pointer;
   transform: translateZ(30px);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+/* Knop springt naar voren en vergroot op hover */
+.scene:hover .knop {
+  transform: translateZ(50px) scale(1.2);
 }'
   js=''
 />
@@ -342,71 +404,87 @@ Met de eigenschap <dfn title="CSS-eigenschap die bepaalt of de achterkant van ee
 
 ## Praktijkvoorbeeld: De 3D Flip Card ontleden
 
-Het bekendste en meest toegepaste 3D-patroon op het web is de dubbelzijdige kaart die bij een hover of klik soepel omklapt naar haar achterzijde. De constructie bestaat altijd uit vier structurele niveaus:
+Het bekendste en meest toegepaste 3D-patroon op het web is de dubbelzijdige kaart die bij een muisbeweging vloeiend omklapt naar haar achterzijde. De constructie steunt op het samenspel tussen perspectief, het bewaren van de 3D-ruimte en het verbergen van de afgewende achterkant.
 
-1. **De Scène (`.scene`):** Zorgt voor het perspectief (`perspective: 1000px`).
-2. **De Kaartcontainer (`.flip-card`):** Bewaart de 3D-ruimte voor haar kinderen (`transform-style: preserve-3d`) en verzorgt de draaianimatie (`transition: transform 0.6s`).
-3. **De Voorkant (`.card-front`):** Staat initieel op `transform: rotateY(0deg)` en heeft `backface-visibility: hidden`.
-4. **De Achterkant (`.card-back`):** Is vooraf al 180 graden gedraaid (`transform: rotateY(180deg)`) en heeft eveneens `backface-visibility: hidden`.
+Beweeg je muisaanwijzer over het visitekaartje om de kaart 180 graden om te laten klappen.
 
-Wanneer de gebruiker met de muis over `.scene` beweegt, draait de hele kaartcontainer 180 graden om haar Y-as:
-- De voorkant draait naar 180 graden en wordt dankzij `backface-visibility: hidden` onzichtbaar
-- De achterkant draait van 180 graden naar 360 graden (of 0 graden) en wordt perfect leesbaar zichtbaar
+### Opbouw van de elementen
+
+- `div.scene`: de vaste scène (`width: 240px`, `height: 320px`, `perspective: 800px`) die het gezichtspunt voor de virtuele camera levert.
+- `div.card`: de draaiende kaartcontainer (`transform-style: preserve-3d`, `transition: transform 0.6s ease`). Bij `.scene:hover` draait dit element 180 graden om de Y-as (`transform: rotateY(180deg)`).
+- `div.card-face`: de gedeelde basisopmaak voor beide zijden (`position: absolute`, volle breedte en hoogte, afgeronde hoeken en `backface-visibility: hidden`).
+- `div.card-front`: het blauwe voorvlak (start op `rotateY(0deg)`).
+- `div.card-back`: het oranje achtervlak (start vooraf reeds 180 graden gedraaid via `transform: rotateY(180deg)`).
+
+### Werking van de flip-animatie
+
+| Toestand | Positie voorkant (`.card-front`) | Positie achterkant (`.card-back`) | Wat ziet de gebruiker? |
+|---|---|---|---|
+| **Ruststand** | `rotateY(0deg)` (naar voren gericht, zichtbaar) | `rotateY(180deg)` (weggedraaid, verborgen via `backface-visibility: hidden`) | De blauwe voorkant met titel en laptopicoon. |
+| **Hover (`.scene:hover`)** | Roteert naar `180deg` (wordt onzichtbaar) | Roteert naar `360deg` (keert naar voren en wordt zichtbaar) | De oranje achterkant met cursusinhoud en campuslocatie. |
 
 <CodeSandbox
   title="Interactieve 3D Flip Card met twee zijden"
   height="490px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="18-20, 29-31, 38-40, 48-50, 54-56"
+  highlightHtml="10-12, 17"
+  highlightCss="27, 34-35, 39, 53, 65"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Flip Card</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="scene">
-    <div class="card">
-      <div class="card-face card-front">
-        <span class="icoon">&#128187;</span>
-        <h2>Frontend Dev</h2>
-        <p>Beweeg over mij</p>
-      </div>
-      <div class="card-face card-back">
-        <h2>Inhoud</h2>
-        <p>HTML5, CSS3, Flexbox, Grid en animaties.</p>
-        <span class="campus">Campus Geel</span>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Flip Card</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="scene">
+      <div class="card">
+        <div class="card-face card-front">
+          <span class="icoon">💻</span>
+          <h2>Frontend Dev</h2>
+          <p>Beweeg over mij</p>
+        </div>
+        <div class="card-face card-back">
+          <h2>Inhoud</h2>
+          <p>HTML5, CSS3, Flexbox, Grid en animaties.</p>
+          <span class="campus">Campus Geel</span>
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>'
-  css='* {
+  css='/* Universele resetter */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
+/* CSS variabelen */
+:root {
+  --kleur-voorkant: #0284c7;
+  --kleur-achterkant: #e87722;
+  --kleur-achtergrond: #f1f5f9;
+  --kleur-wit: #ffffff;
+}
+/* Paginastijl */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f1f5f9;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  background-color: var(--kleur-achtergrond);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
-
+/* 1. De scène met perspectief */
 .scene {
   width: 240px;
   height: 320px;
   perspective: 800px;
 }
-
+/* 2. De kaartcontainer met 3D-behoud */
 .card {
   width: 100%;
   height: 100%;
@@ -414,11 +492,11 @@ body {
   transform-style: preserve-3d;
   transition: transform 0.6s ease;
 }
-
+/* 3. Omklappen van de kaartcontainer bij hover */
 .scene:hover .card {
   transform: rotateY(180deg);
 }
-
+/* 4. Gemeenschappelijke stijlen voor beide vlakken */
 .card-face {
   position: absolute;
   width: 100%;
@@ -433,23 +511,21 @@ body {
   backface-visibility: hidden;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
-
+/* 5. Voorkant */
 .card-front {
-  background-color: #0284c7;
-  color: #ffffff;
+  background-color: var(--kleur-voorkant);
+  color: var(--kleur-wit);
 }
-
+/* 6. Achterkant (vooraf 180 graden gedraaid) */
 .card-back {
-  background-color: #e87722;
-  color: #ffffff;
+  background-color: var(--kleur-achterkant);
+  color: var(--kleur-wit);
   transform: rotateY(180deg);
 }
-
 .icoon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
-
 .campus {
   margin-top: 1.5rem;
   font-size: 0.85rem;

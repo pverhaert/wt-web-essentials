@@ -623,10 +623,10 @@
       "Elementen schalen: scale()",
       "Spiegelen met negatieve getallen",
       "Live demonstratie: translate() en scale()",
+      "Opbouw van de elementen",
+      "Overzicht van de getoonde transformaties",
       "Elementen draaien: rotate()",
-      "Eenheden voor rotatie",
-      "Elementen schuin trekken: skew()",
-      "Meerdere transformaties combineren"
+      "Eenheden voor rotatie"
     ],
     "keyTerms": [
       "CSS 2D-transformaties",
@@ -656,13 +656,13 @@
       "Wat is een transitie?",
       "Welke eigenschappen kan je animeren?",
       "Direct vergelijken: met en zonder transitie",
+      "Opbouw van de elementen",
+      "Wat zie je in deze vergelijking?",
       "De vier transitie-eigenschappen",
       "1. transition-property",
       "2. transition-duration",
       "3. transition-timing-function",
-      "4. transition-delay",
-      "De samengestelde eigenschap: transition (shorthand)",
-      "De gouden regel voor tijdeenheden"
+      "4. transition-delay"
     ],
     "keyTerms": [
       "CSS-transities",
@@ -676,12 +676,12 @@
       "display: inline-block",
       "box-sizing: border-box",
       "transform: scale(1",
-      "transform: translatex(260px)",
+      "transform: translatex(",
+      "transform: translatex(340px)",
       "transform: scale(1)",
       "transform: translatey(",
       "transform: translatex(4px)",
-      "transform: rotate(",
-      "transition:"
+      "transform: rotate("
     ]
   },
   {
@@ -729,15 +729,14 @@
       "Perspectief toevoegen: `perspective`",
       "De impact van de perspectiefwaarde",
       "Het kijkpunt verleggen: `perspective-origin`",
+      "Opbouw van de elementen",
+      "Overzicht van de getoonde perspectieven",
       "3D Transformatiefuncties",
       "1. Roteren in de ruimte: `rotateX()`, `rotateY()` en `rotateZ()`",
       "2. Diepteverplaatsing: `translateZ()` en `translate3d()`",
-      "3. Schalen in de diepte: `scaleZ()` en `scale3d()`",
-      "De 3D-ruimte bewaren: `transform-style: preserve-3d`",
-      "De achterkant beheren: `backface-visibility`"
+      "3. Schalen in de diepte: `scaleZ()` en `scale3d()`"
     ],
     "keyTerms": [
-      "CSS",
       "3D transformaties",
       "`perspective`",
       "HTML",
@@ -753,10 +752,10 @@
       "transform: rotatey(45deg)",
       "transform: rotatex(40deg)",
       "transform: translate3d(10px",
-      "transform: rotatex(15deg)",
       "transform: translatez(40px)",
       "transform: translatez(30px)",
-      "transform: rotatey(0deg)"
+      "transform: rotatex(15deg)",
+      "transform: translatez(65px)"
     ]
   },
   {

@@ -76,9 +76,11 @@ Als een element op verschillende momenten dezelfde stijl moet aannemen, kan je d
 
 ```css
 @keyframes knipperen {
+  /* Volledig zichtbaar bij de start (0%) en aan het einde van de cyclus (100%) */
   0%, 100% {
     opacity: 1;
   }
+  /* Rustpunt: tussen 40% en 60% verandert de dekking niet en blijft het element gedimd */
   40%, 60% {
     opacity: 0.2;
   }
@@ -217,43 +219,68 @@ Als je zowel een duur als een vertraging opgeeft in de shorthand, hanteert de br
 
 ## Live demonstratie: pulseren en interactief pauzeren
 
-In het onderstaande interactieve voorbeeld zie je een live-statusindicator en een draaiende radar. Beweeg je muis over het kader om de animaties tijdelijk te bevriezen via `animation-play-state: paused`:
+In het onderstaande interactieve voorbeeld zie je twee verschillende zelfstandig lopende animaties: een gloeiende en pulserende statusbol voor een live-uitzending en een continu ronddraaiende radarwijzer. Zodra je met de muis over de kaart beweegt, worden beide animaties ter plekke bevroren via `animation-play-state: paused`.
+
+### Opbouw van de elementen
+
+- `div.kaart`: de centrale container (`max-width: 340px`, afgeronde hoeken, padding en schaduw). De hover-toestand is aan deze kaart gekoppeld (`.kaart:hover`), waardoor beide kind-animaties gelijktijdig pauzeren.
+- `span.puls-bol`: een cirkelvormig element (`border-radius: 50%`) dat via keyframes ritmisch groter en feller gloeit met `box-shadow`.
+- `div.radar-container`: het ronde referentiekader met een stippelrand (`border: 2px dashed var(--kleur-radar-rand)`).
+- `div.radar-wijzer`: de naald die met `transform-origin: bottom center` vanuit het midden van de radar ronddraait.
+
+### Overzicht van de animaties en interactie
+
+| Element / Klasse | Animatie-eigenschappen | Keyframes-werking | Effect bij hover over de kaart |
+|---|---|---|---|
+| **Live-indicator** (`.puls-bol`) | `animation: gloeien 1.2s ease-in-out infinite alternate;` | Schaalt van 90% naar 125% terwijl een oranje `box-shadow` uitdijt en vervaagt. Keert dankzij `alternate` soepel om. | `animation-play-state: paused;` (de bol bevriest in zijn huidige schaal). |
+| **Radarwijzer** (`.radar-wijzer`) | `animation: draaien 3s linear infinite;` | Roteert continu 360 graden rond zijn basis (`bottom center`) met een gelijkmatige snelheid (`linear`). | `animation-play-state: paused;` (de wijzer stopt op zijn actuele hoek). |
 
 <CodeSandbox
   title="Demonstratie: statusbadge en interactief pauzeren"
   height="450px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="30,35,46,55"
+  highlightHtml="10, 13, 16-17"
+  highlightCss="30-31, 41-44, 52, 69, 74, 84, 92-101, 103-110"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live animatiedemonstratie</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="kaart">
-    <div class="status-rij">
-      <!-- Pulserende live-indicator -->
-      <span class="puls-bol"></span>
-      <span class="status-label">Live uitzending</span>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live animatiedemonstratie</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="kaart">
+      <div class="status-rij">
+        <!-- Pulserende live-indicator -->
+        <span class="puls-bol"></span>
+        <span class="status-label">Live uitzending</span>
+      </div>
+      <div class="radar-container">
+        <div class="radar-wijzer"></div>
+      </div>
+      <p class="toelichting">Beweeg je muis over deze kaart om de animaties te pauzeren.</p>
     </div>
-    <div class="radar-container">
-      <div class="radar-wijzer"></div>
-    </div>
-    <p class="toelichting">Beweeg je muis over deze kaart om de animaties te pauzeren.</p>
-  </div>
-</body>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+/* CSS variabelen */
+:root {
+  --kleur-primair: #0056b3;
+  --kleur-accent: #e87722;
+  --kleur-achtergrond: #f0f4f8;
+  --kleur-kaart: #ffffff;
+  --kleur-rand: #dcdfe3;
+  --kleur-radar-rand: #b0bec5;
+  --kleur-tekst: #1a202c;
+  --kleur-tekst-muted: #6c757d;
 }
 /* Paginastijl */
 body {
@@ -262,15 +289,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f4f8;
+  background-color: var(--kleur-achtergrond);
   padding: 1.5rem;
 }
 /* Container */
 .kaart {
   width: 100%;
   max-width: 340px;
-  background-color: #ffffff;
-  border: 1px solid #dcdfe3;
+  background-color: var(--kleur-kaart);
+  border: 1px solid var(--kleur-rand);
   border-radius: 0.75rem;
   padding: 1.75rem;
   text-align: center;
@@ -287,21 +314,21 @@ body {
 .puls-bol {
   width: 14px;
   height: 14px;
-  background-color: #e87722;
+  background-color: var(--kleur-accent);
   border-radius: 50%;
   animation: gloeien 1.2s ease-in-out infinite alternate;
 }
 .status-label {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--kleur-tekst);
 }
 /* Radarcontainer */
 .radar-container {
   width: 100px;
   height: 100px;
   margin: 0 auto 1.25rem;
-  border: 2px dashed #b0bec5;
+  border: 2px dashed var(--kleur-radar-rand);
   border-radius: 50%;
   position: relative;
   display: flex;
@@ -311,7 +338,7 @@ body {
 .radar-wijzer {
   width: 4px;
   height: 45px;
-  background-color: #0056b3;
+  background-color: var(--kleur-primair);
   border-radius: 2px;
   transform-origin: bottom center;
   position: absolute;
@@ -325,7 +352,7 @@ body {
 }
 .toelichting {
   font-size: 0.85rem;
-  color: #6c757d;
+  color: var(--kleur-tekst-muted);
   line-height: 1.4;
 }
 /* Keyframes voor het pulseren */
@@ -353,49 +380,84 @@ body {
 
 ## Live demonstratie: animation-fill-mode ontleed
 
-Om het abstracte verschil tussen `none`, `forwards`, `backwards` en `both` visueel inzichtelijk te maken, toont de onderstaande sandbox vier identieke balken. Elke balk heeft een startvertraging van 1 seconde en schuift vervolgens 200 pixels naar rechts.
+Om het abstracte verschil tussen `none`, `forwards`, `backwards`, `both` én herhalingspatronen zoals `infinite` visueel inzichtelijk te maken, toont de onderstaande testbaan zes identieke balken. Elke balk heeft een startvertraging van 1 seconde (`1s`) en schuift vervolgens in 1,5 seconde 200 pixels naar rechts met een kleurwissel van oranje naar blauw.
 
-Klik of beweeg je muis over het speelveld om te zien wat er gebeurt:
+Beweeg je muisaanwijzer over het testkader om de animaties gelijktijdig te triggeren.
+
+### Opbouw van de elementen
+
+- `div.testbaan`: het testkader (`max-width: 480px`, padding, schaduw). De animaties starten bij `:hover` over dit kader (`.testbaan:hover .blok-...`).
+- `div.spoor`: de grijze achtergrondsporen (`background-color: var(--kleur-spoor)`) waarin de blokken glijden.
+- `div.blok`: de bewegende blokken met een donkergrijze basiskleur (`var(--kleur-blok)`).
+
+### Overzicht van de animatie-instellingen en gedrag
+
+| Waarde / Klasse | Gedrag tijdens delay (eerste seconde) | Gedrag na afloop of tijdens herhaling |
+|---|---|---|
+| **none** (`.blok-none`) | Blijft donkergrijs op de ruststand (`0px`). | Schiet na afloop direct terug naar de donkergrijze ruststand. |
+| **forwards** (`.blok-forwards`) | Blijft donkergrijs op de ruststand (`0px`). | **Blijft permanent blauw aan de finish staan** (`translateX(240px)`). |
+| **backwards** (`.blok-backwards`) | **Springt tijdens de delay direct naar oranje** (`translateX(40px)`). | Schiet na afloop direct terug naar de donkergrijze ruststand. |
+| **both** (`.blok-both`) | **Springt tijdens de delay direct naar oranje**. | **Blijft na afloop permanent blauw aan de finish staan**. |
+| **infinite** (`.blok-infinite`) | Blijft donkergrijs op de ruststand (`0px`). | **Stopt nooit**: herhaalt de cyclus oneindig en springt na elke ronde terug naar de start. |
+| **infinite alternate** (`.blok-infinite-alt`) | Blijft donkergrijs op de ruststand (`0px`). | **Pendelt continu**: keert aan de finish soepel om en glijdt vloeiend heen en weer. |
 
 <CodeSandbox
-  title="Vergelijking van de vier animation-fill-mode waarden"
-  height="480px"
+  title="Vergelijking van animation-fill-mode en herhalingsgedrag"
+  height="540px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="32,36,40,44"
+  highlightHtml="10, 16, 19, 22, 25, 28"
+  highlightCss="30-31, 62, 65, 68, 71, 74, 77, 80-89"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fill-mode demonstratie</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="testbaan">
-    <p class="instructie">Beweeg over het kader: start na 1s delay</p>
-    <div class="spoor">
-      <div class="blok blok-none">none</div>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill-mode demonstratie</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="testbaan">
+      <p class="instructie">Beweeg over het kader: start na 1s delay</p>
+      <div class="spoor">
+        <div class="blok blok-none">none</div>
+      </div>
+      <div class="spoor">
+        <div class="blok blok-forwards">forwards</div>
+      </div>
+      <div class="spoor">
+        <div class="blok blok-backwards">backwards</div>
+      </div>
+      <div class="spoor">
+        <div class="blok blok-both">both</div>
+      </div>
+      <div class="spoor">
+        <div class="blok blok-infinite">infinite</div>
+      </div>
+      <div class="spoor">
+        <div class="blok blok-infinite-alt">infinite alternate</div>
+      </div>
     </div>
-    <div class="spoor">
-      <div class="blok blok-forwards">forwards</div>
-    </div>
-    <div class="spoor">
-      <div class="blok blok-backwards">backwards</div>
-    </div>
-    <div class="spoor">
-      <div class="blok blok-both">both</div>
-    </div>
-  </div>
-</body>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+/* CSS variabelen */
+:root {
+  --kleur-primair: #0056b3;
+  --kleur-accent: #e87722;
+  --kleur-achtergrond: #f4f6f8;
+  --kleur-kaart: #ffffff;
+  --kleur-rand: #ced4da;
+  --kleur-spoor: #e9ecef;
+  --kleur-blok: #343a40;
+  --kleur-tekst-muted: #6c757d;
+  --kleur-wit: #ffffff;
 }
 /* Paginastijl */
 body {
@@ -404,25 +466,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f4f6f8;
+  background-color: var(--kleur-achtergrond);
   padding: 1.5rem;
 }
 .testbaan {
   width: 100%;
   max-width: 480px;
-  background-color: #ffffff;
-  border: 1px solid #ced4da;
+  background-color: var(--kleur-kaart);
+  border: 1px solid var(--kleur-rand);
   border-radius: 0.5rem;
   padding: 1.5rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 .instructie {
   font-size: 0.85rem;
-  color: #6c757d;
+  color: var(--kleur-tekst-muted);
   margin-bottom: 1rem;
 }
 .spoor {
-  background-color: #e9ecef;
+  background-color: var(--kleur-spoor);
   border-radius: 0.25rem;
   margin-bottom: 0.75rem;
 }
@@ -434,11 +496,11 @@ body {
   text-align: center;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #ffffff;
-  background-color: #343a40;
+  color: var(--kleur-wit);
+  background-color: var(--kleur-blok);
   border-radius: 0.25rem;
 }
-/* De vier fill-modes geactiveerd op hover */
+/* Fill-modes en herhalingsopties geactiveerd op hover */
 .testbaan:hover .blok-none {
   animation: verschuif 1.5s ease 1s none;
 }
@@ -451,57 +513,81 @@ body {
 .testbaan:hover .blok-both {
   animation: verschuif 1.5s ease 1s both;
 }
+.testbaan:hover .blok-infinite {
+  animation: verschuif 1.5s ease 1s infinite;
+}
+.testbaan:hover .blok-infinite-alt {
+  animation: verschuif 1.5s ease 1s infinite alternate;
+}
 /* Keyframes met kleurwissel en verplaatsing */
 @keyframes verschuif {
   0% {
-    background-color: #e87722;
+    background-color: var(--kleur-accent);
     transform: translateX(40px);
   }
   100% {
-    background-color: #0056b3;
+    background-color: var(--kleur-primair);
     transform: translateX(240px);
   }
 }'
   js=''
 />
 
-Merk de cruciale verschillen op:
-- **`forwards`:** blijft op het einde netjes rechts staan in het blauw (`100%`).
-- **`backwards`:** springt al tijdens de wachttijd van 1 seconde direct naar de oranje startpositie (`0%`), maar schiet na afloop weer terug naar de donkere basiskleur.
-- **`both`:** combineert het beste van beide: start direct in de startpositie en blijft na afloop perfect in de eindpositie staan.
-
 ## Praktijkvoorbeeld: geanimeerde laadcirkel (spinner)
 
-Een van de meest voorkomende toepassingen van CSS-animaties in webapplicaties is een laadindicator. In onderstaand voorbeeld combineren we een ronde rand met een transparant deel en een oneindige `linear`-rotatie:
+Een van de meest voorkomende toepassingen van CSS-animaties in moderne webapplicaties is een laadindicator (*spinner*). In onderstaand voorbeeld combineren we een ronde cirkel met een contrasterende bovenrand en een oneindige, vloeiende rotatie via de `linear` timingfunctie.
+
+### Opbouw van de elementen
+
+- `div.laad-kader`: de gecentreerde kaart (`padding: 2rem`, lichte rand en schaduw) die het laadproces omsluit.
+- `div.spinner`: de laadring zelf. Deze is perfect rond (`border-radius: 50%`) en heeft een grijze basisrand met één opvallende blauwe bovenrand (`border-top-color: var(--kleur-primair)`).
+- `p.laad-tekst`: de begeleidende statustekst onder de cirkel.
+
+### Werking van de laadanimatie
+
+| Eigenschap | Waarde | Waarom deze keuze? |
+|---|---|---|
+| `@keyframes spin` | `from { transform: rotate(0deg); }`<br>`to { transform: rotate(360deg); }` | Laat de cirkel een volledige omwenteling van 360 graden maken. |
+| `animation-duration` | `0.8s` | Zorgt voor een vlotte, natuurlijke rotatiesnelheid (niet te snel, niet te traag). |
+| `animation-timing-function` | `linear` | Beweegt met een volkomen constante snelheid zonder te vertragen of haperen op het breekpunt. |
+| `animation-iteration-count` | `infinite` | Blijft continu doordraaien zolang de bezoeker wacht op het laden van de gegevens. |
 
 <CodeSandbox
   title="Praktijkvoorbeeld: oneindig draaiende laadindicator"
   height="420px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="26,30"
+  highlightHtml="10-12"
+  highlightCss="40, 48-55"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laadindicator</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="laad-kader">
-    <div class="spinner"></div>
-    <p class="laad-tekst">Gegevens ophalen...</p>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laadindicator</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="laad-kader">
+      <div class="spinner"></div>
+      <p class="laad-tekst">Gegevens ophalen...</p>
+    </div>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+/* CSS variabelen */
+:root {
+  --kleur-primair: #0056b3;
+  --kleur-achtergrond: #f8fafc;
+  --kleur-kaart: #ffffff;
+  --kleur-rand: #e2e8f0;
+  --kleur-tekst: #475569;
 }
 /* Paginastijl */
 body {
@@ -510,13 +596,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f8fafc;
+  background-color: var(--kleur-achtergrond);
 }
 .laad-kader {
   text-align: center;
   padding: 2rem;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--kleur-kaart);
+  border: 1px solid var(--kleur-rand);
   border-radius: 0.75rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
 }
@@ -525,15 +611,15 @@ body {
   width: 48px;
   height: 48px;
   margin: 0 auto 1rem;
-  border: 4px solid #e2e8f0;
-  border-top-color: #0056b3;
+  border: 4px solid var(--kleur-rand);
+  border-top-color: var(--kleur-primair);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
 .laad-tekst {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #475569;
+  color: var(--kleur-tekst);
 }
 /* 360 graden rotatie */
 @keyframes spin {

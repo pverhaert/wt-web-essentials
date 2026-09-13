@@ -120,40 +120,57 @@ Wanneer je een negatieve factor meegeeft aan `scale()`, keert de browser het ele
 
 ## Live demonstratie: translate() en scale()
 
-In de onderstaande sandbox zie je het effect van `translate()` en `scale()` in actie. Merk op dat de omringende kaders netjes blijven staan, terwijl de getransformeerde vlakken buiten hun grenzen reiken:
+In de onderstaande demonstratie zie je het effect van `translate()` en `scale()` in actie. Elk gekleurd element bevindt zich binnen een grijs stippelkader (`.kader`). Dit stippelkader toont de **oorspronkelijke plek en afmetingen** van het element in de normale documentstroom.
+
+Merk op hoe de stippelkaders allemaal netjes op hun vaste plaats in de indeling blijven staan: een transformatie verandert de normale documentstroom immers niet, maar tekent het resultaat als een visuele laag bovenop de pagina.
+
+### Opbouw van de elementen
+
+- `div.galerij`: de flex-container die de vier demonstratiekaders netjes centreert en ordent (`display: flex`, `flex-wrap: wrap`, `gap: 1.5rem`).
+- `div.kader`: het vaste referentiekader met een grijze stippelrand (`border: 2px dashed #b0bec5`) van 140 bij 140 pixels. Dit toont waar het element zich volgens de lay-out bevindt.
+- `div.kaart`: het gekleurde binnenelement dat de transformatie ondergaat (`border-radius: 0.5rem`, gecentreerde witte tekst).
+
+### Overzicht van de getoonde transformaties
+
+| Kaart / Klasse | Toegepaste transformatie | Visueel effect in de preview |
+|---|---|---|
+| **Blauw** (`.kaart-translate`) | `transform: translate(20px, -15px)` | Verschuift 20 pixels naar rechts en 15 pixels omhoog. Het stippelkader blijft roerloos op zijn plaats staan. |
+| **Oranje** (`.kaart-scale`) | `transform: scale(0.8)` | Verkleint de kaart met 20% (factor 0.8) vanuit het middelpunt. |
+| **Groen** (`.kaart-scale-asymmetrisch`) | `transform: scale(1.2, 0.85)` | Asymmetrische schaling: 20% breder (factor `1.2`), maar tegelijk 15% minder hoog (factor `0.85`). |
+| **Paars** (`.kaart-spiegel`) | `transform: scaleX(-1)` | Horizontale spiegeling: het element klapt om langs de horizontale X-as, waardoor ook de tekst in spiegelschrift staat. |
 
 <CodeSandbox
   title="Demonstratie van translate() en scale()"
-  height="430px"
+  height="450px"
   initialTab="split"
   activeCodeTab="css"
-  highlightHtml=""
-  highlightCss="32,36,40,44"
+  highlightHtml="10, 12, 15, 18, 21"
+  highlightCss="18-21, 27-28, 36, 48, 52, 56, 60"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Translate en Scale demonstratie</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <div class="galerij">
-    <div class="kader">
-      <div class="kaart kaart-translate">translate(20px, -15px)</div>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translate en Scale demonstratie</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <div class="galerij">
+      <div class="kader">
+        <div class="kaart kaart-translate">translate(20px, -15px)</div>
+      </div>
+      <div class="kader">
+        <div class="kaart kaart-scale">scale(0.8)</div>
+      </div>
+      <div class="kader">
+        <div class="kaart kaart-scale-asymmetrisch">scale(1.2, 0.85)</div>
+      </div>
+      <div class="kader">
+        <div class="kaart kaart-spiegel">scaleX(-1)</div>
+      </div>
     </div>
-    <div class="kader">
-      <div class="kaart kaart-scale">scale(1.15)</div>
-    </div>
-    <div class="kader">
-      <div class="kaart kaart-scale-asymmetrisch">scale(1.2, 0.85)</div>
-    </div>
-    <div class="kader">
-      <div class="kaart kaart-spiegel">scaleX(-1)</div>
-    </div>
-  </div>
-</body>
+  </body>
 </html>'
   css='/* Universele resetter */
 * {
@@ -182,18 +199,18 @@ body {
   width: 140px;
   height: 140px;
   border: 2px dashed #b0bec5;
-  background-color: #ffffff;
   border-radius: 0.5rem;
+  background-color: #ffffff;
 }
 /* Kaart binnen het kader */
 .kaart {
   width: 100%;
   height: 100%;
   padding: 0.75rem;
+  border-radius: 0.5rem;
   font-size: 0.8rem;
   font-weight: 600;
   color: #ffffff;
-  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,7 +223,7 @@ body {
 }
 .kaart-scale {
   background-color: #e87722;
-  transform: scale(1.15);
+  transform: scale(0.8);
 }
 .kaart-scale-asymmetrisch {
   background-color: #28a745;
@@ -324,7 +341,22 @@ Mogelijke waarden zijn:
 
 ## Live demonstratie: roteren, ankerpunten en combinaties
 
-In de onderstaande sandbox ontdek je hoe het verleggen van `transform-origin` het draaipunt volledig transformeert, en hoe een gecombineerde transformatie een professionele interactieve kaart oplevert:
+In de onderstaande demonstratie zie je het effect van rotatie, het verleggen van het ankerpunt (`transform-origin`), schuin trekken en gecombineerde transformaties. Net zoals in het vorige voorbeeld toont het grijze stippelkader (`.kader`) steeds de oorspronkelijke positie van het bord in de normale documentstroom.
+
+### Opbouw van de elementen
+
+- `div.speelveld`: de flex-container die de vier demonstratieborden centreert en ordent (`display: flex`, `flex-wrap: wrap`, `gap: 2rem`).
+- `div.kader`: het vaste referentiekader met een grijze stippelrand (`border: 2px dashed #b0bec5`) van 140 bij 100 pixels. Dit toont de rustpositie van het element in de normale documentstroom.
+- `div.bord`: het gekleurde binnenelement dat de transformaties ondergaat (`border-radius: 0.5rem`, gecentreerde witte tekst).
+
+### Overzicht van de getoonde transformaties
+
+| Bord / Klasse | Eigenschappen & Waarden | Wat zie je gebeuren? |
+|---|---|---|
+| **Blauw** (`.bord-midden`) | `transform: rotate(15deg)` | Draait 15 graden met de klok mee rond het standaard middelpunt (`50% 50%`). Alle vier de hoeken steken evenredig buiten het stippelkader uit. |
+| **Oranje** (`.bord-hoek`) | `transform-origin: top left`<br>`transform: rotate(15deg)` | Draait eveneens 15 graden, maar nu rond de **linkerbovenhoek**. Die hoek blijft exact op de linkerbovenhoek van het stippelkader vastgeprikt, terwijl de rest van het bord naar beneden zwenkt. |
+| **Groen** (`.bord-skew`) | `transform: skewX(-15deg)` | Vervormt de rechthoek tot een schuin parallellogram. De horizontale boven- en onderkant blijven netjes op de stippellijnen liggen, maar de zijkanten hellen 15 graden schuin. |
+| **Paars** (`.bord-combinatie`) | `:hover`<br>`transform: translateY(-8px) scale(1.08) rotate(-3deg)` | **Beweeg met je muis over het paarse bord**: drie transformaties worden gelijktijdig toegepast. Het bord zweeft 8 pixels omhoog, wordt 8% groter en kantelt 3 graden tegen de klok in. |
 
 <CodeSandbox
   title="Demonstratie van rotate(), transform-origin en gecombineerde transformaties"
@@ -332,7 +364,7 @@ In de onderstaande sandbox ontdek je hoe het verleggen van `transform-origin` he
   initialTab="split"
   activeCodeTab="css"
   highlightHtml=""
-  highlightCss="32,37,42,47"
+  highlightCss="48,53-54,59,67"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
@@ -344,14 +376,22 @@ In de onderstaande sandbox ontdek je hoe het verleggen van `transform-origin` he
 </head>
 <body>
   <div class="speelveld">
-    <!-- Draait rond het centrum (standaard) -->
-    <div class="bord bord-midden">center origin</div>
-    <!-- Draait rond de linkerbovenhoek -->
-    <div class="bord bord-hoek">top left origin</div>
-    <!-- Schuin getrokken badge -->
-    <div class="bord bord-skew">skewX(-15deg)</div>
-    <!-- Gecombineerde transformatie bij hover -->
-    <div class="bord bord-combinatie">Beweeg over mij</div>
+    <!-- 1. Draait rond het centrum (standaard) -->
+    <div class="kader">
+      <div class="bord bord-midden">center origin</div>
+    </div>
+    <!-- 2. Draait rond de linkerbovenhoek -->
+    <div class="kader">
+      <div class="bord bord-hoek">top left origin</div>
+    </div>
+    <!-- 3. Schuin getrokken badge -->
+    <div class="kader">
+      <div class="bord bord-skew">skewX(-15deg)</div>
+    </div>
+    <!-- 4. Gecombineerde transformatie bij hover -->
+    <div class="kader">
+      <div class="bord bord-combinatie">Beweeg over mij</div>
+    </div>
   </div>
 </body>
 </html>'
@@ -377,10 +417,18 @@ body {
   gap: 2rem;
   justify-content: center;
 }
-/* Basisbord */
-.bord {
+/* Vast referentiekader */
+.kader {
   width: 140px;
   height: 100px;
+  border: 2px dashed #b0bec5;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+}
+/* Basisbord */
+.bord {
+  width: 100%;
+  height: 100%;
   border-radius: 0.5rem;
   color: #ffffff;
   font-size: 0.85rem;

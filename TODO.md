@@ -14,3 +14,4 @@
 - [x] In CodeSandbox.vue en FullscreenSandbox.vue werken externe links nu betrouwbaar via een nieuw tabblad met een duidelijke pedagogische toelichting indien target="_blank" ontbreekt.
 - [x] In CodeSandbox.vue en FullscreenSandbox.vue de inspringing automatisch herstellen bij openen en plakken, met een knop 'Inspringing herstellen'. Dit herstelt alleen de inspringing van bestaande regels.
 - [x] In FullscreenSandbox.vue in de lokale versie per lijn via de gutter regelnummers de regelmarkering (highlight) toggelen. Handig bij het aanpassen van voorbeelden; de markeringen worden direct meegenomen in de IDE Export.
+- [ ] Custom Netlify 404 pagina werkt niet. Mag je verwijderen? Vitepress heeft zijn eigen 404 pagina. Kunnen we die aanpassen?
