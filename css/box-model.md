@@ -640,28 +640,28 @@ Hieronder vergelijken we beide instellingen visueel:
   initialTab="split"
   activeCodeTab="css"
   highlightHtml=""
-  highlightCss="31,35"
+  highlightCss="21-24, 31, 35"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Box Sizing Vergelijking</title>
-  <link rel="stylesheet" href="stijl.css">
-</head>
-<body>
-  <!-- Box met content-box -->
-  <div class="box content-box">
-    <p class="bold">box-sizing: content-box</p>
-    <p>Breedte (20rem) + padding (2 x 1rem) + border (2 x 1rem) = 24rem werkelijke breedte.</p>
-  </div>
-  <!-- Box met border-box -->
-  <div class="box border-box">
-    <p class="bold">box-sizing: border-box</p>
-    <p>Totale breedte blijft exact 20rem. De padding en border zitten inbegrepen.</p>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Sizing Vergelijking</title>
+    <link rel="stylesheet" href="stijl.css">
+  </head>
+  <body>
+    <!-- Box met content-box -->
+    <div class="box content-box">
+      <p class="bold">box-sizing: content-box</p>
+      <p>Breedte (20rem) + padding (2 x 1rem) + border (2 x 1rem) = 24rem werkelijke breedte.</p>
+    </div>
+    <!-- Box met border-box -->
+    <div class="box border-box">
+      <p class="bold">box-sizing: border-box</p>
+      <p>Totale breedte blijft exact 20rem. De padding en border zitten inbegrepen.</p>
+    </div>
+  </body>
 </html>'
   css='html {
   font-size: 14px;
@@ -683,10 +683,10 @@ body {
 /* Beide boxen krijgen dezelfde width, padding en border */
 .box {
   background-color: rgba(190, 241, 122, .5);
-  border: 1rem solid rgba(255, 0, 0, .5);
   width: 20rem;
-  padding: 1rem;
   margin: 1rem 0;
+  padding: 1rem;
+  border: 1rem solid rgba(255, 0, 0, .5);
 }
 .box p {
   margin: 0;

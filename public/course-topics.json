@@ -763,9 +763,23 @@
     "path": "/tools/phpstorm",
     "category": "Tools",
     "sections": [
-      "Codevoorbeelden"
+      "Waarom PhpStorm?",
+      "Installatie en educatieve licentie",
+      "Stap 1: Educatieve studentenlicentie aanvragen",
+      "Stap 2: JetBrains Toolbox App installeren",
+      "Een nieuw webproject starten",
+      "Een projectmap aanmaken en openen",
+      "Aanbevolen mappen- en bestandsstructuur",
+      "Belangrijke editor-instellingen",
+      "1. Zoomen met het muiswiel",
+      "2. Nederlands woordenboek toevoegen"
     ],
-    "keyTerms": [],
+    "keyTerms": [
+      "PhpStorm",
+      "IDE",
+      "HTML5",
+      "W3C"
+    ],
     "codeFeatures": []
   },
   {

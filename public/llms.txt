@@ -36,7 +36,7 @@
 - [3D Transformaties](https://wt-web-essentials.netlify.app/css/3d-transformaties): /css/3d-transformaties - display: flex, display: inline-block, position: relative, position: absolute, box-sizing: border-box, transform: rotatey(45deg), transform: rotatex(40deg), transform: translate3d(10px, transform: translatez(40px), transform: translatez(30px), transform: rotatex(15deg), transform: translatez(85px) | Het driedimensionale assenstelsel; Perspectief toevoegen: `perspective`; De impact van de perspectiefwaarde; Het kijkpunt verleggen: `perspective-origin`; Opbouw van de elementen
 ### Tools
 
-- [PhpStorm Setup](https://wt-web-essentials.netlify.app/tools/phpstorm): /tools/phpstorm - Codevoorbeelden
+- [PhpStorm Setup](https://wt-web-essentials.netlify.app/tools/phpstorm): /tools/phpstorm - Waarom PhpStorm?; Installatie en educatieve licentie; Stap 1: Educatieve studentenlicentie aanvragen; Stap 2: JetBrains Toolbox App installeren; Een nieuw webproject starten
 - [Git Basics](https://wt-web-essentials.netlify.app/tools/git): /tools/git - Codevoorbeelden
 - [Browser DevTools](https://wt-web-essentials.netlify.app/tools/devtools): /tools/devtools - display: inline-block, box-sizing: border-box | DevTools Openen; Het Elements-paneel: HTML Inspecteren; Belangrijke basisfuncties in het Elements-paneel:; Het Styles-paneel: CSS Live Debuggen; Handige trucjes in het Styles-paneel:
 - [AI Cursusassistent](https://wt-web-essentials.netlify.app/tools/ai-assistent): /tools/ai-assistent - Wat is de AI Cursusassistent?; Stappenplan: Jouw gratis API-sleutel aanmaken; Jouw assistent instellen; Hoe gebruik je de assistent effectief?; 1. Paginacontekst benutten
