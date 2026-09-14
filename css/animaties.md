@@ -667,6 +667,12 @@ In PhpStorm genereer je animatieregels razendsnel met Emmet:
 | `animfm` + `TAB` | `animation-fill-mode: ;` | Stijl voor en na afloop |
 | `animps` + `TAB` | `animation-play-state: ;` | Pauzeren of afspelen |
 
+## Interactieve Animation Simulator
+
+Met de onderstaande simulator verken je alle deelaspecten van een CSS-animatie. Schakel tussen keyframe-patronen, test herhalingen en richtingen, en ontdek precies hoe `animation-fill-mode` omgaat met de start- en finishstijlen:
+
+<AnimationSimulator />
+
 <PageSummary>
 
 ### Syntaxis in een oogopslag

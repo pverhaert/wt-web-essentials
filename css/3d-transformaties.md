@@ -548,6 +548,12 @@ In PhpStorm genereer je 3D-stijlen snel met de volgende Emmet-afkortingen:
 | `ts:p3d` | `transform-style: preserve-3d;` | 3D-context van kindelementen behouden |
 | `bv:h` | `backface-visibility: hidden;` | Achterkant onzichtbaar maken bij rotatie |
 
+## Interactieve 3D Transform & Perspective Simulator
+
+Met de onderstaande simulator verken je de dieptewerking van de virtuele 3D-camera. Pas de camera-afstand (`perspective`) aan, kantel de kaart over de assen en ervaar direct het verschil tussen `transform-style: preserve-3d` en een platgeslagen element:
+
+<Transform3dSimulator />
+
 <PageSummary>
 
 ### Syntaxis in een oogopslag

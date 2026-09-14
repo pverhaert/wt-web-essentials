@@ -657,6 +657,12 @@ In PhpStorm genereer je de eigenschappen voor transities in een handomdraai met 
 | `trstf` + `TAB` | `transition-timing-function: ;` | Timingfunctie |
 | `trsde` + `TAB` | `transition-delay: ;` | Startvertraging |
 
+## Interactieve Transition Simulator
+
+Met de onderstaande simulator experimenteer je live met alle instellingen van een CSS-transitie. Vergelijk direct het verschil tussen een element zónder transitie (dat direct verspringt) en een element mét transitie:
+
+<TransitionSimulator />
+
 <PageSummary>
 
 ### Syntaxis in een oogopslag

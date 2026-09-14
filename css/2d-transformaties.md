@@ -480,6 +480,12 @@ In PhpStorm genereer je transformatieregels snel met Emmet:
 | `trf:sc` + `TAB` | `transform: scale();` | Schalen |
 | `trfo` + `TAB` | `transform-origin: ;` | Ankerpunt instellen |
 
+## Interactieve 2D Transform Simulator
+
+Met de onderstaande simulator ontdek je spelenderwijs het effect van alle 2D-transformaties en het verleggen van het rotatiepunt (`transform-origin`). De gestreepte ghost-container toont waar het element normaal in de documentstroom staat, terwijl de oranje stip het actieve draaipunt markeert:
+
+<Transform2dSimulator />
+
 <PageSummary>
 
 ### Syntaxis in een oogopslag

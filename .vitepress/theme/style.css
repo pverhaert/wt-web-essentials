@@ -937,3 +937,134 @@ dfn[data-term-def]:focus-visible,
 .cm-cp-preset-dot:hover {
   transform: scale(1.25);
 }
+
+/* =============================================
+   CODEMIRROR LINT & SYNTAX VALIDATION STYLING
+   ============================================= */
+
+/* Rode golvende onderlijning en zachte rode achtergrond-highlight op foutpositie */
+.cm-lintRange-error {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='4'%3E%3Cpath d='m0 3.5 l3 -2.5 l3 2.5' stroke='%23ef4444' fill='none' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-position: bottom left;
+  background-repeat: repeat-x;
+  background-color: rgba(239, 68, 68, 0.16) !important;
+  border-radius: 3px;
+  padding-bottom: 2px;
+}
+
+.dark .cm-lintRange-error {
+  background-color: rgba(239, 68, 68, 0.28) !important;
+}
+
+/* Oranje golvende onderlijning en zachte gele achtergrond bij waarschuwingen (bv. void tags) */
+.cm-lintRange-warning {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='4'%3E%3Cpath d='m0 3.5 l3 -2.5 l3 2.5' stroke='%23f59e0b' fill='none' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-position: bottom left;
+  background-repeat: repeat-x;
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  border-radius: 3px;
+  padding-bottom: 2px;
+}
+
+.dark .cm-lintRange-warning {
+  background-color: rgba(245, 158, 11, 0.25) !important;
+}
+
+/* Gutter foutmarkering naast regelnummer */
+.cm-gutter-lint {
+  width: 16px;
+}
+
+.cm-lint-marker {
+  width: 12px;
+  height: 12px;
+  position: relative;
+}
+
+.cm-lint-marker-error {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #ef4444;
+  border: 1.5px solid #ffffff;
+  border-radius: 50%;
+  margin-left: 1px;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.8), 0 0 2px rgba(239, 68, 68, 1);
+  animation: cm-pulse-error 2s infinite ease-in-out;
+}
+
+.dark .cm-lint-marker-error {
+  border-color: #1e293b;
+}
+
+@keyframes cm-pulse-error {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 1);
+  }
+}
+
+.cm-lint-marker-warning {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #f59e0b;
+  border: 1.5px solid #ffffff;
+  border-radius: 50%;
+  margin-left: 1px;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.8);
+}
+
+.dark .cm-lint-marker-warning {
+  border-color: #1e293b;
+}
+
+/* Tooltip bij hover over foutmarkering */
+.cm-tooltip-lint {
+  background-color: var(--vp-c-bg-elevated, #ffffff) !important;
+  color: var(--vp-c-text-1, #0f172a) !important;
+  border: 1px solid var(--vp-c-divider, #cbd5e1) !important;
+  border-left: 4px solid #ef4444 !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  font-size: 12.5px !important;
+  line-height: 1.5 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  z-index: 1000 !important;
+  max-width: 380px !important;
+}
+
+.dark .cm-tooltip-lint {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+.cm-tooltip-lint .cm-diagnostic {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.cm-tooltip-lint .cm-diagnostic-error {
+  border-left: none;
+}
+
+.cm-tooltip-lint .cm-diagnosticAction {
+  background-color: var(--vp-c-brand-1, #e87722);
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  margin-left: 8px;
+  cursor: pointer;
+}

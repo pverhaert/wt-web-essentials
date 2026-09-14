@@ -218,6 +218,7 @@ import { createEmmetKeymap, abbreviationTracker } from '../composables/useEmmet'
 import { createLineHighlightExtension } from '../composables/useLineHighlight'
 import { createCodeIndentation, indentCode, restoreIndentation } from '../composables/useCodeIndentation'
 import { createColorPickerExtension } from '../composables/useColorPicker'
+import { createSandboxLinter } from '../composables/useSandboxLinter'
 
 const props = withDefaults(
   defineProps<{
@@ -637,6 +638,7 @@ const initEditor = () => {
       }),
       createEmmetKeymap(() => activeCodeLanguage.value),
       abbreviationTracker(),
+      createSandboxLinter(() => activeCodeLanguage.value),
       themeCompartment.of(isDark ? oneDark : []),
       EditorView.updateListener.of((update) => {
         if (update.docChanged) {

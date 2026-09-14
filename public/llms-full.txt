@@ -8763,6 +8763,10 @@ In PhpStorm genereer je transformatieregels snel met Emmet:
 | `trf:sc` + `TAB` | `transform: scale();` | Schalen |
 | `trfo` + `TAB` | `transform-origin: ;` | Ankerpunt instellen |
 
+## Interactieve 2D Transform Simulator
+
+Met de onderstaande simulator ontdek je spelenderwijs het effect van alle 2D-transformaties en het verleggen van het rotatiepunt (`transform-origin`). De gestreepte ghost-container toont waar het element normaal in de documentstroom staat, terwijl de oranje stip het actieve draaipunt markeert:
+
 ### Syntaxis in een oogopslag
 
 | Wat | Hoe | Voorbeeld |
@@ -9171,6 +9175,10 @@ In PhpStorm genereer je de eigenschappen voor transities in een handomdraai met 
 | `trstf` + `TAB` | `transition-timing-function: ;` | Timingfunctie |
 | `trsde` + `TAB` | `transition-delay: ;` | Startvertraging |
 
+## Interactieve Transition Simulator
+
+Met de onderstaande simulator experimenteer je live met alle instellingen van een CSS-transitie. Vergelijk direct het verschil tussen een element zónder transitie (dat direct verspringt) en een element mét transitie:
+
 ### Syntaxis in een oogopslag
 
 | Wat | Hoe | Voorbeeld |
@@ -9556,6 +9564,10 @@ In PhpStorm genereer je animatieregels razendsnel met Emmet:
 | `animfm` + `TAB` | `animation-fill-mode: ;` | Stijl voor en na afloop |
 | `animps` + `TAB` | `animation-play-state: ;` | Pauzeren of afspelen |
 
+## Interactieve Animation Simulator
+
+Met de onderstaande simulator verken je alle deelaspecten van een CSS-animatie. Schakel tussen keyframe-patronen, test herhalingen en richtingen, en ontdek precies hoe `animation-fill-mode` omgaat met de start- en finishstijlen:
+
 ### Syntaxis in een oogopslag
 
 | Wat | Hoe | Voorbeeld |
@@ -9797,8 +9809,8 @@ Beweeg je muisaanwijzer over de kaart om de ruimtelijke diepte in actie te zien.
 | Element / Klasse | Diepte in ruststand | Diepte en effect bij `:hover` | Visuele werking |
 |---|---|---|---|
 | **Kaartoppervlak** (`.card`) | `translateZ(0)` | `rotateX(15deg) rotateY(-20deg) scale(0.95)` | Kantelt ruimtelijk weg en trekt iets naar achteren waardoor de dieptewerking versterkt. |
-| **Statusbadge** (`.badge`) | `transform: translateZ(40px);` | `translateZ(65px) scale(1.1)` | Komt opvallend naar voren en vergroot subtiel als de hoogste visuele laag. |
-| **Actieknop** (`.knop`) | `transform: translateZ(30px);` | `translateZ(50px) scale(1.08)` | Zweeft 50 pixels boven het oppervlak uit en vergroot voelbaar naar de kijker toe. |
+| **Statusbadge** (`.badge`) | `transform: translateZ(40px);` | `translateZ(85px) scale(1.3)` | Komt opvallend naar voren en vergroot subtiel als de hoogste visuele laag. |
+| **Actieknop** (`.knop`) | `transform: translateZ(30px);` | `translateZ(50px) scale(1.2)` | Zweeft 50 pixels boven het oppervlak uit en vergroot voelbaar naar de kijker toe. |
 
 > [Codevoorbeeld: Gelaagde diepte met translateZ en preserve-3d]
 
@@ -9853,6 +9865,10 @@ In PhpStorm genereer je 3D-stijlen snel met de volgende Emmet-afkortingen:
 | `trf:tz(50px)` | `transform: translateZ(50px);` | 50px naar voren verplaatsen |
 | `ts:p3d` | `transform-style: preserve-3d;` | 3D-context van kindelementen behouden |
 | `bv:h` | `backface-visibility: hidden;` | Achterkant onzichtbaar maken bij rotatie |
+
+## Interactieve 3D Transform & Perspective Simulator
+
+Met de onderstaande simulator verken je de dieptewerking van de virtuele 3D-camera. Pas de camera-afstand (`perspective`) aan, kantel de kaart over de assen en ervaar direct het verschil tussen `transform-style: preserve-3d` en een platgeslagen element:
 
 ### Syntaxis in een oogopslag
 

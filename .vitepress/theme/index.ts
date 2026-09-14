@@ -27,6 +27,10 @@ import VerticalAlignLab from './components/VerticalAlignLab.vue'
 import ObjectFitSimulator from './components/ObjectFitSimulator.vue'
 import BackgroundHeroSimulator from './components/BackgroundHeroSimulator.vue'
 import PositioningSimulator from './components/PositioningSimulator.vue'
+import Transform2dSimulator from './components/Transform2dSimulator.vue'
+import TransitionSimulator from './components/TransitionSimulator.vue'
+import AnimationSimulator from './components/AnimationSimulator.vue'
+import Transform3dSimulator from './components/Transform3dSimulator.vue'
 import FlexAxisViewer from './components/FlexAxisViewer.vue'
 import FlexAlignmentLab from './components/FlexAlignmentLab.vue'
 import FlexGrowShrinkVisualizer from './components/FlexGrowShrinkVisualizer.vue'
@@ -85,6 +89,10 @@ export default {
     app.component('ObjectFitSimulator', ObjectFitSimulator)
     app.component('BackgroundHeroSimulator', BackgroundHeroSimulator)
     app.component('PositioningSimulator', PositioningSimulator)
+    app.component('Transform2dSimulator', Transform2dSimulator)
+    app.component('TransitionSimulator', TransitionSimulator)
+    app.component('AnimationSimulator', AnimationSimulator)
+    app.component('Transform3dSimulator', Transform3dSimulator)
     app.component('FlexAxisViewer', FlexAxisViewer)
     app.component('FlexAlignmentLab', FlexAlignmentLab)
     app.component('FlexGrowShrinkVisualizer', FlexGrowShrinkVisualizer)

@@ -173,7 +173,7 @@ export default defineConfig({
       },
       {
         text: 'Tools',
-        activeMatch: '^/tools/(phpstorm|git|devtools|ai-assistent|afbeeldingen-optimaliseren|realfavicongenerator|favicon-generator|extensions|semantiscope|validify|aspectsnap)',
+        activeMatch: '^/tools/(phpstorm|git|devtools|emmet|ai-assistent|afbeeldingen-optimaliseren|realfavicongenerator|favicon-generator|extensions|semantiscope|validify|aspectsnap)',
         items: [
           {
             text: 'Ontwikkelomgeving',
@@ -181,6 +181,7 @@ export default defineConfig({
               { text: 'PhpStorm Setup', link: '/tools/phpstorm' },
               { text: 'Git Basics', link: '/tools/git' },
               { text: 'Browser DevTools', link: '/tools/devtools' },
+              { text: 'Emmet', link: '/tools/emmet' },
               { text: 'AI Cursusassistent', link: '/tools/ai-assistent' },
             ],
           },
@@ -205,7 +206,7 @@ export default defineConfig({
       },
       {
         text: 'Simulators',
-        activeMatch: '^/tools/(line-height-spel|font-simulator|kleurenomzetter|tabel-simulator|display-simulator|button-builder|vertical-align-lab|object-fit-simulator|background-simulator|positioning-simulator)|^/sandbox',
+        activeMatch: '^/tools/(line-height-spel|font-simulator|kleurenomzetter|tabel-simulator|display-simulator|button-builder|vertical-align-lab|object-fit-simulator|background-simulator|positioning-simulator|transform-simulator|transition-simulator|animation-simulator|transform-3d-simulator)|^/sandbox',
         items: [
           {
             text: 'Typografie & Kleuren',
@@ -227,6 +228,10 @@ export default defineConfig({
               { text: 'Object-fit Simulator', link: '/tools/object-fit-simulator', target: 'page2' },
               { text: 'Background Simulator', link: '/tools/background-simulator', target: 'page2' },
               { text: 'Positioning Simulator', link: '/tools/positioning-simulator', target: 'page2' },
+              { text: '2D Transform Simulator', link: '/tools/transform-simulator', target: 'page2' },
+              { text: 'Transition Simulator', link: '/tools/transition-simulator', target: 'page2' },
+              { text: 'Animation Simulator', link: '/tools/animation-simulator', target: 'page2' },
+              { text: '3D Transform Simulator', link: '/tools/transform-3d-simulator', target: 'page2' },
               { text: 'Flexbox Playground', link: 'https://itf-flexbox-playground.netlify.app/', target: 'page2' },
             ],
           },
@@ -339,6 +344,7 @@ export default defineConfig({
       { link: '/tools/phpstorm', text: 'PhpStorm Setup' },
       { link: '/tools/git', text: 'Git Basics' },
       { link: '/tools/devtools', text: 'Browser DevTools' },
+      { link: '/tools/emmet', text: 'Emmet' },
       { link: '/tools/ai-assistent', text: 'AI Cursusassistent' },
     ]
 

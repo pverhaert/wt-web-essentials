@@ -119,6 +119,7 @@ Gedetailleerde richtlijnen en een lijst van veelgebruikte afkortingen staan in:
 | `/tools/phpstorm` | PhpStorm Setup |
 | `/tools/git` | Git Basics |
 | `/tools/devtools` | Browser DevTools |
+| `/tools/emmet` | Emmet |
 | `/tools/ai-assistent` | AI Cursusassistent |
 | `/tools/afbeeldingen-optimaliseren` | Afbeeldingen Optimaliseren |
 | `/tools/realfavicongenerator` | RealFaviconGenerator |
