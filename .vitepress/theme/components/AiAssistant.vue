@@ -169,6 +169,7 @@
                 class="ai-setting-select"
                 @change="saveSelectedModel(selectedModel)"
               >
+                <option value="" disabled>-- Kies een Gemini-model --</option>
                 <option v-for="m in availableModels" :key="m.id" :value="m.id">
                   {{ m.name }}
                 </option>

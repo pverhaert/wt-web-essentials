@@ -20,18 +20,11 @@ const STORAGE_KEYS = {
   CHAT_HISTORY: 'we_chat_history',
 }
 
-const DEFAULT_MODELS: ModelOption[] = [
-  { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash (Aanbevolen, snel & betrouwbaar)' },
-  { id: 'gemini-2.5-flash-lite', name: 'Gemini 2.5 Flash-Lite (Zeer snel & licht)' },
-  { id: 'gemini-2.5-pro', name: 'Gemini 2.5 Pro (Diepe redenering)' },
-  { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash (Hoge beschikbaarheid)' },
-]
-
 // Gedeelde reactieve staat over alle instanties van useAiTutor
 const apiKey = ref('')
 const studentName = ref('')
-const selectedModel = ref('gemini-2.5-flash')
-const availableModels = ref<ModelOption[]>([...DEFAULT_MODELS])
+const selectedModel = ref('')
+const availableModels = ref<ModelOption[]>([])
 const messages = ref<ChatMessage[]>([])
 const isLoading = ref(false)
 const errorMessage = ref<string | null>(null)
@@ -160,14 +153,18 @@ export function useAiTutor() {
   const testApiKey = async (testKey: string): Promise<{ success: boolean; message: string }> => {
     try {
       const ai = new GoogleGenAI({ apiKey: testKey.trim() })
-      const res = await ai.models.generateContent({
-        model: selectedModel.value || 'gemini-2.5-flash',
-        contents: 'Test verbinding. Antwoord kort met "OK".',
-      })
-      if (res.text) {
+      // Valideer de sleutel via models.list() i.p.v. een specifiek model aan te roepen
+      // Zo kan een uitgefaseerd model nooit een valse foutmelding veroorzaken
+      const response = await ai.models.list({ config: { pageSize: 10 } })
+      let hasModels = false
+      for await (const _ of response) {
+        hasModels = true
+        break
+      }
+      if (hasModels) {
         return { success: true, message: 'Verbinding met Gemini API succesvol tot stand gebracht!' }
       }
-      return { success: false, message: 'Geen geldig antwoord ontvangen van de API.' }
+      return { success: false, message: 'Geen modellen beschikbaar voor deze API-sleutel.' }
     } catch (err: any) {
       console.error('Fout bij testen van API-sleutel:', err)
       const errDetail = err?.message || 'Onbekende fout'
@@ -190,9 +187,10 @@ export function useAiTutor() {
         const id = rawName.replace(/^models\//, '')
         const displayName = m.displayName || id
 
-        // Enkel Gemini Flash en Gemini Pro modellen tonen (conform wens van docent, geen Omni modellen voor gratis API)
+        // Enkel Gemini Flash en Gemini Pro modellen tonen (geen versie 2.x, geen Omni, geen speciale modellen)
         const isGeminiFlashOrPro =
           id.startsWith('gemini') &&
+          !id.includes('2.') &&
           (id.includes('flash') || id.includes('pro')) &&
           !id.includes('omni') &&
           !id.includes('embedding') &&
@@ -224,19 +222,18 @@ export function useAiTutor() {
         })
 
         availableModels.value = fetchedList
-        // Controleer of de huidige selectie geldig is. Indien er een expliciete keuze is die voorkomt in de gefilterde lijst,
-        // of die een bekend basismodel is, behouden we deze. Omni- of latest-modellen worden automatisch vervangen.
-        const currentSelected = selectedModel.value
-        const isOmni = currentSelected.includes('omni')
-        const isKnownModel = fetchedList.some((m) => m.id === currentSelected) || DEFAULT_MODELS.some((m) => m.id === currentSelected)
 
-        if (!isKnownModel || isOmni || currentSelected.includes('latest')) {
-          const defaultChoice =
-            fetchedList.find((m) => m.id === 'gemini-2.5-flash')?.id ||
-            fetchedList.find((m) => m.id.includes('2.5') && m.id.includes('flash'))?.id ||
+        // Controleer of de huidige selectie nog steeds geldig en actief is bij Google
+        const currentSelected = selectedModel.value
+        const isStillValid = currentSelected && fetchedList.some((m) => m.id === currentSelected)
+
+        if (!isStillValid) {
+          // Kies automatisch het beste beschikbare Flash-model
+          const bestChoice =
+            fetchedList.find((m) => m.id.includes('flash') && !m.id.includes('lite'))?.id ||
             fetchedList.find((m) => m.id.includes('flash'))?.id ||
             fetchedList[0].id
-          saveSelectedModel(defaultChoice)
+          saveSelectedModel(bestChoice)
         }
       }
     } catch (err) {
@@ -313,8 +310,22 @@ Didactische richtlijnen voor jouw antwoorden:
         }
       }
 
+      // Bepaal het actieve model dynamisch uit de selectie of de geladen modellenlijst
+      let activeModel = selectedModel.value
+      if (!activeModel && availableModels.value.length > 0) {
+        activeModel =
+          availableModels.value.find((m) => m.id.includes('flash') && !m.id.includes('lite'))?.id ||
+          availableModels.value.find((m) => m.id.includes('flash'))?.id ||
+          availableModels.value[0].id
+      }
+
+      if (!activeModel) {
+        errorMessage.value = 'Er is geen actief Gemini-model geselecteerd of beschikbaar. Klik op "Actuele modellen ophalen".'
+        return false
+      }
+
       const response = await ai.models.generateContent({
-        model: selectedModel.value || 'gemini-2.5-flash',
+        model: activeModel,
         contents,
         config: {
           systemInstruction,

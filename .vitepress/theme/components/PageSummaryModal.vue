@@ -384,7 +384,7 @@ import { useAiTutor } from '../composables/useAiTutor'
 import { htmlToMarkdown } from '../utils/htmlToMarkdown'
 
 const { hasSummary, summaryHtml, isModalOpen, closeModal, toggleModal } = usePageSummary()
-const { hasApiKey, apiKey, selectedModel } = useAiTutor()
+const { hasApiKey, apiKey, selectedModel, availableModels } = useAiTutor()
 const route = useRoute()
 const { page } = useData()
 
@@ -602,9 +602,21 @@ ${baseMarkdown}
 === Aanpassingsinstructies ===
 ${instructions}`
 
+    let activeModel = selectedModel.value
+    if (!activeModel && availableModels.value.length > 0) {
+      activeModel =
+        availableModels.value.find((m) => m.id.includes('flash') && !m.id.includes('lite'))?.id ||
+        availableModels.value.find((m) => m.id.includes('flash'))?.id ||
+        availableModels.value[0].id
+    }
+
+    if (!activeModel) {
+      throw new Error('Er is geen actief Gemini-model geselecteerd of beschikbaar. Controleer je AI-instellingen.')
+    }
+
     const ai = new GoogleGenAI({ apiKey: apiKey.value })
     const response = await ai.models.generateContent({
-      model: selectedModel.value || 'gemini-2.5-flash',
+      model: activeModel,
       contents: prompt,
     })
 

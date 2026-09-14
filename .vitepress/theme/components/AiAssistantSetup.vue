@@ -176,6 +176,7 @@
         class="ai-select"
         @change="handleModelChange"
       >
+        <option value="" disabled>-- Kies een Gemini-model --</option>
         <option
           v-for="model in availableModels"
           :key="model.id"

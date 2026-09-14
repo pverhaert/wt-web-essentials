@@ -10046,6 +10046,8 @@ Wil je snel de lettergrootte van je code kunnen aanpassen tijdens het coderen of
 - Vink de optie aan: **Change font size with Ctrl+Mouse Wheel in** (kies voor *Active editor*).
 - Klik op **Apply**. Je kan nu op elk moment inzoomen of uitzoomen door <kbd>Ctrl</kbd> ingedrukt te houden en aan je muiswiel te draaien.
 
+![Zoomen](./phpstorm/mouse-wheel.webp)
+
 ### 2. Nederlands woordenboek toevoegen
 
 PhpStorm bevat standaard een Engelse spellingscontrole. Zonder Nederlands woordenboek wordt elk Nederlands woord in je HTML-teksten met een groene kronkellijn onderlijnd als mogelijke typefout.
@@ -10054,6 +10056,8 @@ PhpStorm bevat standaard een Engelse spellingscontrole. Zonder Nederlands woorde
 - Klik op het **`+`**-icoon bij *Installed languages*.
 - Selecteer **Nederlands** in de lijst en download het woordenboek.
 - Klik op **Apply**. Nederlandstalige teksten en alinea's worden nu correct herkend en gecontroleerd.
+
+![Nederlands woordenboek](./phpstorm/languages.webp)
 
 ### 3. Automatische code-opmaak bij opslaan (Actions on Save)
 
@@ -10065,6 +10069,8 @@ Een van de belangrijkste gewoontes voor beginners is het consequent en netjes in
 - Klik op **OK**.
 
 Telkens wanneer je nu op <kbd>Ctrl</kbd> + <kbd>S</kbd> (<kbd>Cmd</kbd> + <kbd>S</kbd> op macOS) drukt, lijnt PhpStorm alle tags en stijlen automatisch netjes uit volgens de officiële coderichtlijnen.
+
+![Automatische code-opmaak](./phpstorm/save.webp)
 
 ## Sneller coderen met Emmet
 
@@ -10081,7 +10087,7 @@ Druk aansluitend op de <kbd>Tab</kbd>-toets. PhpStorm tovert dit uitroepteken di
 Wil je bijvoorbeeld een geneste navigatielijst met drie links maken? Typ:
 
 ```text
-nav>ul>li*3>a
+nav>ul>li*3>a[#]>lorem2
 ```
 
 Druk op <kbd>Tab</kbd> en je complete navigatiestructuur staat kant-en-klaar op je scherm.
@@ -10115,6 +10121,8 @@ De standaard in professionele webontwikkeling is daarom het gebruik van een lich
 
 ::: info Node.js nog niet op je computer?
 Indien het commando `npm` niet herkend wordt, moet je eerst Node.js installeren. Surf naar [nodejs.org](https://nodejs.org/) en download de aanbevolen LTS-versie (*Long Term Support*). Installeer deze en herstart PhpStorm.
+
+![Node.js](./phpstorm/node.webp)
 :::
 
 ### Je website live testen
@@ -10131,6 +10139,8 @@ Telkens wanneer je aan je project werkt:
    - Je standaardbrowser opent automatisch met je `index.html`.
 
 Het grote voordeel van `live-server` is **Live Reloading**: zodra je een wijziging aanbrengt in je HTML- of CSS-bestand en opslaat, ververst de browser de pagina onmiddellijk automatisch zonder dat je zelf op <kbd>F5</kbd> hoeft te drukken.
+
+![Live server](./phpstorm/eerste-pagina.webp)
 
 Wil je de server stoppen? Klik in het terminalvenster en druk op <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
@@ -10157,6 +10167,8 @@ Het leren van sneltoetsen bespaart je uren repetitief muiswerk. Dit zijn de mees
 PhpStorm bevat out-of-the-box vrijwel alles wat je nodig hebt. Via **File > Settings > Plugins** kan je in de *Marketplace* optionele uitbreidingen installeren:
 
 - **Atom Material Icons:** Vervangt de standaard bestandspictogrammen in de projectboom door kleurrijke, herkenbare iconen voor HTML, CSS, JavaScript, afbeeldingen en configuratiebestanden. Zo zie je in één oogopslag welk type bestand je voor je hebt.
+
+![Atom Material Icons](./phpstorm/atom-icons.webp)
 
 ### Syntaxis in een oogopslag
 
