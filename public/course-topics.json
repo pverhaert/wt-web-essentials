@@ -787,9 +787,24 @@
     "path": "/tools/git",
     "category": "Tools",
     "sections": [
-      "Codevoorbeelden"
+      "Wat is versiebeheer?",
+      "Git downloaden en installeren",
+      "Stap 1: Download het installatiebestand",
+      "Stap 2: Het installatieprogramma doorlopen",
+      "Stap 3: De installatie verifiëren",
+      "GitHub-account en studentenvoordelen",
+      "Stap 1: Jouw GitHub-account aanmaken",
+      "Stap 2: Activeer het GitHub Student Developer Pack",
+      "Stap 3: Authenticatie en Windows Referentiebeheer",
+      "Eenmalige Git-configuratie"
     ],
-    "keyTerms": [],
+    "keyTerms": [
+      "Versiebeheer",
+      "staging area",
+      "commit",
+      ".gitignore-bestand",
+      "README.md-bestand"
+    ],
     "codeFeatures": []
   },
   {

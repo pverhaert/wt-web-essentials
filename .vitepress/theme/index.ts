@@ -36,9 +36,17 @@ import FlexAlignmentLab from './components/FlexAlignmentLab.vue'
 import FlexGrowShrinkVisualizer from './components/FlexGrowShrinkVisualizer.vue'
 import StorybookCard from './components/StorybookCard.vue'
 import PageSummary from './components/PageSummary.vue'
+import GitWorkflowDiagram from './components/GitWorkflowDiagram.vue'
 import PageSummaryModal from './components/PageSummaryModal.vue'
 import TermTooltip from './components/TermTooltip.vue'
 import NotFound from './NotFound.vue'
+import AnnotationToolbar from './components/AnnotationToolbar.vue'
+import AnnotationSidebar from './components/AnnotationSidebar.vue'
+import AnnotationHighlighter from './components/AnnotationHighlighter.vue'
+import AnnotationPopover from './components/AnnotationPopover.vue'
+import AnnotationModal from './components/AnnotationModal.vue'
+import AnnotationsPage from './components/AnnotationsPage.vue'
+import './annotations.css'
 import {
   Info,
   Lightbulb,
@@ -53,6 +61,13 @@ export default {
 
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
+      'layout-top': () => [
+        h(AnnotationHighlighter),
+        h(AnnotationToolbar),
+        h(AnnotationSidebar),
+        h(AnnotationPopover),
+        h(AnnotationModal),
+      ],
       'layout-bottom': () => [
         h(BackToTop),
         h(PageSummaryModal),
@@ -98,6 +113,8 @@ export default {
     app.component('FlexGrowShrinkVisualizer', FlexGrowShrinkVisualizer)
     app.component('StorybookCard', StorybookCard)
     app.component('PageSummary', PageSummary)
+    app.component('GitWorkflowDiagram', GitWorkflowDiagram)
+    app.component('AnnotationsPage', AnnotationsPage)
 
     // Registreer Lucide iconen
     app.component('LucideInfo', Info)

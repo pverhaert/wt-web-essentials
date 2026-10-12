@@ -37,7 +37,7 @@
 ### Tools
 
 - [PhpStorm Setup](https://wt-web-essentials.netlify.app/tools/phpstorm): /tools/phpstorm - Waarom PhpStorm?; Installatie en educatieve licentie; Stap 1: Educatieve studentenlicentie aanvragen; Stap 2: JetBrains Toolbox App installeren; Een nieuw webproject starten
-- [Git Basics](https://wt-web-essentials.netlify.app/tools/git): /tools/git - Codevoorbeelden
+- [Git Basics](https://wt-web-essentials.netlify.app/tools/git): /tools/git - Wat is versiebeheer?; Git downloaden en installeren; Stap 1: Download het installatiebestand; Stap 2: Het installatieprogramma doorlopen; Stap 3: De installatie verifiëren
 - [Browser DevTools](https://wt-web-essentials.netlify.app/tools/devtools): /tools/devtools - display: inline-block, box-sizing: border-box | DevTools Openen; Het Elements-paneel: HTML Inspecteren; Belangrijke basisfuncties in het Elements-paneel:; Het Styles-paneel: CSS Live Debuggen; Handige trucjes in het Styles-paneel:
 - [AI Cursusassistent](https://wt-web-essentials.netlify.app/tools/ai-assistent): /tools/ai-assistent - Wat is de AI Cursusassistent?; Stappenplan: Jouw gratis API-sleutel aanmaken; Jouw assistent instellen; Hoe gebruik je de assistent effectief?; 1. Paginacontekst benutten
 

@@ -1,0 +1,686 @@
+/**
+ * useAnnotations.js
+ *
+ * Core composable for the student annotation system.
+ * Handles storage, text-quote anchoring, and highlight rendering.
+ *
+ * Anchor strategy: TextQuoteSelector (W3C Web Annotation standard)
+ */
+
+import { ref, readonly } from 'vue'
+
+const STORAGE_KEY = 'vp_student_annotations'
+
+// ─── Color palette ─────────────────────────────────────────────────────────
+
+export const ANNOTATION_COLORS = {
+    yellow: '#ffe066',
+    green:  '#86efac',
+    red:    '#fca5a5',
+    blue:   '#93c5fd',
+    pink:   '#f9a8d4',
+    orange: '#fdba74',
+}
+
+export const ANNOTATION_COLOR_NAMES = {
+    yellow: 'Geel',
+    green:  'Groen',
+    red:    'Rood',
+    blue:   'Blauw',
+    pink:   'Roze',
+    orange: 'Oranje',
+}
+
+// ─── Reactive state ────────────────────────────────────────────────────────
+const annotations = ref(loadFromStorage())
+
+function loadFromStorage() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY)
+        return raw ? JSON.parse(raw) : []
+    } catch {
+        return []
+    }
+}
+
+function saveToStorage() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(annotations.value))
+    } catch (e) {
+        console.warn('[Annotations] Could not save to localStorage:', e)
+    }
+}
+
+// ─── CRUD ──────────────────────────────────────────────────────────────────
+
+/**
+ * Add a new annotation.
+ * @param {string} route   - Current VitePress route
+ * @param {Range}  range   - A *cloned* DOM Range of the selected text
+ * @param {string} exact   - The selected text (already trimmed)
+ * @param {string} comment - Optional student comment
+ * @param {string} color   - One of ANNOTATION_COLORS keys
+ */
+function addAnnotation(route, range, exact, comment = '', color = 'yellow') {
+    if (!range || !exact) return null
+
+    const anchor = buildTextQuoteSelector(range, exact)
+    if (!anchor) return null
+
+    const annotation = {
+        id: crypto.randomUUID(),
+        route,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        selector: anchor,
+        comment,
+        color,
+    }
+
+    annotations.value = [...annotations.value, annotation]
+    saveToStorage()
+    return annotation
+}
+
+function updateAnnotation(id, comment) {
+    annotations.value = annotations.value.map(a =>
+        a.id === id ? { ...a, comment, updatedAt: new Date().toISOString() } : a
+    )
+    saveToStorage()
+}
+
+function updateAnnotationColor(id, color) {
+    annotations.value = annotations.value.map(a =>
+        a.id === id ? { ...a, color, updatedAt: new Date().toISOString() } : a
+    )
+    saveToStorage()
+    rebuildCSSHighlight()
+}
+
+function deleteAnnotation(id) {
+    annotations.value = annotations.value.filter(a => a.id !== id)
+    saveToStorage()
+    activeHighlights.delete(id)
+    rebuildCSSHighlight()
+}
+
+function getAnnotationsForRoute(route) {
+    return annotations.value.filter(a => a.route === route)
+}
+
+function getAnnotationById(id) {
+    return annotations.value.find(a => a.id === id) || null
+}
+
+// ─── Text-Quote Selector ───────────────────────────────────────────────────
+
+const CONTEXT_LENGTH = 48
+
+/**
+ * Collect all relevant content text nodes in root,
+ * excluding scripts, styles, VitePress header anchors, and annotation UI.
+ */
+function getTextNodes(root) {
+    const nodes = []
+    const walker = document.createTreeWalker(
+        root,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode(node) {
+                const parent = node.parentElement
+                if (!parent) return NodeFilter.FILTER_REJECT
+                const tag = parent.tagName
+                if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') {
+                    return NodeFilter.FILTER_REJECT
+                }
+                if (parent.closest('.annotation-toolbar, .annotation-dialog, .ann-modal, .ann-tooltip, .annotation-sidebar, .vp-annotation-jump-pulse')) {
+                    return NodeFilter.FILTER_REJECT
+                }
+                if (parent.classList.contains('header-anchor')) {
+                    return NodeFilter.FILTER_REJECT
+                }
+                return NodeFilter.FILTER_ACCEPT
+            }
+        }
+    )
+    let n
+    while ((n = walker.nextNode())) {
+        nodes.push(n)
+    }
+    return nodes
+}
+
+/**
+ * Builds a single normalized text view of all text nodes in root.
+ * Every character in `text` has an exact 1:1 mapping in `positions[i] = { node, offset }`.
+ * Runs of whitespace (spaces, newlines, tabs) are collapsed into single spaces
+ * consistently across the entire document.
+ */
+function getDocumentTextModel(root) {
+    const nodes = getTextNodes(root)
+    let text = ''
+    const positions = []
+    let inSpace = false
+
+    for (const node of nodes) {
+        const str = node.textContent
+        for (let i = 0; i < str.length; i++) {
+            const ch = str[i]
+            // Skip zero-width spaces generated by VitePress header anchors
+            if (ch === '\u200B' || ch === '\uFEFF') continue
+
+            if (/\s/.test(ch)) {
+                if (!inSpace) {
+                    text += ' '
+                    positions.push({ node, offset: i })
+                    inSpace = true
+                }
+            } else {
+                text += ch
+                positions.push({ node, offset: i })
+                inSpace = false
+            }
+        }
+    }
+
+    return { text, positions }
+}
+
+/**
+ * Resolve a range's start and end containers to actual text nodes
+ */
+function normalizeRangeEndpoints(range) {
+    let { startContainer, startOffset, endContainer, endOffset } = range
+
+    if (startContainer.nodeType !== Node.TEXT_NODE) {
+        const child = startContainer.childNodes[startOffset] || startContainer.firstChild
+        if (child) {
+            const tw = document.createTreeWalker(child, NodeFilter.SHOW_TEXT)
+            const first = tw.nextNode()
+            if (first) {
+                startContainer = first
+                startOffset = 0
+            }
+        }
+    }
+
+    if (endContainer.nodeType !== Node.TEXT_NODE) {
+        const child = endOffset > 0 ? endContainer.childNodes[endOffset - 1] : endContainer.lastChild
+        if (child) {
+            const tw = document.createTreeWalker(child, NodeFilter.SHOW_TEXT)
+            let last = null, curr
+            while ((curr = tw.nextNode())) last = curr
+            if (last) {
+                endContainer = last
+                endOffset = last.textContent.length
+            }
+        }
+    }
+
+    return { startContainer, startOffset, endContainer, endOffset }
+}
+
+function buildTextQuoteSelector(range, fallbackExact = '') {
+    try {
+        const contentEl =
+            document.querySelector('.vp-doc') ||
+            document.querySelector('article') ||
+            document.querySelector('main') ||
+            document.body
+
+        const model = getDocumentTextModel(contentEl)
+        const { text, positions } = model
+
+        const normEndpoints = normalizeRangeEndpoints(range)
+        const { startContainer, startOffset, endContainer, endOffset } = normEndpoints
+
+        // Find character index in positions matching startContainer & startOffset
+        let startIdx = -1
+        for (let i = 0; i < positions.length; i++) {
+            if (positions[i].node === startContainer && positions[i].offset >= startOffset) {
+                startIdx = i
+                break
+            }
+        }
+
+        // Find character index in positions matching endContainer & endOffset
+        let lastIdx = -1
+        for (let i = positions.length - 1; i >= 0; i--) {
+            if (positions[i].node === endContainer && positions[i].offset < endOffset) {
+                lastIdx = i
+                break
+            }
+        }
+
+        if (startIdx !== -1 && lastIdx !== -1 && startIdx <= lastIdx) {
+            while (startIdx <= lastIdx && text[startIdx] === ' ') startIdx++
+            while (lastIdx >= startIdx && text[lastIdx] === ' ') lastIdx--
+            if (startIdx > lastIdx) return null
+
+            const endIdx = lastIdx + 1
+            const exact = text.slice(startIdx, endIdx)
+            const prefix = text.slice(Math.max(0, startIdx - CONTEXT_LENGTH), startIdx)
+            const suffix = text.slice(endIdx, Math.min(text.length, endIdx + CONTEXT_LENGTH))
+
+            return {
+                type: 'TextQuoteSelector',
+                exact,
+                prefix,
+                suffix,
+            }
+        }
+
+        // Fallback if range could not be resolved directly
+        const normalizedExact = fallbackExact.replace(/\s+/g, ' ').replace(/[\u200B\uFEFF]/g, '').trim()
+        const idx = text.indexOf(normalizedExact)
+        if (idx === -1) return null
+
+        const prefix = text.slice(Math.max(0, idx - CONTEXT_LENGTH), idx)
+        const suffix = text.slice(idx + normalizedExact.length, idx + normalizedExact.length + CONTEXT_LENGTH)
+        return {
+            type: 'TextQuoteSelector',
+            exact: normalizedExact,
+            prefix,
+            suffix,
+        }
+    } catch (e) {
+        console.warn('[Annotations] Could not build selector:', e)
+        return null
+    }
+}
+
+// ─── Highlight Rendering ───────────────────────────────────────────────────
+
+/**
+ * Map of annotationId → { type: 'css'|'mark', range?, el? }
+ */
+const activeHighlights = new Map()
+
+function applyHighlights(route) {
+    clearAllHighlights()
+    const forRoute = getAnnotationsForRoute(route)
+    forRoute.forEach(annotation => applyHighlight(annotation))
+}
+
+function applyHighlight(annotation) {
+    const range = findRange(annotation.selector)
+    if (!range) {
+        console.warn('[Annotations] Could not find range for:', annotation.selector.exact.slice(0, 40))
+        return
+    }
+
+    if (window.CSS && CSS.highlights) {
+        applyHighlightCSS(annotation, range)
+    } else {
+        applyHighlightMark(annotation, range)
+    }
+}
+
+function applyHighlightCSS(annotation, range) {
+    activeHighlights.set(annotation.id, { type: 'css', range })
+    rebuildCSSHighlight()
+}
+
+/**
+ * Rebuild CSS Custom Highlights, grouped by color.
+ * Each color gets its own named Highlight matching ::highlight(annotation-<color>).
+ */
+function rebuildCSSHighlight() {
+    if (!window.CSS || !CSS.highlights) return
+
+    // Clear all existing color highlights
+    for (const color of Object.keys(ANNOTATION_COLORS)) {
+        CSS.highlights.delete(`annotation-${color}`)
+    }
+
+    // Group stored ranges by color
+    const byColor = {}
+    for (const [id, entry] of activeHighlights.entries()) {
+        if (entry.type !== 'css' || !entry.range) continue
+        const ann = annotations.value.find(a => a.id === id)
+        const color = ann?.color || 'yellow'
+        if (!byColor[color]) byColor[color] = []
+        byColor[color].push(entry.range)
+    }
+
+    // Create one Highlight per color
+    for (const [color, ranges] of Object.entries(byColor)) {
+        if (ranges.length > 0) {
+            CSS.highlights.set(`annotation-${color}`, new Highlight(...ranges))
+        }
+    }
+}
+
+function applyHighlightMark(annotation, range) {
+    try {
+        const mark = document.createElement('mark')
+        mark.dataset.annotationId = annotation.id
+        mark.className = `vp-annotation-mark vp-annotation-mark--${annotation.color || 'yellow'}`
+        range.surroundContents(mark)
+        activeHighlights.set(annotation.id, { type: 'mark', el: mark })
+    } catch {
+        // surroundContents fails if range spans multiple elements
+    }
+}
+
+function clearAllHighlights() {
+    if (window.CSS && CSS.highlights) {
+        for (const color of Object.keys(ANNOTATION_COLORS)) {
+            CSS.highlights.delete(`annotation-${color}`)
+        }
+    }
+    for (const entry of activeHighlights.values()) {
+        if (entry.type === 'mark' && entry.el) {
+            const parent = entry.el.parentNode
+            if (parent) {
+                while (entry.el.firstChild) parent.insertBefore(entry.el.firstChild, entry.el)
+                parent.removeChild(entry.el)
+            }
+        }
+    }
+    activeHighlights.clear()
+}
+
+// ─── Hit-testing ───────────────────────────────────────────────────────────
+
+/**
+ * Return the annotation id whose highlight range contains the given viewport point.
+ * Uses caretRangeFromPoint (Chrome/Safari) or caretPositionFromPoint (Firefox).
+ *
+ * @param {number} clientX
+ * @param {number} clientY
+ * @returns {string|null} annotation id or null
+ */
+function getAnnotationIdAtPoint(clientX, clientY) {
+    let caretRange = null
+
+    if (document.caretRangeFromPoint) {
+        caretRange = document.caretRangeFromPoint(clientX, clientY)
+    } else if (document.caretPositionFromPoint) {
+        const pos = document.caretPositionFromPoint(clientX, clientY)
+        if (pos) {
+            caretRange = document.createRange()
+            caretRange.setStart(pos.offsetNode, pos.offset)
+            caretRange.collapse(true)
+        }
+    }
+
+    if (!caretRange) return null
+
+    for (const [id, entry] of activeHighlights.entries()) {
+        if (!entry.range) {
+            // mark element fallback: check via element
+            if (entry.el) {
+                const el = document.elementFromPoint(clientX, clientY)
+                if (el && (el === entry.el || entry.el.contains(el))) return id
+            }
+            continue
+        }
+        try {
+            const afterStart = entry.range.compareBoundaryPoints(Range.START_TO_START, caretRange) <= 0
+            const beforeEnd  = entry.range.compareBoundaryPoints(Range.END_TO_END, caretRange) >= 0
+            if (afterStart && beforeEnd) return id
+        } catch {
+            // ignore cross-document errors
+        }
+    }
+    return null
+}
+
+// ─── Text-Quote Anchoring / Range Finding ─────────────────────────────────
+
+function findRange(selector) {
+    if (!selector || !selector.exact) return null
+
+    const contentEl =
+        document.querySelector('.vp-doc') ||
+        document.querySelector('article') ||
+        document.querySelector('main') ||
+        document.body
+
+    const { text, positions } = getDocumentTextModel(contentEl)
+    if (!text || positions.length === 0) return null
+
+    const exact = selector.exact.replace(/\s+/g, ' ').replace(/[\u200B\uFEFF]/g, '').trim()
+    const prefix = (selector.prefix || '').replace(/\s+/g, ' ').replace(/[\u200B\uFEFF]/g, '')
+    const suffix = (selector.suffix || '').replace(/\s+/g, ' ').replace(/[\u200B\uFEFF]/g, '')
+
+    let matchStart = -1
+
+    // 1. Try exact context match (prefix + exact + suffix)
+    if (prefix && suffix) {
+        const needle = prefix + exact + suffix
+        const pos = text.indexOf(needle)
+        if (pos !== -1) matchStart = pos + prefix.length
+    }
+
+    // 2. Try prefix + exact
+    if (matchStart === -1 && prefix) {
+        const needle = prefix + exact
+        const pos = text.indexOf(needle)
+        if (pos !== -1) matchStart = pos + prefix.length
+    }
+
+    // 3. Try exact + suffix
+    if (matchStart === -1 && suffix) {
+        const needle = exact + suffix
+        const pos = text.indexOf(needle)
+        if (pos !== -1) matchStart = pos
+    }
+
+    // 4. Try shorter context fallback (in case surrounding text had minor edits)
+    if (matchStart === -1 && prefix && suffix) {
+        const shortPrefix = prefix.slice(-16)
+        const shortSuffix = suffix.slice(0, 16)
+        const needle = shortPrefix + exact + shortSuffix
+        const pos = text.indexOf(needle)
+        if (pos !== -1) matchStart = pos + shortPrefix.length
+    }
+
+    // 5. Try exact alone
+    if (matchStart === -1) {
+        matchStart = text.indexOf(exact)
+    }
+
+    if (matchStart === -1) return null
+
+    const len = exact.length
+    const startPos = positions[matchStart]
+    const lastPos = positions[matchStart + len - 1]
+    if (!startPos || !lastPos) return null
+
+    try {
+        const range = document.createRange()
+        range.setStart(startPos.node, startPos.offset)
+        range.setEnd(lastPos.node, lastPos.offset + 1)
+        return range
+    } catch (e) {
+        console.warn('[Annotations] Could not create range from positions:', e)
+        return null
+    }
+}
+
+// ─── Export / Import ───────────────────────────────────────────────────────
+
+function exportAnnotations() {
+    const data = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        annotations: annotations.value,
+    }
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `highlights-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+}
+
+async function parseImportFile(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            try {
+                const data = JSON.parse(e.target.result)
+                const incoming = Array.isArray(data?.annotations) ? data.annotations : []
+                if (!Array.isArray(data?.annotations)) {
+                    throw new Error('Invalid format: missing annotations array')
+                }
+                resolve({ data, incoming })
+            } catch (err) {
+                reject(err)
+            }
+        }
+        reader.onerror = reject
+        reader.readAsText(file)
+    })
+}
+
+function applyImportedAnnotations(incoming, mode = 'merge') {
+    const valid = incoming.filter(a => a && a.id && a.selector && a.route)
+
+    if (mode === 'replace') {
+        annotations.value = valid
+        saveToStorage()
+        rebuildCSSHighlight()
+        return { count: valid.length, added: valid.length, updated: 0, mode: 'replace' }
+    }
+
+    // Merge mode: update existing by ID, append new ones
+    const map = new Map(annotations.value.map(a => [a.id, a]))
+    let added = 0
+    let updated = 0
+    for (const item of valid) {
+        if (map.has(item.id)) {
+            map.set(item.id, item)
+            updated++
+        } else {
+            map.set(item.id, item)
+            added++
+        }
+    }
+    annotations.value = Array.from(map.values())
+    saveToStorage()
+    rebuildCSSHighlight()
+    return { added, updated, count: added + updated, mode: 'merge' }
+}
+
+async function importAnnotations(file, mode = 'merge') {
+    const { incoming } = await parseImportFile(file)
+    return applyImportedAnnotations(incoming, mode)
+}
+
+function getHighlightRange(id) {
+    return activeHighlights.get(id)?.range || null
+}
+
+/**
+ * Creates a brief pulsing highlight overlay around the jumped-to text
+ */
+function flashTarget(node, range, colorName) {
+    if (typeof document === 'undefined') return
+    const colorHex = ANNOTATION_COLORS[colorName] || '#ffe066'
+    const overlay = document.createElement('div')
+    overlay.className = 'vp-annotation-jump-pulse'
+    overlay.style.setProperty('--pulse-color', colorHex)
+
+    let rect = null
+    if (range) {
+        try {
+            rect = range.getBoundingClientRect()
+        } catch {}
+    }
+    if (!rect || (rect.width === 0 && rect.height === 0)) {
+        rect = node.getBoundingClientRect()
+    }
+
+    overlay.style.left = `${rect.left + window.scrollX - 4}px`
+    overlay.style.top = `${rect.top + window.scrollY - 2}px`
+    overlay.style.width = `${Math.max(rect.width + 8, 24)}px`
+    overlay.style.height = `${Math.max(rect.height + 4, 18)}px`
+
+    document.body.appendChild(overlay)
+    setTimeout(() => {
+        overlay.remove()
+    }, 1400)
+}
+
+/**
+ * Scroll to an annotation in the document and flash its highlight.
+ * @param {string} id - Annotation UUID
+ * @returns {boolean} Whether target was found and scrolled to
+ */
+function scrollToAnnotation(id) {
+    if (typeof document === 'undefined') return false
+
+    const ann = getAnnotationById(id)
+    let range = getHighlightRange(id)
+    if (!range && ann) {
+        range = findRange(ann.selector)
+    }
+
+    if (range) {
+        let node = range.startContainer.nodeType === Node.TEXT_NODE
+            ? range.startContainer.parentElement
+            : range.startContainer
+
+        if (node) {
+            const details = node.closest('details')
+            if (details && !details.open) {
+                details.open = true
+            }
+
+            node.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            flashTarget(node, range, ann?.color || 'yellow')
+            return true
+        }
+    }
+
+    // Fallback: search for text match in doc
+    const contentEl = document.querySelector('.vp-doc') || document.querySelector('main')
+    if (contentEl && ann?.selector?.exact) {
+        const walker = document.createTreeWalker(contentEl, NodeFilter.SHOW_TEXT)
+        let n
+        const searchSample = ann.selector.exact.slice(0, 32)
+        while ((n = walker.nextNode())) {
+            if (n.textContent && n.textContent.includes(searchSample)) {
+                const target = n.parentElement
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    flashTarget(target, null, ann?.color || 'yellow')
+                    return true
+                }
+            }
+        }
+    }
+
+    return false
+}
+
+// ─── Public API ────────────────────────────────────────────────────────────
+
+export function useAnnotations() {
+    return {
+        annotations: readonly(annotations),
+        ANNOTATION_COLORS,
+        addAnnotation,
+        updateAnnotation,
+        updateAnnotationColor,
+        deleteAnnotation,
+        getAnnotationsForRoute,
+        getAnnotationById,
+        getAnnotationIdAtPoint,
+        getHighlightRange,
+        findRange,
+        applyHighlights,
+        applyHighlight,
+        clearAllHighlights,
+        exportAnnotations,
+        parseImportFile,
+        applyImportedAnnotations,
+        importAnnotations,
+        flashTarget,
+        scrollToAnnotation,
+    }
+}

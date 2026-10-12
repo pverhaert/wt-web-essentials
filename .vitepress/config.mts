@@ -243,6 +243,7 @@ export default defineConfig({
           },
         ],
       },
+      { text: '🖊️', link: '/annotations', activeMatch: '^/annotations' },
     ],
 
     // Geen linker sidebar: navigatie verloopt via dropdown menu's in de header
