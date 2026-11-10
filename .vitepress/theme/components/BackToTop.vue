@@ -7,7 +7,37 @@
         aria-label="Terug naar boven"
         @click="scrollToTop"
       >
+        <!-- Ronde scroll-voortgangsring -->
         <svg
+          class="progress-ring"
+          viewBox="0 0 44 44"
+          width="44"
+          height="44"
+          aria-hidden="true"
+        >
+          <circle
+            class="progress-ring-track"
+            cx="22"
+            cy="22"
+            :r="RING_RADIUS"
+            fill="none"
+            stroke-width="2"
+          />
+          <circle
+            class="progress-ring-fill"
+            cx="22"
+            cy="22"
+            :r="RING_RADIUS"
+            fill="none"
+            stroke-width="3"
+            stroke-linecap="round"
+            :stroke-dasharray="CIRCUMFERENCE"
+            :stroke-dashoffset="dashOffset"
+          />
+        </svg>
+
+        <svg
+          class="arrow-icon"
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
@@ -31,14 +61,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
- 
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+
 const visible = ref(false)
+const scrollProgress = ref(0)
 const SCROLL_THRESHOLD = 250
+const RING_RADIUS = 20
+const CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS
+
+const dashOffset = computed(() => CIRCUMFERENCE * (1 - scrollProgress.value))
 
 function handleScroll() {
-  if (typeof window !== 'undefined') {
-    visible.value = window.scrollY > SCROLL_THRESHOLD
+  if (typeof window === 'undefined') return
+  const scrollY = window.scrollY
+  visible.value = scrollY > SCROLL_THRESHOLD
+
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+  if (maxScroll <= 0) {
+    scrollProgress.value = 0
+  } else {
+    scrollProgress.value = Math.min(1, Math.max(0, scrollY / maxScroll))
   }
 }
 
@@ -53,11 +95,13 @@ function scrollToTop() {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
+  window.addEventListener('resize', handleScroll, { passive: true })
   handleScroll()
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', handleScroll)
 })
 </script>
 
@@ -73,13 +117,14 @@ onUnmounted(() => {
 }
 
 .back-to-top {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--vp-c-divider);
+  border: none;
   background-color: var(--vp-c-bg-elv);
   color: var(--tm-orange, #e87722);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
@@ -88,12 +133,37 @@ onUnmounted(() => {
   outline: none;
 }
 
+.progress-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.progress-ring-track {
+  stroke: var(--vp-c-divider);
+  transition: stroke 0.25s ease;
+}
+
+.progress-ring-fill {
+  stroke: currentColor;
+  transition: stroke 0.25s ease;
+}
+
+.arrow-icon {
+  position: relative;
+  z-index: 1;
+}
+
 .back-to-top:hover {
   background-color: var(--tm-orange, #e87722);
   color: #ffffff;
-  border-color: var(--tm-orange, #e87722);
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(232, 119, 34, 0.35);
+}
+
+.back-to-top:hover .progress-ring-track {
+  stroke: rgba(255, 255, 255, 0.28);
 }
 
 .back-to-top:active {

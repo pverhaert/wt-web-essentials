@@ -10,6 +10,17 @@ export default defineConfig({
   title: 'Web Essentials',
   description: 'Basiscursus HTML en CSS voor eerstejaars ICT-studenten - Thomas More Hogeschool',
 
+  // Sluit interne documentatie- en projectbestanden uit van zowel de build als de zoekindex
+  srcExclude: [
+    'AGENTS.md',
+    'EXTRAS.md',
+    'README.md',
+    'SUMMARY.md',
+    'TODO.md',
+    '**/README.md',
+    '**/TODO.md',
+  ],
+
   // Favicon en metadata
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
