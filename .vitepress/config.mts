@@ -244,6 +244,7 @@ export default defineConfig({
               { text: 'Animation Simulator', link: '/tools/animation-simulator', target: 'page2' },
               { text: '3D Transform Simulator', link: '/tools/transform-3d-simulator', target: 'page2' },
               { text: 'Flexbox Playground', link: 'https://itf-flexbox-playground.netlify.app/', target: 'page2' },
+              { text: 'Bootstrap 5 Playground', link: 'https://itf-bs5-playground.netlify.app/', target: 'page2' },
             ],
           },
           {

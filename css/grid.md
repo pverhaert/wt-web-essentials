@@ -17,7 +17,7 @@ Hier test je de werking van containers, kolommen en responsieve breekpunten visu
 Na dit hoofdstuk kan je:
 
 - Uitleggen waarom `bootstrap-reboot.min.css` en `bootstrap-grid.min.css` samen worden ingeladen en wat hun afzonderlijke rol is
-- Bootstrap 5.3.8 correct koppelen via een CDN en combineren met je eigen stylesheet in de juiste volgorde
+- Bootstrap 5.3.8 centraal importeren in je stylesheet via `@import` en het verschil met `<link>` in HTML toelichten
 - De werking van het 12-koloms gridsysteem en de 6 responsieve breekpunten toelichten
 - Een geldige gridstructuur opbouwen door containers, rijen en kolommen correct te nesten
 - Responsieve kolomindelingen en tussenruimtes (*gutters*) aanmaken voor mobiel, tablet en desktop
@@ -38,10 +38,16 @@ Elke webbrowser (Chrome, Firefox, Safari, Edge) hanteert van nature net iets and
 
 <dfn title="Een compact basisstijlblad van Bootstrap dat browser-inconsistenties gladstrijkt en een uniforme startbasis biedt voor alle HTML-elementen">Bootstrap Reboot</dfn> trekt die browser-afwijkingen direct recht voordat je layout wordt getekend:
 - Het schakelt `box-sizing: border-box` globaal in, zodat het gridsysteem exacte percentages kan berekenen.
-- Het verwijdert de standaard buitenmarge op `<body>`, zodat een breed paginarooster mooi tot tegen de schermrand loopt.
-- Het geeft koppen, alinea's, lijsten en tabellen in elke browser dezelfde voorspelbare basisuitlijning en typografie.
+- Het verwijdert de standaard buitenmarge op `<body>` en stelt meteen een moderne systeemfont en regelafstand in.
+- Het geeft koppen, alinea's, lijsten en tabellen in elke browser dezelfde voorspelbare marges en basisopmaak.
 
 Zonder Reboot kunnen onzichtbare browsermarges jouw kolommen uit balans brengen of voor ongewenste horizontale schuifbalken zorgen.
+
+::: tip Geen eigen resetter meer nodig
+Omdat `bootstrap-reboot.min.css` deze basis al verzorgt, hoef je in je eigen `stijl.css` **geen** `* { box-sizing: border-box; margin: 0; padding: 0; }` resetter meer te schrijven. Daarnaast krijg je op `body` automatisch een systeemfont, regelafstand en `margin: 0` mee.
+
+**Opmerking:** Wil je voor jouw ontwerp liever een ander lettertype gebruiken (zoals een Google Font), dan kun je het basisfont van Bootstrap uiteraard nog steeds eenvoudig overschrijven door zelf `font-family` in te stellen op `body` in `stijl.css`.
+:::
 
 ### Wat zit er wel en niet in `bootstrap-grid.min.css`?
 
@@ -60,20 +66,29 @@ Het bestand `bootstrap-grid.min.css` is speciaal afgeslankt tot alles wat met **
 Klassen voor kleuren (zoals `.bg-primary` of `.text-danger`), randen (`.border`), tekstuitlijning (`.text-center`) of complete UI-componenten (zoals `.btn`, `.card` of `.navbar`) zitten **niet** in dit bestand. Alles wat met kleur, typografie en decoratie te maken heeft, schrijf je gewoon zelf in `stijl.css`.
 :::
 
-### De juiste koppelvolgorde in `<head>`
+### De juiste koppelvolgorde: `@import` in `stijl.css` (aanbevolen)
 
-Plaats de drie stylesheets altijd in exact deze volgorde in het `<head>`-gedeelte van je HTML-pagina:
+Net zoals je in het hoofdstuk [Webfonts en Iconen](/css/webfonts) zag, is het voor websites met meerdere pagina's en schoolprojecten veel handiger om externe stylesheets centraal via `@import` bovenaan in `stijl.css` te koppelen:
+
+```css
+/* Verplicht helemaal bovenaan in stijl.css (vóór alle andere CSS-regels) */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-reboot.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css");
+```
+
+In elke HTML-pagina van je website volstaat daarna één enkele `<link>`-tag in `<head>`:
 
 ```html
-<!-- 1. Bootstrap Reboot (gelijktrekken van browserstandaarden) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-reboot.min.css">
-<!-- 2. Bootstrap Grid (het 12-koloms gridsysteem) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css">
-<!-- 3. Jouw eigen stylesheet (komt als laatste voor voorrang) -->
 <link rel="stylesheet" href="stijl.css">
 ```
 
-Omdat de <dfn title="De volgorde en regels waarmee browsers bepalen welke CSS-stijlregel voorrang krijgt">Cascade</dfn> van boven naar onder werkt, moet jouw eigen `stijl.css` altijd onderaan staan. Zo kun je waar nodig Bootstrap-instellingen zonder moeite verfijnen of aanvullen.
+Dit biedt twee grote voordelen:
+- **Centraal beheer (DRY):** Bestaat je site uit 10 HTML-pagina's en verschijnt er een nieuwe versie van Bootstrap (bijvoorbeeld `5.3.9`), dan pas je slechts één versienummer in `stijl.css` aan en werkt je hele website meteen bij.
+- **Vaste cascade-volgorde:** Omdat `@import` verplicht op de allereerste regels van `stijl.css` staat (nog vóór al je eigen stijlregels), laadt de browser eerst *Reboot*, daarna *Grid* en hebben al jouw eigen stijlregels daaronder via de <dfn title="De volgorde en regels waarmee browsers bepalen welke CSS-stijlregel voorrang krijgt">Cascade</dfn> voorrang.
+
+::: info Alternatief: koppelen via `<link>` in HTML (maximale laadsnelheid)
+Op grote, professionele productiewebsites kiest men soms voor drie losse `<link>`-tags rechtstreeks in `<head>` (in dezelfde volgorde: Reboot ➔ Grid ➔ `stijl.css`). Zo kan de browser de bestanden parallel downloaden zonder eerst `stijl.css` te hoeven lezen (geen netwerk-waterval) en kunnen beveiligingsattributen zoals `integrity` worden toegevoegd. Voor onze oefeningen en projecten weegt het gemak van centraal beheer via `@import` in `stijl.css` echter het zwaarst.
+:::
 
 ## De drie bouwstenen: Container, Row en Column
 
@@ -127,8 +142,8 @@ In dit eerste voorbeeld zie je hoe `.container`, `.row` en verschillende kolomkl
   height="460px"
   initialTab="split"
   activeCodeTab="html"
-  highlightHtml="7-8,12,15-18,21-23"
-  highlightCss="24-31"
+  highlightHtml="10,13-16,19-21"
+  highlightCss="2-3,19-26"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
@@ -136,8 +151,6 @@ In dit eerste voorbeeld zie je hoe `.container`, `.row` en verschillende kolomkl
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bootstrap Grid Basis</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css">
   <link rel="stylesheet" href="stijl.css">
 </head>
 <body>
@@ -162,20 +175,15 @@ In dit eerste voorbeeld zie je hoe `.container`, `.row` en verschillende kolomkl
   </div>
 </body>
 </html>'
-  css='/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  css='/* Bootstrap 5.3.8 (Reboot + Grid) centraal importeren */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-reboot.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css");
 :root {
   --oranje: #e87722;
   --blauw: #1e2d5a;
   --lichtgrijs: #f3f4f6;
 }
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #212529;
   background-color: var(--lichtgrijs);
   padding: 1.5rem 0;
 }
@@ -247,8 +255,8 @@ In het onderstaande voorbeeld schakelen drie opleidingskaarten automatisch om pe
   height="480px"
   initialTab="split"
   activeCodeTab="html"
-  highlightHtml="15,16,22,28"
-  highlightCss="23-30"
+  highlightHtml="13,14,20,26"
+  highlightCss="2-3,17-24"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
@@ -256,8 +264,6 @@ In het onderstaande voorbeeld schakelen drie opleidingskaarten automatisch om pe
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Responsieve Kolommen</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css">
   <link rel="stylesheet" href="stijl.css">
 </head>
 <body>
@@ -287,20 +293,14 @@ In het onderstaande voorbeeld schakelen drie opleidingskaarten automatisch om pe
   </div>
 </body>
 </html>'
-  css='/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  css='/* Bootstrap 5.3.8 (Reboot + Grid) centraal importeren */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-reboot.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css");
 :root {
   --oranje: #e87722;
-  --donker: #1f2937;
   --licht: #f8fafc;
 }
 body {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: var(--donker);
   background-color: var(--licht);
   padding: 1.5rem 0;
 }
@@ -378,8 +378,8 @@ Dit praktijkvoorbeeld bundelt alle besproken technieken uit `bootstrap-grid.min.
   height="520px"
   initialTab="split"
   activeCodeTab="html"
-  highlightHtml="13,17,19,23,32"
-  highlightCss="19-23,37-43,52-59"
+  highlightHtml="11,15,17,21,30"
+  highlightCss="2-3,14-18,33-39,48-55"
   highlightJs=""
   html='<!DOCTYPE html>
 <html lang="nl">
@@ -387,8 +387,6 @@ Dit praktijkvoorbeeld bundelt alle besproken technieken uit `bootstrap-grid.min.
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Genest Grid en Utilities</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css">
   <link rel="stylesheet" href="stijl.css">
 </head>
 <body>
@@ -422,20 +420,15 @@ Dit praktijkvoorbeeld bundelt alle besproken technieken uit `bootstrap-grid.min.
   </div>
 </body>
 </html>'
-  css='/* Universele resetter */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  css='/* Bootstrap 5.3.8 (Reboot + Grid) centraal importeren */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-reboot.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css");
 :root {
   --oranje: #e87722;
   --blauw: #1e2d5a;
   --licht: #f1f5f9;
 }
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #1e293b;
   background-color: var(--licht);
   padding: 1.5rem 0;
 }
@@ -448,6 +441,7 @@ body {
 .merknaam {
   font-size: 1.25rem;
   color: var(--blauw);
+  margin-bottom: 0;
 }
 .badge-label {
   background-color: var(--oranje);
@@ -502,7 +496,8 @@ body {
 
 ### Regels en naamgeving
 
-- **Volgorde in `<head>`:** Laad altijd eerst `bootstrap-reboot.min.css`, daarna `bootstrap-grid.min.css`, en plaats jouw eigen `stijl.css` helemaal onderaan.
+- **Volgorde in `stijl.css`:** Plaats de `@import`-regels (`bootstrap-reboot.min.css` eerst, daarna `bootstrap-grid.min.css`) verplicht helemaal bovenaan in `stijl.css`, vóór al je eigen stijlregels.
+- **Geen eigen resetter:** Schrijf naast `bootstrap-reboot.min.css` geen `* { box-sizing: border-box; margin: 0; padding: 0; }` meer; Reboot verzorgt dit al.
 - **Vaste nesting:** Volg strikt de structuur `.container` (of `.container-fluid`) ➔ `.row` ➔ `.col-*`.
 - **Alleen kolommen in `.row`:** Plaats nooit tekst, afbeeldingen of kaarten rechtstreeks als direct kind van `.row`, maar verpak ze altijd in een `.col-*`.
 - **Som is 12:** Zorg dat de kolomgetallen binnen één logische rij optellen tot `12` (of gebruik een bewuste terugloop naar de volgende regel).
@@ -510,7 +505,8 @@ body {
 
 ### Veelgemaakte fouten
 
-- `bootstrap-reboot.min.css` vergeten inladen, waardoor browserstandaardmarges en afwijkende `box-sizing` het rooster doen verspringen.
+- `@import`-regels onderaan of halverwege `stijl.css` plaatsen (na `body { ... }` of andere regels), waardoor de browser ze volledig negeert.
+- `bootstrap-reboot.min.css` vergeten importeren, of erachter alsnog `* { margin: 0; padding: 0; }` zetten waardoor de nette basismarges van Reboot weer gewist worden.
 - Kleurenklassen van de volledige Bootstrap proberen te gebruiken (zoals `.bg-primary` of `.btn`), terwijl `bootstrap-grid.min.css` enkel layoutklassen bevat.
 - Een `.row` weglaten rond `.col-*`-elementen of inhoud rechtstreeks in `.row` plaatsen, waardoor negatieve marges en gutters stuklopen.
 - Vergeten om in `<head>` eerst de meta-viewporttag (`<meta name="viewport" content="width=device-width, initial-scale=1.0">`) te plaatsen, waardoor breekpunten op smartphones niet werken.
@@ -520,6 +516,7 @@ body {
 - Test je kolomstructuur vooraf uit in de [ITF Bootstrap 5 Playground](https://itf-bs5-playground.netlify.app/) om het effect van elk breekpunt direct te zien.
 - Gebruik de DevTools (<kbd>F12</kbd>) en schakel de *Device Toolbar* (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>) in om alle 6 breekpunten op verschillende schermbreedtes na te kijken.
 - Geef kaartcomponenten binnen kolommen `height: 100%` in `stijl.css` zodat alle kaarten op dezelfde rij automatisch even hoog worden.
+- Profiteer van het ingebouwde systeemfont van Reboot, of overschrijf `font-family` op `body` in `stijl.css` zodra je een eigen lettertype (zoals een Google Font) wilt gebruiken.
 
 </PageSummary>
 
@@ -527,11 +524,11 @@ body {
 
 ### Oefening 1: Bootstrap 5.3.8 koppelen en verhoudingen testen
 
-In deze oefening zet je een nieuw project op in PhpStorm met Bootstrap Reboot en Grid van CDNJS.
+In deze oefening zet je een nieuw project op in PhpStorm waarin je Bootstrap Reboot en Grid centraal via `stijl.css` importeert.
 
-1. Maak een nieuwe projectmap aan genaamd `bootstrap-grid-oefening` met een `index.html` en een map `css/stijl.css`.
-2. Surf naar [cdnjs.com/libraries/bootstrap](https://cdnjs.com/libraries/bootstrap), selecteer versie **5.3.8** en kopieer de links voor `bootstrap-reboot.min.css` en `bootstrap-grid.min.css`.
-3. Plaats de links in `<head>` in de correcte volgorde (`bootstrap-reboot.min.css` ➔ `bootstrap-grid.min.css` ➔ `css/stijl.css`).
+1. Maak een nieuwe projectmap aan genaamd `bootstrap-grid-oefening` met een `index.html` en een bestand `css/stijl.css`.
+2. Surf naar [cdnjs.com/libraries/bootstrap](https://cdnjs.com/libraries/bootstrap), selecteer versie **5.3.8** en kopieer de URL's voor `bootstrap-reboot.min.css` en `bootstrap-grid.min.css`.
+3. Plaats deze twee URL's als `@import url("...");` helemaal bovenaan in `css/stijl.css` (eerst *Reboot*, daarna *Grid*) en koppel in `index.html` enkel naar `<link rel="stylesheet" href="css/stijl.css">`.
 4. Maak in `<body>` een `.container` aan met daarin drie aparte `.row`-blokken (met `mb-3` tussenruimte):
    - Rij 1: 4 gelijke kolommen met `.col`.
    - Rij 2: 2 ongelijke kolommen met de verhouding `3` en `9`.

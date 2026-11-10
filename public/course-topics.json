@@ -577,7 +577,7 @@
       "Bootstrap 5.3.8 koppelen (Reboot + Grid)",
       "Waarom is `bootstrap-reboot.min.css` nodig?",
       "Wat zit er wel en niet in `bootstrap-grid.min.css`?",
-      "De juiste koppelvolgorde in `<head>`",
+      "De juiste koppelvolgorde: `@import` in `stijl.css` (aanbevolen)",
       "De drie bouwstenen: Container, Row en Column",
       "Gelijke kolommen vs. vaste breedtes",
       "Live demonstratie: Het 12-koloms grid in actie",
@@ -600,7 +600,6 @@
       "var(--blauw)",
       "var(--lichtgrijs)",
       "var(--oranje)",
-      "var(--donker)",
       "var(--licht)",
       ":root"
     ]
