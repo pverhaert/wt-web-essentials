@@ -380,7 +380,7 @@ import { useRoute, useData } from 'vitepress'
 import { marked } from 'marked'
 import { GoogleGenAI } from '@google/genai'
 import { usePageSummary } from '../composables/usePageSummary'
-import { useAiTutor } from '../composables/useAiTutor'
+import { useAiTutor, isModelUnavailableError, pickFallbackModel } from '../composables/useAiTutor'
 import { htmlToMarkdown } from '../utils/htmlToMarkdown'
 
 const { hasSummary, summaryHtml, isModalOpen, closeModal, toggleModal } = usePageSummary()
@@ -615,10 +615,27 @@ ${instructions}`
     }
 
     const ai = new GoogleGenAI({ apiKey: apiKey.value })
-    const response = await ai.models.generateContent({
-      model: activeModel,
-      contents: prompt,
-    })
+    let response
+    try {
+      response = await ai.models.generateContent({
+        model: activeModel,
+        contents: prompt,
+      })
+    } catch (primaryErr) {
+      if (isModelUnavailableError(primaryErr)) {
+        const fallbackModel = pickFallbackModel(availableModels.value, activeModel)
+        if (fallbackModel) {
+          response = await ai.models.generateContent({
+            model: fallbackModel,
+            contents: prompt,
+          })
+        } else {
+          throw primaryErr
+        }
+      } else {
+        throw primaryErr
+      }
+    }
 
     const rawMarkdown = response.text || ''
     if (!rawMarkdown.trim()) {
@@ -639,12 +656,13 @@ ${instructions}`
     selectedChips.value = []
     customInstruction.value = ''
   } catch (err: any) {
-    console.error('Fout bij AI-generatie:', err)
     const raw = err?.message || 'Onbekende fout.'
     if (raw.includes('API_KEY_INVALID') || raw.includes('403') || raw.includes('401')) {
       aiError.value = 'De API-sleutel lijkt ongeldig. Controleer je instellingen bij de AI Tutor.'
     } else if (raw.includes('RESOURCE_EXHAUSTED') || raw.includes('429')) {
       aiError.value = 'Het API-quotum is tijdelijk bereikt. Probeer het later opnieuw of kies een ander model.'
+    } else if (isModelUnavailableError(err)) {
+      aiError.value = 'Dit Gemini-model ondervindt momenteel een tijdelijke piekbelasting (503). Probeer het zo dadelijk opnieuw.'
     } else {
       aiError.value = `Generatie mislukt: ${raw}`
     }

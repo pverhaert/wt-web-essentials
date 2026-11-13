@@ -184,7 +184,7 @@ export default defineConfig({
       },
       {
         text: 'Tools',
-        activeMatch: '^/tools/(phpstorm|git|devtools|emmet|ai-assistent|afbeeldingen-optimaliseren|realfavicongenerator|favicon-generator|extensions|semantiscope|validify|aspectsnap)',
+        activeMatch: '^/tools/(phpstorm|git|devtools|emmet|netlify-hosting|ai-assistent|afbeeldingen-optimaliseren|realfavicongenerator|favicon-generator|extensions|semantiscope|validify|aspectsnap)',
         items: [
           {
             text: 'Ontwikkelomgeving',
@@ -193,6 +193,7 @@ export default defineConfig({
               { text: 'Git Basics', link: '/tools/git' },
               { text: 'Browser DevTools', link: '/tools/devtools' },
               { text: 'Emmet', link: '/tools/emmet' },
+              { text: 'Netlify hosting', link: '/tools/netlify-hosting' },
               { text: 'AI Cursusassistent', link: '/tools/ai-assistent' },
             ],
           },
@@ -358,6 +359,7 @@ export default defineConfig({
       { link: '/tools/git', text: 'Git Basics' },
       { link: '/tools/devtools', text: 'Browser DevTools' },
       { link: '/tools/emmet', text: 'Emmet' },
+      { link: '/tools/netlify-hosting', text: 'Netlify hosting' },
       { link: '/tools/ai-assistent', text: 'AI Cursusassistent' },
     ]
 

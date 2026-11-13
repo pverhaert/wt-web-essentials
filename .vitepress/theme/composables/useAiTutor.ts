@@ -13,6 +13,22 @@ export interface ModelOption {
   name: string
 }
 
+/** Controleert of een API-fout duidt op tijdelijke overbelasting (503 / UNAVAILABLE). */
+export function isModelUnavailableError(err: unknown): boolean {
+  const msg = (err as { message?: string } | null)?.message || String(err || '')
+  return msg.includes('503') || msg.includes('UNAVAILABLE') || msg.includes('high demand')
+}
+
+/** Kiest het beste alternatieve model uit de lijst wanneer het primaire model niet beschikbaar is. */
+export function pickFallbackModel(models: ModelOption[], excludeId: string): string | undefined {
+  const candidates = models.filter((m) => m.id !== excludeId)
+  return (
+    candidates.find((m) => m.id.includes('flash') && !m.id.includes('lite'))?.id ||
+    candidates.find((m) => m.id.includes('flash'))?.id ||
+    candidates[0]?.id
+  )
+}
+
 const STORAGE_KEYS = {
   API_KEY: 'we_gemini_api_key',
   STUDENT_NAME: 'we_student_name',
@@ -166,7 +182,6 @@ export function useAiTutor() {
       }
       return { success: false, message: 'Geen modellen beschikbaar voor deze API-sleutel.' }
     } catch (err: any) {
-      console.error('Fout bij testen van API-sleutel:', err)
       const errDetail = err?.message || 'Onbekende fout'
       if (errDetail.includes('API_KEY_INVALID') || errDetail.includes('403') || errDetail.includes('401')) {
         return { success: false, message: 'De opgegeven API-sleutel is ongeldig of niet geautoriseerd.' }
@@ -187,11 +202,11 @@ export function useAiTutor() {
         const id = rawName.replace(/^models\//, '')
         const displayName = m.displayName || id
 
-        // Enkel Gemini Flash en Gemini Pro modellen tonen (geen versie 2.x, geen Omni, geen speciale modellen)
-        const isGeminiFlashOrPro =
+        // Alle geschikte Gemini-chatmodellen tonen (geen versie 1.x/2.x, geen Omni, geen speciale modellen)
+        const isSuitableGeminiModel =
           id.startsWith('gemini') &&
+          !id.includes('1.') &&
           !id.includes('2.') &&
-          (id.includes('flash') || id.includes('pro')) &&
           !id.includes('omni') &&
           !id.includes('embedding') &&
           !id.includes('imagen') &&
@@ -203,7 +218,7 @@ export function useAiTutor() {
           !id.includes('robotics') &&
           !id.includes('custom')
 
-        if (isGeminiFlashOrPro) {
+        if (isSuitableGeminiModel) {
           fetchedList.push({
             id,
             name: `${displayName} (${id})`,
@@ -324,13 +339,33 @@ Didactische richtlijnen voor jouw antwoorden:
         return false
       }
 
-      const response = await ai.models.generateContent({
-        model: activeModel,
-        contents,
-        config: {
-          systemInstruction,
-        },
-      })
+      let response
+      try {
+        response = await ai.models.generateContent({
+          model: activeModel,
+          contents,
+          config: {
+            systemInstruction,
+          },
+        })
+      } catch (primaryErr) {
+        if (isModelUnavailableError(primaryErr)) {
+          const fallbackModel = pickFallbackModel(availableModels.value, activeModel)
+          if (fallbackModel) {
+            response = await ai.models.generateContent({
+              model: fallbackModel,
+              contents,
+              config: {
+                systemInstruction,
+              },
+            })
+          } else {
+            throw primaryErr
+          }
+        } else {
+          throw primaryErr
+        }
+      }
 
       const replyText = response.text || 'Ik kon helaas geen antwoord formuleren op deze vraag.'
 
@@ -345,7 +380,6 @@ Didactische richtlijnen voor jouw antwoorden:
       saveChatHistory()
       return true
     } catch (err: any) {
-      console.error('Fout bij communicatie met Gemini API:', err)
       const rawMsg = err?.message || 'Er is een onbekende fout opgetreden.'
 
       let parsedMessage = rawMsg

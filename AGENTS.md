@@ -120,6 +120,7 @@ Gedetailleerde richtlijnen en een lijst van veelgebruikte afkortingen staan in:
 | `/tools/git` | Git Basics |
 | `/tools/devtools` | Browser DevTools |
 | `/tools/emmet` | Emmet |
+| `/tools/netlify-hosting` | Netlify hosting |
 | `/tools/ai-assistent` | AI Cursusassistent |
 | `/tools/afbeeldingen-optimaliseren` | Afbeeldingen Optimaliseren |
 | `/tools/realfavicongenerator` | RealFaviconGenerator |
