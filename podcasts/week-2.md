@@ -18,7 +18,7 @@ Herhaal de belangrijkste leerstof van **lesweek 2** op je eigen tempo. Kies hier
   type="audio"
   title="Week 2 - Audio-samenvatting"
   description="Beluister de samenvatting van lesweek 2 op Spotify."
-  url=""
+  url="https://open.spotify.com/episode/2kXAg2zmd5JrzAGNlq6k3J?si=gPuuN9-JSQOEUcZSqYV2uw"
 />
 
 ## Video-podcast
@@ -27,7 +27,7 @@ Herhaal de belangrijkste leerstof van **lesweek 2** op je eigen tempo. Kies hier
   type="video"
   title="Week 2 - Video-samenvatting"
   description="Bekijk de video-samenvatting van lesweek 2 op Spotify."
-  url=""
+  url="https://open.spotify.com/episode/6VJgW8rOUE8CK9j2CNMGbc?si=hAumdw-aRhuFN1NNMT7S7A"
 />
 
 ::: tip Volledige aflevering afspelen
