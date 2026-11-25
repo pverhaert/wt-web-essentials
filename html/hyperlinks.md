@@ -11,7 +11,7 @@ Hyperlinks vormen de spil van het World Wide Web: ze verbinden webpagina's, docu
 Na dit hoofdstuk kan je:
 
 - Hyperlinks aanmaken met het `<a>`-element en het `href`-attribuut
-- Het verschil uitleggen en toepassen tussen absolute URL's en document-relatieve paden
+- Het verschil uitleggen en toepassen tussen absolute URL's, document-relatieve paden en site-relatieve paden
 - Links veilig laten openen in een nieuw tabblad met `target="_blank"` en `rel="noopener noreferrer"`
 - Interne ankerlinks bouwen naar specifieke secties op dezelfde pagina of op een andere pagina via `id`-attributen
 - Communicatielinks opzetten met speciale schema's zoals `mailto:`, `tel:`, `sms:`, `https://wa.me/` (WhatsApp) en `geo:`
@@ -50,7 +50,7 @@ Typ `a` en druk op de `Tab`-toets. PhpStorm vult direct `<a href=""></a>` in en 
 
 ## Absolute versus Relatieve links
 
-Afhankelijk van waar het doeldocument zich bevindt, gebruik je een **absolute link** of een **relatieve link**.
+Afhankelijk van waar het doeldocument zich bevindt en hoe je website wordt gehost, kies je voor een **absolute URL**, een **document-relatief pad** of een **site-relatief pad**.
 
 ### Absolute URL's
 
@@ -71,9 +71,9 @@ Gebruik absolute links wanneer je verwijst naar **externe websites** die buiten 
 Als je het protocol `https://` weglaat (bijvoorbeeld `<a href="www.thomasmore.be">`), denkt de browser dat je zoekt naar een lokaal bestand met de naam `www.thomasmore.be` binnen je eigen website. Dit leidt onherroepelijk tot een 404-foutmelding (pagina niet gevonden). Schrijf dus altijd het volledige adres inclusief `https://`.
 :::
 
-### Relatieve paden
+### Document-relatieve paden
 
-Wanneer je linkt naar andere pagina's binnen **je eigen website**, gebruik je **document-relatieve paden**. De browser berekent de locatie van het doelbestand ten opzichte van het HTML-bestand waarin de link staat.
+Wanneer je linkt naar andere pagina's binnen **je eigen website**, gebruik je meestal <dfn title="Een pad dat de locatie van een bestand beschrijft vertrekkend vanuit de map van het huidige HTML-bestand">document-relatieve paden</dfn>. De browser berekent de locatie van het doelbestand ten opzichte van het HTML-bestand waarin de link staat.
 
 Gebruik **nooit** een absolute domeinnaam voor je eigen interne pagina's. Met relatieve links blijft je navigatie vlekkeloos werken op je eigen computer tijdens het ontwikkelen (`localhost`), op een testserver en op het uiteindelijke productiedomein.
 
@@ -98,7 +98,43 @@ mijn-website/
 - In `index.html` link je naar de opleiding met: `<a href="opleidingen/programmeren.html">Programmeren</a>`
 - In `programmeren.html` link je terug naar de startpagina met: `<a href="../index.html">Home</a>`
 
----
+### Site-relatieve paden
+
+Een <dfn title="Een pad dat begint met een schuine streep (/) en altijd vertrekt vanaf de hoofdmap (root) van de webserver, ongeacht de locatie van het huidige HTML-bestand">site-relatief pad</dfn> (ook wel een *root-relatief pad* genoemd) begint altijd met een enkele schuine streep (`/`). Die voorste schuine streep betekent: "start altijd vanaf de hoofdmap (<dfn title="De bovenste map van een website op een webserver, het startpunt van alle site-relatieve paden">root</dfn>) van de website".
+
+Bij dezelfde mappenstructuur als hierboven ziet een site-relatieve link er als volgt uit:
+
+```html
+<!-- Werkt identiek vanuit index.html, contact.html en opleidingen/programmeren.html -->
+<a href="/index.html">Startpagina</a>
+<a href="/contact.html">Contact</a>
+<a href="/opleidingen/programmeren.html">Programmeren</a>
+```
+
+Het grote voordeel is dat het pad op **elke** pagina exact hetzelfde blijft, ongeacht hoe diep het huidige HTML-bestand in submappen zit. Je hoeft dus geen `../` of `../../` te tellen.
+
+#### Wanneer gebruik je site-relatieve paden wel?
+
+- **Op een eigen domein of webserver:** Wanneer je website draait vanuit de root van een webserver (bijvoorbeeld op Netlify via `https://mijn-site.netlify.app/`, op een eigen domeinnaam, of via een lokale ontwikkelserver op `localhost`).
+- **Herbruikbare navigatieblokken:** Bij grotere websites waar dezelfde navigatiebalk of voettekst op elke pagina wordt ingeladen. Omdat site-relatieve links niet afhankelijk zijn van de huidige map, werkt dezelfde navigatiecode op elk mapniveau.
+- **Diepe mappenstructuren:** Wanneer je project meerdere niveaus aan submappen bevat en paden zoals `../../../contact.html` snel onoverzichtelijk en foutgevoelig worden.
+
+#### Wanneer gebruik je site-relatieve paden niet?
+
+- **Lokaal openen zonder webserver (`file://`):** Als je een HTML-bestand rechtstreeks vanaf je harde schijf opent (bijvoorbeeld door erop te dubbelklikken in Windows Verkenner of macOS Finder), verwijst de voorste `/` niet naar je projectmap maar naar de volledige harde schijf (zoals `C:\` op Windows). Alle links met een voorste `/` breken dan onmiddellijk.
+- **Hosting in een submap van een domein:** Als je website niet in de root staat maar in een submap (bijvoorbeeld `https://student.thomasmore.be/r0123456/portfolio/` of op GitHub Pages onder `gebruiker.github.io/projectnaam/`), dan springt `/contact.html` helemaal terug naar `https://student.thomasmore.be/contact.html`. De submap valt weg en de bezoeker krijgt een 404-foutmelding.
+
+::: tip Welke keuze maak je voor je oefeningen?
+Voor kleine projecten en oefeningen die je zowel lokaal als op verschillende servers wilt kunnen openen, zijn **document-relatieve paden** de veiligste standaard. Kies bewust voor **site-relatieve paden** zodra je zeker weet dat je website altijd vanuit de root van een webserver draait (zoals bij een eigen Netlify-site).
+:::
+
+#### Overzicht van de drie padtypes
+
+| Type pad | Begint met | Vertrekpunt | Ideaal voor |
+| --- | --- | --- | --- |
+| **Absolute URL** | `https://` | Het internet (volledig adres) | Externe websites |
+| **Document-relatief** | Bestandsnaam, `./` of `../` | Map van het huidige HTML-bestand | Interne links in kleine projecten of websites in een submap |
+| **Site-relatief** | `/` | Hoofdmap (root) van de webserver | Interne links op grotere websites die vanuit de root van een webserver draaien |
 
 ## Het openen van links: `target` en veiligheid
 
@@ -243,8 +279,6 @@ In het onderstaande interactieve voorbeeld zie je een navigatiemenu dat naar ver
   height="400px"
 />
 
----
-
 ## Speciale links: Protocollen en communicatieschema's
 
 Naast webpagina's kan een `href`-attribuut ook verbinding maken met communicatieprogramma's, chatapplicaties, navigatie-apps of het besturingssysteem van de bezoeker via specifieke **URL-schema's**.
@@ -332,8 +366,6 @@ Wil je zeker weten dat de link ook betrouwbaar werkt op gewone desktopcomputers 
 </a>
 ```
 
----
-
 ## Bestanden laten downloaden: Het `download`-attribuut
 
 Wanneer je met een gewone link verwijst naar een PDF-bestand of afbeelding, toont de browser dat bestand meestal direct in het actieve tabblad. Wil je afdwingen dat de browser het bestand meteen opslaat op de computer van de bezoeker? Gebruik dan het HTML5 **`download`**-attribuut.
@@ -351,8 +383,6 @@ Als je een waarde meegeeft aan het `download`-attribuut (`download="nieuwe-naam.
 ::: info Beveiligingsbeperking van `download`
 Het `download`-attribuut functioneert alleen voor bestanden die op hetzelfde domein (*same-origin*) worden gehost. Verwijs je naar een bestand op een externe server, dan negeert de browser het `download`-attribuut uit veiligheidsoverwegingen en opent het bestand als een gewone link.
 :::
-
----
 
 ## Toegankelijkheid en Best Practices (A11y)
 
@@ -388,8 +418,6 @@ Het `title`-attribuut toont een kleine tooltip wanneer de bezoeker zijn muisaanw
 ```
 
 Gebruik het `title`-attribuut uitsluitend als nuttige aanvulling, **nooit** ter vervanging van een duidelijke linktekst. Op smartphones en tablets bestaat er immers geen muisaanwijzer (hover), waardoor mobiele bezoekers deze tekst nooit te zien krijgen.
-
----
 
 ## Live voorbeeld: Een complete contactbalk
 
@@ -435,8 +463,6 @@ Gebruik het `title`-attribuut uitsluitend als nuttige aanvulling, **nooit** ter 
   height="400px"
 />
 
----
-
 <PageSummary>
 
 ### Syntaxis in een oogopslag
@@ -444,6 +470,7 @@ Gebruik het `title`-attribuut uitsluitend als nuttige aanvulling, **nooit** ter 
 | Wat | Hoe | Voorbeeld |
 |---|---|---|
 | Hyperlink | `<a href="...">Linktekst</a>` | `<a href="contact.html">Contact</a>` |
+| Site-relatieve link | `href="/pad/bestand.html"` | Vertrekt vanuit de root van de webserver |
 | Externe link in nieuw tabblad | `target="_blank" rel="noopener noreferrer"` | Voor externe websites |
 | Interne ankerlink | `href="#sectie-id"` | Scrolt naar `<section id="sectie-id">` |
 | Terug naar boven | `href="#top"` of `href="#"` | Scrolt naar de paginatop |
@@ -457,12 +484,13 @@ Gebruik het `title`-attribuut uitsluitend als nuttige aanvulling, **nooit** ter 
 - **Veiligheid bij `target="_blank"`:** Voeg altijd `rel="noopener noreferrer"` toe wanneer een link opent in een nieuw tabblad om *tabnabbing* (beveiligingslek) te voorkomen.
 - **Unieke anker-ID's:** Ankerlinks verwijzen naar het `id`-attribuut van een HTML-element. Een `id` moet strikt uniek zijn op de pagina en mag geen spaties bevatten.
 - **Internationaal telefoonformaat:** Gebruik bij `tel:` altijd de internationale landcode zonder spaties (bijv. `+32...` voor België).
-- **Relatieve paden voor interne pagina's:** Link naar pagina's binnen je eigen website altijd met relatieve paden (bijv. `projecten/web.html` of `../index.html`).
+- **Relatieve paden voor interne pagina's:** Gebruik voor interne links document-relatieve paden (bijv. `projecten/web.html` of `../index.html`), of site-relatieve paden (bijv. `/contact.html`) wanneer je website altijd vanuit de root van een webserver draait.
 
 ### Veelgemaakte fouten
 
 - De hash (`#`) vergeten in een ankerlink: `<a href="contact">` zoekt naar een bestand genaamd contact, terwijl `<a href="#contact">` scrolt naar `id="contact"`.
 - Het `id`-attribuut in de doelsectie voorzien van een hash: schrijf in HTML `<section id="contact">`, nooit `<section id="#contact">`.
+- Site-relatieve paden (beginnend met `/`) gebruiken wanneer je pagina's rechtstreeks vanaf je harde schijf (`file://`) opent of host in een submap van een domein.
 - `mailto:` typen zonder dubbele punt (`mailto:info@...` is vereist).
 - Het `href`-attribuut helemaal leeg laten (`<a href="">` herlaadt de pagina).
 

@@ -37,6 +37,8 @@ import FlexGrowShrinkVisualizer from './components/FlexGrowShrinkVisualizer.vue'
 import StorybookCard from './components/StorybookCard.vue'
 import PageSummary from './components/PageSummary.vue'
 import GitWorkflowDiagram from './components/GitWorkflowDiagram.vue'
+import SpotifyPlayer from './components/SpotifyPlayer.vue'
+import EmojiPicker from './components/EmojiPicker.vue'
 import PageSummaryModal from './components/PageSummaryModal.vue'
 import TermTooltip from './components/TermTooltip.vue'
 import NotFound from './NotFound.vue'
@@ -114,6 +116,8 @@ export default {
     app.component('StorybookCard', StorybookCard)
     app.component('PageSummary', PageSummary)
     app.component('GitWorkflowDiagram', GitWorkflowDiagram)
+    app.component('SpotifyPlayer', SpotifyPlayer)
+    app.component('EmojiPicker', EmojiPicker)
     app.component('AnnotationsPage', AnnotationsPage)
 
     // Registreer Lucide iconen

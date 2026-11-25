@@ -40,7 +40,11 @@ In moderne webpagina's is dat dankzij de metatag `<meta charset="UTF-8">` in het
 
 Je hoeft voor een emoji dus geen code of entiteit te onthouden. Je kan ze op twee eenvoudige manieren toevoegen:
 
-1. **Kopiëren en plakken:** Zoek de gewenste emoji op een website (zoals Emojipedia) en plak hem via `Ctrl + V` (of `Cmd + V`) rechtstreeks in je HTML-code in PhpStorm.
+1. **Kopiëren en plakken:** Zoek de gewenste emoji op een gespecialiseerde website, kopieer hem en plak hem via `Ctrl + V` (of `Cmd + V`) rechtstreeks in je HTML-code in PhpStorm. Enkele handige websites zijn:
+   - [Emojipedia](https://emojipedia.org/): uitgebreide databank met zoekfunctie, voorbeelden per besturingssysteem en Unicode-informatie.
+   - [Emojiterra (Nederlands)](https://emojiterra.com/nl/): laat je eenvoudig in het Nederlands zoeken naar emoji's en met één klik kopiëren.
+   - [GetEmoji](https://getemoji.com/): compact overzicht op één pagina om snel te kopiëren zonder afleiding.
+   - [EmojiCopy](https://www.emojicopy.com/): handig om snel één of meerdere emoji's achter elkaar te verzamelen en te kopiëren.
 2. **Het emojipaneel van je besturingssysteem:**
    - In **Windows:** Druk op de toetsencombinatie `Win + .` (de Windows-toets samen met de punt) of `Win + ;`. Er verschijnt een pop-upvenster waarin je emoji's kan zoeken en aanklikken.
    - Op **macOS:** Druk op `Command + Control + Spatie`.
@@ -53,6 +57,12 @@ Je hoeft voor een emoji dus geen code of entiteit te onthouden. Je kan ze op twe
 ::: tip Emoji's zijn tekst, geen afbeeldingen
 Voor de browser is een emoji een tekstkarakter en geen losse afbeelding. Dit betekent dat de emoji automatisch meegroeit met de lettergrootte van de omringende tekst. Wees echter spaarzaam met emoji's: gebruik ze functioneel en vermijd dat een zakelijke pagina er rommelig door oogt.
 :::
+
+### Interactieve emoji-zoeker
+
+Je kan ook rechtstreeks op deze pagina (of via de losse tool [Emoji Zoeker](/tools/emoji-zoeker)) alle officiële Unicode-emoji's doorzoeken in het Nederlands of Engels en met één klik kopiëren:
+
+<EmojiPicker />
 
 Wanneer heb je entiteiten dan wél nog nodig? Uitsluitend voor **gereserveerde tekens** (zoals `<` en `&`), voor **de vaste spatie** (`&nbsp;`) en voor **specifieke typografische symbolen** (zoals `&copy;` of `&rarr;`).
 

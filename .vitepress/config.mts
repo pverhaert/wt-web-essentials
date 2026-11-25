@@ -184,7 +184,7 @@ export default defineConfig({
       },
       {
         text: 'Tools',
-        activeMatch: '^/tools/(phpstorm|git|devtools|emmet|netlify-hosting|ai-assistent|afbeeldingen-optimaliseren|realfavicongenerator|favicon-generator|extensions|semantiscope|validify|aspectsnap)',
+        activeMatch: '^/tools/(phpstorm|git|devtools|emmet|netlify-hosting|ai-assistent|afbeeldingen-optimaliseren|realfavicongenerator|favicon-generator|emoji-zoeker|extensions|semantiscope|validify|aspectsnap)',
         items: [
           {
             text: 'Ontwikkelomgeving',
@@ -204,6 +204,7 @@ export default defineConfig({
               { text: 'Photo Edit Pro', link: 'https://photo-edit-pro.netlify.app/', target: 'page2' },
               { text: 'RealFaviconGenerator', link: '/tools/realfavicongenerator', target: 'page2' },
               { text: 'Favicon Generator (.ico)', link: '/tools/favicon-generator', target: 'page2' },
+              { text: 'Emoji Zoeker', link: '/tools/emoji-zoeker', target: 'page2' },
             ],
           },
           {
@@ -254,6 +255,17 @@ export default defineConfig({
               { text: 'Fullscreen Sandbox', link: '/sandbox', target: 'page2' },
             ],
           },
+        ],
+      },
+      {
+        text: '🎧',
+        activeMatch: '^/podcasts/',
+        items: [
+          { text: 'Week 1', link: '/podcasts/week-1' },
+          { text: 'Week 2', link: '/podcasts/week-2' },
+          { text: 'Week 3', link: '/podcasts/week-3' },
+          { text: 'Week 4', link: '/podcasts/week-4' },
+          { text: 'Week 5', link: '/podcasts/week-5' },
         ],
       },
       { text: '🖊️', link: '/annotations', activeMatch: '^/annotations' },

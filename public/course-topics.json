@@ -90,16 +90,19 @@
       "Het `href`-attribuut",
       "Absolute versus Relatieve links",
       "Absolute URL's",
-      "Relatieve paden",
+      "Document-relatieve paden",
+      "Site-relatieve paden",
       "Het openen van links: `target` en veiligheid",
       "Waarom `rel=\"noopener noreferrer\"` essentieel is",
       "Navigeren binnen een pagina: Ankers (`#id`)",
-      "Hoe maak je een ankerlink?",
-      "Springen naar de bovenkant van de pagina"
+      "Hoe maak je een ankerlink?"
     ],
     "keyTerms": [
       "absolute URL",
       "URL",
+      "document-relatieve paden",
+      "site-relatief pad",
+      "root",
       "PDF",
       "ankerlink"
     ],
@@ -113,13 +116,13 @@
       "Waarom speciale tekens coderen?",
       "UTF-8: Accenten en emoji's rechtstreeks kopiëren en plakken",
       "Hoe voeg je emoji's in?",
+      "Interactieve emoji-zoeker",
       "De opbouw van een HTML-entiteit",
       "De vijf gereserveerde tekens",
       "Ampersands in lopende tekst en links",
       "Codevoorbeeld: HTML-tags als tekst tonen",
       "De vaste spatie: `&nbsp;` (non-breaking space)",
-      "Waar gebruik je de vaste spatie?",
-      "Codevoorbeeld: Het effect van `&nbsp;`"
+      "Waar gebruik je de vaste spatie?"
     ],
     "keyTerms": [
       "HTML-entiteit",
