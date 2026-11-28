@@ -123,7 +123,6 @@ Elk geldig HTML5-document volgt dezelfde vaste basisstructuur. Hieronder zie je 
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mijn eerste webpagina</title>
 </head>
@@ -177,7 +176,6 @@ Hieronder zie je een werkend voorbeeld van een eenvoudige webpagina met een hoof
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welkom bij Thomas More</title>
 </head>
